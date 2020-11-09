@@ -1,3 +1,8 @@
 <?php
-namespace src\api\controllers;
+namespace Server\api\controllers;
+
+class UserController{
+    
+}
+
 ?>

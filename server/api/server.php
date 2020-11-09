@@ -1,6 +1,6 @@
 <?php
+namespace Server\api;
 header('Content-Type: application/json');
-
 
 $msg = "Invalid API!";
 if(isset($_GET['url'])){

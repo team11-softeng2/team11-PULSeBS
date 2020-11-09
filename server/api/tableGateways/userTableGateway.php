@@ -1,4 +1,4 @@
 <?php
-namespace src\api\tableGateways;
+namespace Server\api\tableGateways;
 
 ?>
