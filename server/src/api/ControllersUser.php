@@ -1,6 +1,6 @@
 <?php
-namespace Server\src\api;
 
+namespace Server\api;
 class ControllersUser
 {
     public function userTestIfWork(){

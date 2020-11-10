@@ -1,5 +1,7 @@
 <?php
-require("GatewaysUserTable.php");
+namespace Server\api;
+use Server\api\GatewaysUserTable;
+//require("GatewaysUserTable.php");
 header('Content-Type: application/json');
 
 class ControllersLogin{

@@ -1,13 +1,14 @@
 <?php
-require_once("ControllersLogin.php");
-
+//require_once("ControllersLogin.php");
+//use Server\src\api\ControllersLogin;
+require '../../vendor/autoload.php';
 $dbConn = new SQLite3("../db.db");
 if(!$dbConn){
     die("error connection database");
 }
 $request_method = $_SERVER['REQUEST_METHOD'];
 
-$controller = new ControllersLogin($request_method, $dbConn);
+$controller = new Server\api\ControllersLogin($request_method, $dbConn);
 $controller->processRequest();
 
 // if($_SERVER['REQUEST_METHOD'] == 'POST') {

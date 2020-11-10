@@ -1,4 +1,5 @@
 <?php
+namespace Server\api;
 class GatewaysUserTable{
     private $db = null;
     public function __construct($db){
