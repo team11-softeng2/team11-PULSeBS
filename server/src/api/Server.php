@@ -1,5 +1,5 @@
 <?php
-namespace Server\api;
+namespace Server\src\api;
 header('Content-Type: application/json');
 
 $msg = "Invalid API!";
