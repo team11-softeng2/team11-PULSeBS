@@ -73,8 +73,9 @@ class GateWaysUserTableTest extends TestCase
 
 
     public function testLoginAccess(){
-        
         $this->db->exec('INSERT INTO "users" VALUES (1,"calogero","test","student","Calogero Pisano");');
+        
+        
         $this->username = "calogero";
         $this->password = "test";
         $this->gatewayUserTable = new Server\api\GatewaysUserTable($this->db);
@@ -86,7 +87,6 @@ class GateWaysUserTableTest extends TestCase
            
     }
     public function testLoginRefused(){
-        
         $this->db->exec('INSERT INTO "users" VALUES (1,"calogero","test","student","Calogero Pisano");');
         $this->username = "rocco";
         $this->password = "test2";

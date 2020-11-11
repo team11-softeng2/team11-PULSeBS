@@ -2,7 +2,7 @@
 namespace Server\api;
 use Server\api\GatewaysUserTable;
 //require("GatewaysUserTable.php");
-header('Content-Type: application/json');
+
 
 class ControllersLogin{
     private $requestMethod;
@@ -18,12 +18,15 @@ class ControllersLogin{
         if($this->requestMethod == "POST"){
             $postBody = file_get_contents("php://input");
             $input = (json_decode($postBody));
-            $response = $this->checkLogin($input->username, $input->password);
-            header($response['status_code_header']);
+            $response = $this->checkLogin($input->username ??"", $input->password ?? "");
+            if(!headers_sent()){
+                header($response['status_code_header']);
+            }
+            
             echo $response['body'];
         }
         else{
-            die("error");
+            throw new Exception("Request method not valid");
         }
     }
     public function checkLogin($username, $password){

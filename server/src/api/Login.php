@@ -1,6 +1,7 @@
 <?php
 //require_once("ControllersLogin.php");
 //use Server\src\api\ControllersLogin;
+header('Content-Type: application/json');
 require '../../vendor/autoload.php';
 $dbConn = new SQLite3("../db.db");
 if(!$dbConn){
