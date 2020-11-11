@@ -1,5 +1,4 @@
 /vendor
 .phpunit.result.cache
-composer.json
-composer.lock
-phpunit.xml
+
+
