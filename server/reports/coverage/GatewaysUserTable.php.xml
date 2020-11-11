@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="GatewaysUserTable.php" path="/">
+    <totals>
+      <lines total="17" comments="0" code="17" executable="7" executed="7" percent="100.00"/>
+      <methods count="2" tested="2" percent="100.00"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="1" percent="100.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Server\api\GatewaysUserTable" start="3" executable="7" executed="7" crap="3">
+      <namespace name="Server\api"/>
+      <method name="__construct" signature="__construct($db)" start="5" end="7" crap="1" executable="2" executed="2" coverage="100"/>
+      <method name="login" signature="login($username, $password)" start="8" end="15" crap="2" executable="5" executed="5" coverage="100"/>
+    </class>
+    <coverage>
+      <line nr="6">
+        <covered by="ControllersLoginTest::testCheckLoginAccess"/>
+        <covered by="ControllersLoginTest::testCheckLoginRefused"/>
+        <covered by="ControllersLoginTest::testProcessRequestCorrectMethod"/>
+        <covered by="ControllersLoginTest::testProcessRequestWrongMethod"/>
+        <covered by="GateWaysUserTableTest::testLoginAccess"/>
+        <covered by="GateWaysUserTableTest::testLoginRefused"/>
+      </line>
+      <line nr="7">
+        <covered by="ControllersLoginTest::testCheckLoginAccess"/>
+        <covered by="ControllersLoginTest::testCheckLoginRefused"/>
+        <covered by="ControllersLoginTest::testProcessRequestCorrectMethod"/>
+        <covered by="ControllersLoginTest::testProcessRequestWrongMethod"/>
+        <covered by="GateWaysUserTableTest::testLoginAccess"/>
+        <covered by="GateWaysUserTableTest::testLoginRefused"/>
+      </line>
+      <line nr="9">
+        <covered by="ControllersLoginTest::testCheckLoginAccess"/>
+        <covered by="ControllersLoginTest::testCheckLoginRefused"/>
+        <covered by="ControllersLoginTest::testProcessRequestCorrectMethod"/>
+        <covered by="GateWaysUserTableTest::testLoginAccess"/>
+        <covered by="GateWaysUserTableTest::testLoginRefused"/>
+      </line>
+      <line nr="10">
+        <covered by="ControllersLoginTest::testCheckLoginAccess"/>
+        <covered by="ControllersLoginTest::testCheckLoginRefused"/>
+        <covered by="ControllersLoginTest::testProcessRequestCorrectMethod"/>
+        <covered by="GateWaysUserTableTest::testLoginAccess"/>
+        <covered by="GateWaysUserTableTest::testLoginRefused"/>
+      </line>
+      <line nr="11">
+        <covered by="ControllersLoginTest::testCheckLoginAccess"/>
+        <covered by="ControllersLoginTest::testCheckLoginRefused"/>
+        <covered by="ControllersLoginTest::testProcessRequestCorrectMethod"/>
+        <covered by="GateWaysUserTableTest::testLoginAccess"/>
+        <covered by="GateWaysUserTableTest::testLoginRefused"/>
+      </line>
+      <line nr="12">
+        <covered by="ControllersLoginTest::testCheckLoginAccess"/>
+        <covered by="GateWaysUserTableTest::testLoginAccess"/>
+      </line>
+      <line nr="14">
+        <covered by="ControllersLoginTest::testCheckLoginRefused"/>
+        <covered by="ControllersLoginTest::testProcessRequestCorrectMethod"/>
+        <covered by="GateWaysUserTableTest::testLoginRefused"/>
+      </line>
+      <line nr="18">
+        <covered by="ControllersLoginTest::testCheckLoginAccess"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Server</token>
+        <token name="T_NS_SEPARATOR">\</token>
+        <token name="T_STRING">api</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="3">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">GatewaysUserTable</token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="4">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$db</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="5">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">__construct</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$db</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="6">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">db</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$db</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="7">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="8">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">login</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$username</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$password</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="9">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$sql</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">"SELECT * FROM USERS WHERE USERNAME= '"</token>
+        <token name="T_DOT">.</token>
+        <token name="T_VARIABLE">$username</token>
+        <token name="T_DOT">.</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">"' AND PASSWORD='"</token>
+        <token name="T_DOT">.</token>
+        <token name="T_VARIABLE">$password</token>
+        <token name="T_DOT">.</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">"'"</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="10">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$result</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">db</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">query</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$sql</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">fetchArray</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">SQLITE3_ASSOC</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="11">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$result</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="12">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$result</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="13">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_ELSE">else</token>
+      </line>
+      <line no="14">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_LNUMBER">0</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="15">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="16">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="17"/>
+      <line no="18">
+        <token name="T_CLOSE_TAG">?&gt;</token>
+      </line>
+    </source>
+  </file>
+</phpunit>

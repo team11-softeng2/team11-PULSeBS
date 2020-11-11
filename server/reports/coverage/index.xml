@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <build time="Wed Nov 11 20:34:46 UTC 2020" phpunit="9.4.2" coverage="9.2.3">
+    <runtime name="PHP" version="7.4.3" url="https://secure.php.net/"/>
+    <driver name="xdebug" version="2.9.2"/>
+  </build>
+  <project source="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/src/api">
+    <tests>
+      <test name="ControllersLoginTest::testCheckLoginAccess" size="unknown" result="0" status="PASSED"/>
+      <test name="ControllersLoginTest::testCheckLoginRefused" size="unknown" result="0" status="PASSED"/>
+      <test name="ControllersLoginTest::testProcessRequestCorrectMethod" size="unknown" result="0" status="PASSED"/>
+      <test name="ControllersLoginTest::testProcessRequestWrongMethod" size="unknown" result="0" status="PASSED"/>
+      <test name="GateWaysUserTableTest::testLoginAccess" size="unknown" result="0" status="PASSED"/>
+      <test name="GateWaysUserTableTest::testLoginRefused" size="unknown" result="0" status="PASSED"/>
+    </tests>
+    <directory name="/">
+      <totals>
+        <lines total="67" comments="1" code="66" executable="24" executed="22" percent="91.67"/>
+        <methods count="6" tested="4" percent="66.67"/>
+        <functions count="0" tested="0" percent="0"/>
+        <classes count="3" tested="1" percent="33.33"/>
+        <traits count="0" tested="0" percent="0"/>
+      </totals>
+      <file name="ControllersLogin.php" href="ControllersLogin.php.xml">
+        <totals>
+          <lines total="40" comments="1" code="39" executable="16" executed="15" percent="93.75"/>
+          <methods count="3" tested="2" percent="66.67"/>
+          <functions count="0" tested="0" percent="0"/>
+          <classes count="1" tested="0" percent="0.00"/>
+          <traits count="0" tested="0" percent="0"/>
+        </totals>
+      </file>
+      <file name="ControllersUser.php" href="ControllersUser.php.xml">
+        <totals>
+          <lines total="10" comments="0" code="10" executable="1" executed="0" percent="0.00"/>
+          <methods count="1" tested="0" percent="0.00"/>
+          <functions count="0" tested="0" percent="0"/>
+          <classes count="1" tested="0" percent="0.00"/>
+          <traits count="0" tested="0" percent="0"/>
+        </totals>
+      </file>
+      <file name="GatewaysUserTable.php" href="GatewaysUserTable.php.xml">
+        <totals>
+          <lines total="17" comments="0" code="17" executable="7" executed="7" percent="100.00"/>
+          <methods count="2" tested="2" percent="100.00"/>
+          <functions count="0" tested="0" percent="0"/>
+          <classes count="1" tested="1" percent="100.00"/>
+          <traits count="0" tested="0" percent="0"/>
+        </totals>
+      </file>
+    </directory>
+  </project>
+</phpunit>
