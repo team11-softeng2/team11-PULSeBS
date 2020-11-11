@@ -84,11 +84,11 @@ class ControllersLoginTest extends TestCase
         $response = $this->controllerLogin->checkLogin($this->username, $this->password);
         $resBody = json_decode($response['body']);
 
-        $this->assertEquals($response['status_code_header'], 'HTTP/1.1 200 OK');
-        $this->assertEquals($resBody->userName, "calogero");
-        $this->assertEquals($resBody->password, "test");
-        $this->assertEquals($resBody->role, "student");
-        $this->assertEquals($resBody->name, "Calogero Pisano");
+        $this->assertEquals('HTTP/1.1 200 OK', $response['status_code_header']);
+        $this->assertEquals("calogero", $resBody->userName);
+        $this->assertEquals("test", $resBody->password);
+        $this->assertEquals("student", $resBody->role);
+        $this->assertEquals("Calogero Pisano", $resBody->name);
            
     }
     public function testCheckLoginRefused(){
@@ -99,8 +99,8 @@ class ControllersLoginTest extends TestCase
         $this->requestMethod = "POST";
         $this->controllerLogin = new Server\api\ControllersLogin($this->requestMethod, $this->db);
         $response = $this->controllerLogin->checkLogin($this->username, $this->password);
-        $this->assertEquals($response['status_code_header'], 'HTTP/1.1 200 OK');
-        $this->assertEquals($response['body'], 0);
+        $this->assertEquals( 'HTTP/1.1 200 OK', $response['status_code_header']);
+        $this->assertEquals(0, $response['body']);
            
     }
     public function testProcessRequestCorrectMethod(){

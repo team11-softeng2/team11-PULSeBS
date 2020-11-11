@@ -80,10 +80,10 @@ class GateWaysUserTableTest extends TestCase
         $this->password = "test";
         $this->gatewayUserTable = new Server\api\GatewaysUserTable($this->db);
         $res = $this->gatewayUserTable->login($this->username, $this->password);
-        $this->assertEquals($res['userName'], "calogero");
-        $this->assertEquals($res['password'], "test");
-        $this->assertEquals($res['role'], "student");
-        $this->assertEquals($res['name'], "Calogero Pisano");
+        $this->assertEquals("calogero", $res['userName']);
+        $this->assertEquals("test", $res['password']);
+        $this->assertEquals("student", $res['role']);
+        $this->assertEquals("Calogero Pisano", $res['name']);
            
     }
     public function testLoginRefused(){
@@ -92,7 +92,7 @@ class GateWaysUserTableTest extends TestCase
         $this->password = "test2";
         $this->gatewayUserTable = new Server\api\GatewaysUserTable($this->db);
         $res = $this->gatewayUserTable->login($this->username, $this->password);
-        $this->assertEquals($res, 0);
+        $this->assertEquals(0, $res);
            
     }
     
