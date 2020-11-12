@@ -40,7 +40,57 @@ async function logout(){
 }
 */
 
+async function getStudentLectures(studentId) {
+    const url = "test"                  //Da definire
+    const response = await fetch(url);
+    const lectures = await response.json();
+    if(response.ok) {
+        return lectures;
+    } else {
+        let err = {status: response.status, errorObj: lectures};
+        throw err; 
+    }
+}
+
+async function getBooking(lectureId) {
+    const url = "test"                  //Da definire
+    const response = await fetch(url);
+    const booking = await response.json();
+    if(response.ok) {
+        return booking;
+    } else {
+        let err = {status: response.status, errorObj: booking};
+        throw err; 
+    }
+}
+
+async function bookASeat(lectureId, studentId) {
+    const url = "test"                  //Da definire
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: JSON.stringify({lectureId: lectureId, studentId: studentId}),
+    });
+    
+    try{
+        const resJ = await response.json();
+        if(response.ok) {
+		    return resJ;
+		} else {
+		    let err = {status: response.status, errorObj: resJ};
+		    throw err; 
+		}
+    }
+    catch(e){
+        console.log("Error in booking a seat: " + e);
+        return 0;   //meaning: no new customer
+    }
+}
+
 const API = {
-    /*userLogin, logout*/
+    /*userLogin, logout,*/ getStudentLectures, getBooking, bookASeat
 };
 export default API;
