@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="6" assertions="14" errors="0" warnings="0" failures="0" skipped="0" time="9.309230">
+    <testsuite name="Test suite" tests="6" assertions="14" errors="0" warnings="0" failures="0" skipped="0" time="9.309230">
+      <testsuite name="ControllersLoginTest" file="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/tests/api/ControllersLoginTest.php" tests="4" assertions="9" errors="0" warnings="0" failures="0" skipped="0" time="6.471533">
+        <testcase name="testCheckLoginAccess" class="ControllersLoginTest" classname="ControllersLoginTest" file="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/tests/api/ControllersLoginTest.php" line="77" assertions="5" time="1.394274"/>
+        <testcase name="testCheckLoginRefused" class="ControllersLoginTest" classname="ControllersLoginTest" file="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/tests/api/ControllersLoginTest.php" line="94" assertions="2" time="1.346583"/>
+        <testcase name="testProcessRequestCorrectMethod" class="ControllersLoginTest" classname="ControllersLoginTest" file="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/tests/api/ControllersLoginTest.php" line="106" assertions="1" time="1.301960"/>
+        <testcase name="testProcessRequestWrongMethod" class="ControllersLoginTest" classname="ControllersLoginTest" file="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/tests/api/ControllersLoginTest.php" line="116" assertions="1" time="2.428714"/>
+      </testsuite>
+      <testsuite name="GateWaysUserTableTest" file="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/tests/api/GateWaysUserTableTest.php" tests="2" assertions="5" errors="0" warnings="0" failures="0" skipped="0" time="2.837697">
+        <testcase name="testLoginAccess" class="GateWaysUserTableTest" classname="GateWaysUserTableTest" file="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/tests/api/GateWaysUserTableTest.php" line="75" assertions="4" time="1.582289"/>
+        <testcase name="testLoginRefused" class="GateWaysUserTableTest" classname="GateWaysUserTableTest" file="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/tests/api/GateWaysUserTableTest.php" line="89" assertions="1" time="1.255408"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

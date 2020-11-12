@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1605175939">
+  <project timestamp="1605175939">
+    <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/src/api/ControllersLogin.php">
+      <class name="Server\api\ControllersLogin" namespace="global">
+        <metrics complexity="5" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="15" elements="19" coveredelements="17"/>
+      </class>
+      <line num="12" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="13" type="stmt" count="4"/>
+      <line num="14" type="stmt" count="4"/>
+      <line num="16" type="stmt" count="4"/>
+      <line num="17" type="method" name="processRequest" visibility="public" complexity="3" crap="3.01" count="2"/>
+      <line num="18" type="stmt" count="2"/>
+      <line num="19" type="stmt" count="1"/>
+      <line num="20" type="stmt" count="1"/>
+      <line num="21" type="stmt" count="1"/>
+      <line num="22" type="stmt" count="1"/>
+      <line num="23" type="stmt" count="0"/>
+      <line num="26" type="stmt" count="1"/>
+      <line num="29" type="stmt" count="1"/>
+      <line num="31" type="stmt" count="1"/>
+      <line num="32" type="method" name="checkLogin" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="33" type="stmt" count="3"/>
+      <line num="34" type="stmt" count="3"/>
+      <line num="35" type="stmt" count="3"/>
+      <line num="36" type="stmt" count="3"/>
+      <line num="41" type="stmt" count="1"/>
+      <metrics loc="40" ncloc="39" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="15" elements="19" coveredelements="17"/>
+    </file>
+    <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/src/api/ControllersUser.php">
+      <class name="Server\api\ControllersUser" namespace="global">
+        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+      </class>
+      <line num="6" type="method" name="userTestIfWork" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="7" type="stmt" count="0"/>
+      <metrics loc="10" ncloc="10" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+    </file>
+    <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/src/api/GatewaysUserTable.php">
+      <class name="Server\api\GatewaysUserTable" namespace="global">
+        <metrics complexity="3" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="9" coveredelements="9"/>
+      </class>
+      <line num="5" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="6"/>
+      <line num="6" type="stmt" count="6"/>
+      <line num="7" type="stmt" count="6"/>
+      <line num="8" type="method" name="login" visibility="public" complexity="2" crap="2" count="5"/>
+      <line num="9" type="stmt" count="5"/>
+      <line num="10" type="stmt" count="5"/>
+      <line num="11" type="stmt" count="5"/>
+      <line num="12" type="stmt" count="2"/>
+      <line num="14" type="stmt" count="3"/>
+      <line num="18" type="stmt" count="1"/>
+      <metrics loc="17" ncloc="17" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="9" coveredelements="9"/>
+    </file>
+    <metrics files="3" loc="67" ncloc="66" classes="3" methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="24" coveredstatements="22" elements="30" coveredelements="26"/>
+  </project>
+</coverage>
