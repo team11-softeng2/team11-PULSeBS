@@ -5,7 +5,6 @@ import TopBar from './TopBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
-import logo from './logo.svg';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -26,6 +25,17 @@ class App extends React.Component {
     this.setState({loggedin: true});
   }
 
+  logout = () =>{
+    API.logout()
+    .then(() => {
+      this.setState({loggedin: false});
+    	console.log('logout success');
+    })
+    .catch(() => {
+    	console.log('error during logout');
+    });
+  }
+
   render(props) {
     return (
       <Router>
@@ -39,6 +49,15 @@ class App extends React.Component {
               </Col>
             </Row>
           </Route>
+
+          <Route path="/student">
+
+          </Route>
+
+          <Route path="/teacher">
+            
+          </Route>
+
         </Switch>
       </Router>
     );

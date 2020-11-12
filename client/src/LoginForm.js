@@ -16,6 +16,7 @@ class LoginForm extends React.Component {
     doLoginCall = (username, password) => {
         API.userLogin(username, password).then( (userObj) => {
             this.setState({loginSuccess: true});       // need to redirect in render
+                                                                //Salvare nello stato di app anche un parametro per riconoscere se studente o professore
             this.props.setLoggedIn();  // keep success info in state at App level
         }).catch(
             () => {this.setState({loginSuccess: false});

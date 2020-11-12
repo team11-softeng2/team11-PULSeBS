@@ -1,7 +1,6 @@
-/*
 async function userLogin(username, password) {
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:80/project1/server/api/login.php', {
+        fetch('http://localhost:80/server/api/login.php', {     //Da verificare
             method: 'POST',
             headers: {
                 //'Content-Type': 'application/json',
@@ -11,7 +10,7 @@ async function userLogin(username, password) {
         }).then((response) => {
             response.json().then((obj) => { 
                 console.log(obj);
-                if(obj === 0 ) {
+                if(obj === 0 ) {        //Da modificare in base a quanto ritorna il server. Sarebbe utile che ritorni l'id o anche nome e cognome la visualizzare, e il ruolo
                     reject(obj);
                 } else {
                     resolve(obj);    
@@ -24,7 +23,7 @@ async function userLogin(username, password) {
 
 async function logout(){
 	return new Promise((resolve, reject) => {
-        fetch('http://localhost:80/project1/server/api/logout.php')
+        fetch('http://localhost:80/server/api/logout.php')      //Da verificare
         .then((response) => {
 			if(response.ok){
 				resolve();
@@ -38,7 +37,7 @@ async function logout(){
        });
     });
 }
-*/
+
 
 async function getStudentLectures(studentId) {
     const url = "test"                  //Da definire
@@ -91,6 +90,6 @@ async function bookASeat(lectureId, studentId) {
 }
 
 const API = {
-    /*userLogin, logout,*/ getStudentLectures, getBooking, bookASeat
+    userLogin, logout, getStudentLectures, getBooking, bookASeat
 };
 export default API;
