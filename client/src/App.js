@@ -2,6 +2,7 @@ import React from 'react';
 import API from './API';
 import LoginForm from './LoginForm';
 import TopBar from './TopBar';
+import HomeTeacher from './HomeTeacher'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import './App.css';
@@ -61,7 +62,7 @@ class App extends React.Component {
 
           <Route path="/teacher">
             {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
-                <p>Home teacher</p>
+                <HomeTeacher userName={this.state.userName}/>
                 :
                 <Redirect to="/"></Redirect>
             }
