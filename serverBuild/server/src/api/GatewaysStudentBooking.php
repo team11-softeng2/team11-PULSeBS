@@ -7,24 +7,94 @@ class GatewaysStudentBooking{
     }
     
     public function findStudentLessons($id){
-        $dateForQuery = calculateDate();
-        $sql = "select idLesson 
+        date_default_timezone_set("Europe/Rome");
+        $dateForQuery = date("Y-m-d H:i:s", strtotime("+1 hours", strtotime(date("Y-m-d H:i:s"))));
+        $sql = "SELECT idLesson 
         from lessons L join enrollment E
         where L.idCourse=E.idCourse
         and E.idUser=".$id."
         and date>='".$dateForQuery."'";
+        $result = $this->db->query($sql);
+        $data = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $subArray = array(
+                "idLesson" => $row['idLesson']              
+            );
+            $data[] = $subArray;
+        }
+        if(!empty($data)){
+            return $data;
+        }
+        else{
+            return 0;
+        }      
     }
+
     public function findStundetBookedLessons($id){
-        $sql = "select idLesson
+        $sql = "SELECT idLesson
         from booking
         where idUser=".$id."";
+        $result = $this->db->query($sql);
+        $data = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $subArray = array(
+                "idLesson" => $row['idLesson']              
+            );
+            $data[] = $subArray;
+        }
+        if(!empty($data)){
+            return $data;
+        }
+        else{
+            return 0;
+        }      
     }
-    public function findLessonsWithFullRoom($id){
-        
+    public function findLessonsWithFullRoom(){
+        $sql = "SELECT L.idLesson
+        from lessons L join ClassRoom C
+        where L.idClassRoom=C.idClassRoom
+        and C.totalSeats <= (SELECT count(*)
+        from booking B
+        where idLesson = L.idLesson)";
+        $result = $this->db->query($sql);
+        $data = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $subArray = array(
+                "idLesson" => $row['idLesson']              
+            );
+            $data[] = $subArray;
+        }
+        if(!empty($data)){
+            return $data;
+        }
+        else{
+            return 0;
+        }      
     }
-    public function calculateDate(){
-        date_default_timezone_set("Europe/Rome");
-        return  date("Y-m-d H:i:s", strtotime("+1 hours", strtotime(date("Y-m-d H:i:s"))));
+    
+    public function findDetailsOfLessons($lessons){
+        $lessons = implode(",", $lessons);
+        $sql = "SELECT C.name, L.date, L.beginTime, L.endTime
+        FROM LESSONS L JOIN courses C
+        WHERE L.idCourse=C.idCourse
+        and L.idLesson in (".$lessons.")";
+        $result = $this->db->query($sql);
+        $data = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)){
+            $subArray = array(
+                "name" => $row['name'],
+                "date" => $row['date'],
+                "beginTime" => $row['beginTime'],
+                "endTime" => $row['endTime']          
+            );
+            $data[] = $subArray;
+        }
+        if(!empty($data)){
+            return $data;
+        }
+        else{
+            return 0;
+        }  
     }
 }
 

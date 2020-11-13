@@ -65,6 +65,13 @@ api: http://localhost/server/src/api/Login.php
 
 body : {"username":"calogero","password":"test"}
 
+### lezioni prenotabili dallo studente 
+GET
+api: http://localhost/serverBuild/server/bookableLessons/id
+esempi di ritorno: 
+1. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"}]
+2. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Sistemi Operativi","date":"2020-11-20","beginTime":"14","endTime":"16:00:00"}]
+3. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Geometria","date":"2020-11-17","beginTime":"14:00:00","endTime":"16:00:00"},{"name":"Geometria","date":"2020-11-18","beginTime":"14:00:00","endTime":"16:00:00"}]
 
 ## comandi utili
 #### phpunit

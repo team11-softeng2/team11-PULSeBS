@@ -1,7 +1,10 @@
 <?php
-namespace Server\src\api;
 header('Content-Type: application/json');
-
+require '../../vendor/autoload.php';
+$dbConn = new \SQLite3("../db.db");
+if(!$dbConn){
+    die("error connection database");
+}
 $msg = "Invalid API!";
 if(isset($_GET['url'])){
     $var = $_GET['url'];
@@ -17,6 +20,13 @@ if(isset($_GET['url'])){
             $value = "users";
             $requestMethod = $_SERVER['REQUEST_METHOD'];
             echo "call controller user with id = ".$number;
+        break;
+        case "bookableLessons/$number":
+            $value ="bookableLessons";
+            $requestMethod = "GET";
+            $id = $number; 
+            $controller = new Server\api\ControllersStudentBooking($requestMethod, $dbConn, $value, $id);
+            $controller->processRequest();
         break;
         default:
             echo $msg;

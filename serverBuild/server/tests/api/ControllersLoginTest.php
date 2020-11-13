@@ -15,7 +15,7 @@ class ControllersLoginTest extends TestCase
 
     public function setUp(): void
     {
-        $this->db = new SQLite3("dbForTesting.db");
+        $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->db->exec('DROP TABLE IF EXISTS "lessons";
         CREATE TABLE IF NOT EXISTS "lessons" (
             "idLesson"	INTEGER,
@@ -123,6 +123,7 @@ class ControllersLoginTest extends TestCase
         $this->controllerLogin->processRequest();
 
     }
+    
     
 }
 ?>
