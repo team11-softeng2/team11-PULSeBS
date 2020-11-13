@@ -3,10 +3,11 @@ import API from './API';
 import LoginForm from './LoginForm';
 import TopBar from './TopBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import './App.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 class App extends React.Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class App extends React.Component {
       <Router>
         <TopBar loggedin = {this.state.loggedin} logout={this.logout} ></TopBar>
         <Switch>
+          
           <Route path="/">
           <Row className="height-100">
               <Col sm={4}></Col>
@@ -55,11 +57,23 @@ class App extends React.Component {
           </Route>
 
           <Route path="/student">
-
+            {(this.state.loggedin === true && this.state.userRole === "student") ? 
+              <Container>
+                <Row>
+                  <p>Home studente</p>
+                </Row>
+              </Container>
+                :
+                <Redirect to="/"></Redirect>
+            }
           </Route>
 
           <Route path="/teacher">
-            
+            {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
+                <p>Home teacher</p>
+                :
+                <Redirect to="/"></Redirect>
+            }
           </Route>
 
         </Switch>

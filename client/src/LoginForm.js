@@ -17,6 +17,7 @@ class LoginForm extends React.Component {
         API.userLogin(username, password).then( (userObj) => {
             if(userObj !== 0) {
                 this.setState({loginSuccess: true});       // need to redirect in render
+                this.setState({userRole: userObj.role})
                 this.props.setLoggedIn(userObj);  // keep success info in state at App level
             } else {
                 this.setState({loginSuccess: false});
@@ -41,9 +42,11 @@ class LoginForm extends React.Component {
     }
 
     render() {
-        if (this.state.loginSuccess) {
-            return <Redirect to='/officer' />;
-        } else
+        if (this.state.loginSuccess === true && this.state.userRole === "student") {
+            return <Redirect to='/student'/>;
+        } else if (this.state.loginSuccess === true && this.state.userRole === "teacher") {
+            return <Redirect to='/teacher'/>;
+        } else 
         return <div>
             <form className='form' method={'POST'}
                 onSubmit={this.validateForm} ref={form => this.form = form}>
