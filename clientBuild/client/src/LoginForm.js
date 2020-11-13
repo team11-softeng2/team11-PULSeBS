@@ -16,9 +16,9 @@ class LoginForm extends React.Component {
     doLoginCall = (username, password) => {
         API.userLogin(username, password).then( (userObj) => {
             if(userObj !== 0) {
+                this.props.setLoggedIn(userObj);  // Mettendo quanto setLoggedIn dopo i setState non visualizza /student
                 this.setState({loginSuccess: true});       // need to redirect in render
                 this.setState({userRole: userObj.role})
-                this.props.setLoggedIn(userObj);  // keep success info in state at App level
             } else {
                 this.setState({loginSuccess: false});
             }
@@ -43,6 +43,7 @@ class LoginForm extends React.Component {
 
     render() {
         if (this.state.loginSuccess === true && this.state.userRole === "student") {
+            console.log("Studente loggato");
             return <Redirect to='/student'/>;
         } else if (this.state.loginSuccess === true && this.state.userRole === "teacher") {
             return <Redirect to='/teacher'/>;
