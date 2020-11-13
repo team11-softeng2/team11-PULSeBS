@@ -47,15 +47,6 @@ class App extends React.Component {
         <TopBar loggedin = {this.state.loggedin} logout={this.logout} ></TopBar>
         <Switch>
           
-          <Route path="/">
-          <Row className="height-100">
-              <Col sm={4}></Col>
-              <Col sm={4} className="below-nav my-3">
-                <LoginForm setLoggedIn={this.setLoggedIn}/>
-              </Col>
-            </Row>
-          </Route>
-
           <Route path="/student">
             {(this.state.loggedin === true && this.state.userRole === "student") ? 
               <Container>
@@ -74,6 +65,15 @@ class App extends React.Component {
                 :
                 <Redirect to="/"></Redirect>
             }
+          </Route>
+
+          <Route path="/">
+          <Row className="height-100">
+              <Col sm={4}></Col>
+              <Col sm={4} className="below-nav my-3">
+                <LoginForm setLoggedIn={this.setLoggedIn}/>
+              </Col>
+            </Row>
           </Route>
 
         </Switch>
