@@ -13,7 +13,9 @@ class App extends React.Component {
     super(props);
     
     this.state = {
-      loggedin: false
+      loggedin: false,
+      userName: undefined,  //Nome dell'utente loggato
+      userRole: undefined,  //Ruolo dell'utente loggato
     };
   }
 
@@ -21,8 +23,10 @@ class App extends React.Component {
     
   }
 
-  setLoggedIn = (name) => {
+  setLoggedIn = (user) => {
     this.setState({loggedin: true});
+    this.setState({userName: user.name});
+    this.setState({userRole: user.role});
   }
 
   logout = () =>{

@@ -1,6 +1,6 @@
 async function userLogin(username, password) {
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:80/server/api/login.php', {     //Da verificare
+        fetch('http://localhost/server/src/api/Login.php', {    
             method: 'POST',
             headers: {
                 //'Content-Type': 'application/json',
