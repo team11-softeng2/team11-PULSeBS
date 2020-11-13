@@ -1,5 +1,25 @@
-FROM node:10
-RUN apt-get update
+FROM node:12
 COPY ./client /var/www/html/client
-RUN cd client ; npm install
-CMD npm start
+RUN /bin/bash -c 'cd ./client && npm install'
+
+
+
+
+
+# Create app directory
+
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8080
+CMD [ "node", "server.js" ]

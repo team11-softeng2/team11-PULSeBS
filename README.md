@@ -82,3 +82,4 @@ testphp --log
 sudo docker build -t testbuild1 .
 docker run -d -p 80:80 --name my-apache-php-app testbuild1
 sudo docker exec -it my-apache-php-app bash
+
