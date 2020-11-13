@@ -15,12 +15,16 @@ class LoginForm extends React.Component {
 
     doLoginCall = (username, password) => {
         API.userLogin(username, password).then( (userObj) => {
-            this.setState({loginSuccess: true});       // need to redirect in render
-                                                                //Salvare nello stato di app anche un parametro per riconoscere se studente o professore
-            this.props.setLoggedIn();  // keep success info in state at App level
-        }).catch(
-            () => {this.setState({loginSuccess: false});
-            console.log("fail");}
+            if(userObj !== 0) {
+                this.setState({loginSuccess: true});       // need to redirect in render
+                this.setState({userRole: userObj.role})
+                this.props.setLoggedIn(userObj);  // keep success info in state at App level
+            } else {
+                this.setState({loginSuccess: false});
+            }
+        }).catch(() => {
+            console.log("Fail in user login API");
+        }
         );
     }
 
@@ -38,9 +42,11 @@ class LoginForm extends React.Component {
     }
 
     render() {
-        if (this.state.loginSuccess) {
-            return <Redirect to='/officer' />;
-        } else
+        if (this.state.loginSuccess === true && this.state.userRole === "student") {
+            return <Redirect to='/student'/>;
+        } else if (this.state.loginSuccess === true && this.state.userRole === "teacher") {
+            return <Redirect to='/teacher'/>;
+        } else 
         return <div>
             <form className='form' method={'POST'}
                 onSubmit={this.validateForm} ref={form => this.form = form}>
