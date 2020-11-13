@@ -64,3 +64,21 @@ composer dump-autoload -o
 api: http://localhost/server/src/api/Login.php
 
 body : {"username":"calogero","password":"test"}
+
+
+## comandi utili
+#### phpunit
+##### running test
+dentro server:
+ alias testphp=./vendor/bin/phpunit
+ testphp
+##### report coverage
+dentro server:
+testphp --coverage-clover reports/coverage/coverage.xml
+testphp --log-junit reports/tests/phpunit.report.xml
+##### report test
+testphp --log
+#### docker 
+sudo docker build -t testbuild1 .
+docker run -d -p 80:80 --name my-apache-php-app testbuild1
+sudo docker exec -it my-apache-php-app bash
