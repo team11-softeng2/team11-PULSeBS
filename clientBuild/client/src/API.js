@@ -38,12 +38,13 @@ async function logout(){
     });
 }
 
-
-async function getStudentLectures(studentId) {
-    const url = "test"                  //Da definire
+//Ritorna le lezioni prenotabili dallo studente
+async function getBookableStudentLectures(studentId) {
+    const url = "http://localhost/server/bookableLessons/" + studentId;
     const response = await fetch(url);
     const lectures = await response.json();
     if(response.ok) {
+        console.log(lectures);
         return lectures;
     } else {
         let err = {status: response.status, errorObj: lectures};
@@ -51,6 +52,7 @@ async function getStudentLectures(studentId) {
     }
 }
 
+//Ritorna le prenotazioni effettuate per la lezione indicata
 async function getBooking(lectureId) {
     const url = "test"                  //Da definire
     const response = await fetch(url);
@@ -63,6 +65,7 @@ async function getBooking(lectureId) {
     }
 }
 
+//API per prenotare un posto a lezione
 async function bookASeat(lectureId, studentId) {
     const url = "test"                  //Da definire
     const response = await fetch(url, {
@@ -90,6 +93,6 @@ async function bookASeat(lectureId, studentId) {
 }
 
 const API = {
-    userLogin, logout, getStudentLectures, getBooking, bookASeat
+    userLogin, logout, getBookableStudentLectures, getBooking, bookASeat
 };
 export default API;
