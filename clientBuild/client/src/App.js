@@ -9,6 +9,7 @@ import './App.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import ActiveBookings from './ActiveBookings';
 
 class App extends React.Component {
   constructor(props) {
@@ -51,9 +52,9 @@ class App extends React.Component {
           <Route path="/student">
             {(this.state.loggedin === true && this.state.userRole === "student") ? 
               <Container>
-                <Row>
-                  <p>Home studente</p>
-                </Row>
+
+                <ActiveBookings></ActiveBookings>
+              
               </Container>
                 :
                 <Redirect to="/"></Redirect>
