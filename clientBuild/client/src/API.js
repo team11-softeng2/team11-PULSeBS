@@ -9,12 +9,14 @@ async function userLogin(username, password) {
             body: JSON.stringify({username: username, password: password}),
         }).then((response) => {
             response.json().then((obj) => { 
-                console.log(obj);
+                /*
                 if(obj === 0 ) {        //Da modificare in base a quanto ritorna il server. Sarebbe utile che ritorni l'id o anche nome e cognome la visualizzare, e il ruolo
                     reject(obj);
                 } else {
                     resolve(obj);    
                 }
+                */
+               resolve(obj);
             })
             .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) });
         }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) });
