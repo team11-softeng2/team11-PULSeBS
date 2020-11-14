@@ -11,7 +11,7 @@ class ControllersStudentBooking{
     private $value;
     
 
-    public function __construct($requestMethod, $db, $value, $id){
+    public function __construct($requestMethod, $db, $value, $id = -1){
         $this->requestMethod = $requestMethod;
         $this->studentBookingGateway = new GatewaysStudentBooking($db);
         $this->value = $value;
@@ -19,7 +19,12 @@ class ControllersStudentBooking{
     }
     public function processRequest(){
         if($this->requestMethod == "POST"){
-            
+            if($this->value == "insertLecture"){
+                $postBody = file_get_contents("php://input");
+                $input = (json_decode($postBody));
+                $response = $this->insertNewBooklesson($input);
+                echo $response;
+            }
         }
         else if($this->requestMethod == "GET"){
             if($this->value == "bookableLessons"){
@@ -54,6 +59,11 @@ class ControllersStudentBooking{
         $response = array_diff($allStudentLessons, $lessonsBooked, $lessonsWithFullRoom);
         $response = $this->studentBookingGateway->findDetailsOfLessons($response);
         return json_encode($response);
+    }
+
+    public function insertNewBooklesson($input){
+        $response = json_encode($this->studentBookingGateway->insertBooking($input));
+        return $response;
     }
     
 }

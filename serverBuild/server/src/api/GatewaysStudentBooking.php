@@ -99,6 +99,15 @@ class GatewaysStudentBooking{
             return 0;
         }  
     }
+
+    public function insertBooking($input){
+        $sql= "insert into booking(idUser, idLesson, active, date, isWaiting) values('".$input->idUser."', '".$input->idLesson."', 1, '".$input->date."', 0)";
+        $return = $this->db->exec($sql);
+        if($return){
+            return $this->db->lastInsertRowID();
+        }
+
+    }
 }
 
 ?>
