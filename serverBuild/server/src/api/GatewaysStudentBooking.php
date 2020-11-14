@@ -74,7 +74,7 @@ class GatewaysStudentBooking{
     
     public function findDetailsOfLessons($lessons){
         $lessons = implode(",", $lessons);
-        $sql = "SELECT C.name, L.date, L.beginTime, L.endTime
+        $sql = "SELECT L.idLesson, C.name, L.date, L.beginTime, L.endTime
         FROM LESSONS L JOIN courses C
         WHERE L.idCourse=C.idCourse
         and L.idLesson in (".$lessons.")";
@@ -82,6 +82,7 @@ class GatewaysStudentBooking{
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)){
             $subArray = array(
+                "idLesson" => $row['idLesson'],
                 "name" => $row['name'],
                 "date" => $row['date'],
                 "beginTime" => $row['beginTime'],
