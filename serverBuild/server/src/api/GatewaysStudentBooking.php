@@ -8,8 +8,8 @@ class GatewaysStudentBooking{
     
     public function findStudentLessons($id){
         date_default_timezone_set("Europe/Rome");
-        $dateForQuery = date("Y-m-d H:i:s", strtotime("+1 hours", strtotime(date("Y-m-d H:i:s"))));
-        $sql = "SELECT idLesson 
+        $dateForQuery = date("Y-m-d");
+        $sql = "SELECT idLesson, date, beginTime 
         from lessons L join enrollment E
         where L.idCourse=E.idCourse
         and E.idUser=".$id."
@@ -17,10 +17,12 @@ class GatewaysStudentBooking{
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)){
-            $subArray = array(
-                "idLesson" => $row['idLesson']              
-            );
-            $data[] = $subArray;
+            if($row['date']. " ".$row['beginTime'] >= date("Y-m-d H:i:s", strtotime("+1 hours", strtotime(date("Y-m-d H:i:s"))))){
+                $subArray = array(
+                    "idLesson" => $row['idLesson']              
+                );
+                $data[] = $subArray;
+            }
         }
         if(!empty($data)){
             return $data;
