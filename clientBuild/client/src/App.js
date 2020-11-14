@@ -9,6 +9,28 @@ import './App.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
+import LecturesList from './LecturesList';
+
+var mylectures = [
+  {
+    name: "Algebra",
+    date: "2020-11-15",
+    beginTime: "11:00:00",
+    endTime: "13:00:00"
+  },
+  {
+    name: "Algebra",
+    date: "2020-11-17",
+    beginTime: "12:00:00",
+    endTime: "13:00:00"
+  },
+  {
+    name: "Geometria",
+    date: "2020-11-15",
+    beginTime: "18:00:00",
+    endTime: "17:00:00"
+  },
+];
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +40,7 @@ class App extends React.Component {
       loggedin: false,
       userName: undefined,  //Nome dell'utente loggato
       userRole: undefined,  //Ruolo dell'utente loggato
+      bookableLectures: [],
     };
   }
 
@@ -29,6 +52,10 @@ class App extends React.Component {
     this.setState({loggedin: true});
     this.setState({userName: user.name});
     this.setState({userRole: user.role});
+    this.setState({userId: user.idUser});
+    API.getBookableStudentLectures(user.idUser).then((lectures) => {
+      this.setState({bookableLectures: lectures});
+    });
   }
 
   logout = () =>{
@@ -42,6 +69,19 @@ class App extends React.Component {
     });
   }
 
+  bookASeat = (lectureId) => {
+    API.bookASeat(lectureId, this.state.userId).then(() => {
+      //Aggiorno la lista delle lezioni prenotabili dallo studente
+      API.getBookableStudentLectures(this.state.userId).then((lectures) => {
+        this.setState({bookableLectures: lectures});
+      });
+    })
+    .catch(() => {
+      console.log("Error in newBooking function");
+    });
+  }
+  
+
   render(props) {
     return (
       <Router>
@@ -52,7 +92,7 @@ class App extends React.Component {
             {(this.state.loggedin === true && this.state.userRole === "student") ? 
               <Container>
                 <Row>
-                  <p>Home studente</p>
+                  <LecturesList lectures={this.state.bookableLectures} bookASeat = {this.bookASeat}></LecturesList>
                 </Row>
               </Container>
                 :
