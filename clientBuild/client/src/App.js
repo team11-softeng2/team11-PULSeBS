@@ -10,27 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import LecturesList from './LecturesList';
-
-var mylectures = [
-  {
-    name: "Algebra",
-    date: "2020-11-15",
-    beginTime: "11:00:00",
-    endTime: "13:00:00"
-  },
-  {
-    name: "Algebra",
-    date: "2020-11-17",
-    beginTime: "12:00:00",
-    endTime: "13:00:00"
-  },
-  {
-    name: "Geometria",
-    date: "2020-11-15",
-    beginTime: "18:00:00",
-    endTime: "17:00:00"
-  },
-];
+import ActiveBookings from './ActiveBookings';
 
 class App extends React.Component {
   constructor(props) {
@@ -93,6 +73,9 @@ class App extends React.Component {
               <Container>
                 <Row>
                   <LecturesList lectures={this.state.bookableLectures} bookASeat = {this.bookASeat}></LecturesList>
+                </Row>
+                <Row>
+                  <ActiveBookings></ActiveBookings>
                 </Row>
               </Container>
                 :
