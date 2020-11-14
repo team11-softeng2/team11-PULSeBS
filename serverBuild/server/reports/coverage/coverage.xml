@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1605175939">
-  <project timestamp="1605175939">
-    <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/src/api/ControllersLogin.php">
+<coverage generated="1605385415">
+  <project timestamp="1605385415">
+    <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/ControllersLogin.php">
       <class name="Server\api\ControllersLogin" namespace="global">
         <metrics complexity="5" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="15" elements="19" coveredelements="17"/>
       </class>
@@ -27,15 +27,116 @@
       <line num="41" type="stmt" count="1"/>
       <metrics loc="40" ncloc="39" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="15" elements="19" coveredelements="17"/>
     </file>
-    <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/src/api/ControllersUser.php">
-      <class name="Server\api\ControllersUser" namespace="global">
-        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+    <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/ControllersStudentBooking.php">
+      <class name="Server\api\ControllersStudentBooking" namespace="global">
+        <metrics complexity="11" methods="4" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="26" elements="37" coveredelements="28"/>
       </class>
-      <line num="6" type="method" name="userTestIfWork" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="7" type="stmt" count="0"/>
-      <metrics loc="10" ncloc="10" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+      <line num="14" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="15" type="stmt" count="5"/>
+      <line num="16" type="stmt" count="5"/>
+      <line num="17" type="stmt" count="5"/>
+      <line num="18" type="stmt" count="5"/>
+      <line num="19" type="stmt" count="5"/>
+      <line num="20" type="method" name="processRequest" visibility="public" complexity="5" crap="7.35" count="2"/>
+      <line num="21" type="stmt" count="2"/>
+      <line num="22" type="stmt" count="0"/>
+      <line num="23" type="stmt" count="0"/>
+      <line num="24" type="stmt" count="0"/>
+      <line num="25" type="stmt" count="0"/>
+      <line num="26" type="stmt" count="0"/>
+      <line num="29" type="stmt" count="2"/>
+      <line num="30" type="stmt" count="2"/>
+      <line num="31" type="stmt" count="2"/>
+      <line num="32" type="stmt" count="2"/>
+      <line num="36" type="stmt" count="2"/>
+      <line num="37" type="method" name="findBookableLessons" visibility="public" complexity="4" crap="4.04" count="4"/>
+      <line num="38" type="stmt" count="4"/>
+      <line num="39" type="stmt" count="4"/>
+      <line num="40" type="stmt" count="2"/>
+      <line num="43" type="stmt" count="2"/>
+      <line num="45" type="stmt" count="2"/>
+      <line num="46" type="stmt" count="2"/>
+      <line num="47" type="stmt" count="0"/>
+      <line num="50" type="stmt" count="2"/>
+      <line num="52" type="stmt" count="2"/>
+      <line num="53" type="stmt" count="2"/>
+      <line num="54" type="stmt" count="0"/>
+      <line num="57" type="stmt" count="2"/>
+      <line num="59" type="stmt" count="2"/>
+      <line num="60" type="stmt" count="2"/>
+      <line num="61" type="stmt" count="2"/>
+      <line num="64" type="method" name="insertNewBooklesson" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="65" type="stmt" count="1"/>
+      <line num="66" type="stmt" count="1"/>
+      <line num="71" type="stmt" count="1"/>
+      <metrics loc="70" ncloc="69" classes="1" methods="4" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="33" coveredstatements="26" elements="37" coveredelements="28"/>
     </file>
-    <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/server/src/api/GatewaysUserTable.php">
+    <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/GatewaysStudentBooking.php">
+      <class name="Server\api\GatewaysStudentBooking" namespace="global">
+        <metrics complexity="16" methods="6" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="52" coveredstatements="51" elements="58" coveredelements="56"/>
+      </class>
+      <line num="5" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="14"/>
+      <line num="6" type="stmt" count="14"/>
+      <line num="7" type="stmt" count="14"/>
+      <line num="9" type="method" name="findStudentLessons" visibility="public" complexity="4" crap="4" count="6"/>
+      <line num="10" type="stmt" count="6"/>
+      <line num="11" type="stmt" count="6"/>
+      <line num="15" type="stmt" count="6"/>
+      <line num="16" type="stmt" count="6"/>
+      <line num="17" type="stmt" count="6"/>
+      <line num="18" type="stmt" count="6"/>
+      <line num="19" type="stmt" count="6"/>
+      <line num="20" type="stmt" count="3"/>
+      <line num="22" type="stmt" count="3"/>
+      <line num="24" type="stmt" count="3"/>
+      <line num="27" type="stmt" count="6"/>
+      <line num="28" type="stmt" count="3"/>
+      <line num="31" type="stmt" count="3"/>
+      <line num="35" type="method" name="findStundetBookedLessons" visibility="public" complexity="3" crap="3" count="4"/>
+      <line num="38" type="stmt" count="4"/>
+      <line num="39" type="stmt" count="4"/>
+      <line num="40" type="stmt" count="4"/>
+      <line num="41" type="stmt" count="4"/>
+      <line num="43" type="stmt" count="3"/>
+      <line num="45" type="stmt" count="3"/>
+      <line num="47" type="stmt" count="4"/>
+      <line num="48" type="stmt" count="3"/>
+      <line num="51" type="stmt" count="1"/>
+      <line num="54" type="method" name="findLessonsWithFullRoom" visibility="public" complexity="3" crap="3" count="4"/>
+      <line num="55" type="stmt" count="4"/>
+      <line num="61" type="stmt" count="4"/>
+      <line num="62" type="stmt" count="4"/>
+      <line num="63" type="stmt" count="4"/>
+      <line num="65" type="stmt" count="3"/>
+      <line num="67" type="stmt" count="3"/>
+      <line num="69" type="stmt" count="4"/>
+      <line num="70" type="stmt" count="3"/>
+      <line num="73" type="stmt" count="1"/>
+      <line num="77" type="method" name="findDetailsOfLessons" visibility="public" complexity="3" crap="3" count="4"/>
+      <line num="78" type="stmt" count="4"/>
+      <line num="82" type="stmt" count="4"/>
+      <line num="83" type="stmt" count="4"/>
+      <line num="84" type="stmt" count="4"/>
+      <line num="85" type="stmt" count="4"/>
+      <line num="87" type="stmt" count="3"/>
+      <line num="88" type="stmt" count="3"/>
+      <line num="89" type="stmt" count="3"/>
+      <line num="90" type="stmt" count="3"/>
+      <line num="91" type="stmt" count="3"/>
+      <line num="93" type="stmt" count="3"/>
+      <line num="95" type="stmt" count="4"/>
+      <line num="96" type="stmt" count="3"/>
+      <line num="99" type="stmt" count="1"/>
+      <line num="103" type="method" name="insertBooking" visibility="public" complexity="2" crap="2.03" count="2"/>
+      <line num="104" type="stmt" count="2"/>
+      <line num="105" type="stmt" count="2"/>
+      <line num="106" type="stmt" count="2"/>
+      <line num="107" type="stmt" count="2"/>
+      <line num="110" type="stmt" count="0"/>
+      <line num="113" type="stmt" count="1"/>
+      <metrics loc="112" ncloc="112" classes="1" methods="6" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="52" coveredstatements="51" elements="58" coveredelements="56"/>
+    </file>
+    <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/GatewaysUserTable.php">
       <class name="Server\api\GatewaysUserTable" namespace="global">
         <metrics complexity="3" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="9" coveredelements="9"/>
       </class>
@@ -51,6 +152,6 @@
       <line num="18" type="stmt" count="1"/>
       <metrics loc="17" ncloc="17" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="9" coveredelements="9"/>
     </file>
-    <metrics files="3" loc="67" ncloc="66" classes="3" methods="6" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="24" coveredstatements="22" elements="30" coveredelements="26"/>
+    <metrics files="4" loc="239" ncloc="237" classes="4" methods="15" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="108" coveredstatements="99" elements="123" coveredelements="110"/>
   </project>
 </coverage>
