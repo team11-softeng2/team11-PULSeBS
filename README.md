@@ -57,32 +57,6 @@ mv composer.phar /usr/local/bin/composer
 - infine andare nella console e digitare questo
 composer dump-autoload -o
 
-## API SERVER
-
-
-### login
-api: http://localhost/server/src/api/Login.php
-
-body : {"username":"calogero","password":"test"}
-
-### lezioni prenotabili dallo studente 
-GET
-api: http://localhost/server/bookableLessons/id
-esempi di ritorno: 
-1. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"}]
-2. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Sistemi Operativi","date":"2020-11-20","beginTime":"14","endTime":"16:00:00"}]
-3. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Geometria","date":"2020-11-17","beginTime":"14:00:00","endTime":"16:00:00"},{"name":"Geometria","date":"2020-11-18","beginTime":"14:00:00","endTime":"16:00:00"}]
-### inserire nuova prenotazione
-POST 
-esempio body
-{
-  "idUser":"7",
-  "idLesson":"4",
-  "date":"2020-11-15 11:00:00"
-}
-api: http://localhost/server/insertLecture
-ritorna l'id della prenotazione appena messa
-
 ## comandi utili
 #### phpunit
 ##### running test
