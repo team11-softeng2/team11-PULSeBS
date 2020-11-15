@@ -75,7 +75,9 @@ class ControllersStudentBooking{
             return json_encode(0);
         }
         else{
-            return json_encode(array_column($studentBookings, "idLesson"));
+            $studentBookings = array_column($studentBookings, "idLesson");
+            $studentBookings = $this->studentBookingGateway->findDetailsOfLessons($studentBookings);
+            return json_encode($studentBookings);
         }
     }
     
