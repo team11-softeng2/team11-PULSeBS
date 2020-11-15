@@ -73,7 +73,8 @@ async function getStudentBookings(studentId) {
     const bookings = [
         {"idLesson":1, "name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},
         {"idLesson":2, "name":"Geometria","date":"2020-11-17","beginTime":"14:00:00","endTime":"16:00:00"},
-        {"idLesson":3, "name":"Geometria","date":"2020-11-18","beginTime":"14:00:00","endTime":"16:00:00"}
+        {"idLesson":3, "name":"Geometria","date":"2020-11-18","beginTime":"14:00:00","endTime":"16:00:00"},
+        {"idLesson":4, "name":"Geometria","date":"2020-11-15","beginTime":"10:00:00","endTime":"16:00:00"}
     ];
 
     return bookings;

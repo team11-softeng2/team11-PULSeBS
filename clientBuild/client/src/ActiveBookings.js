@@ -7,17 +7,18 @@ import { FaTrash } from 'react-icons/fa';
 
 class ActiveBookings extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
     }
 
     render() {
         // sort bookings by date 
         var bookings = this.props.bookings.sort((a, b) => {
-            return a < b;
+            if(a.date === b.date)  {
+                if(a.beginTime < b.beginTime) return -1;
+                else if(a.beginTime > b.beginTime) return 1;
+                else return 0;
+            } else if(a.date < b.date) return -1;
+            else return 1;
         });
 
         //console.dir("bookings: " + JSON.stringify(bookings));
@@ -26,7 +27,7 @@ class ActiveBookings extends React.Component {
         <>
             <Container fluid>
                 <h2>Active bookings</h2>
-                <Table bordered striped>
+                <Table bordered striped hover>
                     <thead>
                         <tr>
                             <th>Subject</th>
