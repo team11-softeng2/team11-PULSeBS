@@ -21,6 +21,7 @@ class LoginForm extends React.Component {
                 this.setState({userRole: userObj.role})
             } else {
                 this.setState({loginSuccess: false});
+                alert("Wrong username or password");
             }
         }).catch(() => {
             console.log("Fail in user login API");
