@@ -31,6 +31,9 @@ class ControllersStudentBooking{
                 $response = $this->findBookableLessons();
                 echo $response;
 
+            } else if($this->value == "studentBookings") {
+                $response = $this->findStudentBookings();
+                echo $response;
             }
         }
     }
@@ -64,6 +67,18 @@ class ControllersStudentBooking{
     public function insertNewBooklesson($input){
         $response = json_encode($this->studentBookingGateway->insertBooking($input));
         return $response;
+    }
+
+    public function findStudentBookings() {
+        $studentBookings = $this->studentBookingGateway->findStundetBookedLessons($this->id);
+        if($studentBookings == 0){
+            return json_encode(0);
+        }
+        else{
+            $studentBookings = array_column($studentBookings, "idLesson");
+            $studentBookings = $this->studentBookingGateway->findDetailsOfLessons($studentBookings);
+            return json_encode($studentBookings);
+        }
     }
     
 }
