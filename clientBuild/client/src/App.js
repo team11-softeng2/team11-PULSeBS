@@ -21,6 +21,7 @@ class App extends React.Component {
       userName: undefined,  //Nome dell'utente loggato
       userRole: undefined,  //Ruolo dell'utente loggato
       bookableLectures: [],
+      bookings: [],
     };
   }
 
@@ -36,6 +37,9 @@ class App extends React.Component {
     API.getBookableStudentLectures(user.idUser).then((lectures) => {
       this.setState({bookableLectures: lectures});
     });
+    API.getStudentBookings(user.idUser).then((allBookings) => {
+      this.setState({bookings: allBookings});
+    });
   }
 
   logout = () =>{
@@ -49,8 +53,9 @@ class App extends React.Component {
     });
   }
 
-  bookASeat = (lectureId) => {
-    API.bookASeat(lectureId, this.state.userId).then(() => {
+  bookASeat = (lectureId, date, beginTime) => {
+    let composedDate = date + " " + beginTime;
+    API.bookASeat(lectureId, this.state.userId, composedDate).then(() => {
       //Aggiorno la lista delle lezioni prenotabili dallo studente
       API.getBookableStudentLectures(this.state.userId).then((lectures) => {
         this.setState({bookableLectures: lectures});
@@ -61,6 +66,9 @@ class App extends React.Component {
     });
   }
   
+  deleteBooking = (lectureId) => {
+    // TODO
+  }
 
   render(props) {
     return (
@@ -75,7 +83,7 @@ class App extends React.Component {
                   <LecturesList lectures={this.state.bookableLectures} bookASeat = {this.bookASeat}></LecturesList>
                 </Row>
                 <Row>
-                  <ActiveBookings></ActiveBookings>
+                  <ActiveBookings bookings={this.state.bookings} cancelBooking = {this.deleteBooking}></ActiveBookings>
                 </Row>
               </Container>
                 :

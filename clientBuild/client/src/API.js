@@ -67,16 +67,32 @@ async function getBooking(lectureId) {
     }
 }
 
+// API to retrieve all the bookings of a student
+async function getStudentBookings(studentId) {
+    // TODO (current is only for test)
+    const bookings = [
+        {"idLesson":1, "name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},
+        {"idLesson":2, "name":"Geometria","date":"2020-11-17","beginTime":"14:00:00","endTime":"16:00:00"},
+        {"idLesson":3, "name":"Geometria","date":"2020-11-18","beginTime":"14:00:00","endTime":"16:00:00"},
+        {"idLesson":4, "name":"Geometria","date":"2020-11-15","beginTime":"10:00:00","endTime":"16:00:00"}
+    ];
+
+    return bookings;
+}
+
 //API per prenotare un posto a lezione
-async function bookASeat(lectureId, studentId) {
-    const url = "test"                  //Da definire
+async function bookASeat(lectureId, studentId, date) {
+    const url = "http://localhost/server/insertLecture"                  
     const response = await fetch(url, {
         method: 'POST',
         headers: {
             //'Content-Type': 'application/json',
             'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
         },
-        body: JSON.stringify({lectureId: lectureId, studentId: studentId}),
+        body: JSON.stringify({
+            idLesson: lectureId,
+            idUser: studentId,
+            date: date}),
     });
     
     try{
@@ -94,7 +110,9 @@ async function bookASeat(lectureId, studentId) {
     }
 }
 
+//async function getTeacherLectures(teacherID)
+
 const API = {
-    userLogin, logout, getBookableStudentLectures, getBooking, bookASeat
+    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat
 };
 export default API;

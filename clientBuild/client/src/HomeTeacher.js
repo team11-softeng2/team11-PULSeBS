@@ -3,6 +3,27 @@ import API from './API';
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
 
+class HomeTeacher extends React.Component{
+
+    constructor(props) {
+        super(props);
+        this.state = { lectures: []}
+    }
+
+    componentDidMount() {
+        //API.getTeacherLectures(this.props.userName).then((response) => {this.setState({lectures: response})});
+    }
+
+    render(){
+    return <>
+        <p>Hello, Teacher {this.props.userName}</p>
+        <div className="row">    
+            {this.state.lectures.map((l) => <LectureList key={l.idLesson} lecture={l}/>)}
+        </div>
+        </>
+    }
+}
+
 class LectureList extends React.Component{
     constructor(props) {
         super(props);
@@ -19,32 +40,15 @@ class LectureList extends React.Component{
             {this.props.lecture.name}
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={this.props.key}>
-            <Card.Body>{this.state.studentList}</Card.Body>
+            <Card.Body>{this.state.studentList.map((s) => <StudentRow key={s.idUser} name={s.name}/>)  }</Card.Body>
             </Accordion.Collapse>
         </Card>
     </Accordion>
     }
 }
 
-class HomeTeacher extends React.Component{
-
-    constructor(props) {
-        super(props);
-        this.state = { lectures: []}
-    }
-
-    componentDidMount() {
-        API.getTeacherLectures(this.props.userName).then((response) => {this.setState({lectures: response})});
-    }
-
-    render(){
-    return <>
-        <p>Hello, Teacher {this.props.userName}</p>
-        <div className="row">    
-            {this.state.lectures.map((l) => <LectureList key={l.idLesson} lecture={l}/>)}
-        </div>
-        </>
-    }
+function StudentRow(props) {
+    return <div>{props.name}</div>
 }
 
 export default HomeTeacher

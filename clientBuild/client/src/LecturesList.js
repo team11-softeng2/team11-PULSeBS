@@ -48,7 +48,7 @@ function LectureRow(props) {
             <td>{props.lecture.date}</td>
             <td>{props.lecture.beginTime}</td>
             <td>{props.lecture.endTime}</td>
-            <td><Button onClick={() => {console.log("Prenota " + props.lecture.idLesson); props.bookASeat(props.lecture.idLesson);} }>Book</Button></td>
+            <td><Button onClick={() => {console.log("Prenota " + props.lecture.idLesson); props.bookASeat(props.lecture.idLesson, props.lecture.date, props.lecture.beginTime);} }>Book</Button></td>
         </tr>
     
     )
