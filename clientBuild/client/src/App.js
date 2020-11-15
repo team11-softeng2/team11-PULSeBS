@@ -49,8 +49,9 @@ class App extends React.Component {
     });
   }
 
-  bookASeat = (lectureId) => {
-    API.bookASeat(lectureId, this.state.userId).then(() => {
+  bookASeat = (lectureId, date, beginTime) => {
+    let composedDate = date + " " + beginTime;
+    API.bookASeat(lectureId, this.state.userId, composedDate).then(() => {
       //Aggiorno la lista delle lezioni prenotabili dallo studente
       API.getBookableStudentLectures(this.state.userId).then((lectures) => {
         this.setState({bookableLectures: lectures});

@@ -68,15 +68,18 @@ async function getBooking(lectureId) {
 }
 
 //API per prenotare un posto a lezione
-async function bookASeat(lectureId, studentId) {
-    const url = "test"                  //Da definire
+async function bookASeat(lectureId, studentId, date) {
+    const url = "http://localhost/server/insertLecture"                  
     const response = await fetch(url, {
         method: 'POST',
         headers: {
             //'Content-Type': 'application/json',
             'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
         },
-        body: JSON.stringify({lectureId: lectureId, studentId: studentId}),
+        body: JSON.stringify({
+            idLesson: lectureId,
+            idUser: studentId,
+            date: date}),
     });
     
     try{
