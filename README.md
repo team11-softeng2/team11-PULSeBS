@@ -93,8 +93,13 @@ dentro server:
 dentro server:
 testphp --coverage-clover reports/coverage/coverage.xml
 testphp --log-junit reports/tests/phpunit.report.xml
+dentro client:
+npm run test -- --coverage --coverageReporters=lcov  --coverageDirectory=src/reports/coverage
 ##### report test
-testphp --log
+dentro client:
+devi installare prima questo: npm i -D jest-sonar-reporter
+comando per generare:
+npm run test -- --testResultsProcessor=jest-sonar-reporter
 #### docker 
 sudo docker build -t testbuild1 .
 docker run -d -p 80:80 --name my-apache-php-app testbuild1
