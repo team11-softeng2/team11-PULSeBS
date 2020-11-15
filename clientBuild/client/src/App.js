@@ -11,6 +11,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import LecturesList from './LecturesList';
 import ActiveBookings from './ActiveBookings';
+import StudentCalendarPage from './StudentCalendarPage';
 
 class App extends React.Component {
   constructor(props) {
@@ -73,7 +74,7 @@ class App extends React.Component {
   render(props) {
     return (
       <Router>
-        <TopBar loggedin = {this.state.loggedin} logout={this.logout} ></TopBar>
+        <TopBar loggedin = {this.state.loggedin} logout={this.logout} role={this.state.userRole}></TopBar>
         <Switch>
           
           <Route path="/student">
@@ -89,6 +90,10 @@ class App extends React.Component {
                 :
                 <Redirect to="/"></Redirect>
             }
+          </Route>
+          
+          <Route path="/studentCalendar">
+            <StudentCalendarPage/>
           </Route>
 
           <Route path="/teacher">
