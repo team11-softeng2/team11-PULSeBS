@@ -14,14 +14,14 @@ class ControllersStudentBookingTest extends TestCase
         
     }
     public function testfindBookableLessonsFound(){
-        $id = 7;
+        $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $result = $this->controllersStudentBooking->findBookableLessons();
         $this->assertTrue(( json_decode( $result , true ) == NULL ) ? false : true);
     }
     public function testfindBookableLessonsNotFound(){
-        $id = 7;
+        $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $result = $this->controllersStudentBooking->findBookableLessons();
@@ -29,12 +29,12 @@ class ControllersStudentBookingTest extends TestCase
     }
 
     public function testStudentBookingProcessRequestOutput(){
-        $id = 7;
+        $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $this->controllersStudentBooking->processRequest();
         $output = $this->getActualOutput();
-        $this->assertNotEquals(0, $output);
+        $this->assertNotEquals('0', $output);
         $this->assertFalse(empty($output));
         
     }

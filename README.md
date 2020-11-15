@@ -68,7 +68,7 @@ dentro server:
 testphp --coverage-clover reports/coverage/coverage.xml
 testphp --log-junit reports/tests/phpunit.report.xml
 dentro client:
-npm run test -- --coverage --coverageReporters=lcov  --coverageDirectory=src/reports/coverage
+npm run test -- --coverage --coverageReporters=lcov  --coverageDirectory=reports/coverage
 ##### report test
 dentro client:
 devi installare prima questo: npm i -D jest-sonar-reporter

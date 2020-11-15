@@ -35,7 +35,8 @@ class GatewaysStudentBooking{
     public function findStundetBookedLessons($id){
         $sql = "SELECT idLesson
         from booking
-        where idUser=".$id."";
+        where idUser=".$id."
+        and active=1";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)){
