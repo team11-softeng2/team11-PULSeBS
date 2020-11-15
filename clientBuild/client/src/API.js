@@ -97,6 +97,8 @@ async function bookASeat(lectureId, studentId, date) {
     }
 }
 
+//async function getTeacherLectures(teacherID)
+
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, bookASeat
 };
