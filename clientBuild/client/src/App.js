@@ -93,7 +93,7 @@ class App extends React.Component {
           </Route>
           
           <Route path="/studentCalendar">
-            <StudentCalendarPage/>
+            <StudentCalendarPage bookableLectures={this.state.bookableLectures}/>
           </Route>
 
           <Route path="/teacher">
