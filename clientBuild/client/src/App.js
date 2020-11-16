@@ -93,7 +93,19 @@ class App extends React.Component {
           </Route>
           
           <Route path="/studentCalendar">
-            <StudentCalendarPage bookableLectures={this.state.bookableLectures}/>
+            {(this.state.loggedin === true && this.state.userRole === "student") ? 
+              <StudentCalendarPage bookableLectures={this.state.bookableLectures.map((l) => {
+                return {
+                  id: l.idLesson,
+                  title: l.name,
+                  start: new Date(l.date + "T" + l.beginTime),
+                  end: new Date(l.date + "T" + l.endTime),
+                }})} 
+                bookASeat = {this.bookASeat}/>
+                :
+              <Redirect to="/"></Redirect>
+              }
+            
           </Route>
 
           <Route path="/teacher">

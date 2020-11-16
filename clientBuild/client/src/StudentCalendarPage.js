@@ -23,16 +23,18 @@ class StudentCalendarPage extends React.Component{
         			
         			<Col className='col-4'/>
         		</Row>
-            	<Calendar events={this.state.events}/>
+            	{/*<Calendar events={this.state.events} bookASeat = {this.props.bookASeat}/>*/}
+				<Calendar events={this.props.bookableLectures} bookASeat = {this.props.bookASeat}/>
         	</Container>
         </>
       }
       
       componentDidMount = () => {
-      		this.lecturesToEvents();
+      		//this.lecturesToEvents();
       }
       
-      //this converts the prop bookableLectures to events for the calendar
+	  //this converts the prop bookableLectures to events for the calendar
+	  /*
       lecturesToEvents = () => {
       		var events = [];
       		
@@ -53,7 +55,8 @@ class StudentCalendarPage extends React.Component{
       		}
       		
       		this.setState({ events: events });
-      }
+	  }
+	  */
 }
 
 
