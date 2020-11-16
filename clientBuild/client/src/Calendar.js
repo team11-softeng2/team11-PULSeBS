@@ -25,6 +25,9 @@ class Calendar extends React.Component{
                 initialView="timeGridWeek"
                 events={this.props.events}
                 eventClick={this.handleEventClick}
+                contentHeight="auto"
+                slotMinTime="08:00:00"
+					      slotMaxTime="20:00:00"
             />
             <ModalLecture show={this.state.showModal} closeModal = {this.closeModal} lecture = {this.state.selectedLecture}></ModalLecture>
         </>
