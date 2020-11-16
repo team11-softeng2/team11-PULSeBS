@@ -1,26 +1,23 @@
 <?php
 header('Content-Type: application/json');
 require '../../vendor/autoload.php';
-$dbConn = new \SQLite3("../db.db");
-if(!$dbConn){
-    die("error connection database");
+if(isset($_SERVER['REQUEST_METHOD'])){
+    if($_SERVER['HTTP_USER_AGENT'] == 'GuzzleHttp/7'){
+        $dbConn = new \SQLite3("../../tests/dbForTesting2.db");
+    }
+    else{
+        $dbConn = new \SQLite3("../db.db");
+    }
+    
 }
+
+
 $msg = "Invalid API!";
 if(isset($_GET['url'])){
     $var = $_GET['url'];
     $value ="undefined";
     $number = intval(preg_replace('/[^0-9]+/', '', $var));
     switch($var){
-        case "users":
-            $value = "users";
-            $requestMethod = $_SERVER['REQUEST_METHOD'];
-            echo "call controller user";
-        break;
-        case "users/$number":
-            $value = "users";
-            $requestMethod = $_SERVER['REQUEST_METHOD'];
-            echo "call controller user with id = ".$number;
-        break;
         case "bookableLessons/$number":
             $value ="bookableLessons";
             $requestMethod = "GET";

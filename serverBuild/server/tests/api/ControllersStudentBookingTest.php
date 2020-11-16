@@ -23,6 +23,7 @@ class ControllersStudentBookingTest extends TestCase
     public function testfindBookableLessonsNotFound(){
         $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting.db");
+        $this->restoreDB();
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $result = $this->controllersStudentBooking->findBookableLessons();
         $this->assertEquals(0, $result);
@@ -41,6 +42,7 @@ class ControllersStudentBookingTest extends TestCase
     public function testStudentBookingProcessRequestZeroOutput(){
             $id = 7;
             $this->db = new SQLite3("./tests/dbForTesting.db");
+            $this->restoreDB();
             $this->expectOutputString('0');
             $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $this->controllersStudentBooking->processRequest();
@@ -121,6 +123,7 @@ class ControllersStudentBookingTest extends TestCase
             "beginTime"	TEXT,
             "endTime"	TEXT,
             "type"	TEXT,
+            "inPresence" INTEGER,
             "active"	INTEGER,
             PRIMARY KEY("idLesson" AUTOINCREMENT)
         );

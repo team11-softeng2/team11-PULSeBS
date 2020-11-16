@@ -117,6 +117,7 @@ class GatewaysStudentBookingTest extends TestCase
             "beginTime"	TEXT,
             "endTime"	TEXT,
             "type"	TEXT,
+            "inPresence" INTEGER,
             "active"	INTEGER,
             PRIMARY KEY("idLesson" AUTOINCREMENT)
         );

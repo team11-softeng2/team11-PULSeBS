@@ -14,6 +14,9 @@ RUN php -r "unlink('composer-setup.php');"
 RUN mv composer.phar /usr/local/bin/composer
 
 COPY ./server /var/www/html/server
-RUN cd ./server ; composer update
-
+RUN cd ./server ; composer update;
+RUN chmod o+w /var/www/html/server/src
+RUN chown www-data:  /var/www/html/server/src/db.db
+RUN chmod o+w /var/www/html/server/tests
+RUN chown www-data:  /var/www/html/server/tests/dbForTesting2.db
 

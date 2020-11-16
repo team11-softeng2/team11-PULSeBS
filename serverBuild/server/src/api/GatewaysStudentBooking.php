@@ -13,7 +13,8 @@ class GatewaysStudentBooking{
         from lessons L join enrollment E
         where L.idCourse=E.idCourse
         and E.idUser=".$id."
-        and date>='".$dateForQuery."'";
+        and date>='".$dateForQuery."'
+        and inPresence =1";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)){
