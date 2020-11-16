@@ -97,7 +97,14 @@ class GatewaysStudentBookingTest extends TestCase
         $result = $this->gatewayStudentBooking->insertBooking($bookForTest);
         $this->assertIsInt($result);
     }
-    
+    public function testUpdateBooking(){
+        $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
+        $idBooking = 2;
+        $lineUpdated = $this->gatewayStudentBooking->updateBooking($idBooking);
+        $this->assertEquals(1, $lineUpdated);
+        $this->restoreValueAfterUpdate();
+    }    
 
     protected function restoreDB(){
         $this->db->exec('DROP TABLE IF EXISTS "lessons";
@@ -152,6 +159,9 @@ class GatewaysStudentBookingTest extends TestCase
             "name"	TEXT,
             PRIMARY KEY("idUser" AUTOINCREMENT)
         );');
+    }
+    protected function restoreValueAfterUpdate(){
+        $this->db->exec("update booking set active=1 where idBooking=2");
     }
 }
 ?>

@@ -36,6 +36,12 @@ class ControllersStudentBooking{
                 echo $response;
             }
         }
+        else if($this->requestMethod == "PUT"){
+            if($this->value == "updateBooking"){
+                $response = $this->updateBooking($this->id);
+                echo $response;
+            }
+        }
     }
     public function findBookableLessons(){
         $allStudentLessons = $this->studentBookingGateway->findStudentLessons($this->id);
@@ -79,6 +85,9 @@ class ControllersStudentBooking{
             $studentBookings = $this->studentBookingGateway->findDetailsOfLessons($studentBookings);
             return json_encode($studentBookings);
         }
+    }
+    public function updateBooking($id){
+        return json_encode($this->studentBookingGateway->updateBooking($id));
     }
     
 }

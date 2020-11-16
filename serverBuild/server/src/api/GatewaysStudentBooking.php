@@ -33,10 +33,12 @@ class GatewaysStudentBooking{
     }
 
     public function findStundetBookedLessons($id){
+        date_default_timezone_set("Europe/Rome");
         $sql = "SELECT idLesson
         from booking
         where idUser=".$id."
-        and active=1";
+        and active=1
+        and date>='".date("Y-m-d H:i:s")."'";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)){
@@ -106,6 +108,15 @@ class GatewaysStudentBooking{
         $return = $this->db->exec($sql);
         if($return){
             return $this->db->lastInsertRowID();
+        }
+
+    }
+
+    public function updateBooking($id){
+        $sql = "update booking set active=0 where idBooking=".$id."";
+        $return = $this->db->exec($sql);
+        if($return){
+            return $this->db->changes();
         }
 
     }

@@ -41,6 +41,14 @@ if(isset($_GET['url'])){
             $controller = new Server\api\ControllersStudentBooking($requestMethod, $dbConn, $value, $id);
             $controller->processRequest();
         break;
+        case "updateBooking/$number":
+            $value = "updateBooking";
+            $requestMethod =  "PUT";
+            $id = $number;
+            $controller = new Server\api\ControllersStudentBooking($requestMethod, $dbConn, $value, $id);
+            $controller->processRequest();
+        break;
+        
         default:
             echo $msg;
 
