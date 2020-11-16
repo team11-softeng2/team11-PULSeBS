@@ -5,6 +5,11 @@ test("getBookableLectures", async () => {
     expect(data.length).toBeGreaterThanOrEqual(0);
 });
 
+test("getStudentBookings", async () => {
+    let data = await API.getStudentBookings(1);
+    expect(data.length).toBeGreaterThanOrEqual(0);
+});
+
 test("userLogin", async () => {
     let result1 = undefined;
     let result2 = undefined;

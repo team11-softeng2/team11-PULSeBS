@@ -54,7 +54,7 @@ async function getBookableStudentLectures(studentId) {
     }
 }
 
-//Ritorna le prenotazioni effettuate per la lezione indicata
+//Ritorna le prenotazioni effettuate dagli studenti per la lezione indicata (teacher side)
 async function getBooking(lectureId) {
     const url = "test"                  //Da definire
     const response = await fetch(url);
@@ -69,15 +69,15 @@ async function getBooking(lectureId) {
 
 // API to retrieve all the bookings of a student
 async function getStudentBookings(studentId) {
-    // TODO (current is only for test)
-    const bookings = [
-        {"idLesson":1, "name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},
-        {"idLesson":2, "name":"Geometria","date":"2020-11-17","beginTime":"14:00:00","endTime":"16:00:00"},
-        {"idLesson":3, "name":"Geometria","date":"2020-11-18","beginTime":"14:00:00","endTime":"16:00:00"},
-        {"idLesson":4, "name":"Geometria","date":"2020-11-15","beginTime":"10:00:00","endTime":"16:00:00"}
-    ];
-
-    return bookings;
+    const url = "http://localhost/server/studentBookings/" + studentId;
+    const response = await fetch(url);
+    const booking = await response.json();
+    if(response.ok) {
+        return booking;
+    } else {
+        let err = {status: response.status, errorObj: booking};
+        throw err; 
+    }
 }
 
 //API per prenotare un posto a lezione
