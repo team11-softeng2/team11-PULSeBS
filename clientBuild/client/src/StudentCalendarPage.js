@@ -2,40 +2,13 @@ import React from 'react';
 import Calendar from './Calendar.js';
 import {Container, Alert, Row, Col} from 'react-bootstrap';
 
-var events = [
-    {
-      id: 1,
-      title: 'Software Engineering II',
-      start: new Date('2020-11-16T11:30:00'),
-      end: new Date('2020-11-16T13:00:00')
-    },
-    {
-        id: 2,
-        title: 'Architetture',
-        start: new Date('2020-11-16T16:00:00'),
-        end: new Date('2020-11-16T19:00:00')
-      },
-      {
-        id: 3,
-        title: 'Cloud Computing',
-        start: new Date('2020-11-17T08:30:00'),
-        end: new Date('2020-11-17T11:30:00')
-      },
-      {
-        id: 4,
-        title: 'Information Systems',
-        start: new Date('2020-11-17T13:00:00'),
-        end: new Date('2020-11-17T14:30:00')
-      },
-      {
-        id: 5,
-        title: 'Information Systems Security',
-        start: new Date('2020-11-17T16:00:00'),
-        end: new Date('2020-11-17T17:30:00')
-      }
-  ] ;
-
 class StudentCalendarPage extends React.Component{
+    constructor(props){
+      super(props);
+
+      this.state = { events: [] };
+    }
+
     render(){
         return <>
         	<Container fluid>
@@ -50,10 +23,37 @@ class StudentCalendarPage extends React.Component{
         			
         			<Col className='col-4'/>
         		</Row>
-            	<Calendar events={events}/>
+            	<Calendar events={this.state.events}/>
         	</Container>
         </>
-    	}
+      }
+      
+      componentDidMount = () => {
+      		this.lecturesToEvents();
+      }
+      
+      //this converts the prop bookableLectures to events for the calendar
+      lecturesToEvents = () => {
+      		var events = [];
+      		
+      		var i;
+      		for(i = 0; i < this.props.bookableLectures.length; i++){
+      			var date = this.props.bookableLectures[i].date;
+      			var beginTime = this.props.bookableLectures[i].beginTime;
+      			var endTime = this.props.bookableLectures[i].endTime;
+      			
+      			var eventObj = {
+      				id: this.props.bookableLectures[i].idLesson,
+					title: this.props.bookableLectures[i].name,
+					start: new Date(date.concat('T').concat(beginTime)),
+					end: new Date(date.concat('T').concat(endTime))
+      			};
+      			
+      			events.push(eventObj);
+      		}
+      		
+      		this.setState({ events: events });
+      }
 }
 
 
