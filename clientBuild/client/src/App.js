@@ -101,7 +101,15 @@ class App extends React.Component {
                   start: new Date(l.date + "T" + l.beginTime),
                   end: new Date(l.date + "T" + l.endTime),
                 }})} 
-                bookASeat = {this.bookASeat}/>
+                bookASeat = {this.bookASeat}
+                bookings = {this.state.bookings.map((l) => {
+                  return {
+                    id: l.idLesson,
+                    title: l.name,
+                    start: new Date(l.date + "T" + l.beginTime),
+                    end: new Date(l.date + "T" + l.endTime),
+                    color:"green"
+                  }})} />
                 :
               <Redirect to="/"></Redirect>
               }

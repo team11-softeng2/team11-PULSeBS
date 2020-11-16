@@ -24,7 +24,7 @@ class StudentCalendarPage extends React.Component{
         			<Col className='col-4'/>
         		</Row>
             	{/*<Calendar events={this.state.events} bookASeat = {this.props.bookASeat}/>*/}
-				<Calendar events={this.props.bookableLectures} bookASeat = {this.props.bookASeat}/>
+				<Calendar events={this.props.bookableLectures.concat(this.props.bookings)} bookASeat = {this.props.bookASeat}/>
         	</Container>
         </>
       }

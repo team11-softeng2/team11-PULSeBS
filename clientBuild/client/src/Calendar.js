@@ -41,6 +41,7 @@ class Calendar extends React.Component{
             lectureBeginTime = {this.state.lectureBeginTime}
             lectureEndTime = {this.state.lectureEndTime}
             lectureId = {this.state.lectureId}
+            lectureColor = {this.state.lectureColor}
             bookASeat = {this.props.bookASeat}
             ></ModalLecture>
         </>
@@ -58,6 +59,7 @@ class Calendar extends React.Component{
         this.setState({lectureEndTime: endTime.slice(11,16)});
         this.setState({lectureDate: beginTime.slice(0,10)});
         this.setState({lectureId: info.event.id});
+        this.setState({lectureColor: info.event.backgroundColor});
     }
 }
 
@@ -87,12 +89,22 @@ function ModalLecture(props) {
             <br/>
             <b>End time:</b> {props.lectureEndTime}</p>
           </Modal.Body>
+          {props.lectureColor === "green" ? 
+          <Modal.Footer>
+            <Button variant="danger" onClick={() => {props.closeModal();} }>Delete</Button>
+            <Button variant="secondary" onClick={() => props.closeModal()}>
+              Don't delete
+            </Button>            
+          </Modal.Footer>
+          :
           <Modal.Footer>
             <Button variant="primary" onClick={() => {props.bookASeat(props.lectureId, props.lectureDate, props.lectureBeginTime); props.closeModal();} }>Book</Button>
             <Button variant="secondary" onClick={() => props.closeModal()}>
               Dont' book
             </Button>            
           </Modal.Footer>
+          }
+          
         </Modal>
       </>
     );
