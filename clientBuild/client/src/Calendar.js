@@ -54,11 +54,12 @@ class Calendar extends React.Component{
         //console.log(info.event.id);
         this.setState({showModal: true});
         this.setState({lectureTitle: info.event.title});
-        let beginTime = info.event.start.toISOString();
-        let endTime = info.event.end.toISOString();
-        this.setState({lectureBeginTime: beginTime.slice(11,16)});
-        this.setState({lectureEndTime: endTime.slice(11,16)});
-        this.setState({lectureDate: beginTime.slice(0,10)});
+        let beginTime = info.event.start.toLocaleTimeString();
+        let endTime = info.event.end.toLocaleTimeString();
+        let date = info.event.start.toDateString();
+        this.setState({lectureBeginTime: beginTime.slice(0,5)});
+        this.setState({lectureEndTime: endTime.slice(0,5)});
+        this.setState({lectureDate: date.slice(4,15)});
         this.setState({lectureId: info.event.id});
         this.setState({lectureColor: info.event.backgroundColor});
     }
