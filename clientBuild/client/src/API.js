@@ -46,7 +46,6 @@ async function getBookableStudentLectures(studentId) {
     const response = await fetch(url);
     const lectures = await response.json();
     if(response.ok) {
-        console.log(lectures);
         if (lectures === 0){
         	return [];
         }
@@ -76,6 +75,9 @@ async function getStudentBookings(studentId) {
     const response = await fetch(url);
     const booking = await response.json();
     if(response.ok) {
+        if (booking === 0){
+        	return [];
+        }
         return booking;
     } else {
         let err = {status: response.status, errorObj: booking};
@@ -115,7 +117,27 @@ async function bookASeat(lectureId, studentId, date) {
 
 //async function getTeacherLectures(teacherID)
 
+async function deleteBooking(bookingId) {
+    const url = "http://localhost/server/updateBooking/" + bookingId;
+    return new Promise((resolve, reject) => {
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+            }),
+        }).then((response) => {
+            if (response.ok) {
+                resolve(0);
+            } else {
+                reject({errore: "Error in deleting a booking"});
+            }
+        }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) });
+    });
+}
+
 const API = {
-    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat
+    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking
 };
 export default API;

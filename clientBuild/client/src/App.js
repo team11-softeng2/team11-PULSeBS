@@ -35,12 +35,8 @@ class App extends React.Component {
     this.setState({userName: user.name});
     this.setState({userRole: user.role});
     this.setState({userId: user.idUser});
-    API.getBookableStudentLectures(user.idUser).then((lectures) => {
-      this.setState({bookableLectures: lectures});
-    });
-    API.getStudentBookings(user.idUser).then((allBookings) => {
-      this.setState({bookings: allBookings});
-    });
+    this.getBookableStudentLectures(user.idUser);
+    this.getStudentBookings(user.idUser);
   }
 
   logout = () =>{
@@ -54,13 +50,24 @@ class App extends React.Component {
     });
   }
 
+  getStudentBookings = (userId) => {
+    API.getStudentBookings(userId).then((allBookings) => {
+      this.setState({bookings: allBookings});
+    });
+  }
+
+  getBookableStudentLectures = (userId) => {
+    API.getBookableStudentLectures(userId).then((lectures) => {
+      this.setState({bookableLectures: lectures});
+    });
+  }
+
   bookASeat = (lectureId, date, beginTime) => {
     let composedDate = date + " " + beginTime;
     API.bookASeat(lectureId, this.state.userId, composedDate).then(() => {
       //Aggiorno la lista delle lezioni prenotabili dallo studente
-      API.getBookableStudentLectures(this.state.userId).then((lectures) => {
-        this.setState({bookableLectures: lectures});
-      });
+      this.getBookableStudentLectures(this.state.userId);
+      this.getStudentBookings(this.state.userId);
     })
     .catch(() => {
       console.log("Error in newBooking function");
@@ -68,7 +75,10 @@ class App extends React.Component {
   }
   
   deleteBooking = (lectureId) => {
-    // TODO
+    API.deleteBooking(lectureId).then(() => {
+      this.getStudentBookings(this.state.userId);
+      this.getBookableStudentLectures(this.state.userId);
+    })
   }
 
   render(props) {
@@ -79,21 +89,6 @@ class App extends React.Component {
           
           <Route path="/student">
             {(this.state.loggedin === true && this.state.userRole === "student") ? 
-              <Container>
-                <Row>
-                  <LecturesList lectures={this.state.bookableLectures} bookASeat = {this.bookASeat}></LecturesList>
-                </Row>
-                <Row>
-                  <ActiveBookings bookings={this.state.bookings} cancelBooking = {this.deleteBooking}></ActiveBookings>
-                </Row>
-              </Container>
-                :
-                <Redirect to="/"></Redirect>
-            }
-          </Route>
-          
-          <Route path="/studentCalendar">
-            {(this.state.loggedin === true && this.state.userRole === "student") ? 
               <StudentCalendarPage bookableLectures={this.state.bookableLectures.map((l) => {
                 return {
                   id: l.idLesson,
@@ -102,6 +97,7 @@ class App extends React.Component {
                   end: new Date(l.date + "T" + l.endTime),
                 }})} 
                 bookASeat = {this.bookASeat}
+                deleteBooking = {this.deleteBooking}
                 bookings = {this.state.bookings.map((l) => {
                   return {
                     id: l.idLesson,
@@ -112,8 +108,7 @@ class App extends React.Component {
                   }})} />
                 :
               <Redirect to="/"></Redirect>
-              }
-            
+            }
           </Route>
 
           <Route path="/teacher">

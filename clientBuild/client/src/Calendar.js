@@ -43,6 +43,7 @@ class Calendar extends React.Component{
             lectureId = {this.state.lectureId}
             lectureColor = {this.state.lectureColor}
             bookASeat = {this.props.bookASeat}
+            deleteBookng = {this.props.deleteBookng}
             ></ModalLecture>
         </>
     	}
