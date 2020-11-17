@@ -62,7 +62,8 @@ class GatewaysStudentBooking{
         where L.idClassRoom=C.idClassRoom
         and C.totalSeats <= (SELECT count(*)
         from booking B
-        where idLesson = L.idLesson)";
+        where idLesson = L.idLesson
+        and B.active=1)";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)){
