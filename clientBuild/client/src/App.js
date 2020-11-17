@@ -84,7 +84,7 @@ class App extends React.Component {
   render(props) {
     return (
       <Router>
-        <TopBar loggedin = {this.state.loggedin} logout={this.logout} role={this.state.userRole}></TopBar>
+        <TopBar loggedin = {this.state.loggedin} logout={this.logout} role={this.state.userRole} userName = {this.state.userName}></TopBar>
         <Switch>
           
           <Route path="/student">
@@ -100,7 +100,7 @@ class App extends React.Component {
                 deleteBooking = {this.deleteBooking}
                 bookings = {this.state.bookings.map((l) => {
                   return {
-                    id: l.idLesson,
+                    id: l.idBooking,
                     title: l.name,
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),

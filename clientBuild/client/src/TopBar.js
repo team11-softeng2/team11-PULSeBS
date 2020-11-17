@@ -11,6 +11,9 @@ class TopBar extends React.Component{
                         null
                     :
                     <>
+                    <Navbar.Text className = "ml-auto">
+                    Welcome {this.props.userName}
+                    </Navbar.Text>
                     <Link className="ml-auto" to="/" onClick= {() => this.props.logout()}>
                         {"Logout "}
                     <svg className="bi bi-box-arrow-right" width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -22,7 +25,7 @@ class TopBar extends React.Component{
                     </>
                     }
                     
-                    {this.props.loggedin && this.props.role === 'student' && <ButtonToCalendar/>}
+                    {/*this.props.loggedin && this.props.role === 'student' && <ButtonToCalendar/>*/}
                     
                 </Navbar>
     }
