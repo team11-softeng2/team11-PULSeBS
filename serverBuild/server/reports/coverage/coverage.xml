@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1605566018">
-  <project timestamp="1605566018">
+<coverage generated="1605566604">
+  <project timestamp="1605566604">
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/ControllersLogin.php">
       <class name="Server\api\ControllersLogin" namespace="global">
         <metrics complexity="5" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="15" elements="19" coveredelements="17"/>

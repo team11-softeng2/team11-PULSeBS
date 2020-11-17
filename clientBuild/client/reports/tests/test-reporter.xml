@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <unitTest version="1">
     <file path="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/clientbuild/client/src/__tests__/API.test.js">
-        <testCase name="getBookableLectures" duration="348"/>
-        <testCase name="userLogin" duration="48"/>
+        <testCase name="getBookableLectures" duration="317"/>
+        <testCase name="getStudentBookings" duration="12"/>
+        <testCase name="userLogin" duration="51"/>
     </file>
     <file path="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/clientbuild/client/src/__tests__/App.test.js">
-        <testCase name="fake test" duration="3"/>
+        <testCase name="fake test" duration="2"/>
     </file>
 </unitTest>
