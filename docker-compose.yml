@@ -1,0 +1,17 @@
+server:
+  build: ./serverBuild
+  ports:
+    - 80:80
+client:
+  build: ./clientBuild
+  ports:
+    - 3000:3000
+  links:
+    - server
+  stdin_open: true
+  environment:
+    - CHOKIDAR_USEPOLLING=true
+mailer:
+  build: ./serverBuild/server/mailer
+  links:
+    - server
