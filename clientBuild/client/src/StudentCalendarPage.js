@@ -1,6 +1,7 @@
 import React from 'react';
 import Calendar from './Calendar.js';
 import {Container, Alert, Row, Col} from 'react-bootstrap';
+import Badge from 'react-bootstrap/Badge'
 
 class StudentCalendarPage extends React.Component{
     constructor(props){
@@ -16,8 +17,14 @@ class StudentCalendarPage extends React.Component{
         			<Col className='col-4'/>
         			
         			<Col className='col-4'>
-        				<Alert variant='success' className="text-center">
+        				<Alert variant='info' className="text-center">
         					<h3>My lecture bookings:</h3>
+							<Badge pill variant="primary">
+								Bookable
+							</Badge>{' '}
+							<Badge pill variant="success">
+								Booked
+							</Badge>
         				</Alert>
         			</Col>
         			
