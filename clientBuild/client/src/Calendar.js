@@ -11,10 +11,10 @@ class Calendar extends React.Component{
         this.state = {
           showModal: false,
           lectureTitle: undefined,
-          lectureBeginTime: undefined,
-          lectureEndTime: undefined,
+          lectureBeginTime: "",
+          lectureEndTime: "",
           lectureDate: undefined,
-          lectureId: undefined,
+          elementId: undefined,
         };
       }
 
@@ -40,10 +40,10 @@ class Calendar extends React.Component{
             lectureDate = {this.state.lectureDate}
             lectureBeginTime = {this.state.lectureBeginTime}
             lectureEndTime = {this.state.lectureEndTime}
-            lectureId = {this.state.lectureId}
+            elementId = {this.state.elementId}
             lectureColor = {this.state.lectureColor}
             bookASeat = {this.props.bookASeat}
-            deleteBookng = {this.props.deleteBookng}
+            deleteBooking = {this.props.deleteBooking}
             ></ModalLecture>
         </>
     	}
@@ -56,11 +56,11 @@ class Calendar extends React.Component{
         this.setState({lectureTitle: info.event.title});
         let beginTime = info.event.start.toLocaleTimeString();
         let endTime = info.event.end.toLocaleTimeString();
-        let date = info.event.start.toDateString();
-        this.setState({lectureBeginTime: beginTime.slice(0,5)});
-        this.setState({lectureEndTime: endTime.slice(0,5)});
-        this.setState({lectureDate: date.slice(4,15)});
-        this.setState({lectureId: info.event.id});
+        let date = info.event.start.toISOString().slice(0,10);
+        this.setState({lectureBeginTime: beginTime});
+        this.setState({lectureEndTime: endTime});
+        this.setState({lectureDate: date});
+        this.setState({elementId: info.event.id});
         this.setState({lectureColor: info.event.backgroundColor});
     }
 }
@@ -87,20 +87,20 @@ function ModalLecture(props) {
             <br/>
             <b>Date:</b> {props.lectureDate}
             <br/>
-            <b>Begin time:</b> {props.lectureBeginTime}
+            <b>Begin time:</b> {props.lectureBeginTime.slice(0,5)}
             <br/>
-            <b>End time:</b> {props.lectureEndTime}</p>
+            <b>End time:</b> {props.lectureEndTime.slice(0,5)}</p>
           </Modal.Body>
           {props.lectureColor === "green" ? 
           <Modal.Footer>
-            <Button variant="danger" onClick={() => {props.closeModal();} }>Delete</Button>
+            <Button variant="danger" onClick={() => {props.deleteBooking(props.elementId); props.closeModal();} }>Delete</Button>
             <Button variant="secondary" onClick={() => props.closeModal()}>
               Don't delete
             </Button>            
           </Modal.Footer>
           :
           <Modal.Footer>
-            <Button variant="primary" onClick={() => {props.bookASeat(props.lectureId, props.lectureDate, props.lectureBeginTime); props.closeModal();} }>Book</Button>
+            <Button variant="primary" onClick={() => {props.bookASeat(props.elementId, props.lectureDate, props.lectureBeginTime); props.closeModal();} }>Book</Button>
             <Button variant="secondary" onClick={() => props.closeModal()}>
               Dont' book
             </Button>            
