@@ -7,7 +7,6 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
     } else {
         $dbConn = new \SQLite3("../db.db");
     }
-
 }
 
 $msg = "Invalid API!";
