@@ -81,9 +81,13 @@ class ControllersStudentBooking{
             return json_encode(0);
         }
         else{
-            $studentBookings = array_column($studentBookings, "idLesson");
-            $studentBookings = $this->studentBookingGateway->findDetailsOfLessons($studentBookings);
-            return json_encode($studentBookings);
+            $studentBookingsDetail = array_column($studentBookings, "idLesson");
+            $studentBookingsDetail = $this->studentBookingGateway->findDetailsOfLessons($studentBookingsDetail);
+            foreach($studentBookingsDetail as $key => $row)
+                {
+                    $studentBookingsDetail[$key]['idBooking'] = $studentBookings[$key]['idBooking'];
+                }
+            return json_encode($studentBookingsDetail);
         }
     }
     public function updateBooking($id){

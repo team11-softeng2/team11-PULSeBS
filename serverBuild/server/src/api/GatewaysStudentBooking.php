@@ -35,7 +35,7 @@ class GatewaysStudentBooking{
 
     public function findStundetBookedLessons($id){
         date_default_timezone_set("Europe/Rome");
-        $sql = "SELECT idLesson
+        $sql = "SELECT idLesson, idBooking
         from booking
         where idUser=".$id."
         and active=1
@@ -44,7 +44,8 @@ class GatewaysStudentBooking{
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)){
             $subArray = array(
-                "idLesson" => $row['idLesson']              
+                "idLesson" => $row['idLesson'],
+                "idBooking" => $row['idBooking']              
             );
             $data[] = $subArray;
         }
