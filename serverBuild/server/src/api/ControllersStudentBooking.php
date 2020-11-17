@@ -85,7 +85,12 @@ class ControllersStudentBooking{
             $studentBookingsDetail = $this->studentBookingGateway->findDetailsOfLessons($studentBookingsDetail);
             foreach($studentBookingsDetail as $key => $row)
                 {
-                    $studentBookingsDetail[$key]['idBooking'] = $studentBookings[$key]['idBooking'];
+                    foreach($studentBookings as $key1 => $row1){
+                        if($studentBookings[$key1]['idLesson'] == $studentBookingsDetail[$key]['idLesson']){
+                            $idBooking = $studentBookings[$key1]['idBooking'];
+                        }
+                    }
+                    $studentBookingsDetail[$key]['idBooking'] = $idBooking;
                 }
             return json_encode($studentBookingsDetail);
         }
