@@ -47,6 +47,9 @@ async function getBookableStudentLectures(studentId) {
     const lectures = await response.json();
     if(response.ok) {
         console.log(lectures);
+        if (lectures === 0){
+        	return [];
+        }
         return lectures;
     } else {
         let err = {status: response.status, errorObj: lectures};
