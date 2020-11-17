@@ -20,6 +20,9 @@ exemples :
 * GET `/studentBookings/:studentId`
     * Params: studentId
     * Response: List of bookings of a student
+* GET `/bookedStudentsForLecture/:lectureId`
+    * Params: lectureId
+    * response: List of student booked for that lecture
 * DELETE `/cancelBooking/:bookingId`
     * Params: bookingId
     * Response: NONE
