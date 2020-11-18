@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <unitTest version="1">
-    <file path="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/clientbuild/client/src/__tests__/API.test.js">
-        <testCase name="getBookableLectures" duration="317"/>
-        <testCase name="getStudentBookings" duration="12"/>
-        <testCase name="userLogin" duration="51"/>
+    <file path="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/clientBuild/client/src/__tests__/API.test.js">
+        <testCase name="getBookableLectures" duration="349"/>
+        <testCase name="getStudentBookings" duration="17"/>
+        <testCase name="userLogin" duration="92"/>
+        <testCase name="getBooking" duration="13"/>
+        <testCase name="getTeacherLectures" duration="14"/>
+        <testCase name="logout" duration="11"/>
+        <testCase name="deleteBooking" duration="13"/>
     </file>
-    <file path="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/clientbuild/client/src/__tests__/App.test.js">
-        <testCase name="fake test" duration="2"/>
+    <file path="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/clientBuild/client/src/__tests__/LoginForm.test.js">
+        <testCase name="LoginFrom renders correctly" duration="37"/>
+        <testCase name="Input value update on change username" duration="12"/>
+    </file>
+    <file path="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/clientBuild/client/src/__tests__/TopBar.test.js">
+        <testCase name="Logout render Logout render with user logged" duration="36"/>
+        <testCase name="Logout render Logout render without user logged" duration="11"/>
+        <testCase name="Logout button" duration="14"/>
+    </file>
+    <file path="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/clientBuild/client/src/__tests__/Calendar.test.js">
+        <testCase name="Calendar render" duration="177"/>
+    </file>
+    <file path="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/clientBuild/client/src/__tests__/App.test.js">
+        <testCase name="fake test" duration="3"/>
+    </file>
+    <file path="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/clientBuild/client/src/__tests__/StudentCalendarPage.test.js">
+        <testCase name="StudentCalendarPage render" duration="176"/>
     </file>
 </unitTest>
