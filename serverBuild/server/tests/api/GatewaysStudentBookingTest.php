@@ -16,6 +16,7 @@ class GatewaysStudentBookingTest extends TestCase
 
     public function testFindStudentLessonsFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $this->id = 7;
         $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
         // $exceptedData = array();
@@ -35,6 +36,7 @@ class GatewaysStudentBookingTest extends TestCase
     }
     public function testFindBookedLessonFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $this->id = 7;
         $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
         $dataExcepted = array();
@@ -53,6 +55,7 @@ class GatewaysStudentBookingTest extends TestCase
 
     public function testFindLessonsWithFullRoomFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
         $dataExcepted = array();
         $result = $this->gatewayStudentBooking->findLessonsWithFullRoom();
@@ -69,6 +72,7 @@ class GatewaysStudentBookingTest extends TestCase
 
     public function testfindDetailsOfLessonsFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
         $arrayForTest = array(1, 2, 3);
         $result = $this->gatewayStudentBooking->findDetailsOfLessons($arrayForTest);
@@ -99,6 +103,7 @@ class GatewaysStudentBookingTest extends TestCase
     }
     public function testUpdateBooking(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
         $idBooking = 2;
         $lineUpdated = $this->gatewayStudentBooking->updateBooking($idBooking);
@@ -163,6 +168,10 @@ class GatewaysStudentBookingTest extends TestCase
     }
     protected function restoreValueAfterUpdate(){
         $this->db->exec("update booking set active=1 where idBooking=2");
+    }
+    protected function updateDates(){
+        $this->db->exec("update booking set date=datetime('now', '3 days')");
+        $this->db->exec("update lessons set date=date('now', '3 days');");
     }
 }
 ?>

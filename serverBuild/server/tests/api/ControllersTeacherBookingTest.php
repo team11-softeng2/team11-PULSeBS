@@ -7,6 +7,7 @@ class ControllersTeacherBookingTest extends TestCase{
 
     public function testfindBookedStudentsForLectureFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $this->id = 3;
         $this->controllersTeacherBooking = new Server\api\ControllersTeacherBooking("GET", $this->db, "bookedStudentsForLecture", $this->id);
         $result = $this->controllersTeacherBooking->findBookedStudentsForLecture($this->id);
@@ -23,6 +24,7 @@ class ControllersTeacherBookingTest extends TestCase{
 
     public function testProcessRequestbookedStudentsForLectureFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $this->id = 3;
         $this->controllersTeacherBooking = new Server\api\ControllersTeacherBooking("GET", $this->db, "bookedStudentsForLecture", $this->id);
         $this->controllersTeacherBooking->processRequest();
@@ -37,6 +39,10 @@ class ControllersTeacherBookingTest extends TestCase{
         $this->controllersTeacherBooking = new Server\api\ControllersTeacherBooking("GET", $this->db, "bookedStudentsForLecture", $this->id);
         $this->expectOutputString('0');
         $this->controllersTeacherBooking->processRequest();
+    }
+    protected function updateDates(){
+        $this->db->exec("update booking set date=datetime('now', '3 days')");
+        $this->db->exec("update lessons set date=date('now', '3 days');");
     }
 }
 

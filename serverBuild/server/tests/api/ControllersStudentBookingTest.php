@@ -16,6 +16,7 @@ class ControllersStudentBookingTest extends TestCase
     public function testfindBookableLessonsFound(){
         $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $result = $this->controllersStudentBooking->findBookableLessons();
         $this->assertTrue(( json_decode( $result , true ) == NULL ) ? false : true);
@@ -32,6 +33,7 @@ class ControllersStudentBookingTest extends TestCase
     public function testStudentBookingProcessRequestOutput(){
         $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $this->controllersStudentBooking->processRequest();
         $output = $this->getActualOutput();
@@ -66,6 +68,7 @@ class ControllersStudentBookingTest extends TestCase
     }
     public function testUpdateBooking(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $idBooking = 2;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
         $lineUpdated = $this->controllersStudentBooking->updateBooking($idBooking);
@@ -74,6 +77,7 @@ class ControllersStudentBookingTest extends TestCase
     }
     public function testRequestUpdateBooking(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $idBooking = 2;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
         $this->expectOutputString('1');
@@ -82,6 +86,7 @@ class ControllersStudentBookingTest extends TestCase
     }
     public function testFindBookedLessonsFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $idUser = 3;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
         $result = $this->controllersStudentBooking->findStudentBookings();
@@ -96,6 +101,7 @@ class ControllersStudentBookingTest extends TestCase
     }
     public function testRequestFindBookedLessonsFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
         $idUser = 3;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
         $this->controllersStudentBooking->processRequest();
@@ -174,6 +180,10 @@ class ControllersStudentBookingTest extends TestCase
     }
     protected function deleteRow($id){
         $this->db->exec("delete from booking where idBooking=".$id."");
+    }
+    protected function updateDates(){
+        $this->db->exec("update booking set date=datetime('now', '3 days')");
+        $this->db->exec("update lessons set date=date('now', '3 days');");
     }
 }
 ?>
