@@ -4,7 +4,7 @@
 header('Content-Type: application/json');
 require '../../vendor/autoload.php';
 $dbConn = new SQLite3("../db.db");
-if(!$dbConn){
+if (!$dbConn) {
     die("error connection database");
 }
 $request_method = $_SERVER['REQUEST_METHOD'];
@@ -16,7 +16,7 @@ $controller->processRequest();
 //     $postBody = file_get_contents("php://input");
 //     $input = (json_decode($postBody));
 //     $return = login($input->username, $input->password);
-    
+
 //     //LOGIN FAIL
 //     if($return == 0) {
 //         exit('Login failed');
@@ -27,5 +27,3 @@ $controller->processRequest();
 //         echo (json_encode($return));
 //     }
 // }
-
-?>
