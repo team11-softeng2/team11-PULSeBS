@@ -21,6 +21,7 @@ class App extends React.Component {
       loggedin: false,
       userName: undefined,  //Nome dell'utente loggato
       userRole: undefined,  //Ruolo dell'utente loggato
+      userId: undefined,
       bookableLectures: [],
       bookings: [],
     };
@@ -37,7 +38,6 @@ class App extends React.Component {
     this.setState({userId: user.idUser});
     this.getBookableStudentLectures(user.idUser);
     this.getStudentBookings(user.idUser);
-    //console.log("idUser: "+ userId);
   }
 
   logout = () =>{
