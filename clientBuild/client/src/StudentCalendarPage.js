@@ -17,7 +17,7 @@ class StudentCalendarPage extends React.Component{
         			<Col className='col-4'/>
         			
         			<Col className='col-4'>
-        				<Alert variant='info' className="text-center">
+        				<Alert variant='info' className="text-center"> 
         					<h3>My lecture bookings:</h3>
 							<Badge pill variant="primary">
 								Bookable

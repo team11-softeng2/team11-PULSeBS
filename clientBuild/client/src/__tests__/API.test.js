@@ -24,7 +24,6 @@ test("userLogin", async () => {
     catch(err) {
         console.log(err);
     }
-    console.log(result4);
     expect(result1).toBe(0);
     expect(result2).toBe(0);
     expect(result3).toBe(0);

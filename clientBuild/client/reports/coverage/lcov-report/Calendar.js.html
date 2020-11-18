@@ -22,30 +22,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">30.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>8/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">30% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>3/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">34.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/23</span>
+                <span class='fraction'>8/23</span>
             </div>
         
             
@@ -178,11 +178,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,15 +188,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,12 +217,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -234,15 +232,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -291,10 +291,10 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 &nbsp;
 class Calendar extends React.Component{
-<span class="fstat-no" title="function not covered" >    co</span>nstructor(props) {
-<span class="cstat-no" title="statement not covered" >        super(props);</span>
+    constructor(props) {
+        super(props);
         
-<span class="cstat-no" title="statement not covered" >        this.state = {</span>
+        this.state = {
           showModal: false,
           lectureTitle: undefined,
           lectureBeginTime: "",
@@ -304,12 +304,12 @@ class Calendar extends React.Component{
         };
       }
 &nbsp;
-    closeModal = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+    closeModal = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >        this.setState({showModal: false});</span>
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    re</span>nder(){
-<span class="cstat-no" title="statement not covered" >        return &lt;&gt;</span>
+    render(){
+        return &lt;&gt;
             &lt;FullCalendar
                 plugins={[ timeGridPlugin ]}
                 initialView="timeGridWeek"
@@ -334,7 +334,7 @@ class Calendar extends React.Component{
         &lt;/&gt;
     	}
     	
-    	handleEventClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>nfo) =&gt; {</span>
+    	handleEventClick = <span class="fstat-no" title="function not covered" >(i</span>nfo) =&gt; {
         //not useful right now
         //here info.event is the event object (with id, title, ...)
         //console.log(info.event.id);
@@ -351,12 +351,12 @@ class Calendar extends React.Component{
     }
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >ModalLecture(</span>props) {
-    const [show, setShow] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+function ModalLecture(props) {
+    const [show, setShow] = useState(false);
 &nbsp;
-    const handleClose = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(false);</span></span>
+    const handleClose = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(false);</span>
   
-<span class="cstat-no" title="statement not covered" >    return (</span>
+    return (
       &lt;&gt;
         &lt;Modal
           show={props.show || show}
@@ -377,7 +377,7 @@ function <span class="fstat-no" title="function not covered" >ModalLecture(</spa
             &lt;b&gt;End time:&lt;/b&gt; {props.lectureEndTime.slice(0,5)}&lt;/p&gt;
           &lt;/Modal.Body&gt;
           {props.lectureColor === "green" ? 
-          &lt;Modal.Footer&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;Modal.Footer&gt;</span>
             &lt;Button variant="danger" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >props.deleteBooking(props.elementId); <span class="cstat-no" title="statement not covered" ></span>props.closeModal();}</span> }&gt;Delete&lt;/Button&gt;
             &lt;Button variant="secondary" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.closeModal()}</span>&gt;
               Don't delete
@@ -405,7 +405,7 @@ export default Calendar;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 18 2020 17:59:58 GMT+0100 (GMT+01:00)
+                at Wed Nov 18 2020 18:33:05 GMT+0100 (GMT+01:00)
             </div>
         </div>
         <script src="prettify.js"></script>
