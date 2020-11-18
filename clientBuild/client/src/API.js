@@ -58,7 +58,7 @@ async function getBookableStudentLectures(studentId) {
 
 //Ritorna le prenotazioni effettuate dagli studenti per la lezione indicata (teacher side)
 async function getBooking(lectureId) {
-    const url = "http://localhost/server/bookedStudentsForLecture" + lectureId;
+    const url = "http://localhost/server/bookedStudentsForLecture/" + lectureId;
     const response = await fetch(url);
     const booking = await response.json();
     if(response.ok) {
@@ -116,8 +116,8 @@ async function bookASeat(lectureId, studentId, date) {
 }
 
 // API to retrieve all the lectures of a teacher
-async function getTeacherLectures(teacherID){
-    const url = "test"   //da definire
+async function getTeacherLectures(teacherId){
+    const url = "http://localhost/server/scheduledLecturesForTeacher/" + teacherId
     const response = await fetch(url);
     const lectures = await response.json();
     if(response.ok) {
@@ -150,6 +150,6 @@ async function deleteBooking(bookingId) {
 }
 
 const API = {
-    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking
+    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures
 };
 export default API;

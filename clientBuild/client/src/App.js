@@ -37,6 +37,7 @@ class App extends React.Component {
     this.setState({userId: user.idUser});
     this.getBookableStudentLectures(user.idUser);
     this.getStudentBookings(user.idUser);
+    //console.log("idUser: "+ userId);
   }
 
   logout = () =>{
@@ -113,7 +114,7 @@ class App extends React.Component {
 
           <Route path="/teacher">
             {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
-                <HomeTeacher userName={this.state.userName}/>
+                <HomeTeacher userId={this.state.userId}/>
                 :
                 <Redirect to="/"></Redirect>
             }
