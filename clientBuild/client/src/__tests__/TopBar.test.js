@@ -21,4 +21,12 @@ describe("Logout render", () => {
         expect(logoutLink).toBeInTheDocument();
         expect(welcomeMessage).toBeInTheDocument();
     });
+});
+
+test("Logout button", () => {
+    const logout = jest.fn();
+    const {queryByTestId} = render(<Router><TopBar logout = {logout}/></Router>);
+    //const logoutLink = queryByTestId("logout-link");
+    fireEvent.click(queryByTestId("logout-link"));
+    expect(logout).toHaveBeenCalledTimes(1);
 })

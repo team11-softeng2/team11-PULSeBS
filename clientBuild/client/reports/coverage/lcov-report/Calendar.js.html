@@ -38,7 +38,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -169,7 +169,8 @@
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -218,26 +219,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -295,10 +297,10 @@ class Calendar extends React.Component{
 <span class="cstat-no" title="statement not covered" >        this.state = {</span>
           showModal: false,
           lectureTitle: undefined,
-          lectureBeginTime: undefined,
-          lectureEndTime: undefined,
+          lectureBeginTime: "",
+          lectureEndTime: "",
           lectureDate: undefined,
-          lectureId: undefined,
+          elementId: undefined,
         };
       }
 &nbsp;
@@ -324,9 +326,10 @@ class Calendar extends React.Component{
             lectureDate = {this.state.lectureDate}
             lectureBeginTime = {this.state.lectureBeginTime}
             lectureEndTime = {this.state.lectureEndTime}
-            lectureId = {this.state.lectureId}
+            elementId = {this.state.elementId}
             lectureColor = {this.state.lectureColor}
             bookASeat = {this.props.bookASeat}
+            deleteBooking = {this.props.deleteBooking}
             &gt;&lt;/ModalLecture&gt;
         &lt;/&gt;
     	}
@@ -337,12 +340,13 @@ class Calendar extends React.Component{
         //console.log(info.event.id);
 <span class="cstat-no" title="statement not covered" >        this.setState({showModal: true});</span>
 <span class="cstat-no" title="statement not covered" >        this.setState({lectureTitle: info.event.title});</span>
-        let beginTime = <span class="cstat-no" title="statement not covered" >info.event.start.toISOString();</span>
-        let endTime = <span class="cstat-no" title="statement not covered" >info.event.end.toISOString();</span>
-<span class="cstat-no" title="statement not covered" >        this.setState({lectureBeginTime: beginTime.slice(11,16)});</span>
-<span class="cstat-no" title="statement not covered" >        this.setState({lectureEndTime: endTime.slice(11,16)});</span>
-<span class="cstat-no" title="statement not covered" >        this.setState({lectureDate: beginTime.slice(0,10)});</span>
-<span class="cstat-no" title="statement not covered" >        this.setState({lectureId: info.event.id});</span>
+        let beginTime = <span class="cstat-no" title="statement not covered" >info.event.start.toLocaleTimeString();</span>
+        let endTime = <span class="cstat-no" title="statement not covered" >info.event.end.toLocaleTimeString();</span>
+        let date = <span class="cstat-no" title="statement not covered" >info.event.start.toISOString().slice(0,10);</span>
+<span class="cstat-no" title="statement not covered" >        this.setState({lectureBeginTime: beginTime});</span>
+<span class="cstat-no" title="statement not covered" >        this.setState({lectureEndTime: endTime});</span>
+<span class="cstat-no" title="statement not covered" >        this.setState({lectureDate: date});</span>
+<span class="cstat-no" title="statement not covered" >        this.setState({elementId: info.event.id});</span>
 <span class="cstat-no" title="statement not covered" >        this.setState({lectureColor: info.event.backgroundColor});</span>
     }
 }
@@ -351,7 +355,6 @@ function <span class="fstat-no" title="function not covered" >ModalLecture(</spa
     const [show, setShow] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
 &nbsp;
     const handleClose = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(false);</span></span>
-    const handleShow = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(true);</span></span>
   
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;&gt;
@@ -369,20 +372,20 @@ function <span class="fstat-no" title="function not covered" >ModalLecture(</spa
             &lt;br/&gt;
             &lt;b&gt;Date:&lt;/b&gt; {props.lectureDate}
             &lt;br/&gt;
-            &lt;b&gt;Begin time:&lt;/b&gt; {props.lectureBeginTime}
+            &lt;b&gt;Begin time:&lt;/b&gt; {props.lectureBeginTime.slice(0,5)}
             &lt;br/&gt;
-            &lt;b&gt;End time:&lt;/b&gt; {props.lectureEndTime}&lt;/p&gt;
+            &lt;b&gt;End time:&lt;/b&gt; {props.lectureEndTime.slice(0,5)}&lt;/p&gt;
           &lt;/Modal.Body&gt;
           {props.lectureColor === "green" ? 
           &lt;Modal.Footer&gt;
-            &lt;Button variant="danger" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >props.closeModal();}</span> }&gt;Delete&lt;/Button&gt;
+            &lt;Button variant="danger" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >props.deleteBooking(props.elementId); <span class="cstat-no" title="statement not covered" ></span>props.closeModal();}</span> }&gt;Delete&lt;/Button&gt;
             &lt;Button variant="secondary" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.closeModal()}</span>&gt;
               Don't delete
             &lt;/Button&gt;            
           &lt;/Modal.Footer&gt;
           :
           &lt;Modal.Footer&gt;
-            &lt;Button variant="primary" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >props.bookASeat(props.lectureId, props.lectureDate, props.lectureBeginTime); <span class="cstat-no" title="statement not covered" ></span>props.closeModal();}</span> }&gt;Book&lt;/Button&gt;
+            &lt;Button variant="primary" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >props.bookASeat(props.elementId, props.lectureDate, props.lectureBeginTime); <span class="cstat-no" title="statement not covered" ></span>props.closeModal();}</span> }&gt;Book&lt;/Button&gt;
             &lt;Button variant="secondary" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.closeModal()}</span>&gt;
               Dont' book
             &lt;/Button&gt;            
@@ -402,7 +405,7 @@ export default Calendar;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 16 2020 23:46:40 GMT+0100 (Central European Standard Time)
+                at Wed Nov 18 2020 16:13:22 GMT+0100 (GMT+01:00)
             </div>
         </div>
         <script src="prettify.js"></script>
