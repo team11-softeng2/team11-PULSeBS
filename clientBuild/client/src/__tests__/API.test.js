@@ -28,5 +28,5 @@ test("userLogin", async () => {
     expect(result1).toBe(0);
     expect(result2).toBe(0);
     expect(result3).toBe(0);
-    expect(result4).toEqual({idUser:1,userName:"calogero",password:"test",role:"student",name:"Calogero Pisano"});
+    expect(result4).toEqual({idUser:1,userName:"calogero",password:"test",role:"student",name:"Calogero Pisano", email:"s273791@studenti.polito.it"});
 });

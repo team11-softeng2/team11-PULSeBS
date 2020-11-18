@@ -50,7 +50,7 @@ class LoginForm extends React.Component {
             return <Redirect to='/teacher'/>;
         } else {
             return <div>
-                <form className='form' method={'POST'}
+                <form className='form' method={'POST'} data-testid="login-form"
                     onSubmit={this.validateForm} ref={form => this.form = form}>
                     <div className={'form-row'}>
                         <div className={'form-group'}>
