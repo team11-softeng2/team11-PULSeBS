@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import LoginForm from '../LoginForm';
+import {doLoginCall} from "../LoginForm";
 
 test("LoginFrom renders correctly", () => {
     const {queryByTestId} = render(<LoginForm/>);
@@ -16,5 +17,5 @@ describe("Input value", () => {
         expect(usernameInput.value).toBe("calogero");
         fireEvent.change(passwordInput, {target: {value: "test"}});
         expect(passwordInput.value).toBe("test");
-    })
-})
+    });
+});

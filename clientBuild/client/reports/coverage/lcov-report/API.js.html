@@ -22,30 +22,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.55% </span>
+                <span class="strong">58.06% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/62</span>
+                <span class='fraction'>36/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">44.44% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/18</span>
+                <span class='fraction'>8/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.11% </span>
+                <span class="strong">73.68% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/19</span>
+                <span class='fraction'>14/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.55% </span>
+                <span class="strong">58.06% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/62</span>
+                <span class='fraction'>36/62</span>
             </div>
         
             
@@ -54,7 +54,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -237,11 +237,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -342,9 +342,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -353,8 +353,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -391,12 +391,12 @@
     });
 }
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >logout(</span>){
-<span class="cstat-no" title="statement not covered" >	return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        fetch('http://localhost:80/server/api/logout.php')      //Da verificare</span>
-        .then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
-<span class="cstat-no" title="statement not covered" >			if(response.ok){</span>
-<span class="cstat-no" title="statement not covered" >				resolve();</span>
+async function logout(){
+	return new Promise((resolve, reject) =&gt; {
+        fetch('http://localhost:80/server/api/logout.php')      //Da verificare
+        .then((response) =&gt; {
+			<span class="missing-if-branch" title="else path not taken" >E</span>if(response.ok){
+				resolve(0);
 			}
 			else{
 <span class="cstat-no" title="statement not covered" >				reject();</span>
@@ -496,10 +496,10 @@ async function getTeacherLectures(teacherId){
     }
 }
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >deleteBooking(</span>bookingId) {
-    const url = <span class="cstat-no" title="statement not covered" >"http://localhost/server/updateBooking/" + bookingId;</span>
-<span class="cstat-no" title="statement not covered" >    return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        fetch(url, {</span>
+async function deleteBooking(bookingId) {
+    const url = "http://localhost/server/updateBooking/" + bookingId;
+    return new Promise((resolve, reject) =&gt; {
+        fetch(url, {
             method: 'PUT',
             headers: {
                 //'Content-Type': 'application/json',
@@ -507,9 +507,9 @@ async function <span class="fstat-no" title="function not covered" >deleteBookin
             },
             body: JSON.stringify({
             }),
-        }).then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
-<span class="cstat-no" title="statement not covered" >            if (response.ok) {</span>
-<span class="cstat-no" title="statement not covered" >                resolve(0);</span>
+        }).then((response) =&gt; {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (response.ok) {
+                resolve(0);
             } else {
 <span class="cstat-no" title="statement not covered" >                reject({errore: "Error in deleting a booking"});</span>
             }
@@ -528,7 +528,7 @@ export default API;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 18 2020 16:13:22 GMT+0100 (GMT+01:00)
+                at Wed Nov 18 2020 17:59:58 GMT+0100 (GMT+01:00)
             </div>
         </div>
         <script src="prettify.js"></script>

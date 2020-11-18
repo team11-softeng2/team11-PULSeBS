@@ -40,3 +40,14 @@ test("getTeacherLectures", async () => {
     let data = await API.getTeacherLectures(2);
     expect(data.length).toBeGreaterThan(0);
 });
+
+test("logout", async() => {
+    let result = await API.logout();
+    expect(result).toBe(0);
+});
+
+//Il test prova ad eliminare una prenotazione con un id non esistente e riceve 0
+test("deleteBooking", async () => {
+    let result = await API.deleteBooking(9999999999);
+    expect(result).toBe(0);
+});

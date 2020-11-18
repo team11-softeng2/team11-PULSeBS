@@ -28,7 +28,7 @@ async function logout(){
         fetch('http://localhost:80/server/api/logout.php')      //Da verificare
         .then((response) => {
 			if(response.ok){
-				resolve();
+				resolve(0);
 			}
 			else{
 				reject();
