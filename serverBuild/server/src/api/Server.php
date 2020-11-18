@@ -49,6 +49,13 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersTeacherBooking($requestMethod, $dbConn, $value, $id);
             $controller->processRequest();
             break;
+        case "scheduledLecturesForTeacher/$number":
+            $value = "scheduledLecturesForTeacher";
+            $requestMethod = "GET";
+            $id = $number;
+            $controller = new Server\api\ControllersTeacherBooking($requestMethod, $dbConn, $value, $id);
+            $controller->processRequest();
+            break;
         case "sendNotification":
             $value = "sendNotification";
             $requestMethod = $_SERVER['REQUEST_METHOD'];
