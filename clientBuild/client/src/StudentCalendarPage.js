@@ -30,40 +30,10 @@ class StudentCalendarPage extends React.Component{
         			
         			<Col className='col-4'/>
         		</Row>
-            	{/*<Calendar events={this.state.events} bookASeat = {this.props.bookASeat}/>*/}
 				<Calendar events={this.props.bookableLectures.concat(this.props.bookings)} bookASeat = {this.props.bookASeat} deleteBooking = {this.props.deleteBooking}/>
         	</Container>
         </>
       }
-      
-      componentDidMount = () => {
-      		//this.lecturesToEvents();
-      }
-      
-	  //this converts the prop bookableLectures to events for the calendar
-	  /*
-      lecturesToEvents = () => {
-      		var events = [];
-      		
-      		var i;
-      		for(i = 0; i < this.props.bookableLectures.length; i++){
-      			var date = this.props.bookableLectures[i].date;
-      			var beginTime = this.props.bookableLectures[i].beginTime;
-      			var endTime = this.props.bookableLectures[i].endTime;
-      			
-      			var eventObj = {
-      				id: this.props.bookableLectures[i].idLesson,
-					title: this.props.bookableLectures[i].name,
-					start: new Date(date.concat('T').concat(beginTime)),
-					end: new Date(date.concat('T').concat(endTime))
-      			};
-      			
-      			events.push(eventObj);
-      		}
-      		
-      		this.setState({ events: events });
-	  }
-	  */
 }
 
 

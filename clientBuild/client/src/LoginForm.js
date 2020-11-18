@@ -74,7 +74,7 @@ class LoginForm extends React.Component {
                         </div>
                     </div>
                     <div className={'form-row'}>
-                        <button type='button' className='btn btn-primary' disabled={this.props.doingLogin}
+                        <button type='button' className='btn btn-primary' disabled={this.props.doingLogin} data-testid="login-button"
                             onClick={this.doLogin}>Login</button>
                     </div>
                 </form>

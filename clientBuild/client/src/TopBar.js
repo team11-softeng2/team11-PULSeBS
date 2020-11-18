@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import {Link} from 'react-router-dom';
-import ButtonToCalendar from './ButtonToCalendar.js'
 
 class TopBar extends React.Component{
     render(){
@@ -24,9 +23,6 @@ class TopBar extends React.Component{
                     </Link>
                     </>
                     }
-                    
-                    {/*this.props.loggedin && this.props.role === 'student' && <ButtonToCalendar/>*/}
-                    
                 </Navbar>
     }
 }
