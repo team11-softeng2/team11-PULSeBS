@@ -30,3 +30,13 @@ test("userLogin", async () => {
     expect(result3).toBe(0);
     expect(result4).toEqual({idUser:1,userName:"calogero",password:"test",role:"student",name:"Calogero Pisano", email:"s273791@studenti.polito.it"});
 });
+
+test("getBooking", async () => {
+    let data = await API.getBooking(3);
+    expect(data.length).toBeGreaterThan(0);
+});
+
+test("getTeacherLectures", async () => {
+    let data = await API.getTeacherLectures(2);
+    expect(data.length).toBeGreaterThan(0);
+});
