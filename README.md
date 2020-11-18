@@ -31,7 +31,8 @@ php -r "unlink('composer-setup.php');"
 {
     "require": {
         "phpunit/phpunit": "^9.4",
-        "phpmailer/phpmailer": "^6.1"
+        "phpmailer/phpmailer": "^6.1",
+        "guzzlehttp/guzzle": "^7.2"
     },
     "autoload": {
         "psr-4": {

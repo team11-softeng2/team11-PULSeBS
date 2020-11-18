@@ -10,10 +10,22 @@ Each endpoint is preceded by /server/src/api/
 
 ## Lectures
 
-- GET `/bookableLessons/studentId`
-  _ Params: studentId
-  _ respose
-  exemples :
+- GET `/scheduledLecturesForTeacher/:teacherId`
+
+  - Params: teacherId
+  - response: List of scheduled (presence) lectures given by a teacher and number of students currently booked
+
+  Examples:
+
+  1. [{"idLesson":3,"idCourse":2,"idTeacher":2,"idClassroom":5,"date":"2020-11-18","beginTime":"09:00:00","endTime":"11:00:00","inPresence":1,"active":1,"studentsNumber":4},{"idLesson":6,"idCourse":3,"idTeacher":2,"idClassroom":5,"date":"2020-11-20","beginTime":"14:00:00","endTime":"16:00:00","inPresence":1,"active":1,"studentsNumber":2}]
+  2. [{"idLesson":11,"idCourse":6,"idTeacher":13,"idClassroom":2,"date":"2020-11-20","beginTime":"09:00:00","endTime":"11:00:00","inPresence":1,"active":1,"studentsNumber":2}]
+
+- GET `/bookableLessons/:studentId`
+
+  - Params: studentId
+  - Response: List of lessons that can be booked by a student
+
+  Examples :
 
 1. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"}]
 2. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Sistemi Operativi","date":"2020-11-20","beginTime":"14","endTime":"16:00:00"}]
@@ -33,7 +45,7 @@ Each endpoint is preceded by /server/src/api/
 - POST `/insertLecture`
   - Body: { "idUser", "idLesson", "date" }
   - Response: return the new booking id
-- PUT `/updateBooking/bookingId`
+- PUT `/updateBooking/:bookingId`
   - Params: bookingId
   - Response: rows modified (should be always one)
 
@@ -42,6 +54,7 @@ Each endpoint is preceded by /server/src/api/
 - POST `/sendNotification`
 
   - Body: { "id":"_value_", "type":"_value_"}
+    Info:
     When _type_ is **studentsAttendingNextLecture**, _id_ is discarded;
     When _type_ is **bookingConfirmation** _id_ is the ID of the booking;
     When _type_ is **lectureCancelled**, _id_ is the ID of the lecture;
