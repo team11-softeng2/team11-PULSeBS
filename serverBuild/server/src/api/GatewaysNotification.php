@@ -96,15 +96,15 @@ class GatewaysNotification
     {
         $tomorrow = date('Y-m-d', strtotime("tomorrow"));
         $sql = "SELECT l.*, c.name, t1.studentsCount, u.name as userName, u.email
-            FROM    (SELECT COUNT(*) as studentsCount, idLesson
-                    FROM booking
-                    WHERE date LIKE '$tomorrow%'
-                    GROUP BY idLesson) AS t1, courses as c, lessons as l, users as u
-            WHERE   t1.idLesson = l.idLesson AND
-                    l.idCourse=c.idCourse AND
-                    l.inPresence=1 AND
-                    l.active=1 AND
-                    u.idUser=l.idTeacher";
+                FROM    (SELECT COUNT(*) as studentsCount, idLesson
+                        FROM booking
+                        WHERE date LIKE '$tomorrow%'
+                        GROUP BY idLesson) AS t1, courses as c, lessons as l, users as u
+                WHERE   t1.idLesson = l.idLesson AND
+                        l.idCourse=c.idCourse AND
+                        l.inPresence=1 AND
+                        l.active=1 AND
+                        u.idUser=l.idTeacher";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
