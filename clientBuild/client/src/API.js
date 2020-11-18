@@ -119,7 +119,7 @@ async function bookASeat(lectureId, studentId, date) {
 async function getTeacherLectures(teacherID){
     const url = "test"   //da definire
     const response = await fetch(url);
-    const booking = await response.json();
+    const lectures = await response.json();
     if(response.ok) {
         return lectures;
     } else {

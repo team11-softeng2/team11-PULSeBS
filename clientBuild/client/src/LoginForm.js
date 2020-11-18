@@ -57,6 +57,7 @@ class LoginForm extends React.Component {
                             <label htmlFor='username'>Username</label>
                             <input id='username' className={'form-control'} type='text' required={true}
                                 name='username'
+                                placeholder="Username"
                                 value={this.state.username}
                                 onChange={(ev) => this.updateField(ev.target.name, ev.target.value)}
                             />
@@ -67,6 +68,7 @@ class LoginForm extends React.Component {
                             <input id='password' className={'form-control'} type='password' required={true}
                                 name='password'
                                 value={this.state.password}
+                                placeholder="Password"
                                 onChange={(ev) => this.updateField(ev.target.name, ev.target.value)}
                             />
                         </div>
