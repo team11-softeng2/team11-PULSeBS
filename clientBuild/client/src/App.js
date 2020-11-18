@@ -21,6 +21,7 @@ class App extends React.Component {
       loggedin: false,
       userName: undefined,  //Nome dell'utente loggato
       userRole: undefined,  //Ruolo dell'utente loggato
+      userId: undefined,
       bookableLectures: [],
       bookings: [],
     };
@@ -113,7 +114,7 @@ class App extends React.Component {
 
           <Route path="/teacher">
             {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
-                <HomeTeacher userName={this.state.userName}/>
+                <HomeTeacher userId={this.state.userId}/>
                 :
                 <Redirect to="/"></Redirect>
             }

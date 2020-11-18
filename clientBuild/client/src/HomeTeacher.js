@@ -11,13 +11,13 @@ class HomeTeacher extends React.Component{
     }
 
     componentDidMount() {
-        API.getTeacherLectures(this.props.userName).then((response) => {this.setState({lectures: response})});
+        API.getTeacherLectures(this.props.userId).then((response) => {this.setState({lectures: response})});
     }
 
     render(){
     return <>
-        <p>Hello, Teacher {this.props.userName}</p>
-        <div className="row">    
+        <div className="mt-4 col-3 float-left text-center">Your scheduled in-presence lectures:</div>
+        <div className="mt-3 col-6 float-left">    
             {this.state.lectures.map((l) => <LectureList key={l.idLesson} lecture={l}/>)}
         </div>
         </>
@@ -31,18 +31,18 @@ class LectureList extends React.Component{
     }
 
     componentDidMount(){
-        API.getBooking(this.props.key).then((response) => {this.setState({studentList: response})});
+        API.getBooking(this.props.lecture.idLesson).then((response) => {this.setState({studentList: response})});
     }
 
-    render(){return <Accordion>
+    render(){return <Accordion><div className="mb-1">
         <Card>
-            <Accordion.Toggle as={Card.Header} eventKey={this.props.key}>
-            {this.props.lecture.name}
+            <Accordion.Toggle as={Card.Header} eventKey={this.props.lecture.idLesson}>
+            {this.props.lecture.beginTime} - {this.props.lecture.endTime}
             </Accordion.Toggle>
-            <Accordion.Collapse eventKey={this.props.key}>
+            <Accordion.Collapse eventKey={this.props.lecture.idLesson}>
             <Card.Body>{this.state.studentList.map((s) => <StudentRow key={s.idUser} name={s.name}/>)  }</Card.Body>
             </Accordion.Collapse>
-        </Card>
+        </Card></div>
     </Accordion>
     }
 }
