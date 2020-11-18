@@ -48,35 +48,36 @@ class LoginForm extends React.Component {
             return <Redirect to='/student'/>;
         } else if (this.state.loginSuccess === true && this.state.userRole === "teacher") {
             return <Redirect to='/teacher'/>;
-        } else 
-        return <div>
-            <form className='form' method={'POST'}
-                onSubmit={this.validateForm} ref={form => this.form = form}>
-                <div className={'form-row'}>
-                    <div className={'form-group'}>
-                        <label htmlFor='username'>Username</label>
-                        <input id='username' className={'form-control'} type='text' required={true}
-                            name='username'
-                            value={this.state.username}
-                            onChange={(ev) => this.updateField(ev.target.name, ev.target.value)}
-                        />
+        } else {
+            return <div>
+                <form className='form' method={'POST'}
+                    onSubmit={this.validateForm} ref={form => this.form = form}>
+                    <div className={'form-row'}>
+                        <div className={'form-group'}>
+                            <label htmlFor='username'>Username</label>
+                            <input id='username' className={'form-control'} type='text' required={true}
+                                name='username'
+                                value={this.state.username}
+                                onChange={(ev) => this.updateField(ev.target.name, ev.target.value)}
+                            />
+                        </div>
+                        &nbsp;
+                        <div className={'form-group'}>
+                            <label htmlFor='password'>Password</label>
+                            <input id='password' className={'form-control'} type='password' required={true}
+                                name='password'
+                                value={this.state.password}
+                                onChange={(ev) => this.updateField(ev.target.name, ev.target.value)}
+                            />
+                        </div>
                     </div>
-                    &nbsp;
-                    <div className={'form-group'}>
-                        <label htmlFor='password'>Password</label>
-                        <input id='password' className={'form-control'} type='password' required={true}
-                            name='password'
-                            value={this.state.password}
-                            onChange={(ev) => this.updateField(ev.target.name, ev.target.value)}
-                        />
+                    <div className={'form-row'}>
+                        <button type='button' className='btn btn-primary' disabled={this.props.doingLogin}
+                            onClick={this.doLogin}>Login</button>
                     </div>
-                </div>
-                <div className={'form-row'}>
-                    <button type='button' className='btn btn-primary' disabled={this.props.doingLogin}
-                        onClick={this.doLogin}>Login</button>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
+        }
 }
 
 }
