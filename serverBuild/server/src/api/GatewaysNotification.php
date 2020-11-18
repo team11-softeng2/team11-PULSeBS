@@ -1,7 +1,6 @@
 <?php
 namespace Server\api;
 
-//require '../../vendor/autoload.php';
 # Usage and Examples at: https: //github.com/PHPMailer/PHPMailer
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
