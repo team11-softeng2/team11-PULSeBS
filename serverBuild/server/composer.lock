@@ -5,7 +5,11 @@
         "This file is @generated automatically"
     ],
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     "content-hash": "601ba473f095fdde82e2800e7d0fdf97",
+=======
+    "content-hash": "52623d66e0d9f583143244860030dcf5",
+>>>>>>> Stashed changes
 =======
     "content-hash": "52623d66e0d9f583143244860030dcf5",
 >>>>>>> Stashed changes
@@ -1025,6 +1029,7 @@
         },
         {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             "name": "sebastian/cli-parser",
             "version": "1.0.1",
             "source": {
@@ -1084,6 +1089,8 @@
             "name": "sebastian/code-unit",
             "version": "1.0.8",
 =======
+=======
+>>>>>>> Stashed changes
             "name": "psr/http-client",
             "version": "1.0.1",
 >>>>>>> Stashed changes
