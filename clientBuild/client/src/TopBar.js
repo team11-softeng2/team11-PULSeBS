@@ -10,10 +10,10 @@ class TopBar extends React.Component{
                         null
                     :
                     <>
-                    <Navbar.Text className = "ml-auto">
+                    <Navbar.Text className = "ml-auto" data-testid="welcome-message">
                     Welcome {this.props.userName}
                     </Navbar.Text>
-                    <Link className="ml-auto" to="/" onClick= {() => this.props.logout()}>
+                    <Link className="ml-auto" to="/" onClick= {() => this.props.logout()} data-testid="logout-link">
                         {"Logout "}
                     <svg className="bi bi-box-arrow-right" width="22" height="22" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" d="M11.646 11.354a.5.5 0 0 1 0-.708L14.293 8l-2.647-2.646a.5.5 0 0 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"/>

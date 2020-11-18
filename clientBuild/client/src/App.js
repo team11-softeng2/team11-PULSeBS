@@ -8,9 +8,6 @@ import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom
 import './App.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import LecturesList from './LecturesList';
-import ActiveBookings from './ActiveBookings';
 import StudentCalendarPage from './StudentCalendarPage';
 
 class App extends React.Component {
