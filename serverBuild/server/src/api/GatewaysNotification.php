@@ -1,7 +1,7 @@
 <?php
 namespace Server\api;
 
-require '../../vendor/autoload.php';
+//require '../../vendor/autoload.php';
 # Usage and Examples at: https: //github.com/PHPMailer/PHPMailer
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -51,12 +51,12 @@ class GatewaysNotification
         $mail = new PHPMailer(true); // Passing `true` enables exceptions
         //Server settings
         $mail->isSMTP(); // Set mailer to use SMTP
-        $mail->Host = 'authsmtp.securemail.pro'; // Specify main and backup SMTP servers
+        $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
         $mail->SMTPAuth = true; // Enable SMTP authentication
-        $mail->Username = 'no-reply@pulsebs.it'; // SMTP username
-        $mail->Password = 'Li7h66eWq896g5aW8tUmCovaKX9jj3'; // SMTP password
-        $mail->SMTPSecure = 'ssl'; // Enable TLS encryption, `ssl` also accepted
-        $mail->Port = 465; // TCP port to connect to
+        $mail->Username = 'team11.pulsebs@gmail.com'; // SMTP username
+        $mail->Password = 'w38W42f3Vuy4Ws8ysFXNm68CpEt4U2'; // SMTP password
+        $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587; // TCP port to connect to
         //Recipients
         $mail->setFrom('no-reply@pulsebs.it', 'PULSeBS');
         //Content

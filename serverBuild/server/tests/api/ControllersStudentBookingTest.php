@@ -50,18 +50,19 @@ class ControllersStudentBookingTest extends TestCase
         
     }
     public function testInsertNewBooking(){
-        $this->db = new SQLite3("./tests/dbForTesting.db");
-        $this->restoreDB();
+        $this->db = new SQLite3("./tests/dbEmail.db");
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("POST", $this->db, "insertLecture");
         $bookForTest = new class{
-            public $idUser = 20;
-            public $idLesson = 20;
-            public $date = "2021-12-20 11:00:00";
+            public $idUser = 1;
+            public $idLesson = 6;
+            public $date = "2020-11-20 14:00:00";
 
         };
         $result = $this->controllersStudentBooking->insertNewBooklesson($bookForTest);
         $exResult = json_encode(1);
-        $this->assertEquals($exResult, $result);
+        $this->assertGreaterThanOrEqual($exResult, $result);
+        $this->deleteRow($result);
+
     }
     public function testUpdateBooking(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
@@ -81,7 +82,7 @@ class ControllersStudentBookingTest extends TestCase
     }
     public function testFindBookedLessonsFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
-        $idUser = 1;
+        $idUser = 3;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
         $result = $this->controllersStudentBooking->findStudentBookings();
         $this->assertTrue(( json_decode( $result , true ) == NULL ) ? false : true);
@@ -95,7 +96,7 @@ class ControllersStudentBookingTest extends TestCase
     }
     public function testRequestFindBookedLessonsFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
-        $idUser = 1;
+        $idUser = 3;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
         $this->controllersStudentBooking->processRequest();
         $output = $this->getActualOutput();
@@ -164,11 +165,15 @@ class ControllersStudentBookingTest extends TestCase
             "password"	TEXT,
             "role"	TEXT,
             "name"	TEXT,
+            "email" TEXT,
             PRIMARY KEY("idUser" AUTOINCREMENT)
         );');
     }
     protected function restoreValueAfterUpdate(){
         $this->db->exec("update booking set active=1 where idBooking=2");
+    }
+    protected function deleteRow($id){
+        $this->db->exec("delete from booking where idBooking=".$id."");
     }
 }
 ?>

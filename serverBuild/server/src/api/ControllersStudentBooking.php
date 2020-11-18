@@ -9,11 +9,12 @@ class ControllersStudentBooking{
     private $studentBookingGateway;
     private $id;
     private $value;
-    
+    private $gatewayNotification;
 
     public function __construct($requestMethod, $db, $value, $id = -1){
         $this->requestMethod = $requestMethod;
         $this->studentBookingGateway = new GatewaysStudentBooking($db);
+        $this->gatewayNotification = new GatewaysNotification($db);
         $this->value = $value;
         $this->id = $id;
     }
@@ -72,6 +73,12 @@ class ControllersStudentBooking{
 
     public function insertNewBooklesson($input){
         $response = json_encode($this->studentBookingGateway->insertBooking($input));
+        $inputEmail = (object) [
+            'type' => 'bookingConfirmation',
+            'id' => $input->idUser
+          ];
+        $emailRes = $this->gatewayNotification->sendEmail($inputEmail);
+        //print_r("\n\nresultEmail = ".$emailRes);
         return $response;
     }
 
