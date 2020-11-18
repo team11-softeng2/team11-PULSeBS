@@ -37,7 +37,7 @@ class LectureList extends React.Component{
     render(){return <Accordion><div className="mb-1">
         <Card>
             <Accordion.Toggle as={Card.Header} eventKey={this.props.lecture.idLesson}>
-            {this.props.lecture.courseName} : {this.props.lecture.beginTime} - {this.props.lecture.endTime}
+            {this.props.lecture.courseName} : {this.props.lecture.date} {this.props.lecture.beginTime} - {this.props.lecture.endTime}
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={this.props.lecture.idLesson}>
             <Card.Body>{this.state.studentList.map((s) => <StudentRow key={s.idUser} name={s.name}/>)  }</Card.Body>
