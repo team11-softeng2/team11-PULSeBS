@@ -32,23 +32,25 @@ class GatewaysTeacherBooking
     public function findScheduledLecturesForTeacher($id)
     {
         $today = date('Y-m-d');
-        $sql = "SELECT  l.*, s.studentsNumber
+        $sql = "SELECT  l.*, c.name as courseName, s.studentsNumber
                 FROM    (SELECT idLesson, COUNT(*) as studentsNumber
                         FROM booking
                         WHERE isWaiting=0
-                        GROUP BY idLesson) as s, lessons as l
-                WHERE   idTeacher='$id' AND
-                        inPresence=1 AND
-                        s.idLesson=l.idLesson
-                        AND date >= '$today'";
+                        GROUP BY idLesson) as s, lessons as l, courses as c
+                WHERE   l.idTeacher='$id' AND
+                        l.inPresence=1 AND
+                        s.idLesson=l.idLesson AND
+                        c.idCourse=l.idCourse AND
+                        l.date >= '$today'";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             $subArray = array(
                 "idLesson" => $row['idLesson'],
-                "idCourse" => $row['idCourse'],
                 "idTeacher" => $row['idTeacher'],
                 "idClassroom" => $row['idClassRoom'],
+                "idCourse" => $row['idCourse'],
+                "courseName" => $row['courseName'],
                 "date" => $row['date'],
                 "beginTime" => $row['beginTime'],
                 "endTime" => $row['endTime'],
