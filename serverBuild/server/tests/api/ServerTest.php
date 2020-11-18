@@ -37,7 +37,7 @@ class ServerTest extends TestCase
         $exReturn='0';
         
         $this->client = new GuzzleHttp\Client(['base_uri' => 'http://localhost']);
-        $response = $this->client->request('GET', '/server/bookableLessons/3');
+        $response = $this->client->request('GET', '/server/bookableLessons/0');
         $this->assertEquals(200, $response->getStatusCode());
         $contentType = $response->getHeaders()["Content-Type"][0];
         $this->assertEquals("application/json", $contentType);
@@ -54,7 +54,8 @@ class ServerTest extends TestCase
             "name": "Algebra",
             "date": "2020-11-18",
             "beginTime": "09:00:00",
-            "endTime": "11:00:00"
+            "endTime": "11:00:00",
+            "idBooking": 1
             }
             ]';
 
