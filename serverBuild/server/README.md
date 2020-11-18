@@ -17,8 +17,8 @@ Each endpoint is preceded by /server/src/api/
 
   Examples:
 
-  1. [{"idLesson":3,"idCourse":2,"idTeacher":2,"idClassroom":5,"date":"2020-11-18","beginTime":"09:00:00","endTime":"11:00:00","inPresence":1,"active":1,"studentsNumber":4},{"idLesson":6,"idCourse":3,"idTeacher":2,"idClassroom":5,"date":"2020-11-20","beginTime":"14:00:00","endTime":"16:00:00","inPresence":1,"active":1,"studentsNumber":2}]
-  2. [{"idLesson":11,"idCourse":6,"idTeacher":13,"idClassroom":2,"date":"2020-11-20","beginTime":"09:00:00","endTime":"11:00:00","inPresence":1,"active":1,"studentsNumber":2}]
+1. [{"idLesson":3,"idCourse":2,"idTeacher":2,"idClassroom":5,"date":"2020-11-18","beginTime":"09:00:00","endTime":"11:00:00","inPresence":1,"active":1,"studentsNumber":4},{"idLesson":6,"idCourse":3,"idTeacher":2,"idClassroom":5,"date":"2020-11-20","beginTime":"14:00:00","endTime":"16:00:00","inPresence":1,"active":1,"studentsNumber":2}]
+2. [{"idLesson":11,"idCourse":6,"idTeacher":13,"idClassroom":2,"date":"2020-11-20","beginTime":"09:00:00","endTime":"11:00:00","inPresence":1,"active":1,"studentsNumber":2}]
 
 - GET `/bookableLessons/:studentId`
 
