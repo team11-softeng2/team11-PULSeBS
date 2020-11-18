@@ -11,7 +11,7 @@ class HomeTeacher extends React.Component{
     }
 
     componentDidMount() {
-        //API.getTeacherLectures(this.props.userName).then((response) => {this.setState({lectures: response})});
+        API.getTeacherLectures(this.props.userName).then((response) => {this.setState({lectures: response})});
     }
 
     render(){
