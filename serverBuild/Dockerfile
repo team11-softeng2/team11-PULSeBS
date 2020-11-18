@@ -6,6 +6,8 @@ RUN a2enmod headers
 RUN apt-get update
 RUN apt-get install -y sqlite3
 RUN apt-get install -y git
+RUN apt-get install -y zip unzip libzip-dev
+RUN docker-php-ext-install zip
 
 # COMPOSER
 # download composer installer
