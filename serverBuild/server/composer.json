@@ -1,22 +1,13 @@
 {
-<<<<<<< Updated upstream
-  "require": {
-    "phpunit/phpunit": "^9.4",
-    "phpmailer/phpmailer": "^6.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "Server\\": "src"
-=======
     "require": {
         "phpunit/phpunit": "^9.4",
-        "guzzlehttp/guzzle": "^7.2"
+        "guzzlehttp/guzzle": "^7.2",
+        "phpmailer/phpmailer": "^6.1"
     },
     "autoload": {
         "psr-4": {
             "Server\\": "src"
         }
->>>>>>> Stashed changes
     }
   }
 }
