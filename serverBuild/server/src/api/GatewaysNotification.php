@@ -25,7 +25,7 @@ class GatewaysNotification
                 $queue = $this->bookingConfirmation($input->id);
                 return $this->dispatch($queue);
                 break;
-            case 'lectureCanelled':
+            case 'lectureCancelled':
                 $body = "Message body.";
                 return "To be implemented...";
                 break;
