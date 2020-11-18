@@ -10,8 +10,11 @@ test("LoginFrom renders correctly", () => {
 describe("Input value", () => {
     test("update on change username", () => {
         const {queryByPlaceholderText} = render(<LoginForm/>);
-        const input = queryByPlaceholderText("Username");
-        fireEvent.change(input, {target: {value: "calogero"}});
-        expect(input.value).toBe("calogero");
+        const usernameInput = queryByPlaceholderText("Username");
+        const passwordInput = queryByPlaceholderText("Password");
+        fireEvent.change(usernameInput, {target: {value: "calogero"}});
+        expect(usernameInput.value).toBe("calogero");
+        fireEvent.change(passwordInput, {target: {value: "test"}});
+        expect(passwordInput.value).toBe("test");
     })
 })
