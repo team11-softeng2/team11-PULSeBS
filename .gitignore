@@ -1,2 +1,4 @@
 .scannerwork
 serverBuild/server/composer.lock
+
+serverBuild/server/composer.json
