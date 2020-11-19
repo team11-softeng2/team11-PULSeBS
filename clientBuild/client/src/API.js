@@ -121,6 +121,9 @@ async function getTeacherLectures(teacherId){
     const response = await fetch(url);
     const lectures = await response.json();
     if(response.ok) {
+    	if (lectures === 0){
+    		return [];
+    	}
         return lectures;
     } else {
         let err = {status: response.status, errorObj: lectures};
