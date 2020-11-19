@@ -62,6 +62,9 @@ async function getBooking(lectureId) {
     const response = await fetch(url);
     const booking = await response.json();
     if(response.ok) {
+        if(booking === 0) {
+            return [];
+        }
         return booking;
     } else {
         let err = {status: response.status, errorObj: booking};
