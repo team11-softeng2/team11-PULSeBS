@@ -74,7 +74,7 @@ class ControllersStudentBooking
         $response = json_encode($this->studentBookingGateway->insertBooking($input));
         $inputEmail = (object) [
             'type' => 'bookingConfirmation',
-            'id' => $input->idUser,
+            'id' => $response,
         ];
         $emailRes = $this->gatewayNotification->sendEmail($inputEmail);
         //print_r("\n\nresultEmail = ".$emailRes);
