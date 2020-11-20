@@ -14,5 +14,5 @@ Sprint 1 retrospective (team 11)
     - 25 points committed
     - 25 points done
 - Nr of hours planned vs spent (as a team)
-    - 68,25 hours planned
+    - 68.25 hours planned
     - 67.3 hours done
