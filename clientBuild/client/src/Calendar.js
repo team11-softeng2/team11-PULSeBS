@@ -74,7 +74,7 @@ function ModalLecture(props) {
       <>
         <Modal
           show={props.show || show}
-          onHide={handleClose}
+          onHide={() => props.closeModal()}
           backdrop="static"
           keyboard={false}
         >
