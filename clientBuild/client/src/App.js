@@ -9,6 +9,7 @@ import './App.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import StudentCalendarPage from './StudentCalendarPage';
+import TeacherCalendarPage from './TeacherCalendarPage';
 
 class App extends React.Component {
   constructor(props) {
@@ -80,6 +81,23 @@ class App extends React.Component {
   }
 
   render(props) {
+    //Lezioni di esempio per il calendario del teacher
+    let teacherLect = [
+      {
+        id: 1,
+        title: "Test1",
+        start: new Date("2020-11-24T10:00:00"),
+        end: new Date("2020-11-24T12:00:00"),
+      }
+      ,
+      {
+        id: 2,
+        title: "Test2",
+        start: new Date("2020-11-25T12:00:00"),
+        end: new Date("2020-11-25T14:00:00"),
+      }
+    ];
+
     return (
       <Router>
         <TopBar loggedin = {this.state.loggedin} logout={this.logout} role={this.state.userRole} userName = {this.state.userName}></TopBar>
@@ -111,7 +129,7 @@ class App extends React.Component {
 
           <Route path="/teacher">
             {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
-                <HomeTeacher userId={this.state.userId}/>
+                <TeacherCalendarPage lectures={teacherLect}></TeacherCalendarPage>
                 :
                 <Redirect to="/"></Redirect>
             }

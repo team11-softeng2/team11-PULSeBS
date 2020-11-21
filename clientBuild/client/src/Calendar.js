@@ -3,6 +3,8 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
+import ModalTeacher from './ModalTeacher';
+import API from './API';
 
 class Calendar extends React.Component{
     constructor(props) {
@@ -15,6 +17,7 @@ class Calendar extends React.Component{
           lectureEndTime: "",
           lectureDate: undefined,
           elementId: undefined,
+          studentList: [],
         };
       }
 
@@ -31,20 +34,38 @@ class Calendar extends React.Component{
                 eventClick={this.handleEventClick}
                 contentHeight="auto"
                 slotMinTime="08:00:00"
-					      slotMaxTime="20:00:00"
+                slotMaxTime="20:00:00"
+                allDaySlot={false}
             />
-            <ModalLecture 
-            show={this.state.showModal} 
-            closeModal = {this.closeModal} 
-            lectureTitle = {this.state.lectureTitle}
-            lectureDate = {this.state.lectureDate}
-            lectureBeginTime = {this.state.lectureBeginTime}
-            lectureEndTime = {this.state.lectureEndTime}
-            elementId = {this.state.elementId}
-            lectureColor = {this.state.lectureColor}
-            bookASeat = {this.props.bookASeat}
-            deleteBooking = {this.props.deleteBooking}
-            ></ModalLecture>
+            {this.props.view === "student" ?
+              <ModalLecture 
+              show={this.state.showModal} 
+              closeModal = {this.closeModal} 
+              lectureTitle = {this.state.lectureTitle}
+              lectureDate = {this.state.lectureDate}
+              lectureBeginTime = {this.state.lectureBeginTime}
+              lectureEndTime = {this.state.lectureEndTime}
+              elementId = {this.state.elementId}
+              lectureColor = {this.state.lectureColor}
+              bookASeat = {this.props.bookASeat}
+              deleteBooking = {this.props.deleteBooking}
+              ></ModalLecture>
+            :
+              <ModalTeacher
+                show={this.state.showModal} 
+                closeModal = {this.closeModal} 
+                lectureTitle = {this.state.lectureTitle}
+                lectureDate = {this.state.lectureDate}
+                lectureBeginTime = {this.state.lectureBeginTime}
+                lectureEndTime = {this.state.lectureEndTime}
+                elementId = {this.state.elementId}
+                lectureColor = {this.state.lectureColor}
+                bookASeat = {this.props.bookASeat}
+                deleteBooking = {this.props.deleteBooking}
+                studentList = {this.state.studentList}
+                />
+            }
+            
         </>
     	}
     	
@@ -52,6 +73,15 @@ class Calendar extends React.Component{
         //not useful right now
         //here info.event is the event object (with id, title, ...)
         //console.log(info.event.id);
+
+        if(this.props.view === "teacher") {
+          console.log("Richiedo API getBooking per lectureId = " + info.event.id);
+          API.getBooking(info.event.id).then((students) => {
+              this.setState({studentList: students});
+          }
+          );
+        }
+
         this.setState({showModal: true});
         this.setState({lectureTitle: info.event.title});
         let beginTime = info.event.start.toLocaleTimeString();

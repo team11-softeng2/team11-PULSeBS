@@ -3,11 +3,10 @@ import Calendar from './Calendar.js';
 import {Container, Alert, Row, Col} from 'react-bootstrap';
 import Badge from 'react-bootstrap/Badge'
 
-class StudentCalendarPage extends React.Component{
+class TeacherCalendarPage extends React.Component{
     constructor(props){
       super(props);
-
-      this.state = { events: [] };
+      this.state = { lectures: [] };
     }
 
     render(){
@@ -18,23 +17,23 @@ class StudentCalendarPage extends React.Component{
         			
         			<Col className='col-4'>
         				<Alert variant='info' className="text-center"> 
-        					<h3>My lecture bookings:</h3>
+        					<h3>My lecture:</h3>
 							<Badge pill variant="primary">
-								Bookable
+								In presence
 							</Badge>{' '}
 							<Badge pill variant="success">
-								Booked
+								Online
 							</Badge>
         				</Alert>
         			</Col>
         			
         			<Col className='col-4'/>
         		</Row>
-				<Calendar view={"student"} events={this.props.bookableLectures.concat(this.props.bookings)} bookASeat = {this.props.bookASeat} deleteBooking = {this.props.deleteBooking}/>
+				<Calendar view={"teacher"} events = {this.props.lectures}/>
         	</Container>
         </>
       }
 }
 
 
-export default StudentCalendarPage;
+export default TeacherCalendarPage;
