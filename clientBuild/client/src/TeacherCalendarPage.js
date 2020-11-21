@@ -17,7 +17,7 @@ class TeacherCalendarPage extends React.Component{
         			
         			<Col className='col-4'>
         				<Alert variant='info' className="text-center"> 
-        					<h3>My lecture:</h3>
+        					<h3>My lectures:</h3>
 							<Badge pill variant="primary">
 								In presence
 							</Badge>{' '}
