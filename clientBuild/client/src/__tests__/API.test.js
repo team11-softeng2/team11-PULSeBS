@@ -27,17 +27,17 @@ test("userLogin", async () => {
     expect(result1).toBe(0);
     expect(result2).toBe(0);
     expect(result3).toBe(0);
-    expect(result4).toEqual({idUser:1,userName:"calogero",password:"test",role:"student",name:"Calogero Pisano", email:"s273791@studenti.polito.it"});
+    expect(result4).toEqual({idUser:1,userName:"calogero",password:"test",role:"student",name:"Calogero Pisano", email:"student@pulsebs.it"});
 });
 
 test("getBooking", async () => {
     let data = await API.getBooking(3);
-    expect(data.length).toBeGreaterThan(0);
+    expect(data.length).toBeGreaterThanOrEqual(0);
 });
 
 test("getTeacherLectures", async () => {
     let data = await API.getTeacherLectures(2);
-    expect(data.length).toBeGreaterThan(0);
+    expect(data.length).toBeGreaterThanOrEqual(0);
 });
 
 test("logout", async() => {

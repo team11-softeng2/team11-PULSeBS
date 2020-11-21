@@ -17,4 +17,26 @@ describe("Input value", () => {
         fireEvent.change(passwordInput, {target: {value: "test"}});
         expect(passwordInput.value).toBe("test");
     });
+
+    test("fail login", () => {
+        const {queryByPlaceholderText, queryByTestId} = render(<LoginForm/>);
+        const usernameInput = queryByPlaceholderText("Username");
+        const passwordInput = queryByPlaceholderText("Password");
+        const loginButton = queryByTestId("login-button");
+        fireEvent.change(usernameInput, {target: {value: "calogero"}});
+        fireEvent.change(passwordInput, {target: {value: "tes"}});
+        fireEvent.click(loginButton);
+        expect();
+    });
+
+    test("correct login", () => {
+        const {queryByPlaceholderText, queryByTestId} = render(<LoginForm/>);
+        const usernameInput = queryByPlaceholderText("Username");
+        const passwordInput = queryByPlaceholderText("Password");
+        const loginButton = queryByTestId("login-button");
+        fireEvent.change(usernameInput, {target: {value: "calogero"}});
+        fireEvent.change(passwordInput, {target: {value: "test"}});
+        fireEvent.click(loginButton);
+        expect();
+    });
 });
