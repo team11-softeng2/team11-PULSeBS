@@ -32,6 +32,10 @@ Each endpoint is preceded by /server/src/api/
 2. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Sistemi Operativi","date":"2020-11-20","beginTime":"14","endTime":"16:00:00"}]
 3. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Geometria","date":"2020-11-17","beginTime":"14:00:00","endTime":"16:00:00"},{"name":"Geometria","date":"2020-11-18","beginTime":"14:00:00","endTime":"16:00:00"}]
 
+- GET `/lecturesWithFullRoom/:studentId`
+    - Params: studentId 
+    - Response: List of lectures of the student that have the classroom full
+
 ## Bookings
 
 - GET `/studentBookings/:studentId`

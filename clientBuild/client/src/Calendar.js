@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
+import ModalStudent from './ModalStudent';
 import ModalTeacher from './ModalTeacher';
 import API from './API';
 
@@ -38,7 +39,7 @@ class Calendar extends React.Component{
                 allDaySlot={false}
             />
             {this.props.view === "student" ?
-              <ModalLecture 
+              <ModalStudent 
               show={this.state.showModal} 
               closeModal = {this.closeModal} 
               lectureTitle = {this.state.lectureTitle}
@@ -49,7 +50,7 @@ class Calendar extends React.Component{
               lectureColor = {this.state.lectureColor}
               bookASeat = {this.props.bookASeat}
               deleteBooking = {this.props.deleteBooking}
-              ></ModalLecture>
+              ></ModalStudent>
             :
               <ModalTeacher
                 show={this.state.showModal} 
@@ -59,9 +60,6 @@ class Calendar extends React.Component{
                 lectureBeginTime = {this.state.lectureBeginTime}
                 lectureEndTime = {this.state.lectureEndTime}
                 elementId = {this.state.elementId}
-                lectureColor = {this.state.lectureColor}
-                bookASeat = {this.props.bookASeat}
-                deleteBooking = {this.props.deleteBooking}
                 studentList = {this.state.studentList}
                 />
             }
@@ -94,51 +92,5 @@ class Calendar extends React.Component{
         this.setState({lectureColor: info.event.backgroundColor});
     }
 }
-
-function ModalLecture(props) {
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-  
-    return (
-      <>
-        <Modal
-          show={props.show || show}
-          onHide={() => props.closeModal()}
-          backdrop="static"
-          keyboard={false}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>Lecture booking</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <p><b>Subject:</b> {props.lectureTitle}
-            <br/>
-            <b>Date:</b> {props.lectureDate}
-            <br/>
-            <b>Begin time:</b> {props.lectureBeginTime.slice(0,5)}
-            <br/>
-            <b>End time:</b> {props.lectureEndTime.slice(0,5)}</p>
-          </Modal.Body>
-          {props.lectureColor === "green" ? 
-          <Modal.Footer>
-            <Button variant="danger" onClick={() => {props.deleteBooking(props.elementId); props.closeModal();} }>Delete</Button>
-            <Button variant="secondary" onClick={() => props.closeModal()}>
-              Don't delete
-            </Button>            
-          </Modal.Footer>
-          :
-          <Modal.Footer>
-            <Button variant="primary" onClick={() => {props.bookASeat(props.elementId, props.lectureDate, props.lectureBeginTime); props.closeModal();} }>Book</Button>
-            <Button variant="secondary" onClick={() => props.closeModal()}>
-              Dont' book
-            </Button>            
-          </Modal.Footer>
-          }
-          
-        </Modal>
-      </>
-    );
-  }
 
 export default Calendar;

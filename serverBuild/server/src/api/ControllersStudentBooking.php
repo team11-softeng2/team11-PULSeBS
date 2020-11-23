@@ -36,6 +36,9 @@ class ControllersStudentBooking
             } else if ($this->value == "studentBookings") {
                 $response = $this->findStudentBookings();
                 echo $response;
+            } else if ($this->value == "lecturesWithFullRoom"){
+                $response = $this->findLectureWithFullRoom();
+                echo $response;
             }
         } else if ($this->requestMethod == "PUT") {
             if ($this->value == "updateBooking") {
@@ -103,6 +106,38 @@ class ControllersStudentBooking
     public function updateBooking($id)
     {
         return json_encode($this->studentBookingGateway->updateBooking($id));
+    }
+    public function findLectureWithFullRoom(){
+        $allStudentLectures = $this->studentBookingGateway->findStudentLessons($this->id);
+        if($allStudentLectures == 0){
+            $allStudentLectures = array();
+        }
+        else{
+            $allStudentLectures = array_column($allStudentLectures, "idLesson");
+        }
+        $lecturesFullRoom = $this->studentBookingGateway->findLessonsWithFullRoom();
+        if($lecturesFullRoom == 0){
+            $lecturesFullRoom = array();
+        }
+        else{
+            $lecturesFullRoom = array_column($lecturesFullRoom, "idLesson");
+        }
+        $lecturesAlreadyBooked = $this->studentBookingGateway->findStundetBookedLessons($this->id);
+        if($lecturesAlreadyBooked == 0){
+            $lecturesAlreadyBooked = array();
+        }
+        else{
+            $lecturesAlreadyBooked = array_column($lecturesAlreadyBooked, "idLesson");
+        }
+        $allStudentLectures = array_diff($allStudentLectures, $lecturesAlreadyBooked);
+        $resultLectures = array_intersect($lecturesFullRoom, $allStudentLectures);
+        if(empty($resultLectures)){
+            return json_encode(0);
+        }
+        else{
+            $resultLectures = $this->studentBookingGateway->findDetailsOfLessons($resultLectures);
+            return json_encode($resultLectures);
+        }
     }
 
 }
