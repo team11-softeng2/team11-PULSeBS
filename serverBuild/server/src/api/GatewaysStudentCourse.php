@@ -1,7 +1,7 @@
 <?php
 namespace Server\api;
 
-class GatewaysStudentBooking
+class GatewaysStudentCourse
 {
     private $db = null;
     public function __construct($db)
