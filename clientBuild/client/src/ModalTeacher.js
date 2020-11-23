@@ -18,6 +18,7 @@ class ModalTeacher extends React.Component{
             onHide={() => this.props.closeModal()}
             backdrop="static"
             keyboard={false}
+            data-testid="modal-test"
             >
             <Modal.Header closeButton>
                 <Modal.Title>Lecture information</Modal.Title>
@@ -49,11 +50,11 @@ class ModalTeacher extends React.Component{
                             No students booked.
                         </Alert>
                       :
-                        <Accordion><div className="mb-1">
+                        <Accordion data-testid="studentList"><div className="mb-1">
                             <Card>
                                 <Accordion.Toggle as={Card.Header} eventKey={this.props.elementId}>
                                 Booked students
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                                 </svg>
                                 </Accordion.Toggle>
@@ -68,7 +69,7 @@ class ModalTeacher extends React.Component{
                 </Container>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => this.props.closeModal()}>
+                <Button variant="secondary" onClick={() => this.props.closeModal()} data-testid="close-button">
                 Close
                 </Button>            
             </Modal.Footer>
