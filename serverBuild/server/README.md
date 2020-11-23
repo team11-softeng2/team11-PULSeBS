@@ -5,6 +5,7 @@ Each endpoint is preceded by /server/src/api/
 ## Users
 
 - POST `/login`
+
   - Body: { "username", "password" }
   - Response:
 
@@ -34,20 +35,36 @@ Each endpoint is preceded by /server/src/api/
 ## Bookings
 
 - GET `/studentBookings/:studentId`
+
   - Params: studentId
   - Response: List of bookings of a student
+
 - GET `/bookedStudentsForLecture/:lectureId`
+
   - Params: lectureId
   - response: List of student booked for that lecture
+
 - DELETE `/cancelBooking/:bookingId`
+
   - Params: bookingId
   - Response: NONE
+
 - POST `/insertLecture`
+
   - Body: { "idUser", "idLesson", "date" }
   - Response: return the new booking id
+
 - PUT `/updateBooking/:bookingId`
+
   - Params: bookingId
   - Response: rows modified (should be always one)
+
+  ## Courses
+
+- GET `/studentCourses/:studentId`
+
+  - Params: studentId
+  - Response: List of courses attended by a student
 
 ## Notifications
 

@@ -62,6 +62,13 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersNotification($requestMethod, $dbConn, $value);
             $controller->processRequest();
             break;
+        case "studentCourses/$number":
+            $value = "studentCourses";
+            $requestMethod = $_SERVER['REQUEST_METHOD'];
+            $id = $number;
+            $controller = new Server\api\ControllersStudentCourse($requestMethod, $dbConn, $value, $id);
+            $controller->processRequest();
+            break;
         default:
             echo $msg;
 
