@@ -119,6 +119,45 @@ class ControllersStudentBookingTest extends TestCase
         
     }
 
+    public function testfindLectureWithFullRoomFound(){
+        $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates(); 
+        $idUser = 7;
+        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
+        $result = $this->controllersStudentBooking->findLectureWithFullRoom();
+        $this->assertTrue(( json_decode( $result , true ) == NULL ) ? false : true);
+    }
+    public function testfindLectureWithFullRoomNotFound(){
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+        $idUser = 7;
+        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
+        $result = $this->controllersStudentBooking->findLectureWithFullRoom();
+        $this->assertEquals(0, $result);
+        
+    }
+
+    public function testProcessRequestlecturesWithFullRoomFound(){
+        $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates(); 
+        $idUser = 7;
+        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
+        $this->controllersStudentBooking->processRequest();
+        $output = $this->getActualOutput();
+        $this->assertNotEquals('0', $output);
+        $this->assertFalse(empty($output));
+    }
+
+    public function testProcessRequestlecturesWithFullRoomNotFound(){
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+        $idUser = 7;
+        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
+        $this->expectOutputString('0');
+        $this->controllersStudentBooking->processRequest();
+    }
+
+
+
+
     protected function restoreDB(){
         $this->db->exec('DROP TABLE IF EXISTS "lessons";
         CREATE TABLE IF NOT EXISTS "lessons" (
