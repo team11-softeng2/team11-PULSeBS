@@ -29,7 +29,7 @@ class TeacherCalendarPage extends React.Component{
         			
         			<Col className='col-4'/>
         		</Row>
-				<Calendar view={"teacher"} events = {this.props.lectures} deleteLecture = {this.props.deleteLecture}/>
+				<Calendar view={"teacher"} events = {this.props.lectures} deleteLecture = {this.props.deleteLecture} changeToOnline = {this.props.changeToOnline}/>
         	</Container>
         </>
       }

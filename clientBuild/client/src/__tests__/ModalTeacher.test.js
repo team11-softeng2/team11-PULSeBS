@@ -96,3 +96,27 @@ test("onHide", () => {
     fireEvent.click(buttons[0]);
     expect();
 });
+
+const deleteLectureMock = jest.fn();
+const changeToOnlineMock = jest.fn();
+
+test("Modal delete and changeToOnline buttons", () => {
+    const {queryByTestId} = render(<ModalTeacher 
+        show={true} 
+        lectureTitle = {"test"}
+        lectureDate = {"2020-10-10"}
+        lectureBeginTime = {"10:00:00"}
+        lectureEndTime = {"12:00:00"}
+        elementId = {1}
+        studentList = {[]}
+        closeModal = {closeModalMock}
+        deleteLecture = {deleteLectureMock}
+        changeToOnline = {changeToOnlineMock}
+        />);
+    const deleteButton = queryByTestId("delete-button");
+    const changeButton = queryByTestId("change-button");
+    fireEvent.click(deleteButton);
+    fireEvent.click(changeButton);
+    expect(deleteLectureMock).toHaveBeenCalledTimes(1);
+    expect(changeToOnlineMock).toHaveBeenCalledTimes(1);
+});

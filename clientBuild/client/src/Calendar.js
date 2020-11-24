@@ -61,6 +61,8 @@ class Calendar extends React.Component{
                 lectureEndTime = {this.state.lectureEndTime}
                 elementId = {this.state.elementId}
                 studentList = {this.state.studentList}
+                deleteLecture = {this.props.deleteLecture}
+                changeToOnline = {this.props.changeToOnline}
                 />
             }
             

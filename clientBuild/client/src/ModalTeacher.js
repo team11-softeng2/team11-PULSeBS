@@ -37,10 +37,10 @@ class ModalTeacher extends React.Component{
                         </Col>
                         <Col>
                             <Row>
-                                <Button onClick={() => {/*this.props.changeToOnline(this.props.elementId); */console.log("Cambio ad online " + this.props.elementId); this.props.closeModal();} }>Change to online</Button>
+                                <Button onClick={() => {this.props.changeToOnline(this.props.elementId); this.props.closeModal();} } data-testid="change-button" >Change to online</Button>
                             </Row>
                             <Row>
-                                <Button variant="danger" onClick={() => {/*this.props.deleteLecture(this.props.elementId); */console.log("Elimino la lezione " + this.props.elementId); this.props.closeModal();} }>Delete lecture</Button>
+                                <Button variant="danger" onClick={() => {this.props.deleteLecture(this.props.elementId); this.props.closeModal();} } data-testid="delete-button">Delete lecture</Button>
                             </Row>
                         </Col>
                     </Row>

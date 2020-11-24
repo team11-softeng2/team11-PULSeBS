@@ -91,9 +91,21 @@ class App extends React.Component {
   }
 
   deleteLecture = (lectureId) => {
+    /*
     API.deleteLecture(lectureId).then(() => {
       this.getTeacherLectures(this.userId);
     });
+    */
+    console.log("Elimino la lezione " + lectureId);
+  }
+
+  changeToOnline = (lectureId) => {
+    /*
+    API.changeToOnline(lectureId).then(() => {
+      this.getTeacherLectures(this.userId);
+    });
+    */
+    console.log("Cambio a online la lezione " + lectureId);
   }
 
   render(props) {
@@ -136,7 +148,9 @@ class App extends React.Component {
                     end: new Date(l.date + "T" + l.endTime),
                   }
                 })}
-                deleteLecture = {this.deleteLecture}></TeacherCalendarPage>
+                deleteLecture = {this.deleteLecture}
+                changeToOnline = {this.changeToOnline}
+                ></TeacherCalendarPage>
                 :
                 <Redirect to="/"></Redirect>
             }
