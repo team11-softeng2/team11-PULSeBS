@@ -155,7 +155,28 @@ async function deleteBooking(bookingId) {
     });
 }
 
+async function deleteLecture(lectureId) {
+    const url = "http://localhost/server/updateLecture/" + lectureId;       //Da verificare
+    return new Promise((resolve, reject) => {
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                //'Content-Type': 'application/json',
+                'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
+            },
+            body: JSON.stringify({
+            }),
+        }).then((response) => {
+            if (response.ok) {
+                resolve(0);
+            } else {
+                reject({errore: "Error in deleting a booking"});
+            }
+        }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) });
+    });
+}
+
 const API = {
-    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures
+    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture
 };
 export default API;

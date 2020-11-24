@@ -73,7 +73,6 @@ class Calendar extends React.Component{
         //console.log(info.event.id);
 
         if(this.props.view === "teacher") {
-          console.log("Richiedo API getBooking per lectureId = " + info.event.id);
           API.getBooking(info.event.id).then((students) => {
               this.setState({studentList: students});
           }
