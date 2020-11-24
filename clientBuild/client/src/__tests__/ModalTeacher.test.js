@@ -11,7 +11,8 @@ describe("Modal render", () => {
             lectureBeginTime = {"10:00:00"}
             lectureEndTime = {"12:00:00"}
             elementId = {1}
-            studentList = {[]}/>);
+            studentList = {[]}
+            dateStart = {new Date("2021-05-05T10:00:00")}/>);
         expect(queryByTestId("modal-test")).toBeTruthy();
     });
 
@@ -23,7 +24,8 @@ describe("Modal render", () => {
             lectureBeginTime = {"10:00:00"}
             lectureEndTime = {"12:00:00"}
             elementId = {1}
-            studentList = {[]}/>);
+            studentList = {[]}
+            dateStart = {new Date("2021-05-05T10:00:00")}/>);
         expect(queryByTestId("modal-test")).toBe(null);
     });
 });
@@ -37,7 +39,8 @@ test("Modal content render", () => {
         lectureBeginTime = {"10:00:00"}
         lectureEndTime = {"12:00:00"}
         elementId = {1}
-        studentList = {[]}/>);
+        studentList = {[]}
+        dateStart = {new Date("2021-05-05T10:00:00")}/>);
     const title = queryByText("Lecture information");
     const onlineLectureButton = queryByText("Change to online");
     const deleteLectureButton = queryByText("Delete lecture");
@@ -56,6 +59,7 @@ test("Render student list", () => {
         elementId = {1}
         studentList = {["Test1", "Test2"]}
         closeModal = {closeModalMock}
+        dateStart = {new Date("2021-05-05T10:00:00")}
         />);
         const studentList = queryByTestId("studentList");
         expect(studentList).toBeInTheDocument();
@@ -75,6 +79,7 @@ test("Modal close button", () => {
         elementId = {1}
         studentList = {[]}
         closeModal = {closeModalMock}
+        dateStart = {new Date("2021-05-05T10:00:00")}
         />);
     const closeButton = queryByTestId("close-button");
     fireEvent.click(closeButton);
@@ -91,6 +96,7 @@ test("onHide", () => {
         elementId = {1}
         studentList = {[]}
         closeModal = {closeModalMock}
+        dateStart = {new Date("2021-05-05T10:00:00")}
         />);
     const buttons = queryAllByRole("button");
     fireEvent.click(buttons[0]);
@@ -112,6 +118,7 @@ test("Modal delete and changeToOnline buttons", () => {
         closeModal = {closeModalMock}
         deleteLecture = {deleteLectureMock}
         changeToOnline = {changeToOnlineMock}
+        dateStart = {new Date("2021-05-05T10:00:00")}
         />);
     const deleteButton = queryByTestId("delete-button");
     const changeButton = queryByTestId("change-button");
@@ -119,4 +126,23 @@ test("Modal delete and changeToOnline buttons", () => {
     fireEvent.click(changeButton);
     expect(deleteLectureMock).toHaveBeenCalledTimes(1);
     expect(changeToOnlineMock).toHaveBeenCalledTimes(1);
+});
+
+test("Modal delete button disabled", () => {
+    const {queryByTestId} = render(<ModalTeacher 
+        show={true} 
+        lectureTitle = {"test"}
+        lectureDate = {"2020-10-10"}
+        lectureBeginTime = {"10:00:00"}
+        lectureEndTime = {"12:00:00"}
+        elementId = {1}
+        studentList = {[]}
+        closeModal = {closeModalMock}
+        deleteLecture = {deleteLectureMock}
+        changeToOnline = {changeToOnlineMock}
+        dateStart = {new Date("2019-05-05T10:00:00")}
+        />);
+    const deleteButton = queryByTestId("delete-button");
+    fireEvent.click(deleteButton);
+    expect();
 });

@@ -40,7 +40,8 @@ class ModalTeacher extends React.Component{
                                 <Button onClick={() => {this.props.changeToOnline(this.props.elementId); this.props.closeModal();} } data-testid="change-button" >Change to online</Button>
                             </Row>
                             <Row>
-                                <Button variant="danger" onClick={() => {this.props.deleteLecture(this.props.elementId); this.props.closeModal();} } data-testid="delete-button">Delete lecture</Button>
+                                <Button variant="danger" onClick={() => {this.props.deleteLecture(this.props.elementId); this.props.closeModal(); } } data-testid="delete-button" 
+                                disabled={this.props.dateStart.getTime() - Date.now() < 3600000 ? true : false}>Delete lecture</Button>
                             </Row>
                         </Col>
                     </Row>

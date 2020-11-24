@@ -63,6 +63,7 @@ class Calendar extends React.Component{
                 studentList = {this.state.studentList}
                 deleteLecture = {this.props.deleteLecture}
                 changeToOnline = {this.props.changeToOnline}
+                dateStart = {new Date(this.state.lectureDate + "T" + this.state.lectureBeginTime)}
                 />
             }
             

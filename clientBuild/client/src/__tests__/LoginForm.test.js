@@ -39,4 +39,16 @@ describe("Input value", () => {
         fireEvent.click(loginButton);
         expect();
     });
+
+    test("empty input", () => {
+        const {queryByPlaceholderText, queryByTestId} = render(<LoginForm/>);
+        const usernameInput = queryByPlaceholderText("Username");
+        const passwordInput = queryByPlaceholderText("Password");
+        const loginButton = queryByTestId("login-button");
+        fireEvent.change(usernameInput, {target: {value: ""}});
+        fireEvent.change(passwordInput, {target: {value: ""}});
+        fireEvent.click(loginButton);
+        expect();
+    });
+
 });
