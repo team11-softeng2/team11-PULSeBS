@@ -20,8 +20,9 @@ class App extends React.Component {
       userName: undefined,  //Nome dell'utente loggato
       userRole: undefined,  //Ruolo dell'utente loggato
       userId: undefined,
-      bookableLectures: [],
-      bookings: [],
+      bookableLectures: [], //Lezioni prenotabili dallo studente
+      bookings: [],         //Lezioni già prenotate dallo studente
+      teacherLectures: [],  //Lezioni in presenza dell'insegnante
     };
   }
 
@@ -34,8 +35,12 @@ class App extends React.Component {
     this.setState({userName: user.name});
     this.setState({userRole: user.role});
     this.setState({userId: user.idUser});
-    this.getBookableStudentLectures(user.idUser);
-    this.getStudentBookings(user.idUser);
+    if(user.role === "student") {
+      this.getBookableStudentLectures(user.idUser);
+      this.getStudentBookings(user.idUser);
+    } else if(user.role === "teacher") {
+      this.getTeacherLectures(user.idUser);
+    }
   }
 
   logout = () =>{
@@ -61,6 +66,12 @@ class App extends React.Component {
     });
   }
 
+  getTeacherLectures = (teacherId) => {
+    API.getTeacherLectures(teacherId).then((lectures) => {
+      this.setState({teacherLectures: lectures});
+    });
+  }
+
   bookASeat = (lectureId, date, beginTime) => {
     let composedDate = date + " " + beginTime;
     API.bookASeat(lectureId, this.state.userId, composedDate).then(() => {
@@ -81,23 +92,6 @@ class App extends React.Component {
   }
 
   render(props) {
-    //Lezioni di esempio per il calendario del teacher
-    let teacherLect = [
-      {
-        id: 1,
-        title: "Test1",
-        start: new Date("2020-11-24T10:00:00"),
-        end: new Date("2020-11-24T12:00:00"),
-      }
-      ,
-      {
-        id: 2,
-        title: "Test2",
-        start: new Date("2020-11-25T12:00:00"),
-        end: new Date("2020-11-25T14:00:00"),
-      }
-    ];
-
     return (
       <Router>
         <TopBar loggedin = {this.state.loggedin} logout={this.logout} role={this.state.userRole} userName = {this.state.userName}></TopBar>
@@ -129,7 +123,14 @@ class App extends React.Component {
 
           <Route path="/teacher">
             {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
-                <TeacherCalendarPage lectures={teacherLect}></TeacherCalendarPage>
+                <TeacherCalendarPage lectures={this.state.teacherLectures.map((l) => {
+                  return {
+                    id: l.idLesson,
+                    title: l.idCourse,
+                    start: new Date(l.date + "T" + l.beginTime),
+                    end: new Date(l.date + "T" + l.endTime),
+                  }
+                })}></TeacherCalendarPage>
                 :
                 <Redirect to="/"></Redirect>
             }
