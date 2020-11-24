@@ -2,7 +2,6 @@ import React from 'react';
 import API from './API';
 import LoginForm from './LoginForm';
 import TopBar from './TopBar';
-import HomeTeacher from './HomeTeacher'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import './App.css';
@@ -98,21 +97,6 @@ class App extends React.Component {
   }
 
   render(props) {
-    let teacherLect = [
-      {
-        id: 1,
-        title: "Test1",
-        start: new Date("2020-11-24T10:00:00"),
-        end: new Date("2020-11-24T12:00:00"),
-      }
-      ,
-      {
-        id: 2,
-        title: "Test2",
-        start: new Date("2020-11-25T12:00:00"),
-        end: new Date("2020-11-25T14:00:00"),
-      }
-    ];
     return (
       <Router>
         <TopBar loggedin = {this.state.loggedin} logout={this.logout} role={this.state.userRole} userName = {this.state.userName}></TopBar>
@@ -144,14 +128,14 @@ class App extends React.Component {
 
           <Route path="/teacher">
             {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
-                <TeacherCalendarPage lectures={/*this.state.teacherLectures.map((l) => {
+                <TeacherCalendarPage lectures={this.state.teacherLectures.map((l) => {
                   return {
                     id: l.idLesson,
                     title: l.idCourse,
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),
                   }
-                })*/teacherLect}
+                })}
                 deleteLecture = {this.deleteLecture}></TeacherCalendarPage>
                 :
                 <Redirect to="/"></Redirect>
