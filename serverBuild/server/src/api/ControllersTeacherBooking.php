@@ -29,6 +29,15 @@ class ControllersTeacherBooking
                 echo $response;
             }
         }
+        else if($this->requestMethod == "PUT"){
+            if ($this->value == "deleteLecture"){
+                $response = $this->updateToNotActiveLecture($this->id);
+                echo $response;
+            } elseif ($this->value == "changeToOnline"){
+                $response = $this->changeToOnlineLecture($this->id);
+                echo $response;
+            }
+        }
     }
     public function findBookedStudentsForLecture($id)
     {
@@ -39,5 +48,13 @@ class ControllersTeacherBooking
     {
         $scheduledLecturesForTeacher = $this->teacherGatewayBooking->findScheduledLecturesForTeacher($id);
         return json_encode($scheduledLecturesForTeacher);
+    }
+    public function updateToNotActiveLecture($idLecture){
+        $result = $this->teacherGatewayBooking->updateToNotActiveLecture($idLecture);
+        return json_encode($result);
+    }
+    public function changeToOnlineLecture($idLecture){
+        $result = $this->teacherGatewayBooking->changeToOnlineLecture($idLecture);
+        return json_encode($result);
     }
 }

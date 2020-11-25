@@ -63,6 +63,14 @@ Each endpoint is preceded by /server/src/api/
   - Params: bookingId
   - Response: rows modified (should be always one)
 
+- PUT `/deleteLecture/:lectureId`
+  - Params: lectureId
+  - Response: number of rows changed inside lesson table(should be always one)
+
+- PUT `/changeToOnline/:lectureId`
+  - Params: lectureId
+  - Response: number of rows changed inside lesson table(should be always one)
+
   ## Courses
 
 - GET `/studentCourses/:studentId`

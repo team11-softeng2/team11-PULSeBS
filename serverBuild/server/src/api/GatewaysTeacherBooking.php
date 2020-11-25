@@ -68,4 +68,53 @@ class GatewaysTeacherBooking
 
     }
 
+    public function updateToNotActiveLecture($idLecture){
+        $sqlUpdateLessonTable= "update lessons set active=0 where idLesson=".$idLecture."";
+        $sqlUpdateBookingTable="update booking set active=0, isWaiting=0 where idLesson=".$idLecture."";
+        $this->db->exec($sqlUpdateLessonTable);
+        $changesLessonTable = $this->db->changes();
+        if($changesLessonTable > 0){
+            $this->db->exec($sqlUpdateBookingTable);
+            return $changesLessonTable;    
+        }
+        else {
+            return 0;
+        }
+    }
+
+    public function changeToOnlineLecture($idLecture){
+        $sqlUpdateLessonTable= "update lessons set inPresence=0, idClassRoom=0 where idLesson=".$idLecture."";
+        $sqlUpdateBookingTable= "update booking set active=0, isWaiting=0 where idLesson=".$idLecture."";
+        $this->db->exec($sqlUpdateLessonTable);
+        $changesLessonTable = $this->db->changes();
+        if($changesLessonTable > 0){
+            $this->db->exec($sqlUpdateBookingTable);
+            return $changesLessonTable;    
+        }
+        else {
+            return 0;
+        }
+        
+    }
+    
+    //Used to send emails to students 
+    public function findAllBookingsOfLecture($idLecture){
+        $sql= "select * from booking where idLesson=".$idLecture."";
+        $result = $this->db->query($sql);
+        $data = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            $subArray = array(
+                "idBooking" => $row['idBooking'],
+                "idUser" => $row['idUser'],
+                "idLesson" => $row['idLesson'],
+                "active" => $row['active'],
+                "date" => $row['date'],
+                "isWaiting" => $row['isWaiting']
+            );
+            $data[] = $subArray;
+        }
+        return (empty($data) ? 0 : $data);
+
+    }
+
 }
