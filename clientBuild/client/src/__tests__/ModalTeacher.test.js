@@ -128,7 +128,7 @@ test("Modal delete and changeToOnline buttons", () => {
     expect(changeToOnlineMock).toHaveBeenCalledTimes(1);
 });
 
-test("Modal delete button disabled", () => {
+test("Modal delete and changeTo button disabled", () => {
     const {queryByTestId} = render(<ModalTeacher 
         show={true} 
         lectureTitle = {"test"}
@@ -142,7 +142,9 @@ test("Modal delete button disabled", () => {
         changeToOnline = {changeToOnlineMock}
         dateStart = {new Date("2019-05-05T10:00:00")}
         />);
-    const deleteButton = queryByTestId("delete-button");
+    const deleteButton = queryByTestId("deleteNo-button");
+    const changeButton = queryByTestId("changeNo-button");
     fireEvent.click(deleteButton);
+    fireEvent.click(changeButton);
     expect();
 });
