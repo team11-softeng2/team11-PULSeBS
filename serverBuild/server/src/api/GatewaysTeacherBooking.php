@@ -88,7 +88,7 @@ class GatewaysTeacherBooking
     }
 
     public function changeToOnlineLecture($idLecture){
-        if($this->validateDateBeforeUpdate($idLecture)){
+        if($this->validateDateBeforeUpdateToOnline($idLecture)){
             $sqlUpdateLessonTable= "update lessons set inPresence=0, idClassRoom=0 where idLesson=".$idLecture."";
             $sqlUpdateBookingTable= "update booking set active=0, isWaiting=0 where idLesson=".$idLecture."";
             $this->db->exec($sqlUpdateLessonTable);
