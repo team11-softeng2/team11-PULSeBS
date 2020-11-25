@@ -57,7 +57,7 @@ class ControllersTeacherBookingTest extends TestCase{
         $this->id = 3;
         $this->controllersTeacherBooking = new Server\api\ControllersTeacherBooking("PUT", $this->db, "deleteLecture", $this->id);
         $result = $this->controllersTeacherBooking->updateToNotActiveLecture($this->id);
-        $this->assertEquals(0, $result);
+        $this->assertEquals(-1, $result);
     }
     public function testProcessRequestupdateToNotActiveLectureFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
@@ -74,7 +74,7 @@ class ControllersTeacherBookingTest extends TestCase{
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->id = 3;
         $this->controllersTeacherBooking = new Server\api\ControllersTeacherBooking("PUT", $this->db, "deleteLecture", $this->id);
-        $this->expectOutputString('0');
+        $this->expectOutputString('-1');
         $this->controllersTeacherBooking->processRequest();
         
     }
@@ -97,7 +97,7 @@ class ControllersTeacherBookingTest extends TestCase{
         $this->id = 3;
         $this->controllersTeacherBooking = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToOnline", $this->id);
         $result = $this->controllersTeacherBooking->changeToOnlineLecture($this->id);
-        $this->assertEquals(0, $result);
+        $this->assertEquals(-1, $result);
     }
     public function testProcessRequestchangeToOnlineFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
@@ -114,7 +114,7 @@ class ControllersTeacherBookingTest extends TestCase{
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->id = 3;
         $this->controllersTeacherBooking = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToOnline", $this->id);
-        $this->expectOutputString('0');
+        $this->expectOutputString('-1');
         $this->controllersTeacherBooking->processRequest();
         
     }

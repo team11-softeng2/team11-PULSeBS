@@ -37,7 +37,7 @@ class GatewaysTeacherBookingTest extends TestCase{
         $this->id = 3;
         $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
         $result = $this->gatewayTeacherBooking->updateToNotActiveLecture($this->id);
-        $this->assertEquals(0, $result);
+        $this->assertEquals(-1, $result);
     }
     
     public function testchangeToOnlineLectureFound(){
@@ -55,7 +55,7 @@ class GatewaysTeacherBookingTest extends TestCase{
         $this->id = 3;
         $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
         $result = $this->gatewayTeacherBooking->changeToOnlineLecture($this->id);
-        $this->assertEquals(0, $result);
+        $this->assertEquals(-1, $result);
     }
 
     public function testfindAllBookingsOfLectureFound(){
