@@ -26,16 +26,4 @@ describe("get functions", () => {
     expect(myApp.state.teacherLectures.length).toBeGreaterThanOrEqual(0);
   });
 
-  test('setLoggedIn', () => {
-    const myApp = new App();
-    myApp.setLoggedIn({role: "student", idUser: 999, name: "test"});
-    expect(myApp.state.loggedin).toBe(false);
-  });
-
-  test('logout', () => {
-    const myApp = new App();
-    myApp.logout();
-    expect(myApp.state.loggedin).toBe(false);
-  });
-
 })
