@@ -2,8 +2,10 @@ import React from 'react';
 import {Container, Alert, Row, Col} from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Accordion from 'react-bootstrap/Accordion'
-import Card from 'react-bootstrap/Card'
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
+import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 class ModalTeacher extends React.Component{
     constructor(props){
@@ -37,11 +39,34 @@ class ModalTeacher extends React.Component{
                         </Col>
                         <Col>
                             <Row>
-                                <Button onClick={() => {this.props.changeToOnline(this.props.elementId); this.props.closeModal();} } data-testid="change-button" >Change to online</Button>
+                                {this.props.dateStart.getTime() - Date.now() < 1800000 ? 
+                                    <OverlayTrigger
+                                    placement="right"
+                                    delay={{ show: 250, hide: 400 }}
+                                    overlay={<Tooltip id="tooltip">Too late to change.</Tooltip>}
+                                    >
+                                        <div style={{display: 'inline-block', cursor: 'not-allowed'}}>
+                                        <Button data-testid="changeNo-button" style={{ pointerEvents: 'none' }} >Change to online</Button>
+                                        </div>
+                                    </OverlayTrigger>
+                                    :
+                                    <Button onClick={() => {this.props.changeToOnline(this.props.elementId); this.props.closeModal();} } data-testid="change-button" >Change to online</Button>
+                                }
                             </Row>
                             <Row>
-                                <Button variant="danger" onClick={() => {this.props.deleteLecture(this.props.elementId); this.props.closeModal(); } } data-testid="delete-button" 
-                                disabled={this.props.dateStart.getTime() - Date.now() < 3600000 ? true : false}>Delete lecture</Button>
+                                {this.props.dateStart.getTime() - Date.now() < 3600000 ? 
+                                    <OverlayTrigger
+                                    placement="right"
+                                    delay={{ show: 250, hide: 400 }}
+                                    overlay={<Tooltip id="tooltip">Too late to delete.</Tooltip>}
+                                    >
+                                        <div style={{display: 'inline-block', cursor: 'not-allowed'}}>
+                                        <Button variant="danger" data-testid="deleteNo-button" style={{ pointerEvents: 'none' }}>Delete lecture</Button>
+                                        </div>
+                                    </OverlayTrigger>
+                                    :
+                                    <Button variant="danger" onClick={() => {this.props.deleteLecture(this.props.elementId); this.props.closeModal(); } } data-testid="delete-button">Delete lecture</Button>
+                                }
                             </Row>
                         </Col>
                     </Row>
