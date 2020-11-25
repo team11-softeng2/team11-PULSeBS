@@ -55,7 +55,7 @@ Sprint 1 retrospective (team 11)
   - Total hours spent
     -  20m
   - Hours estimated for remediation by SonarQube
-    - N/A
+    - 2h
   - Hours spent on remediation
     - 20m
   - debt ratio
