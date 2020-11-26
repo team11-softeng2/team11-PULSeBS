@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginFrom renders correctly 1`] = `
+<div>
+  <form
+    className="form"
+    data-testid="login-form"
+    method="POST"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-row"
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="username"
+        >
+          Username
+        </label>
+        <input
+          className="form-control"
+          id="username"
+          name="username"
+          onChange={[Function]}
+          placeholder="Username"
+          required={true}
+          type="text"
+          value="test"
+        />
+      </div>
+       
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="password"
+        >
+          Password
+        </label>
+        <input
+          className="form-control"
+          id="password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Password"
+          required={true}
+          type="password"
+          value="test"
+        />
+      </div>
+    </div>
+    <div
+      className="form-row"
+    >
+      <button
+        className="btn btn-primary"
+        data-testid="login-button"
+        onClick={[Function]}
+        type="button"
+      >
+        Login
+      </button>
+    </div>
+  </form>
+</div>
+`;

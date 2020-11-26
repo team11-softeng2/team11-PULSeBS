@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import StudentCalendarPage from './StudentCalendarPage';
 import TeacherCalendarPage from './TeacherCalendarPage';
+import TeacherHistoricalDataPage from './TeacherHistoricalDataPage';
 
 class App extends React.Component {
   constructor(props) {
@@ -91,21 +92,15 @@ class App extends React.Component {
   }
 
   deleteLecture = (lectureId) => {
-    /*
     API.deleteLecture(lectureId).then(() => {
-      this.getTeacherLectures(this.userId);
+      this.getTeacherLectures(this.state.userId);
     });
-    */
-    console.log("Elimino la lezione " + lectureId);
   }
 
   changeToOnline = (lectureId) => {
-    /*
     API.changeToOnline(lectureId).then(() => {
-      this.getTeacherLectures(this.userId);
+      this.getTeacherLectures(this.state.userId);
     });
-    */
-    console.log("Cambio a online la lezione " + lectureId);
   }
 
   render(props) {
@@ -135,6 +130,14 @@ class App extends React.Component {
                   }})} />
                 :
               <Redirect to="/"></Redirect>
+            }
+          </Route>
+
+          <Route path="/teacher/historicalData">
+            {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
+                <TeacherHistoricalDataPage/>
+                :
+                <Redirect to="/"></Redirect>
             }
           </Route>
 
