@@ -4,7 +4,7 @@ class ControllersTeacherBookingTest extends TestCase{
 
     private $db;
     private $controllersTeacherBooking;
-
+//test FindBookedStudentsForLecture----------------------------------------------------------------------------------------------------------
     public function testfindBookedStudentsForLectureFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -40,8 +40,9 @@ class ControllersTeacherBookingTest extends TestCase{
         $this->expectOutputString('0');
         $this->controllersTeacherBooking->processRequest();
     }
+//---------------------------------------------------------------------------------------------------------------------------------------------
 
-    //test updateToNotActiveLecture---------------------------------------------------------------------------
+//test updateToNotActiveLecture----------------------------------------------------------------------------------------------------------------
     
     public function testupdateToNotActiveLectureFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");

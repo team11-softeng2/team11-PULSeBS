@@ -9,11 +9,8 @@ class GatewaysStudentBookingTest extends TestCase
     private $db;
     private $gatewayStudentBooking;
     private $idStudent;
-    public function setUp(): void
-    {
-        
-    }
-
+    
+//test FindStundentLessons-----------------------------------------------------------------------------------------
     public function testFindStudentLessonsFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -34,6 +31,9 @@ class GatewaysStudentBookingTest extends TestCase
         //print_r($result);
         $this->assertEquals(0, $result);
     }
+//-----------------------------------------------------------------------------------------------------------------------
+
+//test FindBookedLesson--------------------------------------------------------------------------------------------------
     public function testFindBookedLessonFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -52,7 +52,9 @@ class GatewaysStudentBookingTest extends TestCase
         $result = $this->gatewayStudentBooking->findStundetBookedLessons($this->id);
         $this->assertEquals(0, $result);
     }
+//------------------------------------------------------------------------------------------------------------------------------
 
+//test FindLessonsWithFullRoom--------------------------------------------------------------------------------------------------
     public function testFindLessonsWithFullRoomFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -69,7 +71,9 @@ class GatewaysStudentBookingTest extends TestCase
         $result = $this->gatewayStudentBooking->findLessonsWithFullRoom();
         $this->assertEquals(0, $result);
     }
+//----------------------------------------------------------------------------------------------------------------------------------
 
+//test FindDetailsOfLessons---------------------------------------------------------------------------------------------------------
     public function testfindDetailsOfLessonsFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -85,9 +89,10 @@ class GatewaysStudentBookingTest extends TestCase
         $arrayForTest = array(1, 2, 3);
         $result = $this->gatewayStudentBooking->findDetailsOfLessons($arrayForTest);
         $this->assertEquals(0, $result);
-
-    
     }
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+//test InsertNewBooking-------------------------------------------------------------------------------------------------------------------
     public function testInsertNewBookingWorked(){
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->restoreDB();
@@ -101,6 +106,9 @@ class GatewaysStudentBookingTest extends TestCase
         $result = $this->gatewayStudentBooking->insertBooking($bookForTest);
         $this->assertIsInt($result);
     }
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+//test UpdateBooking-----------------------------------------------------------------------------------------------------------------------
     public function testUpdateBooking(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -110,7 +118,9 @@ class GatewaysStudentBookingTest extends TestCase
         $this->assertEquals(1, $lineUpdated);
         $this->restoreValueAfterUpdate();
     }    
+//-------------------------------------------------------------------------------------------------------------------------------------------
 
+//test Useful for testing--------------------------------------------------------------------------------------------------------------------
     protected function restoreDB(){
         $this->db->exec('DROP TABLE IF EXISTS "lessons";
         CREATE TABLE IF NOT EXISTS "lessons" (

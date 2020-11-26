@@ -5,7 +5,7 @@ class GatewaysTeacherBookingTest extends TestCase{
 
     private $db;
     private $gatewayTeacherBooking;
-
+//test FindBookedStudentsForLecture-----------------------------------------------------------------------------------------
     public function testfindBookedStudentsForLectureFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -21,7 +21,9 @@ class GatewaysTeacherBookingTest extends TestCase{
         $result = $this->gatewayTeacherBooking->findBookedStudentsForLecture($this->id);
         $this->assertEquals(0, $result);
     }
+//------------------------------------------------------------------------------------------------------------------------------
 
+//test UpdateToNotActiveLecture-------------------------------------------------------------------------------------------------
     public function testupdateToNotActiveLectureFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -39,7 +41,9 @@ class GatewaysTeacherBookingTest extends TestCase{
         $result = $this->gatewayTeacherBooking->updateToNotActiveLecture($this->id);
         $this->assertEquals(-1, $result);
     }
-    
+//------------------------------------------------------------------------------------------------------------------------------
+
+//test ChangeToOnlineLectureFound-----------------------------------------------------------------------------------------------
     public function testchangeToOnlineLectureFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -57,7 +61,9 @@ class GatewaysTeacherBookingTest extends TestCase{
         $result = $this->gatewayTeacherBooking->changeToOnlineLecture($this->id);
         $this->assertEquals(-1, $result);
     }
+//---------------------------------------------------------------------------------------------------------------------------------
 
+//test FindAllBookingsOfLecture----------------------------------------------------------------------------------------------------
     public function testfindAllBookingsOfLectureFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -76,7 +82,9 @@ class GatewaysTeacherBookingTest extends TestCase{
         $this->assertEquals(0, $result);
     }
     
+//-----------------------------------------------------------------------------------------------------------------------------------
 
+//Function useful for testing--------------------------------------------------------------------------------------------------------
     protected function updateDates(){
         $this->db->exec("update booking set date=datetime('now', '3 days')");
         $this->db->exec("update lessons set date=date('now', '3 days');");
@@ -94,6 +102,8 @@ class GatewaysTeacherBookingTest extends TestCase{
         $this->db->exec($sqlUpdateBookingTable);
 
     }
+//---------------------------------------------------------------------------------------------------------------------------------------
+
 }
 
 

@@ -13,6 +13,7 @@ class ControllersStudentBookingTest extends TestCase
     {
         
     }
+//test FindBookableLessons--------------------------------------------------------------------------------------------------------
     public function testfindBookableLessonsFound(){
         $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting2.db");
@@ -29,6 +30,8 @@ class ControllersStudentBookingTest extends TestCase
         $result = $this->controllersStudentBooking->findBookableLessons();
         $this->assertEquals(0, $result);
     }
+
+
 
     public function testStudentBookingProcessRequestOutput(){
         $id = 1;
@@ -51,6 +54,9 @@ class ControllersStudentBookingTest extends TestCase
         //$this->assertFalse(empty($output));
         
     }
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+//test InsertNewBooking------------------------------------------------------------------------------------------------------------------
     public function testInsertNewBooking(){
         $this->db = new SQLite3("./tests/dbEmail.db");
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("POST", $this->db, "insertLecture");
@@ -66,6 +72,9 @@ class ControllersStudentBookingTest extends TestCase
         $this->deleteRow($result);
 
     }
+//-------------------------------------------------------------------------------------------------------------------------------------------
+
+//test UpdateBooking-------------------------------------------------------------------------------------------------------------------------
     public function testUpdateBooking(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -84,6 +93,9 @@ class ControllersStudentBookingTest extends TestCase
         $this->controllersStudentBooking->processRequest();
         $this->restoreValueAfterUpdate();
     }
+//-----------------------------------------------------------------------------------------------------------------------------------------
+
+//test FindBookedLessons-------------------------------------------------------------------------------------------------------------------
     public function testFindBookedLessonsFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -118,7 +130,9 @@ class ControllersStudentBookingTest extends TestCase
         $this->controllersStudentBooking->processRequest();
         
     }
+//------------------------------------------------------------------------------------------------------------------------------------------
 
+//test FindLectureWithFullRoom--------------------------------------------------------------------------------------------------------------
     public function testfindLectureWithFullRoomFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates(); 
@@ -154,10 +168,10 @@ class ControllersStudentBookingTest extends TestCase
         $this->expectOutputString('0');
         $this->controllersStudentBooking->processRequest();
     }
+//-----------------------------------------------------------------------------------------------------------------------------------------
 
 
-
-
+//test Useful functions for testing---------------------------------------------------------------------------------------------------------
     protected function restoreDB(){
         $this->db->exec('DROP TABLE IF EXISTS "lessons";
         CREATE TABLE IF NOT EXISTS "lessons" (
