@@ -91,21 +91,15 @@ class App extends React.Component {
   }
 
   deleteLecture = (lectureId) => {
-    /*
     API.deleteLecture(lectureId).then(() => {
-      this.getTeacherLectures(this.userId);
+      this.getTeacherLectures(this.state.userId);
     });
-    */
-    console.log("Elimino la lezione " + lectureId);
   }
 
   changeToOnline = (lectureId) => {
-    /*
     API.changeToOnline(lectureId).then(() => {
-      this.getTeacherLectures(this.userId);
+      this.getTeacherLectures(this.state.userId);
     });
-    */
-    console.log("Cambio a online la lezione " + lectureId);
   }
 
   render(props) {

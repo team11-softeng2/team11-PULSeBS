@@ -156,27 +156,56 @@ async function deleteBooking(bookingId) {
 }
 
 async function deleteLecture(lectureId) {
-    const url = "http://localhost/server/updateLecture/" + lectureId;       //Da verificare
-    return new Promise((resolve, reject) => {
-        fetch(url, {
-            method: 'PUT',
-            headers: {
-                //'Content-Type': 'application/json',
-                'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
-            },
-            body: JSON.stringify({
-            }),
-        }).then((response) => {
-            if (response.ok) {
-                resolve(0);
-            } else {
-                reject({errore: "Error in deleting a booking"});
-            }
-        }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) });
+    const url = "http://localhost/server/deleteLecture/" + lectureId;  
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: JSON.stringify({
+        }),
     });
+    const result = await response.json();
+    if(response.ok) {
+        if(result === 1) {
+            return 1;
+        } else {
+            console.log("Too late to delete the lecture");
+            return -1;
+        }
+    } else {
+        let err = {status: response.status, errorObj: result};
+        throw err; 
+    }
+}
+
+async function changeToOnline(lectureId) {
+    const url = "http://localhost/server/changeToOnline/" + lectureId;  
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: JSON.stringify({
+        }),
+    });
+    const result = await response.json();
+    if(response.ok) {
+        if(result === 1) {
+            return 1;
+        } else {
+            console.log("Too late to change the lecture");
+            return -1;
+        }
+    } else {
+        let err = {status: response.status, errorObj: result};
+        throw err; 
+    }
 }
 
 const API = {
-    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture
+    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline
 };
 export default API;
