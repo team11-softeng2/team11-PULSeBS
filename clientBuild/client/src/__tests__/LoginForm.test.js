@@ -57,4 +57,12 @@ describe("Input value", () => {
         fireEvent.click(loginButton);
         expect();
     });
+
+    test("login error", async () => {
+        const component = shallow(<LoginForm/>);
+        const instance = component.instance();
+        API.userLogin = jest.fn(() => Promise.reject());
+        await instance.doLoginCall("test", "test");
+        expect(instance.state.loginSuccess).toBe(false);
+    })
 });

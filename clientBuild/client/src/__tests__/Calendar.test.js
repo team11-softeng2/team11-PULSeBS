@@ -1,8 +1,57 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import Calendar from '../Calendar';
+import API from '../API';
+import { shallow } from 'enzyme';
+
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+configure({ adapter: new Adapter() });
 
 test("Calendar render", () => {
     const testRender = render(<Calendar/>);
     expect(testRender).not.toBe(undefined);
 });
+
+test("closeModal function", async () => {
+    const component = shallow(<Calendar/>);
+    const instance = component.instance();
+    await instance.setState({showModal: true});
+    expect(instance.state.showModal).toBe(true);
+    await instance.closeModal();
+    expect(instance.state.showModal).toBe(false);
+});
+
+test("handleEventClick teacher", async () => {
+    const component = shallow(<Calendar view={"teacher"}/>);
+    const instance = component.instance();
+    API.getBooking = jest.fn(() => Promise.resolve(["test"]));
+    let info = {
+        event: {
+            id: 1,
+            title: "Test",
+            start: new Date("2020-10-10T10:00:00"),
+            end: new Date("2020-10-10T12:00:00"),
+            backgroundColor: "green",
+        }
+    }
+    await instance.handleEventClick(info);
+    expect(instance.state.showModal).toBe(true);
+})
+
+test("handleEventClick student", async () => {
+    const component = shallow(<Calendar view={"student"}/>);
+    const instance = component.instance();
+    API.getBooking = jest.fn(() => Promise.resolve(["test"]));
+    let info = {
+        event: {
+            id: 1,
+            title: "Test",
+            start: new Date("2020-10-10T10:00:00"),
+            end: new Date("2020-10-10T12:00:00"),
+            backgroundColor: "green",
+        }
+    }
+    await instance.handleEventClick(info);
+    expect(instance.state.showModal).toBe(true);
+})
