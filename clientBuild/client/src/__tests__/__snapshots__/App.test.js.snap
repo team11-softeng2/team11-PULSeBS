@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders learn react link 1`] = `
+Array [
+  <nav
+    className="navbar navbar-expand navbar-dark bg-dark"
+  >
+    <span
+      className="navbar-brand"
+    >
+      PULSeBS
+    </span>
+  </nav>,
+  <div
+    className="height-100 row"
+  >
+    <div
+      className="col-sm-4"
+    />
+    <div
+      className="below-nav my-3 col-sm-4"
+    >
+      <div>
+        <form
+          className="form"
+          data-testid="login-form"
+          method="POST"
+          onSubmit={[Function]}
+        >
+          <div
+            className="form-row"
+          >
+            <div
+              className="form-group"
+            >
+              <label
+                htmlFor="username"
+              >
+                Username
+              </label>
+              <input
+                className="form-control"
+                id="username"
+                name="username"
+                onChange={[Function]}
+                placeholder="Username"
+                required={true}
+                type="text"
+                value="test"
+              />
+            </div>
+             
+            <div
+              className="form-group"
+            >
+              <label
+                htmlFor="password"
+              >
+                Password
+              </label>
+              <input
+                className="form-control"
+                id="password"
+                name="password"
+                onChange={[Function]}
+                placeholder="Password"
+                required={true}
+                type="password"
+                value="test"
+              />
+            </div>
+          </div>
+          <div
+            className="form-row"
+          >
+            <button
+              className="btn btn-primary"
+              data-testid="login-button"
+              onClick={[Function]}
+              type="button"
+            >
+              Login
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>,
+]
+`;

@@ -51,5 +51,4 @@ describe("Input value", () => {
         fireEvent.click(loginButton);
         expect();
     });
-
 });
