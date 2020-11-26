@@ -2,6 +2,12 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import TestRenderer from 'react-test-renderer';
 import LoginForm from '../LoginForm';
+import API from '../API';
+import { shallow } from 'enzyme';
+
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+configure({ adapter: new Adapter() });
 
 test("LoginFrom renders correctly", () => {
     const tree = TestRenderer.create(<LoginForm/>).toJSON();
