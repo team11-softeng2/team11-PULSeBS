@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import StudentCalendarPage from './StudentCalendarPage';
 import TeacherCalendarPage from './TeacherCalendarPage';
+import TeacherHistoricalDataPage from './TeacherHistoricalDataPage';
 
 class App extends React.Component {
   constructor(props) {
@@ -129,6 +130,14 @@ class App extends React.Component {
                   }})} />
                 :
               <Redirect to="/"></Redirect>
+            }
+          </Route>
+
+          <Route path="/teacher/historicalData">
+            {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
+                <TeacherHistoricalDataPage/>
+                :
+                <Redirect to="/"></Redirect>
             }
           </Route>
 
