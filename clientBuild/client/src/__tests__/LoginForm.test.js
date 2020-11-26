@@ -1,10 +1,11 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import TestRenderer from 'react-test-renderer';
 import LoginForm from '../LoginForm';
 
 test("LoginFrom renders correctly", () => {
-    const {queryByTestId} = render(<LoginForm/>);
-    expect(queryByTestId("login-form")).toBeTruthy();
+    const tree = TestRenderer.create(<LoginForm/>).toJSON();
+    expect(tree).toMatchSnapshot();
 });
 
 describe("Input value", () => {

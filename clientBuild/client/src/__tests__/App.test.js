@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
+import TestRenderer from 'react-test-renderer';
 import App from '../App';
 import React from 'react';
 
 test('renders learn react link', () => {
-  const testRender = render(<App/>);
-  expect(testRender).not.toBe(null);
+  const tree = TestRenderer.create(<App/>).toJSON();
+  expect(tree).toMatchSnapshot();
 });
 
 describe("get functions", () => {

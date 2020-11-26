@@ -16,6 +16,7 @@
     "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.0",
+    "react-test-renderer": "^17.0.1",
     "web-vitals": "^0.2.4"
   },
   "jestSonar": {
