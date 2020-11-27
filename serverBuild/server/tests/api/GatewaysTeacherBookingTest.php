@@ -41,6 +41,24 @@ class GatewaysTeacherBookingTest extends TestCase{
         $result = $this->gatewayTeacherBooking->updateToNotActiveLecture($this->id);
         $this->assertEquals(-1, $result);
     }
+
+    public function testUpdateNotActiveZeroResult(){
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+        $this->id = 3;
+        //$this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+        
+        $mockGatewayTeacherBooking = $this->getMockBuilder(Server\api\GatewaysTeacherBooking::class)
+        ->setConstructorArgs(array($this->db))
+        ->setMethods(array('validateDateBeforeUpdate'))
+        ->getMock();
+
+        $mockGatewayTeacherBooking->expects($this->any())
+        ->method('validateDateBeforeUpdate')
+        ->will($this->returnValue(true));
+
+        $result = $mockGatewayTeacherBooking->updateToNotActiveLecture($this->id);
+        $this->assertEquals(0, $result);
+    }
 //------------------------------------------------------------------------------------------------------------------------------
 
 //test ChangeToOnlineLectureFound-----------------------------------------------------------------------------------------------
@@ -60,6 +78,24 @@ class GatewaysTeacherBookingTest extends TestCase{
         $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
         $result = $this->gatewayTeacherBooking->changeToOnlineLecture($this->id);
         $this->assertEquals(-1, $result);
+    }
+
+    public function testchangeToOnlineLectureZeroOutput(){
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+        $this->id = 3;
+        //$this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+        
+        $mockGatewayTeacherBooking = $this->getMockBuilder(Server\api\GatewaysTeacherBooking::class)
+        ->setConstructorArgs(array($this->db))
+        ->setMethods(array('validateDateBeforeUpdateToOnline'))
+        ->getMock();
+
+        $mockGatewayTeacherBooking->expects($this->any())
+        ->method('validateDateBeforeUpdateToOnline')
+        ->will($this->returnValue(true));
+
+        $result = $mockGatewayTeacherBooking->changeToOnlineLecture($this->id);
+        $this->assertEquals(0, $result);
     }
 //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -83,6 +119,51 @@ class GatewaysTeacherBookingTest extends TestCase{
     }
     
 //-----------------------------------------------------------------------------------------------------------------------------------
+
+//test validationDateBeforeUpdate----------------------------------------------------------------------------------------------------
+
+    public function testvalidationDateBeforeUpdateTrue(){
+        $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
+        $this->id = 3;
+        $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+        $result = $this->gatewayTeacherBooking->validateDateBeforeUpdate($this->id);
+        $this->assertTrue($result);
+
+    }
+
+    public function testvalidationDateBeforeUpdateFalse(){
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+        $this->id = 3;
+        $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+        $result = $this->gatewayTeacherBooking->validateDateBeforeUpdate($this->id);
+        $this->assertFalse($result);
+    }
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+//test validationDateBeforeUpdateToOnline----------------------------------------------------------------------------------------------------
+
+    public function testvalidationDateBeforeUpdateToOnlineTrue(){
+        $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
+        $this->id = 3;
+        $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+        $result = $this->gatewayTeacherBooking->validateDateBeforeUpdateToOnline($this->id);
+        $this->assertTrue($result);
+    }
+
+    public function testvalidationDateBeforeUpdateToOnlineFalse(){
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+        $this->id = 3;
+        $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+        $result = $this->gatewayTeacherBooking->validateDateBeforeUpdateToOnline($this->id);
+        $this->assertFalse($result);
+    
+    }
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
 
 //Function useful for testing--------------------------------------------------------------------------------------------------------
     protected function updateDates(){
