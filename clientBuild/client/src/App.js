@@ -10,6 +10,7 @@ import Col from 'react-bootstrap/Col';
 import StudentCalendarPage from './StudentCalendarPage';
 import TeacherCalendarPage from './TeacherCalendarPage';
 import TeacherHistoricalDataPage from './TeacherHistoricalDataPage';
+import BookingManagerPage from './BookingManagerPage';
 
 class App extends React.Component {
   constructor(props) {
@@ -40,6 +41,8 @@ class App extends React.Component {
       this.getStudentBookings(user.idUser);
     } else if(user.role === "teacher") {
       this.getTeacherLectures(user.idUser);
+    } else if(user.Role === "booking-manager") {
+      // ...
     }
   }
 
@@ -159,8 +162,16 @@ class App extends React.Component {
             }
           </Route>
 
+          <Route path="/booking-manager">
+            {(this.state.loggedin === true && this.state.userRole === "booking-manager") ? 
+              <BookingManagerPage/>
+                :
+              <Redirect to="/"></Redirect>
+            }
+          </Route>
+
           <Route path="/">
-          <Row className="height-100">
+            <Row className="height-100">
               <Col sm={4}></Col>
               <Col sm={4} className="below-nav my-3">
                 <LoginForm setLoggedIn={this.setLoggedIn}/>
