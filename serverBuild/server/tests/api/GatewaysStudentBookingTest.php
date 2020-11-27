@@ -58,8 +58,16 @@ class GatewaysStudentBookingTest extends TestCase
     public function testFindLessonsWithFullRoomFound(){
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
-        $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
+        $sqlfake = "select idLesson from lessons where idLesson=7";
+        $fakesqlite3Result = $this->db->query($sqlfake);
+        $db = $this->getMockBuilder(\SQLite3::class)->disableOriginalConstructor()->setMethods(array('query'))->getMock();
+        $db->expects($this->any())->method('query')->will($this->returnValue($fakesqlite3Result));
+        
+        
+
+        $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($db);
         $dataExcepted = array();
+
         $result = $this->gatewayStudentBooking->findLessonsWithFullRoom();
         $this->assertIsArray($result);
         
