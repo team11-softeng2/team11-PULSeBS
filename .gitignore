@@ -4,3 +4,5 @@ serverBuild/server/composer.lock
 serverBuild/server/composer.json
 
 clientBuild/client/package-lock.json
+
+clientbuild/client/debug.log

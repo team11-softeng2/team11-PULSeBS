@@ -90,6 +90,13 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersTeacherBooking($requestMethod, $dbConn, $value, $id);
             $controller->processRequest();
         break;
+        case "bookingStatistics":
+            $value = "bookingStatistics";
+            $requestMethod = "GET";
+            $filterCourse = $_GET['filterCourse'];
+            $filterTime = $_GET['filterTime'] == "" ? "all":$_GET['filterTime']; 
+            echo 'BookingStatistics' . $filterCourse . " ". $filterTime;
+        break;
         default:
             echo $msg;
 
