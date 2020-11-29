@@ -98,6 +98,12 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersHistoricalData($requestMethod, $dbConn, $value, $filterTime, $filterCourse, -1);
             $controller->processRequest();
             break;
+        case "courses":
+            $value = "courses";
+            $requestMethod = $_SERVER['REQUEST_METHOD'];
+            $controller = new Server\api\ControllersCourse($requestMethod, $dbConn, $value);
+            $controller->processRequest();
+            break;
         default:
             echo $msg;
     }

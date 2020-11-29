@@ -33,8 +33,8 @@ Each endpoint is preceded by /server/src/api/
 3. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Geometria","date":"2020-11-17","beginTime":"14:00:00","endTime":"16:00:00"},{"name":"Geometria","date":"2020-11-18","beginTime":"14:00:00","endTime":"16:00:00"}]
 
 - GET `/lecturesWithFullRoom/:studentId`
-    - Params: studentId 
-    - Response: List of lectures of the student that have the classroom full
+  - Params: studentId
+  - Response: List of lectures of the student that have the classroom full
 
 ## Bookings
 
@@ -64,22 +64,26 @@ Each endpoint is preceded by /server/src/api/
   - Response: rows modified (should be always one)
 
 - PUT `/deleteLecture/:lectureId`
+
   - Params: lectureId
   - Response: number of rows changed inside lesson table(should be always one)
 
 - PUT `/changeToOnline/:lectureId`
+
   - Params: lectureId
   - Response: number of rows changed inside lesson table(should be always one)
-  
+
   ## Statistics
+
 - GET `/bookingStatistics?filterTime=&filterCourse=`
-    - Params: 
-      -  filterTime: string that could be idLesson (per lecture), year,monthOfYear(per month) or year_month_week(per week). If nothing is passed then the default value is idLesson
-         - Example: filterTime=year,monthOfYear (the comma is not an error)  
-      - filterCourse: string made by course id separed by comma
-        -  Example: filterCourse=1,2,5
-      - Example urls: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
-    - Response: statistics list of bookings filtered by filterTime and filterCourse
+
+  - Params:
+    - filterTime: string that could be idLesson (per lecture), year,monthOfYear(per month) or year_month_week(per week). If nothing is passed then the default value is idLesson
+      - Example: filterTime=year,monthOfYear (the comma is not an error)
+    - filterCourse: string made by course id separed by comma
+      - Example: filterCourse=1,2,5
+    - Example urls: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
+  - Response: statistics list of bookings filtered by filterTime and filterCourse
 
   ## Courses
 
@@ -87,6 +91,10 @@ Each endpoint is preceded by /server/src/api/
 
   - Params: studentId
   - Response: List of courses attended by a student
+
+- GET `/courses`
+
+  - Response: list of all courses in the booking system
 
 ## Notifications
 
