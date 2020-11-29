@@ -10,10 +10,13 @@ class ControllersTeacherBooking
     private $teacherGatewayBooking;
     private $id;
     private $value;
+    private $gatewayNotification;
+
     public function __construct($requestMethod, $db, $value, $id = -1)
     {
         $this->requestMethod = $requestMethod;
         $this->teacherGatewayBooking = new GatewaysTeacherBooking($db);
+        $this->gatewayNotification = new GatewaysNotification($db);
         $this->value = $value;
         $this->id = $id;
     }
@@ -28,32 +31,42 @@ class ControllersTeacherBooking
                 $response = $this->findScheduledLecturesForTeacher($this->id);
                 echo $response;
             }
-        }
-        else if($this->requestMethod == "PUT"){
-            if ($this->value == "deleteLecture"){
+        } else if ($this->requestMethod == "PUT") {
+            if ($this->value == "deleteLecture") {
                 $response = $this->updateToNotActiveLecture($this->id);
                 echo $response;
-            } elseif ($this->value == "changeToOnline"){
+            } elseif ($this->value == "changeToOnline") {
                 $response = $this->changeToOnlineLecture($this->id);
                 echo $response;
             }
         }
     }
+
     public function findBookedStudentsForLecture($id)
     {
         $bookedStudentsForLecture = $this->teacherGatewayBooking->findBookedStudentsForLecture($id);
         return json_encode($bookedStudentsForLecture);
     }
+
     public function findScheduledLecturesForTeacher($id)
     {
         $scheduledLecturesForTeacher = $this->teacherGatewayBooking->findScheduledLecturesForTeacher($id);
         return json_encode($scheduledLecturesForTeacher);
     }
-    public function updateToNotActiveLecture($idLecture){
+
+    public function updateToNotActiveLecture($idLecture)
+    {
         $result = $this->teacherGatewayBooking->updateToNotActiveLecture($idLecture);
+        $inputEmail = (object) [
+            'type' => 'lectureCancelled',
+            'id' => $idLecture,
+        ];
+        $emailRes = $this->gatewayNotification->sendEmail($inputEmail);
         return json_encode($result);
     }
-    public function changeToOnlineLecture($idLecture){
+
+    public function changeToOnlineLecture($idLecture)
+    {
         $result = $this->teacherGatewayBooking->changeToOnlineLecture($idLecture);
         return json_encode($result);
     }

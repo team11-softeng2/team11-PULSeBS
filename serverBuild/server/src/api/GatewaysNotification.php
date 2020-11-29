@@ -25,8 +25,8 @@ class GatewaysNotification
                 return $this->dispatch($queue);
                 break;
             case 'lectureCancelled':
-                $body = "Message body.";
-                return "To be implemented...";
+                $queue = $this->lectureCancelled($input->id);
+                return $this->dispatch($queue);
                 break;
             case 'takenFromWaitingList':
                 $body = "Message body.";
@@ -139,6 +139,34 @@ class GatewaysNotification
                 "to" => $row['email'],
                 "userName" => $row['userName'],
                 "subject" => "Booking Confirmation",
+                "body" => $body,
+            );
+            $data[] = $subArray;
+        }
+        if (!empty($data)) {
+            return $data;
+        } else {
+            return 0;
+        }
+    }
+
+    private function lectureCancelled($id)
+    {
+        $sql = "SELECT u.email, u.name as userName, c.name as courseName, l.date, l.beginTime
+                FROM booking as b, users as u, courses as c, lessons as l
+                WHERE   b.idLesson=$id AND
+                        isWaiting=0 AND
+                        b.idUser=u.idUser AND
+                        l.idLesson=b.idLesson AND
+                        l.idCourse=c.idCourse";
+        $result = $this->db->query($sql);
+        $data = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            $body = "Hi " . $row['userName'] . ", this email is to inform you that the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", has been cancelled.";
+            $subArray = array(
+                "to" => $row['email'],
+                "userName" => $row['userName'],
+                "subject" => "Lecture Cancelled",
                 "body" => $body,
             );
             $data[] = $subArray;

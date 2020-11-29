@@ -82,24 +82,23 @@ if (isset($_GET['url'])) {
             $id = $number;
             $controller = new Server\api\ControllersTeacherBooking($requestMethod, $dbConn, $value, $id);
             $controller->processRequest();
-        break;
+            break;
         case "changeToOnline/$number":
             $value = "changeToOnline";
             $requestMethod = "PUT";
             $id = $number;
             $controller = new Server\api\ControllersTeacherBooking($requestMethod, $dbConn, $value, $id);
             $controller->processRequest();
-        break;
+            break;
         case "bookingStatistics":
             $value = "bookingStatistics";
             $requestMethod = "GET";
             $filterCourse = $_GET['filterCourse'];
-            $filterTime = $_GET['filterTime'] == "" ? "L.idLesson":$_GET['filterTime']; 
+            $filterTime = $_GET['filterTime'] == "" ? "L.idLesson" : $_GET['filterTime'];
             $controller = new Server\api\ControllersHistoricalData($requestMethod, $dbConn, $value, $filterTime, $filterCourse, -1);
             $controller->processRequest();
-        break;
+            break;
         default:
             echo $msg;
-
     }
 }
