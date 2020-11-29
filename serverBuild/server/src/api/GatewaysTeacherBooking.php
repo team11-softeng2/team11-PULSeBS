@@ -38,7 +38,6 @@ class GatewaysTeacherBooking
                         WHERE isWaiting=0
                         GROUP BY idLesson) as s, lessons as l, courses as c
                 WHERE   l.idTeacher='$id' AND
-                        l.inPresence=1 AND
                         s.idLesson=l.idLesson AND
                         c.idCourse=l.idCourse AND
                         l.date >= '$today'";
@@ -68,48 +67,47 @@ class GatewaysTeacherBooking
 
     }
 
-    public function updateToNotActiveLecture($idLecture){
-        if($this->validateDateBeforeUpdate($idLecture)){
-            $sqlUpdateLessonTable= "update lessons set active=0 where idLesson=".$idLecture."";
-            $sqlUpdateBookingTable="update booking set active=0, isWaiting=0 where idLesson=".$idLecture."";
+    public function updateToNotActiveLecture($idLecture)
+    {
+        if ($this->validateDateBeforeUpdate($idLecture)) {
+            $sqlUpdateLessonTable = "update lessons set active=0 where idLesson=" . $idLecture . "";
+            $sqlUpdateBookingTable = "update booking set active=0, isWaiting=0 where idLesson=" . $idLecture . "";
             $this->db->exec($sqlUpdateLessonTable);
             $changesLessonTable = $this->db->changes();
-            if($changesLessonTable > 0){
+            if ($changesLessonTable > 0) {
                 $this->db->exec($sqlUpdateBookingTable);
-                return $changesLessonTable;    
-            }
-            else {
+                return $changesLessonTable;
+            } else {
                 return 0;
             }
-        }
-        else {
+        } else {
             return -1;
         }
     }
 
-    public function changeToOnlineLecture($idLecture){
-        if($this->validateDateBeforeUpdateToOnline($idLecture)){
-            $sqlUpdateLessonTable= "update lessons set inPresence=0, idClassRoom=0 where idLesson=".$idLecture."";
-            $sqlUpdateBookingTable= "update booking set active=0, isWaiting=0 where idLesson=".$idLecture."";
+    public function changeToOnlineLecture($idLecture)
+    {
+        if ($this->validateDateBeforeUpdateToOnline($idLecture)) {
+            $sqlUpdateLessonTable = "update lessons set inPresence=0, idClassRoom=0 where idLesson=" . $idLecture . "";
+            $sqlUpdateBookingTable = "update booking set active=0, isWaiting=0 where idLesson=" . $idLecture . "";
             $this->db->exec($sqlUpdateLessonTable);
             $changesLessonTable = $this->db->changes();
-            if($changesLessonTable > 0){
+            if ($changesLessonTable > 0) {
                 $this->db->exec($sqlUpdateBookingTable);
-                return $changesLessonTable;    
-            }
-            else {
+                return $changesLessonTable;
+            } else {
                 return 0;
             }
-        }
-        else {
+        } else {
             return -1;
         }
-        
+
     }
-    
-    //Used to send emails to students 
-    public function findAllBookingsOfLecture($idLecture){
-        $sql= "select * from booking where idLesson=".$idLecture."";
+
+    //Used to send emails to students
+    public function findAllBookingsOfLecture($idLecture)
+    {
+        $sql = "select * from booking where idLesson=" . $idLecture . "";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -119,7 +117,7 @@ class GatewaysTeacherBooking
                 "idLesson" => $row['idLesson'],
                 "active" => $row['active'],
                 "date" => $row['date'],
-                "isWaiting" => $row['isWaiting']
+                "isWaiting" => $row['isWaiting'],
             );
             $data[] = $subArray;
         }
@@ -127,30 +125,30 @@ class GatewaysTeacherBooking
 
     }
 
-    public function validateDateBeforeUpdate($idLecture){
-        $sql = "select * from lessons where idLesson = ".$idLecture."";
+    public function validateDateBeforeUpdate($idLecture)
+    {
+        $sql = "select * from lessons where idLesson = " . $idLecture . "";
         $result = $this->db->query($sql)->fetchArray(SQLITE3_ASSOC);
-        if($result){
+        if ($result) {
             date_default_timezone_set("Europe/Rome");
             $currentDateTimePlusOneHour = date("Y-m-d H:i:s", strtotime("+1 hours", strtotime(date("Y-m-d H:i:s"))));
-            $dateTimeLecture = $result['date']." ". $result['beginTime'];
-            return($currentDateTimePlusOneHour < $dateTimeLecture); //if true it is possible to delete
-        }
-        else{
+            $dateTimeLecture = $result['date'] . " " . $result['beginTime'];
+            return ($currentDateTimePlusOneHour < $dateTimeLecture); //if true it is possible to delete
+        } else {
             //no row found
             return false;
         }
     }
-    public function validateDateBeforeUpdateToOnline($idLecture){
-        $sql = "select * from lessons where idLesson = ".$idLecture."";
+    public function validateDateBeforeUpdateToOnline($idLecture)
+    {
+        $sql = "select * from lessons where idLesson = " . $idLecture . "";
         $result = $this->db->query($sql)->fetchArray(SQLITE3_ASSOC);
-        if($result){
+        if ($result) {
             date_default_timezone_set("Europe/Rome");
             $currentDateTimePlusOneHour = date("Y-m-d H:i:s", strtotime("+30 minutes", strtotime(date("Y-m-d H:i:s"))));
-            $dateTimeLecture = $result['date']." ". $result['beginTime'];
-            return($currentDateTimePlusOneHour < $dateTimeLecture); //if true it is possible to delete
-        }
-        else{
+            $dateTimeLecture = $result['date'] . " " . $result['beginTime'];
+            return ($currentDateTimePlusOneHour < $dateTimeLecture); //if true it is possible to delete
+        } else {
             //no row found
             return false;
         }
