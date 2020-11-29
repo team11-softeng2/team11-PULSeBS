@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ApexChart from "react-apexcharts";
-import {Container, Row, Col, ListGroup} from 'react-bootstrap'; 
+import {Container, Row, Col, ListGroup, ButtonGroup, ToggleButton} from 'react-bootstrap';
 import Select from 'react-select';
 
 const courses = [
@@ -16,67 +16,17 @@ class BookingManagerPage extends React.Component {
 
       this.state = {
 
-        currentFilter: 'Lecture',
-        filters: ['Lecture', 'Week', 'Month'],
+        currentBookingFilter: 1, // Month = 1
+        currentCancellationFilter: 4, // Month = 4
 
         selectedCourse: null,
-
-        series: [{
-          name: 'Net Profit',
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-        }, {
-          name: 'Revenue',
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-        }, {
-          name: 'Free Cash Flow',
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-        }],
-
-        options: {
-          chart: {
-            type: 'bar',
-            height: 430
-          },
-          plotOptions: {
-            bar: {
-              horizontal: false,
-              columnWidth: '50%',
-            },
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            show: true,
-            width: 2,
-            colors: ['transparent']
-          },
-          xaxis: {
-            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-          },
-          yaxis: {
-            title: {
-              text: '$ (thousands)'
-            }
-          },
-          fill: {
-            opacity: 1
-          },
-          tooltip: {
-            y: {
-              formatter: function (val) {
-                return "$ " + val + " thousands"
-              }
-            }
-          }
-        },
         
-        series2: [{
+        series1: [{
             name: "cancellation",
             data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
         }],
 
-        options2:{
+        options1:{
             chart: {
               height: 350,
               type: 'line',
@@ -105,7 +55,7 @@ class BookingManagerPage extends React.Component {
             }
         },
         
-        series3: [{
+        series2: [{
             name: 'booking',
             data: [31, 40, 45, 51, 42, 109, 100]
         }, {
@@ -113,7 +63,7 @@ class BookingManagerPage extends React.Component {
             data: [11, 32, 45, 32, 34, 52, 41]
         }],
         
-        options3: {
+        options2: {
             chart: {
                 height: 350,
                 type: 'area'
@@ -149,76 +99,105 @@ class BookingManagerPage extends React.Component {
             <h1 className="text-center">Historical data</h1>
 
             <Select 
-                className="mt-4 col-4 mx-auto"
+                className="col-4 mx-auto my-4"
                 options={courses}
                 placeholder="Select a course..." 
                 isClearable={true}
+                styles={{
+                    // Fixes the overlapping problem of the component
+                    menu: provided => ({ ...provided, zIndex: 9999 })
+                  }}
                 getOptionLabel={(course)=>course.courseName}
                 getOptionValue={(course)=>course.idCourse}
                 onChange={selection => this.handleSelectionChange(selection)} 
                 />
                 
-            <br />
-
             {
             this.state.selectedCourse !== null ?
                 <>
-                <Row>
-                    <Col className='col-2 mt-3 my-auto'>
-                        <MultiStateToggleButton 
-                            options={this.state.filters} 
-                            currentActive={this.state.currentFilter}
-                            handleClick={this.handleFilterChange}/>
-                    </Col>
+                <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
+                    <ApexChart options={this.state.options2} series={this.state.series2} type="area" height={350} /> 
+                    <div className="text-center pt-3">
+                        <MultiStateToggleButton
+                            options={[ { name: 'Month', value: '1' }, { name: 'Week', value: '2' }, { name: 'Lecture', value: '3' } ]} 
+                            currentActive={this.state.currentBookingFilter}
+                            handleClick={this.handleBookingFilterChange}
+                            />
+                    </div>   
+                </div>
 
-                    <Col className='col-8 mt-3'>
-                        <ApexChart options={this.state.options3} series={this.state.series3} type="area" height={350} />                
-                    </Col>
-                </Row>
-                <br />
-                <Row>
-                    <Col className='col-2 mt-3 my-auto'>
-                        <MultiStateToggleButton 
-                            options={this.state.filters} 
-                            currentActive={this.state.currentFilter}
-                            handleClick={this.handleFilterChange}/>
-                    </Col>
-
-                    <Col className='col-8 mt-3'>
-                        <ApexChart options={this.state.options2} series={this.state.series2} type="line" height={350} />                
-                    </Col>
-                </Row>
+                <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
+                    <ApexChart options={this.state.options1} series={this.state.series1} type="line" height={350} />  
+                    <div className="text-center pt-3">
+                        <MultiStateToggleButton
+                            options={[ { name: 'Month', value: '4' }, { name: 'Week', value: '5' }, { name: 'Lecture', value: '6' } ]} 
+                            currentActive={this.state.currentCancellationFilter}
+                            handleClick={this.handleCancellationFilterChange}
+                            />
+                    </div>              
+                </div>
                 </>
-                :
-                <>
-                <br />
-                <ApexChart className="mt-4 col-6 mx-auto" options={this.state.options} series={this.state.series} type="bar" height={430} />
-                <br />
-                </> /* no course selected */
+                : /* no course selected: aggregate (generic) stats */
+                <> 
+                <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
+                    <ApexChart options={this.state.options2} series={this.state.series2} type="area" height={350} />  
+                    <div className="text-center pt-3">
+                        <MultiStateToggleButton
+                            options={[ { name: 'Month', value: '1' }, { name: 'Week', value: '2' } ]} 
+                            currentActive={this.state.currentBookingFilter}
+                            handleClick={this.handleBookingFilterChange}
+                            />
+                    </div>  
+                </div>
+
+                <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
+                    <ApexChart options={this.state.options1} series={this.state.series1} type="line" height={350} /> 
+                    <div className="text-center pt-3">
+                        <MultiStateToggleButton
+                            options={[ { name: 'Month', value: '4' }, { name: 'Week', value: '5' } ]} 
+                            currentActive={this.state.currentCancellationFilter}
+                            handleClick={this.handleCancellationFilterChange}
+                            />
+                    </div>               
+                </div>
+                </>
             }
 
         </Container>
         </>
     }
 
-    handleFilterChange = (event) => {
-        this.setState({ currentFilter: event.currentTarget.innerText });
-
-        if(event.currentTarget.innerText === 'Lecture'){
-           
+    handleBookingFilterChange = (event) => {
+        if(event.currentTarget.innerText === 'Month'){
+            this.setState({ currentBookingFilter: 1 }); 
         }
         else if(event.currentTarget.innerText === 'Week'){
-           
+            this.setState({ currentBookingFilter: 2 }); 
         }
-        else if(event.currentTarget.innerText === 'Month'){
-         
+        else if(event.currentTarget.innerText === 'Lecture'){
+            this.setState({ currentBookingFilter: 3 }); 
+        }
+    }
+
+    handleCancellationFilterChange = (event) => {
+        if(event.currentTarget.innerText === 'Month'){
+            this.setState({ currentCancellationFilter: 4 }); 
+        }
+        else if(event.currentTarget.innerText === 'Week'){
+            this.setState({ currentCancellationFilter: 5 }); 
+        }
+        else if(event.currentTarget.innerText === 'Lecture'){
+            this.setState({ currentCancellationFilter: 6 }); 
         }
     }
 
     handleSelectionChange = (selection) => {
-        this.setState({ selectedCourse: selection !== null ? selection.idCourse : selection });
+        this.setState({ 
+            selectedCourse: selection !== null ? selection.idCourse : selection,
+            currentBookingFilter: 1,
+            currentCancellationFilter: 4,
+        });
     }
-
 
     updateGraphData = (seriesId, optionsId, yname, title, ydata, xlabel) => {
         this.setState({
@@ -258,7 +237,7 @@ class BookingManagerPage extends React.Component {
     }
 }
 
-
+/*
 class MultiStateToggleButton extends React.Component{
     render(){
         return <>
@@ -278,6 +257,33 @@ class MultiStateToggleButton extends React.Component{
                     {option}
                 </ListGroup.Item>
     }
+}*/
+
+class MultiStateToggleButton extends React.Component {
+
+    render() {
+        return <>
+            <ButtonGroup toggle>
+                {this.props.options.map(o => this.createListItem(o))}
+            </ButtonGroup>
+        </>
+    }
+
+    createListItem = (option) => {
+
+        return <ToggleButton
+                    key={option.value}
+                    type="radio"
+                    variant="dark"
+                    name="option"
+                    value={option.value}
+                    checked={this.props.currentActive == option.value}
+                    onClick={(event) => { this.props.handleClick(event); }}
+                >
+                    {option.name}
+                </ToggleButton>
+    }
+
 }
 
 export default BookingManagerPage;
