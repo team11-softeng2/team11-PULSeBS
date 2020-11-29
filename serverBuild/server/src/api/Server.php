@@ -94,8 +94,9 @@ if (isset($_GET['url'])) {
             $value = "bookingStatistics";
             $requestMethod = "GET";
             $filterCourse = $_GET['filterCourse'];
-            $filterTime = $_GET['filterTime'] == "" ? "all":$_GET['filterTime']; 
-            echo 'BookingStatistics' . $filterCourse . " ". $filterTime;
+            $filterTime = $_GET['filterTime'] == "" ? "L.idLesson":$_GET['filterTime']; 
+            $controller = new Server\api\ControllersHistoricalData($requestMethod, $dbConn, $value, $filterTime, $filterCourse, -1);
+            $controller->processRequest();
         break;
         default:
             echo $msg;

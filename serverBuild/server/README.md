@@ -70,6 +70,16 @@ Each endpoint is preceded by /server/src/api/
 - PUT `/changeToOnline/:lectureId`
   - Params: lectureId
   - Response: number of rows changed inside lesson table(should be always one)
+  
+  ## Statistics
+- GET `/bookingStatistics?filterTime=&filterCourse=`
+    - Params: 
+      -  filterTime: string that could be idLesson (per lecture), year,monthOfYear(per month) or year_month_week(per week). If nothing is passed then the default value is idLesson
+         - Example: filterTime=year,monthOfYear (the comma is not an error)  
+      - filterCourse: string made by course id separed by comma
+        -  Example: filterCourse=1,2,5
+      - Example urls: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
+    - Response: statistics list of bookings filtered by filterTime and filterCourse
 
   ## Courses
 
