@@ -1,95 +1,42 @@
 import React, {useState} from 'react';
 import ApexChart from "react-apexcharts";
-import {Container, Row, Col, ListGroup, ButtonGroup, ToggleButton} from 'react-bootstrap';
+import {Container, ButtonGroup, ToggleButton} from 'react-bootstrap';
 import Select from 'react-select';
-
-const courses = [
-    {idCourse:3,courseName:"Geometry"},
-    {idCourse:2,courseName:"Software Engineering II"},
-    {idCourse:5,courseName:"Computer Science"},
-] 
 
 class BookingManagerPage extends React.Component {
 
     constructor(props) {
-      super(props);
+        super(props);
+        this.state = {
+            currentBookingFilter: 1, // Month = 1
+            currentCancellationFilter: 4, // Month = 4
+        };
+    }
 
-      this.state = {
+    componentDidMount = () => {
+        // TODO - api call
+        this.setState({ 
+            courses: [
+                {idCourse:3,courseName:"Geometry"},
+                {idCourse:2,courseName:"Software Engineering II"},
+                {idCourse:5,courseName:"Computer Science"},
+            ], 
+            selectedCourse: null,
+            bookingSeries: undefined,
+            cancellationSeries: undefined,
+        });
 
-        currentBookingFilter: 1, // Month = 1
-        currentCancellationFilter: 4, // Month = 4
-
-        selectedCourse: null,
-        
-        series1: [{
-            name: "cancellation",
-            data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-        }],
-
-        options1:{
-            chart: {
-              height: 350,
-              type: 'line',
-              zoom: {
-                enabled: false
-              }
-            },
-            dataLabels: {
-              enabled: false
-            },
-            stroke: {
-              curve: 'straight'
-            },
-            title: {
-              text: 'Cancellation by Month',
-              align: 'left'
-            },
-            grid: {
-              row: {
-                colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                opacity: 0.5
-              },
-            },
-            xaxis: {
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-            }
-        },
-        
-        series2: [{
-            name: 'booking',
-            data: [31, 40, 45, 51, 42, 109, 100]
-        }, {
-            name: 'attendance',
-            data: [11, 32, 45, 32, 34, 52, 41]
-        }],
-        
-        options2: {
-            chart: {
-                height: 350,
-                type: 'area'
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            title: {
-              text: 'Booking/Attendance by Month',
-              align: 'left'
-            },
-            xaxis: {
-                type: 'datetime',
-                categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-            },
-            tooltip: {
-                x: {
-                format: 'dd/MM/yy HH:mm'
-                },
-            },
-          },
-
-      };
+        this.updateBookingGraphData(
+            'Average number of booking per month',
+            [40.5, 42.8, 45.7, 60.1, 50.2, 40.3, 30.2], 
+            [30.2, 40.8, 40.7, 40.0, 25.2, 40.0, 29.0],
+            ['Oct 2020', 'Nov 2020', 'Dec 2020', 'Jan 2021', 'Feb 2021', 'Mar 2021', 'Apr 2021']
+        );
+        this.updateCancellationGraphData(
+            'Average number of cancellations per month',
+            [40.5, 42.8, 45.7, 60.1, 50.2, 40.3, 30.2], 
+            ['Oct 2020', 'Nov 2020', 'Dec 2020', 'Jan 2021', 'Feb 2021', 'Mar 2021', 'Apr 2021']
+        );
     }
 
     render() {
@@ -100,7 +47,7 @@ class BookingManagerPage extends React.Component {
 
             <Select 
                 className="col-4 mx-auto my-4"
-                options={courses}
+                options={this.state.courses}
                 placeholder="Select a course..." 
                 isClearable={true}
                 styles={{
@@ -116,49 +63,51 @@ class BookingManagerPage extends React.Component {
             this.state.selectedCourse !== null ?
                 <>
                 <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
-                    <ApexChart options={this.state.options2} series={this.state.series2} type="area" height={350} /> 
+                    {this.state.bookingSeries != undefined && 
+                        <ApexChart options={this.state.bookingOptions} series={this.state.bookingSeries} type="area" height={350} /> } 
                     <div className="text-center pt-3">
                         <MultiStateToggleButton
                             options={[ { name: 'Month', value: '1' }, { name: 'Week', value: '2' }, { name: 'Lecture', value: '3' } ]} 
                             currentActive={this.state.currentBookingFilter}
                             handleClick={this.handleBookingFilterChange}
                             />
-                    </div>   
+                    </div>              
                 </div>
-
                 <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
-                    <ApexChart options={this.state.options1} series={this.state.series1} type="line" height={350} />  
+                    {this.state.cancellationSeries != undefined && 
+                        <ApexChart options={this.state.cancellationOptions} series={this.state.cancellationSeries} type="line" height={350} />} 
                     <div className="text-center pt-3">
                         <MultiStateToggleButton
                             options={[ { name: 'Month', value: '4' }, { name: 'Week', value: '5' }, { name: 'Lecture', value: '6' } ]} 
                             currentActive={this.state.currentCancellationFilter}
                             handleClick={this.handleCancellationFilterChange}
                             />
-                    </div>              
+                    </div>   
                 </div>
                 </>
                 : /* no course selected: aggregate (generic) stats */
                 <> 
                 <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
-                    <ApexChart options={this.state.options2} series={this.state.series2} type="area" height={350} />  
+                    {this.state.bookingSeries != undefined && 
+                        <ApexChart options={this.state.bookingOptions} series={this.state.bookingSeries} type="area" height={350} /> }
                     <div className="text-center pt-3">
                         <MultiStateToggleButton
                             options={[ { name: 'Month', value: '1' }, { name: 'Week', value: '2' } ]} 
                             currentActive={this.state.currentBookingFilter}
                             handleClick={this.handleBookingFilterChange}
                             />
-                    </div>  
+                    </div>               
                 </div>
-
                 <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
-                    <ApexChart options={this.state.options1} series={this.state.series1} type="line" height={350} /> 
+                    {this.state.cancellationSeries != undefined && 
+                        <ApexChart options={this.state.cancellationOptions} series={this.state.cancellationSeries} type="line" height={350}/>} 
                     <div className="text-center pt-3">
                         <MultiStateToggleButton
                             options={[ { name: 'Month', value: '4' }, { name: 'Week', value: '5' } ]} 
                             currentActive={this.state.currentCancellationFilter}
                             handleClick={this.handleCancellationFilterChange}
                             />
-                    </div>               
+                    </div>  
                 </div>
                 </>
             }
@@ -170,24 +119,57 @@ class BookingManagerPage extends React.Component {
     handleBookingFilterChange = (event) => {
         if(event.currentTarget.innerText === 'Month'){
             this.setState({ currentBookingFilter: 1 }); 
+            this.updateBookingGraphData(
+                'Average number of booking per month',
+                [40.5, 42.8, 45.7, 60.1, 50.2, 40.3, 30.2], 
+                [30.2, 40.8, 40.7, 40.0, 25.2, 40.0, 29.0],
+                ['Oct 2020', 'Nov 2020', 'Dec 2020', 'Jan 2021', 'Feb 2021', 'Mar 2021', 'Apr 2021']
+            );
         }
         else if(event.currentTarget.innerText === 'Week'){
             this.setState({ currentBookingFilter: 2 }); 
+            this.updateBookingGraphData(
+                'Average number of booking per week',
+                [40.5, 32.8, 28.7, 25.1, 30.5, 32.8, 22.7, 23.1], 
+                [34, 30, 22.7, 25.1, 10, 30.2, 20.7, 22], 
+                ['2/11 - 6/11', '9/11 - 13/11', '16/11 - 20/11', '23/11 - 27/11', '2/11 - 6/11', '9/11 - 13/11', '16/11 - 20/11', '23/11 - 27/11']
+            );
         }
         else if(event.currentTarget.innerText === 'Lecture'){
             this.setState({ currentBookingFilter: 3 }); 
+            this.updateBookingGraphData(
+                'Number of booking per lecture',
+                [28, 15, 20, 35, 50, 30, 20], 
+                [10, 13, 20, 30, 50, 20, 10],
+                ['SE II - 24/11 14:30', 'SE II - 25/11 14:30', 'SE II - 26/11 11:30', 'SE II - 26/11 14:30', 'SE II - 27/11 14:30', 'SE II - 28/11 14:30', 'SE II - 29/11 14:30']
+            );
         }
     }
 
     handleCancellationFilterChange = (event) => {
         if(event.currentTarget.innerText === 'Month'){
             this.setState({ currentCancellationFilter: 4 }); 
+            this.updateCancellationGraphData(
+                'Average number of cancellations per month',
+                [40.5, 42.8, 45.7, 60.1, 50.2, 40.3, 30.2], 
+                ['Oct 2020', 'Nov 2020', 'Dec 2020', 'Jan 2021', 'Feb 2021', 'Mar 2021', 'Apr 2021']
+            );
         }
         else if(event.currentTarget.innerText === 'Week'){
             this.setState({ currentCancellationFilter: 5 }); 
+            this.updateCancellationGraphData(
+                'Average number of cancellations per week',
+                [40.5, 32.8, 28.7, 25.1], 
+                ['2/11 - 6/11', '9/11 - 13/11', '16/11 - 20/11', '23/11 - 27/11']
+            );
         }
         else if(event.currentTarget.innerText === 'Lecture'){
-            this.setState({ currentCancellationFilter: 6 }); 
+            this.setState({ currentCancellationFilter: 6 });
+            this.updateCancellationGraphData(
+                'Number of cancellations per lecture',
+                [5, 2, 0, 1, 10, 3, 2], 
+                ['SE II - 24/11 14:30', 'SE II - 25/11 14:30', 'SE II - 26/11 11:30', 'SE II - 26/11 14:30', 'SE II - 27/11 14:30', 'SE II - 28/11 14:30', 'SE II - 29/11 14:30']
+            ); 
         }
     }
 
@@ -199,65 +181,82 @@ class BookingManagerPage extends React.Component {
         });
     }
 
-    updateGraphData = (seriesId, optionsId, yname, title, ydata, xlabel) => {
+    updateBookingGraphData = (title, yBookingData, yAttendanceData, xlabel) => {
         this.setState({
-            series: [{
-                name: yname,
+            bookingSeries: [
+                {   name: 'Booking',
+                    data: yBookingData }, 
+                {   name: 'Attendance',
+                    data: yAttendanceData }
+            ],
+            bookingOptions: {
+                chart: {
+                    height: 350,
+                    type: 'area',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+                title: {
+                  text: title,
+                  align: 'center'
+                },
+                grid: {
+                    row: {
+                      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                      opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: xlabel
+                },
+            },
+        });
+    }
+
+    updateCancellationGraphData = (title, ydata, xlabel) => {
+        this.setState({
+            cancellationSeries: [{
+                name: "Cancellation",
                 data: ydata
             }],
-            options: {
-              chart: {
-                height: 350,
-                type: 'line',
-                zoom: {
-                  enabled: false
-                }
-              },
-              dataLabels: {
-                enabled: false
-              },
-              stroke: {
-                curve: 'straight'
-              },
-              title: {
-                text: title,
-                align: 'center'
-              },
-              grid: {
-                row: {
-                  colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                  opacity: 0.5
+            cancellationOptions:{
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
                 },
-              },
-              xaxis: {
-                categories: xlabel,
-              }
-            }
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: title,
+                    align: 'center'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: xlabel,
+                }
+            },
         });
     }
 }
-
-/*
-class MultiStateToggleButton extends React.Component{
-    render(){
-        return <>
-            <ListGroup>
-                {this.props.options.map(o => this.createListItem(o))}
-            </ListGroup>
-        </>
-    }
-
-    createListItem = (option) => {
-        return <ListGroup.Item 
-                    key={option}
-                    action 
-                    active={this.props.currentActive === option} 
-                    onClick={(event) => { this.props.handleClick(event); }}
-                >
-                    {option}
-                </ListGroup.Item>
-    }
-}*/
 
 class MultiStateToggleButton extends React.Component {
 
