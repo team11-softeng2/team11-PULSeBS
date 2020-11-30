@@ -76,24 +76,25 @@ class Calendar extends React.Component{
         //not useful right now
         //here info.event is the event object (with id, title, ...)
         //console.log(info.event.id);
-
+        
         if(this.props.view === "teacher") {
           API.getBooking(info.event.id).then((students) => {
               this.setState({studentList: students});
           }
           );
         }
-
-        this.setState({showModal: true});
-        this.setState({lectureTitle: info.event.title});
-        let beginTime = info.event.start.toLocaleTimeString();
-        let endTime = info.event.end.toLocaleTimeString();
-        let date = info.event.start.toISOString().slice(0,10);
-        this.setState({lectureBeginTime: beginTime});
-        this.setState({lectureEndTime: endTime});
-        this.setState({lectureDate: date});
-        this.setState({elementId: info.event.id});
-        this.setState({lectureColor: info.event.backgroundColor});
+        if(info.event.backgroundColor !== "#dc3546") {
+          this.setState({showModal: true});
+          this.setState({lectureTitle: info.event.title});
+          let beginTime = info.event.start.toLocaleTimeString();
+          let endTime = info.event.end.toLocaleTimeString();
+          let date = info.event.start.toISOString().slice(0,10);
+          this.setState({lectureBeginTime: beginTime});
+          this.setState({lectureEndTime: endTime});
+          this.setState({lectureDate: date});
+          this.setState({elementId: info.event.id});
+          this.setState({lectureColor: info.event.backgroundColor});
+        }
     }
 }
 
