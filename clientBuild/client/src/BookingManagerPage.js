@@ -71,7 +71,7 @@ class BookingManagerPage extends React.Component {
                 {
                     this.state.selectedCourse != API.ALL_COURSES_FILTER ?
                         <>
-                            <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
+                            <div className='m-5 shadow-lg p-3 bg-white'>
                                 {this.state.bookingSeries != undefined &&
                                     <ApexChart options={this.state.bookingOptions} series={this.state.bookingSeries} type="area" height={350} />}
                                 <div className="text-center pt-3">
@@ -82,7 +82,7 @@ class BookingManagerPage extends React.Component {
                                     />
                                 </div>
                             </div>
-                            <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
+                            <div className='m-5 shadow-lg p-3 bg-white'>
                                 {this.state.cancellationSeries != undefined &&
                                     <ApexChart options={this.state.cancellationOptions} series={this.state.cancellationSeries} type="line" height={350} />}
                                 <div className="text-center pt-3">
@@ -96,7 +96,7 @@ class BookingManagerPage extends React.Component {
                         </>
                         : /* no course selected: aggregate (generic) stats */
                         <>
-                            <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
+                            <div className='m-5 shadow-lg p-3 bg-white'>
                                 {this.state.bookingSeries != undefined &&
                                     <ApexChart options={this.state.bookingOptions} series={this.state.bookingSeries} type="area" height={350} />}
                                 <div className="text-center pt-3">
@@ -107,7 +107,7 @@ class BookingManagerPage extends React.Component {
                                     />
                                 </div>
                             </div>
-                            <div className='col-8 mx-auto my-5 shadow-lg p-3 bg-white'>
+                            <div className='m-5 shadow-lg p-3 bg-white'>
                                 {this.state.cancellationSeries != undefined &&
                                     <ApexChart options={this.state.cancellationOptions} series={this.state.cancellationSeries} type="line" height={350} />}
                                 <div className="text-center pt-3">
@@ -164,7 +164,7 @@ class BookingManagerPage extends React.Component {
                 let data = []; let labels = [];
                 stats.forEach(stat => {
                     data.push(stat.numberBookings);
-                    labels.push(`${stat.lectureID} - ${stat.dateLecture}`);
+                    labels.push(`${stat.dateLecture}`);
                 });
                 this.updateBookingGraphData(
                     'Number of booking per lecture',
