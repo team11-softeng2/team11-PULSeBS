@@ -32,14 +32,9 @@ class GatewaysTeacherBooking
     public function findScheduledLecturesForTeacher($id)
     {
         $today = date('Y-m-d');
-        $sql = "SELECT  l.*, c.name as courseName, s.studentsNumber
-                FROM    (SELECT idLesson, COUNT(*) as studentsNumber
-                        FROM booking
-                        WHERE isWaiting=0
-                        AND active=1
-                        GROUP BY idLesson) as s, lessons as l, courses as c
+        $sql = "SELECT  l.*, c.name as courseName
+                FROM    lessons as l, courses as c
                 WHERE   l.idTeacher='$id' AND
-                        s.idLesson=l.idLesson AND
                         c.idCourse=l.idCourse AND
                         l.date >= '$today' AND
 						l.active=1";
@@ -57,7 +52,6 @@ class GatewaysTeacherBooking
                 "endTime" => $row['endTime'],
                 "inPresence" => $row['inPresence'],
                 "active" => $row['active'],
-                "studentsNumber" => $row['studentsNumber'],
             );
             $data[] = $subArray;
         }
