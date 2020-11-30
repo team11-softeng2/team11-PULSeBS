@@ -2,41 +2,8 @@ import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import ApexChart from "react-apexcharts";
 import TeacherDataSelectionList from './TeacherDataSelectionList';
-
-
-var past_bookings = [
-    {
-        'course': 'Software Engineering II',
-        'numBookings': 35,
-        'datetime': new Date('2020-11-26T14:30:00')   //start time
-    },
-    {
-        'course': 'Software Engineering II',
-        'numBookings': 30,
-        'datetime': new Date('2020-11-25T14:30:00')   
-    },
-    {
-        'course': 'Software Engineering II',
-        'numBookings': 20,
-        'datetime': new Date('2020-11-24T14:30:00')   
-    },
-    {
-        'course': 'Web applications I',
-        'numBookings': 60,
-        'datetime': new Date('2020-11-23T14:30:00')
-    },
-    {
-        'course': 'Web applications I',
-        'numBookings': 65,
-        'datetime': new Date('2020-11-24T14:30:00')   
-    },
-    {
-        'course': 'Web applications I',
-        'numBookings': 55,
-        'datetime': new Date('2020-11-25T14:30:00')   
-    }
-];
-
+import API from './API.js';
+import moment from 'moment';
 
 class TeacherHistoricalDataPage extends React.Component{
     constructor(props){
@@ -47,7 +14,8 @@ class TeacherHistoricalDataPage extends React.Component{
             detailLevels: ['Lecture', 'Week', 'Month'],
             courses: [],
             currentCourse: undefined,
-            series: undefined
+            series: undefined,
+            bookingsData: undefined
         };
     }
 
@@ -63,12 +31,12 @@ class TeacherHistoricalDataPage extends React.Component{
                     </Col>
 
                     <Col className='col-8 mt-3'>
-                        {this.state.series != undefined && <ApexChart options={this.state.options} series={this.state.series}/>}
+                        {this.state.series !== undefined && <ApexChart options={this.state.options} series={this.state.series} type="bar" height={700}/>}
                     </Col>
 
                     <Col className='col-2 mt-3'>
                         <TeacherDataSelectionList 
-                            options={this.state.courses} 
+                            options={this.state.courses.map(c => c.courseName)} 
                             currentActive={this.state.currentCourse}
                             handleClick={this.handleNewCourseClick}/>
                     </Col>
@@ -78,84 +46,159 @@ class TeacherHistoricalDataPage extends React.Component{
     }
 
     componentDidMount = () => {
-        //this should be an api call
-        this.setState({ courses: ['Software Engineering II'], currentCourse: 'Software Engineering II' });
+        this.updateCourses();
+    }
 
-        this.updateGraphData(
-            'Bookings',
-            'Number of bookings per lecture',
-            [28, 15, 20, 35], 
-            ['SE II - 24/11 14:30', 'SE II - 25/11 14:30', 'SE II - 26/11 11:30', 'SE II - 26/11 14:30']
-            );
+    updateCourses = () => {
+        API.getCoursesOfTeacher(this.props.teacherId)
+        .then((res) => {
+            this.setState({ courses: res, currentCourse: res[0].courseName }, () => {
+                this.getDataFromServerAndUpdate();
+            });
+        })
+        .catch((err) => {
+            console.log('error in getting list of courses from server');
+            console.log(err);
+        });
+    }
+
+    getDataFromServerAndUpdate = () => {
+        if(this.state.currentDetail == 'Lecture'){
+            var currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
+
+            API.getBookingStatisticsByLesson(currentCourseId)
+            .then((res) => {
+                //console.log(res)
+                var numberOfBookingsArray = res.map(d => d.numberBookings)
+                var lectureDatesArray = res.map(d => d.dateLecture)
+
+                this.updateGraphData(
+                    [{
+                        name: 'Bookings',
+                        data: numberOfBookingsArray
+                    }],
+                    lectureDatesArray,
+                    'Number of bookings',
+                    'Bookings',
+                    'Number of bookings per single lecture'
+                );
+            })
+            .catch((err) => {
+                console.log('error in getting statistics by lesson from server');
+                console.log(err);
+            });
+        }
+        else if(this.state.currentDetail == 'Week'){
+            var currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
+            
+            API.getBookingStatisticsByWeek(currentCourseId)
+            .then((res) => {
+                console.log(res)
+                var avgNumberOfBookingsArray = res.map(d => d.average)
+                var weekOfYear = res.map(d => moment().week(d.weekOfYear).year(d.year).format('YYYY-MM-DD'))
+
+                this.updateGraphData(
+                    [{
+                        name: 'Bookings',
+                        data: avgNumberOfBookingsArray
+                    }],
+                    weekOfYear,
+                    'Average number of bookings',
+                    'Bookings (average)',
+                    'Average number of bookings per week'
+                );
+            })
+            .catch((err) => {
+                console.log('error in getting statistics by week from server');
+                console.log(err);
+            });
+        }
+        else if(this.state.currentDetail == 'Month'){
+            var currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
+            
+            API.getBookingStatisticsByMonth(currentCourseId)
+            .then((res) => {
+                //console.log(res)
+                var avgNumberOfBookingsArray = res.map(d => d.average)
+                var monthOfYear = res.map(d => moment().week(d.monthOfYear).year(d.year).format('YYYY-MM'))
+
+                this.updateGraphData(
+                    [{
+                        name: 'Bookings',
+                        data: avgNumberOfBookingsArray
+                    }],
+                    monthOfYear,
+                    'Average number of bookings',
+                    'Bookings (average)',
+                    'Average number of bookings per month'
+                );
+            })
+            .catch((err) => {
+                console.log('error in getting statistics by month from server');
+                console.log(err);
+            });
+        }
     }
 
     handleNewDetailClick = (event) => {
-        this.setState({ currentDetail: event.currentTarget.innerText });
-
-        if(event.currentTarget.innerText === 'Lecture'){
-            this.updateGraphData(
-                'Bookings',
-                'Number of bookings per lecture',
-                [28, 15, 20, 35], 
-                ['SE II - 24/11 14:30', 'SE II - 25/11 14:30', 'SE II - 26/11 11:30', 'SE II - 26/11 14:30']
-                );
-        }
-        else if(event.currentTarget.innerText === 'Week'){
-            this.updateGraphData(
-                'Bookings',
-                'Average number of bookings per single lecture per week',
-                [40.5, 32.8, 28.7, 25.1], 
-                ['2/11 - 6/11', '9/11 - 13/11', '16/11 - 20/11', '23/11 - 27/11']
-                );
-        }
-        else if(event.currentTarget.innerText === 'Month'){
-            this.updateGraphData(
-                'Bookings',
-                'Average number of bookings per single lecture per month',
-                [40.5, 42.8, 45.7, 60.1], 
-                ['Oct 2020', 'Nov 2020', 'Dec 2020', 'Jan 2021']
-                );
-        }
+        this.setState({ currentDetail: event.currentTarget.innerText }, () => {
+            this.getDataFromServerAndUpdate();
+        });
     }
 
     handleNewCourseClick = (event) => {
-        this.setState({ currentCourse: event.currentTarget.innerText });
+        this.setState({ currentCourse: event.currentTarget.innerText }, () => {
+            this.getDataFromServerAndUpdate();
+        });
     }
 
-    updateGraphData = (yname, title, ydata, xlabel) => {
+    updateGraphData = (series, xlabel, ytitle, tooltip, title) => {
         this.setState({
-            series: [{
-                name: yname,
-                data: ydata
-            }],
-            options: {
-              chart: {
-                height: 350,
-                type: 'line',
-                zoom: {
-                  enabled: false
-                }
-              },
-              dataLabels: {
-                enabled: false
-              },
-              stroke: {
-                curve: 'straight'
-              },
-              title: {
-                text: title,
-                align: 'center'
-              },
-              grid: {
-                row: {
-                  colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-                  opacity: 0.5
+            series: series,
+              options: {
+                plotOptions: {
+                  bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                  },
                 },
-              },
-              xaxis: {
-                categories: xlabel,
+                dataLabels: {
+                  enabled: false
+                },
+                stroke: {
+                  show: true,
+                  width: 2,
+                  colors: ['transparent']
+                },
+                title: {
+                    text: title,
+                    align: 'center'
+                },
+                xaxis: {
+                  categories: xlabel,
+                },
+                yaxis: {
+                  title: {
+                    text: ytitle
+                  },
+                  labels: {
+                    formatter: function (value) {
+                        return value.toFixed(2);
+                    }
+                }
+                },
+                fill: {
+                  opacity: 1
+                },
+                tooltip: {
+                  y: {
+                    formatter: function (val) {
+                      return val + ' ' + tooltip
+                    }
+                  }
+                }
               }
-            }
         });
     }
 }
