@@ -18,7 +18,8 @@ class GatewaysStudentBooking
         where L.idCourse=E.idCourse
         and E.idUser=" . $id . "
         and date>='" . $dateForQuery . "'
-        and inPresence =1";
+        and inPresence =1
+        and active=1";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -39,11 +40,14 @@ class GatewaysStudentBooking
     public function findStundetBookedLessons($id)
     {
         date_default_timezone_set("Europe/Rome");
-        $sql = "SELECT idLesson, idBooking
-        from booking
-        where idUser=" . $id . "
-        and active=1
-        and date>='" . date("Y-m-d H:i:s") . "'";
+        $sql = "SELECT B.idLesson as idLesson, idBooking
+        from booking B join lessons L
+        where B.idLesson=L.idLesson
+        and idUser=" . $id . "
+        and B.active=1
+        and L.active=1
+        and L.inPresence=1
+        and B.date>='" . date("Y-m-d H:i:s") . "'";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {

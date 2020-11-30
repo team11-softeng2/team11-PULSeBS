@@ -36,6 +36,7 @@ class GatewaysTeacherBooking
                 FROM    (SELECT idLesson, COUNT(*) as studentsNumber
                         FROM booking
                         WHERE isWaiting=0
+                        AND active=1
                         GROUP BY idLesson) as s, lessons as l, courses as c
                 WHERE   l.idTeacher='$id' AND
                         s.idLesson=l.idLesson AND
@@ -71,11 +72,11 @@ class GatewaysTeacherBooking
     {
         if ($this->validateDateBeforeUpdate($idLecture)) {
             $sqlUpdateLessonTable = "update lessons set active=0 where idLesson=" . $idLecture . "";
-            $sqlUpdateBookingTable = "update booking set active=0, isWaiting=0 where idLesson=" . $idLecture . "";
+            //$sqlUpdateBookingTable = "update booking set active=0, isWaiting=0 where idLesson=" . $idLecture . "";
             $this->db->exec($sqlUpdateLessonTable);
             $changesLessonTable = $this->db->changes();
             if ($changesLessonTable > 0) {
-                $this->db->exec($sqlUpdateBookingTable);
+                //$this->db->exec($sqlUpdateBookingTable);
                 return $changesLessonTable;
             } else {
                 return 0;
@@ -88,12 +89,12 @@ class GatewaysTeacherBooking
     public function changeToOnlineLecture($idLecture)
     {
         if ($this->validateDateBeforeUpdateToOnline($idLecture)) {
-            $sqlUpdateLessonTable = "update lessons set inPresence=0, idClassRoom=0 where idLesson=" . $idLecture . "";
-            $sqlUpdateBookingTable = "update booking set active=0, isWaiting=0 where idLesson=" . $idLecture . "";
+            $sqlUpdateLessonTable = "update lessons set inPresence=0 where idLesson=" . $idLecture . "";
+            //$sqlUpdateBookingTable = "update booking set active=0, isWaiting=0 where idLesson=" . $idLecture . "";
             $this->db->exec($sqlUpdateLessonTable);
             $changesLessonTable = $this->db->changes();
             if ($changesLessonTable > 0) {
-                $this->db->exec($sqlUpdateBookingTable);
+                //$this->db->exec($sqlUpdateBookingTable);
                 return $changesLessonTable;
             } else {
                 return 0;
