@@ -14,7 +14,7 @@ class GatewaysHistoricalData
         //all bookings made by students
         $sql = "
         select count(DISTINCT B.idBooking) as numberBookings, count(DISTINCT L.idLesson) as numberLectures, (1.0*count(DISTINCT B.idBooking))/(1.0*count(DISTINCT L.idLesson)) as average, 
-        strftime('%Y-%m-%d', L.date) as dateLecture, L.idLesson as lectureID, strftime('%W', L.date) as weekOfYear, strftime('%m', L.date) 
+        strftime('%Y-%m-%d', L.date) || ' ' || L.beginTime  as dateLecture, L.idLesson as lectureID, strftime('%W', L.date) as weekOfYear, strftime('%m', L.date) 
         as monthOfYear, strftime('%Y', L.date) as year, strftime('%Y', L.date) || strftime('%m', L.date) || strftime('%W', L.date) as year_month_week, L.idCourse as courseID
         from lessons L
         Left join (select * from booking where active=1) B
