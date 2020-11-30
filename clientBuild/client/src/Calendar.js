@@ -83,7 +83,7 @@ class Calendar extends React.Component{
           }
           );
         }
-        if(info.event.backgroundColor !== "#dc3546") {
+        if(info.event.extendedProps.type !== "fullLecture") {
           this.setState({showModal: true});
           this.setState({lectureTitle: info.event.title});
           let beginTime = info.event.start.toLocaleTimeString();
