@@ -104,27 +104,6 @@ class GatewaysTeacherBooking
 
     }
 
-    //Used to send emails to students
-    public function findAllBookingsOfLecture($idLecture)
-    {
-        $sql = "select * from booking where idLesson=" . $idLecture . "";
-        $result = $this->db->query($sql);
-        $data = array();
-        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $subArray = array(
-                "idBooking" => $row['idBooking'],
-                "idUser" => $row['idUser'],
-                "idLesson" => $row['idLesson'],
-                "active" => $row['active'],
-                "date" => $row['date'],
-                "isWaiting" => $row['isWaiting'],
-            );
-            $data[] = $subArray;
-        }
-        return (empty($data) ? 0 : $data);
-
-    }
-
     public function validateDateBeforeUpdate($idLecture)
     {
         $sql = "select * from lessons where idLesson = " . $idLecture . "";
