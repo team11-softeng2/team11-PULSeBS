@@ -49,11 +49,11 @@ class ModalTeacher extends React.Component{
                                         overlay={<Tooltip id="tooltip">Too late to change.</Tooltip>}
                                         >
                                             <div style={{display: 'inline-block', cursor: 'not-allowed'}}>
-                                            <Button data-testid="changeNo-button" style={{ pointerEvents: 'none' }} >Change to online</Button>
+                                            <Button data-testid="changeNo-button" className="ModalTeacherButton" style={{ pointerEvents: 'none' }} >Change to online</Button>
                                             </div>
                                         </OverlayTrigger>
                                         :
-                                        <Button onClick={() => {this.props.changeToOnline(this.props.elementId); this.props.closeModal();} } data-testid="change-button" >Change to online</Button>
+                                        <Button onClick={() => {this.props.changeToOnline(this.props.elementId); this.props.closeModal();} } data-testid="change-button" className="ModalTeacherButton" >Change to online</Button>
                                     }
                                     </>
                                 :
@@ -69,11 +69,11 @@ class ModalTeacher extends React.Component{
                                     overlay={<Tooltip id="tooltip">Too late to delete.</Tooltip>}
                                     >
                                         <div style={{display: 'inline-block', cursor: 'not-allowed'}}>
-                                        <Button variant="danger" data-testid="deleteNo-button" style={{ pointerEvents: 'none' }}>Delete lecture</Button>
+                                        <Button variant="danger" className="ModalTeacherButton" data-testid="deleteNo-button" style={{ pointerEvents: 'none' }}>Delete lecture</Button>
                                         </div>
                                     </OverlayTrigger>
                                     :
-                                    <Button variant="danger" onClick={() => {this.props.deleteLecture(this.props.elementId); this.props.closeModal(); } } data-testid="delete-button">Delete lecture</Button>
+                                    <Button variant="danger" className="ModalTeacherButton" onClick={() => {this.props.deleteLecture(this.props.elementId); this.props.closeModal(); } } data-testid="delete-button">Delete lecture</Button>
                                 }
                             </Row>
                         </Col>
@@ -85,11 +85,11 @@ class ModalTeacher extends React.Component{
                                 No students booked.
                             </Alert>
                         :
-                            <Accordion data-testid="studentList"><div className="mb-1">
+                            <Accordion data-testid="studentList" className={"ModalStudentsList"}><div className="mb-1">
                                 <Card>
                                     <Accordion.Toggle as={Card.Header} eventKey={this.props.elementId}>
-                                    Booked students
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    Booked students{" "}
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-caret-down-fill arrowIcon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                                     </svg>
                                     </Accordion.Toggle>
