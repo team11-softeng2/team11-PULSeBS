@@ -269,9 +269,24 @@ async function getBookingStatisticsByLesson(courseIds) {
     }
 }
 
+async function getCoursesOfTeacher(teacherId) {
+    const url = "http://localhost/server/teacherCourses/" + teacherId;
+
+    const response = await fetch(url);
+    const courses = await response.json();
+    if (response.ok) {
+        if (courses === 0) {
+            return [];
+        }
+        return courses;
+    } else {
+        let err = { status: response.status, errorObj: courses };
+        throw err;
+    }
+}
 
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses, 
-    getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, ALL_COURSES_FILTER
+    getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, ALL_COURSES_FILTER, getCoursesOfTeacher
 };
 export default API;

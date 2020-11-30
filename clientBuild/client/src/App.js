@@ -138,7 +138,7 @@ class App extends React.Component {
 
           <Route path="/teacher/historicalData">
             {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
-                <TeacherHistoricalDataPage/>
+                <TeacherHistoricalDataPage teacherId={this.state.userId}/>
                 :
                 <Redirect to="/"></Redirect>
             }
