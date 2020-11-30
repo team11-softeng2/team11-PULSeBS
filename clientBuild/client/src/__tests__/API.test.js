@@ -40,6 +40,36 @@ test("getTeacherLectures", async () => {
     expect(data.length).toBeGreaterThanOrEqual(0);
 });
 
+test("getFullLectures", async () => {
+    let data = await API.getFullLectures(1);
+    expect(data.length).toBeGreaterThanOrEqual(0);
+});
+
+test("getCoursesOfTeacher", async () => {
+    let data = await API.getCoursesOfTeacher(2);
+    expect(data.length).toBeGreaterThanOrEqual(0);
+});
+
+test("getBookingStatisticsByLesson", async () => {
+    let data = await API.getBookingStatisticsByLesson(2);
+    expect(data.length).toBeGreaterThanOrEqual(0);
+});
+
+test("getBookingStatisticsByWeek", async () => {
+    let data = await API.getBookingStatisticsByWeek(2);
+    expect(data.length).toBeGreaterThanOrEqual(0);
+});
+
+test("getBookingStatisticsByMonth", async () => {
+    let data = await API.getBookingStatisticsByMonth(2);
+    expect(data.length).toBeGreaterThanOrEqual(0);
+});
+
+test("getAllCourses", async () => {
+    let data = await API.getAllCourses(2);
+    expect(data.length).toBeGreaterThanOrEqual(0);
+});
+
 test("logout", async() => {
     let result = await API.logout();
     expect(result).toBe(0);

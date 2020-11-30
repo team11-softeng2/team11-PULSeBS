@@ -48,6 +48,17 @@ describe("get functions", () => {
     expect(instance.state.teacherLectures.length).toBe(1);
   });
 
+  test('getFullLectures', async () => {
+    const component = shallow(<App/>);
+    const instance = component.instance();
+    expect(instance.state.loggedin).toBe(false);
+    API.getFullLectures = jest.fn(() => Promise.resolve(["test"]));
+    instance.setLoggedIn({role: "student", name: "Calogero", idUser: 1});
+    expect(instance.state.loggedin).toBe(true);
+    await instance.getFullLectures(1);
+    expect(instance.state.fullLectures.length).toBe(1);
+  });
+
   test("setLoggedIn student", () => {
     const component = shallow(<App/>);
     const instance = component.instance();

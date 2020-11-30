@@ -106,9 +106,6 @@ class App extends React.Component {
   deleteLecture = (lectureId) => {
     API.deleteLecture(lectureId).then(() => {
       this.getTeacherLectures(this.state.userId);
-    })
-    .catch(() => {
-      console.log("Errore in deleteLecture App.js");
     });
   }
 
