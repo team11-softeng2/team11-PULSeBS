@@ -25,6 +25,7 @@ class App extends React.Component {
       bookableLectures: [], //Lezioni prenotabili dallo studente
       bookings: [],         //Lezioni già prenotate dallo studente
       teacherLectures: [],  //Lezioni in presenza dell'insegnante
+      fullLectures: [],     //Lezioni prenotabili dallo studente ma che sono piene
     };
   }
 
@@ -40,6 +41,7 @@ class App extends React.Component {
     if(user.role === "student") {
       this.getBookableStudentLectures(user.idUser);
       this.getStudentBookings(user.idUser);
+      this.getFullLectures(user.idUser);
     } else if(user.role === "teacher") {
       this.getTeacherLectures(user.idUser);
     } else if(user.Role === "booking-manager") {
@@ -73,6 +75,12 @@ class App extends React.Component {
   getTeacherLectures = (teacherId) => {
     API.getTeacherLectures(teacherId).then((lectures) => {
       this.setState({teacherLectures: lectures});
+    });
+  }
+
+  getFullLectures = (studentId) => {
+    API.getFullLectures(this.state.userId).then((lectures) => {
+      this.setState({fullLectures: lectures});
     });
   }
 
@@ -127,6 +135,14 @@ class App extends React.Component {
                 }})} 
                 bookASeat = {this.bookASeat}
                 deleteBooking = {this.deleteBooking}
+                fullLectures = {/*this.state.bookings.map((l) => {
+                  return {
+                    id: l.idBooking,
+                    title: l.name,
+                    start: new Date(l.date + "T" + l.beginTime),
+                    end: new Date(l.date + "T" + l.endTime),
+                    color:"#dc3546"
+                  }})*/ []}
                 bookings = {this.state.bookings.map((l) => {
                   return {
                     id: l.idBooking,
