@@ -18,6 +18,7 @@ class Calendar extends React.Component{
           lectureEndTime: "",
           lectureDate: undefined,
           elementId: undefined,
+          inPresence: undefined,
           studentList: [],
         };
       }
@@ -63,6 +64,7 @@ class Calendar extends React.Component{
                 studentList = {this.state.studentList}
                 deleteLecture = {this.props.deleteLecture}
                 changeToOnline = {this.props.changeToOnline}
+                lectureColor = {this.state.lectureColor}
                 dateStart = {new Date(this.state.lectureDate + "T" + this.state.lectureBeginTime)}
                 />
             }

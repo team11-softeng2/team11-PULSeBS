@@ -39,19 +39,27 @@ class ModalTeacher extends React.Component{
                         </Col>
                         <Col>
                             <Row>
-                                {this.props.dateStart.getTime() - Date.now() < 1800000 ? 
-                                    <OverlayTrigger
-                                    placement="right"
-                                    delay={{ show: 250, hide: 400 }}
-                                    overlay={<Tooltip id="tooltip">Too late to change.</Tooltip>}
-                                    >
-                                        <div style={{display: 'inline-block', cursor: 'not-allowed'}}>
-                                        <Button data-testid="changeNo-button" style={{ pointerEvents: 'none' }} >Change to online</Button>
-                                        </div>
-                                    </OverlayTrigger>
-                                    :
-                                    <Button onClick={() => {this.props.changeToOnline(this.props.elementId); this.props.closeModal();} } data-testid="change-button" >Change to online</Button>
+                                {this.props.lectureColor === "" ? 
+                                    <>
+                                    {
+                                        this.props.dateStart.getTime() - Date.now() < 1800000 ? 
+                                        <OverlayTrigger
+                                        placement="right"
+                                        delay={{ show: 250, hide: 400 }}
+                                        overlay={<Tooltip id="tooltip">Too late to change.</Tooltip>}
+                                        >
+                                            <div style={{display: 'inline-block', cursor: 'not-allowed'}}>
+                                            <Button data-testid="changeNo-button" style={{ pointerEvents: 'none' }} >Change to online</Button>
+                                            </div>
+                                        </OverlayTrigger>
+                                        :
+                                        <Button onClick={() => {this.props.changeToOnline(this.props.elementId); this.props.closeModal();} } data-testid="change-button" >Change to online</Button>
+                                    }
+                                    </>
+                                :
+                                null
                                 }
+                                
                             </Row>
                             <Row>
                                 {this.props.dateStart.getTime() - Date.now() < 3600000 ? 
@@ -70,28 +78,32 @@ class ModalTeacher extends React.Component{
                             </Row>
                         </Col>
                     </Row>
-                    <Row>
-                        {this.props.studentList.length === 0 ? 
-                        <Alert variant="secondary">
-                            No students booked.
-                        </Alert>
-                      :
-                        <Accordion data-testid="studentList"><div className="mb-1">
-                            <Card>
-                                <Accordion.Toggle as={Card.Header} eventKey={this.props.elementId}>
-                                Booked students
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                                </svg>
-                                </Accordion.Toggle>
-                                <Accordion.Collapse eventKey={this.props.elementId}>
-                                <Card.Body>{this.props.studentList.map((s) => <StudentRow key={s} name={s}/>)  }</Card.Body>
-                                </Accordion.Collapse>
-                            </Card></div>
-                        </Accordion>
-                      }
+                    {this.props.lectureColor === "" ?
+                        <Row>
+                            {this.props.studentList.length === 0 ? 
+                            <Alert variant="secondary">
+                                No students booked.
+                            </Alert>
+                        :
+                            <Accordion data-testid="studentList"><div className="mb-1">
+                                <Card>
+                                    <Accordion.Toggle as={Card.Header} eventKey={this.props.elementId}>
+                                    Booked students
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-caret-down-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                    </svg>
+                                    </Accordion.Toggle>
+                                    <Accordion.Collapse eventKey={this.props.elementId}>
+                                    <Card.Body>{this.props.studentList.map((s) => <StudentRow key={s.idUser} name={s.name}/>)  }</Card.Body>
+                                    </Accordion.Collapse>
+                                </Card></div>
+                            </Accordion>
+                        }
+                        </Row>
+                        :
+                        null
+                    }
                     
-                    </Row>
                 </Container>
             </Modal.Body>
             <Modal.Footer>

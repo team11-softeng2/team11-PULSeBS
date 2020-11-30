@@ -11,6 +11,7 @@ import StudentCalendarPage from './StudentCalendarPage';
 import TeacherCalendarPage from './TeacherCalendarPage';
 import TeacherHistoricalDataPage from './TeacherHistoricalDataPage';
 import BookingManagerPage from './BookingManagerPage';
+import { buildEventApis, getRectCenter } from '@fullcalendar/react';
 
 class App extends React.Component {
   constructor(props) {
@@ -97,6 +98,9 @@ class App extends React.Component {
   deleteLecture = (lectureId) => {
     API.deleteLecture(lectureId).then(() => {
       this.getTeacherLectures(this.state.userId);
+    })
+    .catch(() => {
+      console.log("Errore in deleteLecture App.js");
     });
   }
 
@@ -149,9 +153,10 @@ class App extends React.Component {
                 <TeacherCalendarPage lectures={this.state.teacherLectures.map((l) => {
                   return {
                     id: l.idLesson,
-                    title: l.idCourse,
+                    title: l.courseName,
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),
+                    color: l.inPresence === 1 ? "" : "green",
                   }
                 })}
                 deleteLecture = {this.deleteLecture}

@@ -41,7 +41,8 @@ class GatewaysTeacherBooking
                 WHERE   l.idTeacher='$id' AND
                         s.idLesson=l.idLesson AND
                         c.idCourse=l.idCourse AND
-                        l.date >= '$today'";
+                        l.date >= '$today' AND
+						l.active=1";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
