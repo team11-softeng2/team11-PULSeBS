@@ -87,14 +87,19 @@ Each endpoint is preceded by /server/src/api/
 
   ## Courses
 
+- GET `/courses`
+
+  - Response: list of all courses in the booking system
+
 - GET `/studentCourses/:studentId`
 
   - Params: studentId
   - Response: List of courses attended by a student
 
-- GET `/courses`
+- GET `/teacherCourses/:teacherId`
 
-  - Response: list of all courses in the booking system
+  - Params: teacherId
+  - Response: List of teacher's courses
 
 ## Notifications
 

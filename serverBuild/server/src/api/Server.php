@@ -62,11 +62,24 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersNotification($requestMethod, $dbConn, $value);
             $controller->processRequest();
             break;
+        case "courses":
+            $value = "courses";
+            $requestMethod = $_SERVER['REQUEST_METHOD'];
+            $controller = new Server\api\ControllersCourse($requestMethod, $dbConn, $value);
+            $controller->processRequest();
+            break;
         case "studentCourses/$number":
             $value = "studentCourses";
             $requestMethod = $_SERVER['REQUEST_METHOD'];
             $id = $number;
             $controller = new Server\api\ControllersStudentCourse($requestMethod, $dbConn, $value, $id);
+            $controller->processRequest();
+            break;
+        case "teacherCourses/$number":
+            $value = "teacherCourses";
+            $requestMethod = $_SERVER['REQUEST_METHOD'];
+            $id = $number;
+            $controller = new Server\api\ControllersTeacherCourse($requestMethod, $dbConn, $value, $id);
             $controller->processRequest();
             break;
         case "lecturesWithFullRoom/$number":
@@ -96,12 +109,6 @@ if (isset($_GET['url'])) {
             $filterCourse = $_GET['filterCourse'];
             $filterTime = $_GET['filterTime'] == "" ? "L.idLesson" : $_GET['filterTime'];
             $controller = new Server\api\ControllersHistoricalData($requestMethod, $dbConn, $value, $filterTime, $filterCourse, -1);
-            $controller->processRequest();
-            break;
-        case "courses":
-            $value = "courses";
-            $requestMethod = $_SERVER['REQUEST_METHOD'];
-            $controller = new Server\api\ControllersCourse($requestMethod, $dbConn, $value);
             $controller->processRequest();
             break;
         default:
