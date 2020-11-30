@@ -132,14 +132,14 @@ class App extends React.Component {
                 }})} 
                 bookASeat = {this.bookASeat}
                 deleteBooking = {this.deleteBooking}
-                fullLectures = {/*this.state.bookings.map((l) => {
+                fullLectures = {this.state.fullLectures.map((l) => {
                   return {
                     id: l.idBooking,
                     title: l.name,
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),
                     color:"#dc3546"
-                  }})*/ []}
+                  }})}
                 bookings = {this.state.bookings.map((l) => {
                   return {
                     id: l.idBooking,
