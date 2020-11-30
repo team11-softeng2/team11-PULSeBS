@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ModalTeacherButton {
+  margin: 5px;
+  width: 150px;
+}
+
+.ModalStudentsList {
+  width: 100%;
+}
+
+.arrowIcon {
+  float: right;
+  margin-top: 5px;
+}

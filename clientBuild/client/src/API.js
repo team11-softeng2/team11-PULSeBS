@@ -285,8 +285,23 @@ async function getCoursesOfTeacher(teacherId) {
     }
 }
 
+async function getFullLectures(studentId) {
+    const url = "http://localhost/server/lecturesWithFullRoom/" + studentId;
+    const response = await fetch(url);
+    const lectures = await response.json();
+    if (response.ok) {
+        if (lectures === 0) {
+            return [];
+        }
+        return lectures;
+    } else {
+        let err = { status: response.status, errorObj: lectures };
+        throw err;
+    }
+}
+
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses, 
-    getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, ALL_COURSES_FILTER, getCoursesOfTeacher
+    getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, ALL_COURSES_FILTER, getCoursesOfTeacher, getFullLectures
 };
 export default API;

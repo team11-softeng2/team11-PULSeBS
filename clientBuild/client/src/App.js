@@ -25,6 +25,7 @@ class App extends React.Component {
       bookableLectures: [], //Lezioni prenotabili dallo studente
       bookings: [],         //Lezioni già prenotate dallo studente
       teacherLectures: [],  //Lezioni in presenza dell'insegnante
+      fullLectures: [],     //Lezioni prenotabili dallo studente ma che sono piene
     };
   }
 
@@ -40,6 +41,7 @@ class App extends React.Component {
     if(user.role === "student") {
       this.getBookableStudentLectures(user.idUser);
       this.getStudentBookings(user.idUser);
+      this.getFullLectures(user.idUser);
     } else if(user.role === "teacher") {
       this.getTeacherLectures(user.idUser);
     } else if(user.Role === "booking-manager") {
@@ -76,6 +78,12 @@ class App extends React.Component {
     });
   }
 
+  getFullLectures = (studentId) => {
+    API.getFullLectures(this.state.userId).then((lectures) => {
+      this.setState({fullLectures: lectures});
+    });
+  }
+
   bookASeat = (lectureId, date, beginTime) => {
     let composedDate = date + " " + beginTime;
     API.bookASeat(lectureId, this.state.userId, composedDate).then(() => {
@@ -98,9 +106,6 @@ class App extends React.Component {
   deleteLecture = (lectureId) => {
     API.deleteLecture(lectureId).then(() => {
       this.getTeacherLectures(this.state.userId);
-    })
-    .catch(() => {
-      console.log("Errore in deleteLecture App.js");
     });
   }
 
@@ -127,6 +132,14 @@ class App extends React.Component {
                 }})} 
                 bookASeat = {this.bookASeat}
                 deleteBooking = {this.deleteBooking}
+                fullLectures = {/*this.state.bookings.map((l) => {
+                  return {
+                    id: l.idBooking,
+                    title: l.name,
+                    start: new Date(l.date + "T" + l.beginTime),
+                    end: new Date(l.date + "T" + l.endTime),
+                    color:"#dc3546"
+                  }})*/ []}
                 bookings = {this.state.bookings.map((l) => {
                   return {
                     id: l.idBooking,
