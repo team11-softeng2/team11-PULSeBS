@@ -19,8 +19,7 @@ class GatewaysHistoricalData
         from lessons L
         Left join (select * from booking where active=1) B
         ON L.idLesson=B.idLesson
-        where L.inPresence=1
-        and L.active=1
+        where L.idClassRoom<>0
         and L.idCourse in (".$filterCourse.")
         group by ".$filterTime."
         order by year_month_week
@@ -56,8 +55,7 @@ class GatewaysHistoricalData
                     "numberLectures" => $row['numberLectures'],
                     "average" => $row['average'],
                     "monthOfYear" => $row['monthOfYear'],
-                    "year" => $row['year'],
-                    "year_month_week" => $row['year_month_week']
+                    "year" => $row['year']
                 );
                 $data[] = $subArray;
             }
