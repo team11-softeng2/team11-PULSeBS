@@ -33,6 +33,9 @@ test("handleEventClick teacher", async () => {
             start: new Date("2020-10-10T10:00:00"),
             end: new Date("2020-10-10T12:00:00"),
             backgroundColor: "green",
+            extendedProps: {
+                type: "bookings",
+            },
         }
     }
     await instance.handleEventClick(info);
@@ -40,18 +43,39 @@ test("handleEventClick teacher", async () => {
 })
 
 test("handleEventClick student", async () => {
-    const component = shallow(<Calendar view={"student"}/>);
+    const component = shallow(<Calendar view={"student"} events={[]}/>);
     const instance = component.instance();
-    API.getBooking = jest.fn(() => Promise.resolve(["test"]));
     let info = {
         event: {
             id: 1,
             title: "Test",
             start: new Date("2020-10-10T10:00:00"),
             end: new Date("2020-10-10T12:00:00"),
-            backgroundColor: "green",
+            backgroundColor: "",
+            extendedProps: {
+                type: "bookableLecture",
+            },
         }
     }
     await instance.handleEventClick(info);
     expect(instance.state.showModal).toBe(true);
-})
+});
+
+test("fullLecture click", async () => {
+    const component = shallow(<Calendar view={"student"}/>);
+    const instance = component.instance();
+    let info = {
+        event: {
+            id: 1,
+            title: "Test",
+            start: new Date("2020-10-10T10:00:00"),
+            end: new Date("2020-10-10T12:00:00"),
+            backgroundColor: "#dc3546",
+            extendedProps: {
+                type: "fullLecture",
+            },
+        }
+    }
+    await instance.handleEventClick(info);
+    expect(instance.state.showModal).toBe(false);
+});
