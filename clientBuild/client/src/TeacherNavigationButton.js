@@ -12,14 +12,14 @@ class TeacherNavigationButton extends React.Component{
         return <>
             {
                 this.state.onCalendar &&
-                <Link className='mr-4' to='/teacher/historicalData' onClick={this.handleClick}>
+                <Link className='mr-4 text-light' to='/teacher/historicalData' onClick={this.handleClick}>
                     Historical data page
                 </Link>
             }
 
             {
                 !this.state.onCalendar &&
-                <Link className='mr-4' to='/teacher' onClick={this.handleClick}>
+                <Link className='mr-4 text-light' to='/teacher' onClick={this.handleClick}>
                     Calendar page
                 </Link>
             }

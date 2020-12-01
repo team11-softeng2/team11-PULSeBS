@@ -57,7 +57,7 @@ class BookingManagerPage extends React.Component {
                 <Select
                     className="col-4 mx-auto my-4"
                     options={this.state.courses}
-                    placeholder="Select a course..."
+                    placeholder="All Courses"
                     isClearable={true}
                     styles={{
                         // Fixes the overlapping problem of the component
