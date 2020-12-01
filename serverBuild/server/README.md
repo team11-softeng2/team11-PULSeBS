@@ -75,14 +75,17 @@ Each endpoint is preceded by /server/src/api/
 
   ## Statistics
 
-- GET `/bookingStatistics?filterTime=&filterCourse=`
+- GET `/bookingStatistics?filterTime=&filterCourse=&type=`
 
   - Params:
     - filterTime: string that could be idLesson (per lecture), year,monthOfYear(per month) or year_month_week(per week). If nothing is passed then the default value is idLesson
       - Example: filterTime=year,monthOfYear (the comma is not an error)
     - filterCourse: string made by course id separed by comma
       - Example: filterCourse=1,2,5
-    - Example urls: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
+    - type: is an optional parameter, if you want cancellation stats you need to set it to 0
+    - Example urls:
+      - bookings: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
+      - cancellation: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5&type=0`
   - Response: statistics list of bookings filtered by filterTime and filterCourse
 
   ## Courses
