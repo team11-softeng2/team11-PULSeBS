@@ -31,7 +31,7 @@ class ControllersHistoricalData
         }
     }
     public function findBookingsStats($filterTime, $filterCourse){
-        $bookingStats = $this->bookingStatsGateways->getHistoricalDataBookings($filterTime, $filterCourse);
+        $bookingStats = $this->bookingStatsGateways->getHistoricalDataBookings($filterTime, $filterCourse, $this->id);
         return json_encode($bookingStats);
         
     }

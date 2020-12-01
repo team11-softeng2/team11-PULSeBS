@@ -10,14 +10,14 @@ class GatewaysHistoricalData
         $this->db = $db;
     }
 
-    public function getHistoricalDataBookings($filterTime, $filterCourse){
+    public function getHistoricalDataBookings($filterTime, $filterCourse, $active){
         //all bookings made by students
         $sql = "
         select count(DISTINCT B.idBooking) as numberBookings, count(DISTINCT L.idLesson) as numberLectures, (1.0*count(DISTINCT B.idBooking))/(1.0*count(DISTINCT L.idLesson)) as average, 
         strftime('%Y-%m-%d', L.date) || ' ' || L.beginTime  as dateLecture, L.idLesson as lectureID, strftime('%W', L.date) as weekOfYear, strftime('%m', L.date) 
         as monthOfYear, strftime('%Y', L.date) as year, strftime('%Y', L.date) || strftime('%m', L.date) || strftime('%W', L.date) as year_month_week, L.idCourse as courseID
         from lessons L
-        Left join (select * from booking where active=1) B
+        Left join (select * from booking where active=".$active.") B
         ON L.idLesson=B.idLesson
         where L.idClassRoom<>0
         and L.idCourse in (".$filterCourse.")
