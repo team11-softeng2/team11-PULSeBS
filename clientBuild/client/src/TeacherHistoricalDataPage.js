@@ -63,7 +63,7 @@ class TeacherHistoricalDataPage extends React.Component{
     }
 
     getDataFromServerAndUpdate = () => {
-        if(this.state.currentDetail == 'Lecture'){
+        if(this.state.currentDetail === 'Lecture'){
             var currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
 
             API.getBookingStatisticsByLesson(currentCourseId)
@@ -88,8 +88,8 @@ class TeacherHistoricalDataPage extends React.Component{
                 console.log(err);
             });
         }
-        else if(this.state.currentDetail == 'Week'){
-            var currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
+        else if(this.state.currentDetail === 'Week'){
+            currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
             
             API.getBookingStatisticsByWeek(currentCourseId)
             .then((res) => {
@@ -113,8 +113,8 @@ class TeacherHistoricalDataPage extends React.Component{
                 console.log(err);
             });
         }
-        else if(this.state.currentDetail == 'Month'){
-            var currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
+        else if(this.state.currentDetail === 'Month'){
+            currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
             
             API.getBookingStatisticsByMonth(currentCourseId)
             .then((res) => {

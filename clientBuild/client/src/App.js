@@ -11,7 +11,7 @@ import StudentCalendarPage from './StudentCalendarPage';
 import TeacherCalendarPage from './TeacherCalendarPage';
 import TeacherHistoricalDataPage from './TeacherHistoricalDataPage';
 import BookingManagerPage from './BookingManagerPage';
-import { buildEventApis, getRectCenter } from '@fullcalendar/react';
+//import { buildEventApis, getRectCenter } from '@fullcalendar/react';
 
 class App extends React.Component {
   constructor(props) {

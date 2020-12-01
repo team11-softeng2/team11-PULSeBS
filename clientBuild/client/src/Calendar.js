@@ -1,8 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal'
 import ModalStudent from './ModalStudent';
 import ModalTeacher from './ModalTeacher';
 import API from './API';

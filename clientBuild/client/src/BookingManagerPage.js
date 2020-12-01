@@ -69,10 +69,10 @@ class BookingManagerPage extends React.Component {
                 />
 
                 {
-                    this.state.selectedCourse != API.ALL_COURSES_FILTER ?
+                    this.state.selectedCourse !== API.ALL_COURSES_FILTER ?
                         <>
                             <div className='m-5 shadow-lg p-3 bg-white'>
-                                {this.state.bookingSeries != undefined &&
+                                {this.state.bookingSeries !== undefined &&
                                     <ApexChart options={this.state.bookingOptions} series={this.state.bookingSeries} type="area" height={350} />}
                                 <div className="text-center pt-3">
                                     <MultiStateToggleButton
@@ -83,7 +83,7 @@ class BookingManagerPage extends React.Component {
                                 </div>
                             </div>
                             <div className='m-5 shadow-lg p-3 bg-white'>
-                                {this.state.cancellationSeries != undefined &&
+                                {this.state.cancellationSeries !== undefined &&
                                     <ApexChart options={this.state.cancellationOptions} series={this.state.cancellationSeries} type="line" height={350} />}
                                 <div className="text-center pt-3">
                                     <MultiStateToggleButton
@@ -97,7 +97,7 @@ class BookingManagerPage extends React.Component {
                         : /* no course selected: aggregate (generic) stats */
                         <>
                             <div className='m-5 shadow-lg p-3 bg-white'>
-                                {this.state.bookingSeries != undefined &&
+                                {this.state.bookingSeries !== undefined &&
                                     <ApexChart options={this.state.bookingOptions} series={this.state.bookingSeries} type="area" height={350} />}
                                 <div className="text-center pt-3">
                                     <MultiStateToggleButton
@@ -108,7 +108,7 @@ class BookingManagerPage extends React.Component {
                                 </div>
                             </div>
                             <div className='m-5 shadow-lg p-3 bg-white'>
-                                {this.state.cancellationSeries != undefined &&
+                                {this.state.cancellationSeries !== undefined &&
                                     <ApexChart options={this.state.cancellationOptions} series={this.state.cancellationSeries} type="line" height={350} />}
                                 <div className="text-center pt-3">
                                     <MultiStateToggleButton
@@ -348,7 +348,7 @@ class MultiStateToggleButton extends React.Component {
             variant="dark"
             name="option"
             value={option.value}
-            checked={this.props.currentActive == option.value}
+            checked={this.props.currentActive === option.value}
             onClick={(event) => { event.preventDefault(); this.props.handleClick(event.currentTarget.innerText); }}
         >
             {option.name}

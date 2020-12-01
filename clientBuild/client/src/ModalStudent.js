@@ -3,9 +3,6 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 class ModalStudent extends React.Component{
-    constructor(props){
-        super(props);
-    }
 
     render(){
         if(this.props.show === true) {

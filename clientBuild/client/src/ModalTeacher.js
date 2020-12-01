@@ -8,9 +8,6 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 class ModalTeacher extends React.Component{
-    constructor(props){
-        super(props);
-    }
 
     render(){
         if(this.props.show === true) {

@@ -11,7 +11,7 @@ class TopBar extends React.Component{
                         null
                     :
                     <>
-                    <Navbar.Text className = "ml-auto" data-testid="welcome-message">
+                    <Navbar.Text className = "text-align-center" data-testid="welcome-message">
                     Welcome {this.props.userName}
                     </Navbar.Text>
 
