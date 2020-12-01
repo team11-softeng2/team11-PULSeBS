@@ -57,7 +57,7 @@ class BookingManagerPage extends React.Component {
                 <Select
                     className="col-4 mx-auto my-4"
                     options={this.state.courses}
-                    placeholder="All Courses"
+                    placeholder="Select a course..."
                     isClearable={true}
                     styles={{
                         // Fixes the overlapping problem of the component
@@ -348,7 +348,7 @@ class MultiStateToggleButton extends React.Component {
             variant="dark"
             name="option"
             value={option.value}
-            checked={this.props.currentActive === option.value}
+            checked={this.props.currentActive == option.value}
             onClick={(event) => { event.preventDefault(); this.props.handleClick(event.currentTarget.innerText); }}
         >
             {option.name}
