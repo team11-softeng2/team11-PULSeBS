@@ -108,9 +108,18 @@ if (isset($_GET['url'])) {
             $requestMethod = "GET";
             $filterCourse = $_GET['filterCourse'];
             $filterTime = $_GET['filterTime'] == "" ? "L.idLesson" : $_GET['filterTime'];
-            $active = !(isset($_GET['type'])) || $_GET['type'] == "" ? "1" : $_GET['type'];  
-            //if type is 1 then bookings statistics, if type is 0 then cancellation statistics, default is 1(booking stats)
+            $active = !(isset($_GET['type'])) || $_GET['type'] == "" ? "1" : $_GET['type'];
             $controller = new Server\api\ControllersHistoricalData($requestMethod, $dbConn, $value, $filterTime, $filterCourse, $active);
+            $controller->processRequest();
+            break;
+        case "teacherStatistics/$number":
+            $value = "teacherStatistics";
+            $requestMethod = "GET";
+            $idTeacher = $number;
+            $filterCourse = $_GET['filterCourse'];
+            $filterTime = $_GET['filterTime'] == "" ? "L.idLesson" : $_GET['filterTime'];
+            $active = !(isset($_GET['type'])) || $_GET['type'] == "" ? "1" : $_GET['type'];
+            $controller = new Server\api\ControllersHistoricalData($requestMethod, $dbConn, $value, $filterTime, $filterCourse, $active, $idTeacher);
             $controller->processRequest();
             break;
         default:
