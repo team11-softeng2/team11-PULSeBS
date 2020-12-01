@@ -14,9 +14,9 @@ Each endpoint is preceded by /server/src/api/
 - GET `/scheduledLecturesForTeacher/:teacherId`
 
   - Params: teacherId
-  - response: List of scheduled (presence) lectures given by a teacher and number of students currently booked
+  - Response: List of scheduled (presence) lectures given by a teacher and number of students currently booked
 
-  Examples:
+  - Results Examples:
 
 1. [{"idLesson":3,"idCourse":2,"idTeacher":2,"idClassroom":5,"date":"2020-11-18","beginTime":"09:00:00","endTime":"11:00:00","inPresence":1,"active":1,"studentsNumber":4},{"idLesson":6,"idCourse":3,"idTeacher":2,"idClassroom":5,"date":"2020-11-20","beginTime":"14:00:00","endTime":"16:00:00","inPresence":1,"active":1,"studentsNumber":2}]
 2. [{"idLesson":11,"idCourse":6,"idTeacher":13,"idClassroom":2,"date":"2020-11-20","beginTime":"09:00:00","endTime":"11:00:00","inPresence":1,"active":1,"studentsNumber":2}]
@@ -26,7 +26,7 @@ Each endpoint is preceded by /server/src/api/
   - Params: studentId
   - Response: List of lessons that can be booked by a student
 
-  Examples :
+  - Result Examples :
 
 1. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"}]
 2. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Sistemi Operativi","date":"2020-11-20","beginTime":"14","endTime":"16:00:00"}]
@@ -75,18 +75,56 @@ Each endpoint is preceded by /server/src/api/
 
   ## Statistics
 
-- GET `/bookingStatistics?filterTime=&filterCourse=&type=`
+- GET `/bookingStatistics?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}
 
   - Params:
-    - filterTime: string that could be idLesson (per lecture), year,monthOfYear(per month) or year_month_week(per week). If nothing is passed then the default value is idLesson
-      - Example: filterTime=year,monthOfYear (the comma is not an error)
-    - filterCourse: string made by course id separed by comma
-      - Example: filterCourse=1,2,5
-    - type: is an optional parameter, if you want cancellation stats you need to set it to 0
-    - Example urls:
-      - bookings: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
-      - cancellation: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5&type=0`
+
+    - {_value_} for filterTime key is either one of the following strings:
+
+      - <b>idLesson</b> (stats by lecture);
+      - <b>year,monthOfYear</b> (stats by month);
+      - <b>year_month_week</b> (stats by week);
+
+      If nothing is passed then the default value is idLesson
+      Example: filterTime=year,monthOfYear
+
+    - {_value_} for filterCourse key is a list of comma separated course ids.
+      Example: filterCourse=1,2,5
+    - {_value_} for type key is an optional parameter.
+      If you want cancellation stats you need to set it to 0, otherwise defaults to 1 (ie. stats will be about active lectures).
+
+  - Example urls:
+
+    - bookings: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
+    - cancellation: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5&type=0`
+
   - Response: statistics list of bookings filtered by filterTime and filterCourse
+
+- GET `/teacherStatistics/:teacherId?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}
+
+  - Params:
+
+    - teacherId
+    - {_value_} for filterTime key is either one of the following strings:
+
+      - <b>idLesson</b> (stats by lecture);
+      - <b>year,monthOfYear</b> (stats by month);
+      - <b>year_month_week</b> (stats by week);
+
+      If nothing is passed then the default value is idLesson
+      Example: filterTime=year,monthOfYear
+
+    - {_value_} for filterCourse key is a list of comma separated course ids.
+      Example: filterCourse=1,2,5
+    - {_value_} for type key is an optional parameter.
+      If you want cancellation stats you need to set it to 0, otherwise defaults to 1 (ie. stats will be about active lectures).
+
+  - Example urls:
+
+    - bookings: `/teacherStatistics/2?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
+    - cancellation: `/teacherStatistics/:teacherId?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5&type=0`
+
+  - Response: statistics list of bookings for the given teacher, filtered by filterTime and filterCourse
 
   ## Courses
 
@@ -109,7 +147,7 @@ Each endpoint is preceded by /server/src/api/
 - POST `/sendNotification`
 
   - Body: { "id":"_value_", "type":"_value_"}
-    Info:
+  - Body Options:
     When _type_ is **studentsAttendingNextLecture**, _id_ is discarded;
     When _type_ is **bookingConfirmation** _id_ is the ID of the booking;
     When _type_ is **lectureCancelled**, _id_ is the ID of the lecture;
