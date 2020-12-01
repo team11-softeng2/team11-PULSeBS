@@ -10,7 +10,7 @@ exports[`TopBar renderer Whit User logged in 1`] = `
     PULSeBS
   </span>
   <span
-    className="ml-auto navbar-text"
+    className="text-align-center navbar-text"
     data-testid="welcome-message"
   >
     Welcome 
@@ -19,6 +19,7 @@ exports[`TopBar renderer Whit User logged in 1`] = `
     className="ml-auto"
   >
     <a
+      className="text-light"
       data-testid="logout-link"
       href="/"
       onClick={[Function]}

@@ -1,0 +1,283 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders learn react link 1`] = `
+<div
+  className="container-fluid"
+>
+  <br />
+  <h1
+    className="text-center"
+  >
+    Historical data
+  </h1>
+  <div
+    className="col-4 mx-auto my-4 css-2b097c-container"
+    onKeyDown={[Function]}
+  >
+    <div
+      className=" css-yk16xz-control"
+      onMouseDown={[Function]}
+      onTouchEnd={[Function]}
+    >
+      <div
+        className=" css-g1d714-ValueContainer"
+      >
+        <div
+          className=" css-1wa3eu0-placeholder"
+        >
+          All Courses
+        </div>
+        <div
+          className="css-b8ldur-Input"
+        >
+          <div
+            className=""
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
+          >
+            <input
+              aria-autocomplete="list"
+              autoCapitalize="none"
+              autoComplete="off"
+              autoCorrect="off"
+              disabled={false}
+              id="react-select-2-input"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              spellCheck="false"
+              style={
+                Object {
+                  "background": 0,
+                  "border": 0,
+                  "boxSizing": "content-box",
+                  "color": "inherit",
+                  "fontSize": "inherit",
+                  "label": "input",
+                  "opacity": 1,
+                  "outline": 0,
+                  "padding": 0,
+                  "width": "1px",
+                }
+              }
+              tabIndex="0"
+              type="text"
+              value=""
+            />
+            <div
+              style={
+                Object {
+                  "height": 0,
+                  "left": 0,
+                  "overflow": "scroll",
+                  "position": "absolute",
+                  "top": 0,
+                  "visibility": "hidden",
+                  "whiteSpace": "pre",
+                }
+              }
+            >
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className=" css-1hb7zxy-IndicatorsContainer"
+      >
+        <span
+          className=" css-1okebmr-indicatorSeparator"
+        />
+        <div
+          aria-hidden="true"
+          className=" css-tlfecz-indicatorContainer"
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+        >
+          <svg
+            aria-hidden="true"
+            className="css-6q0nyr-Svg"
+            focusable="false"
+            height={20}
+            viewBox="0 0 20 20"
+            width={20}
+          >
+            <path
+              d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="m-5 shadow-lg p-3 bg-white"
+  >
+    <div
+      className="text-center pt-3"
+    >
+      <div
+        className="btn-group btn-group-toggle"
+        role="group"
+      >
+        <label
+          className="btn btn-dark"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <input
+            autoComplete="off"
+            checked={false}
+            disabled={false}
+            name="option"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            type="radio"
+            value="1"
+          />
+          Month
+        </label>
+        <label
+          className="btn btn-dark"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <input
+            autoComplete="off"
+            checked={false}
+            disabled={false}
+            name="option"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            type="radio"
+            value="2"
+          />
+          Week
+        </label>
+      </div>
+    </div>
+  </div>
+  <div
+    className="m-5 shadow-lg p-3 bg-white"
+  >
+    <div
+      height={350}
+      options={
+        Object {
+          "chart": Object {
+            "height": 350,
+            "type": "line",
+            "zoom": Object {
+              "enabled": true,
+            },
+          },
+          "dataLabels": Object {
+            "enabled": false,
+          },
+          "grid": Object {
+            "row": Object {
+              "colors": Array [
+                "#f3f3f3",
+                "transparent",
+              ],
+              "opacity": 0.5,
+            },
+          },
+          "stroke": Object {
+            "curve": "straight",
+          },
+          "title": Object {
+            "align": "center",
+            "text": "Average number of cancellations per month",
+          },
+          "xaxis": Object {
+            "categories": Array [
+              "Oct 2020",
+              "Nov 2020",
+              "Dec 2020",
+              "Jan 2021",
+              "Feb 2021",
+              "Mar 2021",
+              "Apr 2021",
+            ],
+            "convertedCatToNumeric": true,
+          },
+          "yaxis": Object {
+            "labels": Object {
+              "formatter": [Function],
+            },
+          },
+        }
+      }
+      series={
+        Array [
+          Object {
+            "data": Array [
+              40.5,
+              42.8,
+              45.7,
+              60.1,
+              50.2,
+              40.3,
+              30.2,
+            ],
+            "name": "Cancellation",
+          },
+        ]
+      }
+      type="line"
+      width="100%"
+    />
+    <div
+      className="text-center pt-3"
+    >
+      <div
+        className="btn-group btn-group-toggle"
+        role="group"
+      >
+        <label
+          className="btn btn-dark"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <input
+            autoComplete="off"
+            checked={false}
+            disabled={false}
+            name="option"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            type="radio"
+            value="4"
+          />
+          Month
+        </label>
+        <label
+          className="btn btn-dark"
+          disabled={false}
+          onClick={[Function]}
+        >
+          <input
+            autoComplete="off"
+            checked={false}
+            disabled={false}
+            name="option"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            type="radio"
+            value="5"
+          />
+          Week
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+`;
