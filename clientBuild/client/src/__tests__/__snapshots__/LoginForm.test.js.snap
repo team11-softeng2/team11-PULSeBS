@@ -27,7 +27,7 @@ exports[`LoginFrom renders correctly 1`] = `
           placeholder="Username"
           required={true}
           type="text"
-          value="test"
+          value=""
         />
       </div>
        
@@ -47,7 +47,7 @@ exports[`LoginFrom renders correctly 1`] = `
           placeholder="Password"
           required={true}
           type="password"
-          value="test"
+          value=""
         />
       </div>
     </div>

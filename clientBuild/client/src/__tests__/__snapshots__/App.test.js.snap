@@ -46,7 +46,7 @@ Array [
                 placeholder="Username"
                 required={true}
                 type="text"
-                value="test"
+                value=""
               />
             </div>
              
@@ -66,7 +66,7 @@ Array [
                 placeholder="Password"
                 required={true}
                 type="password"
-                value="test"
+                value=""
               />
             </div>
           </div>
