@@ -100,23 +100,23 @@ class GatewaysTeacherBookingTest extends TestCase{
 //---------------------------------------------------------------------------------------------------------------------------------
 
 //test FindAllBookingsOfLecture----------------------------------------------------------------------------------------------------
-    public function testfindAllBookingsOfLectureFound(){
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
-        $this->updateDates();
-        $this->id = 3;
-        $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
-        $result = $this->gatewayTeacherBooking->findAllBookingsOfLecture($this->id);
-        $this->assertIsArray($result);
-        $this->assertFalse(empty($result));
-    }
+    // public function testfindAllBookingsOfLectureFound(){
+    //     $this->db = new SQLite3("./tests/dbForTesting2.db");
+    //     $this->updateDates();
+    //     $this->id = 3;
+    //     $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+    //     $result = $this->gatewayTeacherBooking->findAllBookingsOfLecture($this->id);
+    //     $this->assertIsArray($result);
+    //     $this->assertFalse(empty($result));
+    // }
     
-    public function testfindAllBookingsOfLectureNotFound(){
-        $this->db = new SQLite3("./tests/dbForTesting.db");
-        $this->id = 3;
-        $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
-        $result = $this->gatewayTeacherBooking->findAllBookingsOfLecture($this->id);
-        $this->assertEquals(0, $result);
-    }
+    // public function testfindAllBookingsOfLectureNotFound(){
+    //     $this->db = new SQLite3("./tests/dbForTesting.db");
+    //     $this->id = 3;
+    //     $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+    //     $result = $this->gatewayTeacherBooking->findAllBookingsOfLecture($this->id);
+    //     $this->assertEquals(0, $result);
+    // }
     
 //-----------------------------------------------------------------------------------------------------------------------------------
 
