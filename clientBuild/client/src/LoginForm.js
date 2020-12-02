@@ -7,7 +7,7 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         // prefilled user pass fields just for convenience for testing purposes
-        this.state = { loginSuccess: false, username: 'test', password: 'test' };
+        this.state = { loginSuccess: false, username: 'simone', password: 'test' };
     }
     updateField = (name, value) => {
         this.setState({ [name]: value });
