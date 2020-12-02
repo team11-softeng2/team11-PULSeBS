@@ -346,9 +346,31 @@ async function getFullLectures(studentId) {
     }
 }
 
+async function getTeacherStatistics(teacherId, filterTime, courseIds) {
+    const url = "http://localhost/server/teacherStatistics/" + teacherId + "?filterTime=" + filterTime + `&filterCourse=${courseIds.toString()}`;
+
+    const response = await fetch(url);
+
+    /* //if the backend returns an error, this prints the message (instead .json() just fails) 
+    const text = await response.text();
+    console.log(text)
+    */
+
+    const stats = await response.json();
+    if (response.ok) {
+        if (stats === 0) {
+            return [];
+        }
+        return stats;
+    } else {
+        let err = { status: response.status, errorObj: stats };
+        throw err;
+    }
+}
+
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses, 
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER, 
-    getCoursesOfTeacher, getFullLectures
+    getCoursesOfTeacher, getFullLectures, getTeacherStatistics
 };
 export default API;

@@ -66,7 +66,7 @@ class TeacherHistoricalDataPage extends React.Component{
         if(this.state.currentDetail === 'Lecture'){
             var currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
 
-            API.getBookingStatisticsByLesson(currentCourseId)
+            API.getTeacherStatistics(this.props.teacherId, 'L.idLesson', currentCourseId)
             .then((res) => {
                 //console.log(res)
                 var numberOfBookingsArray = res.map(d => d.numberBookings)
@@ -91,9 +91,9 @@ class TeacherHistoricalDataPage extends React.Component{
         else if(this.state.currentDetail === 'Week'){
             currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
             
-            API.getBookingStatisticsByWeek(currentCourseId)
+            API.getTeacherStatistics(this.props.teacherId, 'year_month_week', currentCourseId)
             .then((res) => {
-                console.log(res)
+                //console.log(res)
                 var avgNumberOfBookingsArray = res.map(d => d.average)
                 var weekOfYear = res.map(d => moment().week(d.weekOfYear).year(d.year).format('YYYY-MM-DD'))
 
@@ -116,7 +116,7 @@ class TeacherHistoricalDataPage extends React.Component{
         else if(this.state.currentDetail === 'Month'){
             currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
             
-            API.getBookingStatisticsByMonth(currentCourseId)
+            API.getTeacherStatistics(this.props.teacherId, 'year,monthOfYear', currentCourseId)
             .then((res) => {
                 //console.log(res)
                 var avgNumberOfBookingsArray = res.map(d => d.average)
