@@ -41,11 +41,18 @@ class BookingManagerPage extends React.Component {
             )
         });
 
-        this.updateCancellationGraphData(
-            'Average number of cancellations per month',
-            [40.5, 42.8, 45.7, 60.1, 50.2, 40.3, 30.2],
-            ['Oct 2020', 'Nov 2020', 'Dec 2020', 'Jan 2021', 'Feb 2021', 'Mar 2021', 'Apr 2021']
-        );
+        API.getCancellationsStatisticsByMonth(this.state.selectedCourse).then((stats) => {
+            let data = []; let labels = [];
+            stats.forEach(stat => {
+                data.push(stat.average);
+                labels.push(`${stat.monthOfYear}-${stat.year}`);
+            });
+            this.updateCancellationGraphData(
+                'Average number of cancellations per month',
+                data,
+                labels
+            )
+        });
     }
 
     render() {
@@ -179,27 +186,48 @@ class BookingManagerPage extends React.Component {
     handleCancellationFilterChange = (event) => {
         if (event === 'Month') {
             this.setState({ currentCancellationFilter: 4 });
-            this.updateCancellationGraphData(
-                'Average number of cancellations per month',
-                [40.5, 42.8, 45.7, 60.1, 50.2, 40.3, 30.2],
-                ['Oct 2020', 'Nov 2020', 'Dec 2020', 'Jan 2021', 'Feb 2021', 'Mar 2021', 'Apr 2021']
-            );
+            API.getCancellationsStatisticsByMonth(this.state.selectedCourse).then((stats) => {
+                let data = []; let labels = [];
+                stats.forEach(stat => {
+                    data.push(stat.average);
+                    labels.push(`${stat.monthOfYear}-${stat.year}`);
+                });
+                this.updateCancellationGraphData(
+                    'Average number of cancellations per month',
+                    data,
+                    labels
+                )
+            });
         }
         else if (event === 'Week') {
             this.setState({ currentCancellationFilter: 5 });
-            this.updateCancellationGraphData(
-                'Average number of cancellations per week',
-                [40.5, 32.8, 28.7, 25.1],
-                ['2/11 - 6/11', '9/11 - 13/11', '16/11 - 20/11', '23/11 - 27/11']
-            );
+            API.getCancellationsStatisticsByWeek(this.state.selectedCourse).then((stats) => {
+                let data = []; let labels = [];
+                stats.forEach(stat => {
+                    data.push(stat.average);
+                    labels.push(`${stat.weekOfYear} (${stat.monthOfYear}-${stat.year})`);
+                });
+                this.updateCancellationGraphData(
+                    'Average number of cancellations per week',
+                    data,
+                    labels
+                )
+            });
         }
         else if (event === 'Lecture') {
             this.setState({ currentCancellationFilter: 6 });
-            this.updateCancellationGraphData(
-                'Number of cancellations per lecture',
-                [5, 2, 0, 1, 10, 3, 2],
-                ['SE II - 24/11 14:30', 'SE II - 25/11 14:30', 'SE II - 26/11 11:30', 'SE II - 26/11 14:30', 'SE II - 27/11 14:30', 'SE II - 28/11 14:30', 'SE II - 29/11 14:30']
-            );
+            API.getCancellationsStatisticsByLesson(this.state.selectedCourse).then((stats) => {
+                let data = []; let labels = [];
+                stats.forEach(stat => {
+                    data.push(stat.numberBookings);
+                    labels.push(`${stat.dateLecture}`);
+                });
+                this.updateCancellationGraphData(
+                    'Number of cancellations per lecture',
+                    data,
+                    labels
+                )
+            });
         }
     }
 
@@ -225,14 +253,21 @@ class BookingManagerPage extends React.Component {
                         labels
                     )
                 });
+
+                API.getCancellationsStatisticsByMonth(this.state.selectedCourse).then((stats) => {
+                    let data = []; let labels = [];
+                    stats.forEach(stat => {
+                        data.push(stat.average);
+                        labels.push(`${stat.monthOfYear}-${stat.year}`);
+                    });
+                    this.updateCancellationGraphData(
+                        'Average number of cancellations per month',
+                        data,
+                        labels
+                    )
+                });
             }
         )
-
-        this.updateCancellationGraphData(
-            'Average number of cancellations per month',
-            [40.5, 42.8, 45.7, 60.1, 50.2, 40.3, 30.2],
-            ['Oct 2020', 'Nov 2020', 'Dec 2020', 'Jan 2021', 'Feb 2021', 'Mar 2021', 'Apr 2021']
-        );
     }
 
     updateBookingGraphData = (title, yBookingData, yAttendanceData, xlabel) => {

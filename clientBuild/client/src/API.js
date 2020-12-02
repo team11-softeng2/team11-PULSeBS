@@ -269,6 +269,52 @@ async function getBookingStatisticsByLesson(courseIds) {
     }
 }
 
+async function getCancellationsStatisticsByMonth(courseIds) {
+    const url = `http://localhost/server/bookingStatistics/?filterTime=year,monthOfYear&filterCourse=${courseIds.toString()}&type=0`;
+
+    const response = await fetch(url);
+    const stats = await response.json();
+    if (response.ok) {
+        if (stats === 0) {
+            return [];
+        }
+        return stats;
+    } else {
+        let err = { status: response.status, errorObj: stats };
+        throw err;
+    }
+} 
+async function getCancellationsStatisticsByWeek(courseIds) {
+    const url = `http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=${courseIds.toString()}&type=0`;
+
+    const response = await fetch(url);
+    const stats = await response.json();
+    if (response.ok) {
+        if (stats === 0) {
+            return [];
+        }
+        return stats;
+    } else {
+        let err = { status: response.status, errorObj: stats };
+        throw err;
+    }
+}
+async function getCancellationsStatisticsByLesson(courseIds) {
+    const url = `http://localhost/server/bookingStatistics/?filterTime=L.idLesson&filterCourse=${courseIds.toString()}&type=0`;
+
+    const response = await fetch(url);
+    const stats = await response.json();
+    if (response.ok) {
+        if (stats === 0) {
+            return [];
+        }
+        return stats;
+    } else {
+        let err = { status: response.status, errorObj: stats };
+        throw err;
+    }
+}
+
 async function getCoursesOfTeacher(teacherId) {
     const url = "http://localhost/server/teacherCourses/" + teacherId;
 
@@ -302,6 +348,7 @@ async function getFullLectures(studentId) {
 
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses, 
-    getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, ALL_COURSES_FILTER, getCoursesOfTeacher, getFullLectures
+    getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER, 
+    getCoursesOfTeacher, getFullLectures
 };
 export default API;
