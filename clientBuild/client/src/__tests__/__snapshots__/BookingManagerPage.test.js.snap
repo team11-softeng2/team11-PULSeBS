@@ -25,7 +25,7 @@ exports[`renders learn react link 1`] = `
         <div
           className=" css-1wa3eu0-placeholder"
         >
-          All Courses
+          Select a course...
         </div>
         <div
           className="css-b8ldur-Input"
@@ -124,13 +124,13 @@ exports[`renders learn react link 1`] = `
         role="group"
       >
         <label
-          className="btn btn-dark"
+          className="btn active btn-dark"
           disabled={false}
           onClick={[Function]}
         >
           <input
             autoComplete="off"
-            checked={false}
+            checked={true}
             disabled={false}
             name="option"
             onBlur={[Function]}
@@ -166,74 +166,6 @@ exports[`renders learn react link 1`] = `
     className="m-5 shadow-lg p-3 bg-white"
   >
     <div
-      height={350}
-      options={
-        Object {
-          "chart": Object {
-            "height": 350,
-            "type": "line",
-            "zoom": Object {
-              "enabled": true,
-            },
-          },
-          "dataLabels": Object {
-            "enabled": false,
-          },
-          "grid": Object {
-            "row": Object {
-              "colors": Array [
-                "#f3f3f3",
-                "transparent",
-              ],
-              "opacity": 0.5,
-            },
-          },
-          "stroke": Object {
-            "curve": "straight",
-          },
-          "title": Object {
-            "align": "center",
-            "text": "Average number of cancellations per month",
-          },
-          "xaxis": Object {
-            "categories": Array [
-              "Oct 2020",
-              "Nov 2020",
-              "Dec 2020",
-              "Jan 2021",
-              "Feb 2021",
-              "Mar 2021",
-              "Apr 2021",
-            ],
-            "convertedCatToNumeric": true,
-          },
-          "yaxis": Object {
-            "labels": Object {
-              "formatter": [Function],
-            },
-          },
-        }
-      }
-      series={
-        Array [
-          Object {
-            "data": Array [
-              40.5,
-              42.8,
-              45.7,
-              60.1,
-              50.2,
-              40.3,
-              30.2,
-            ],
-            "name": "Cancellation",
-          },
-        ]
-      }
-      type="line"
-      width="100%"
-    />
-    <div
       className="text-center pt-3"
     >
       <div
@@ -241,13 +173,13 @@ exports[`renders learn react link 1`] = `
         role="group"
       >
         <label
-          className="btn btn-dark"
+          className="btn active btn-dark"
           disabled={false}
           onClick={[Function]}
         >
           <input
             autoComplete="off"
-            checked={false}
+            checked={true}
             disabled={false}
             name="option"
             onBlur={[Function]}
