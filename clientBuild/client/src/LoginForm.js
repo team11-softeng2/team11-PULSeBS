@@ -7,7 +7,7 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         // prefilled user pass fields just for convenience for testing purposes
-        this.state = { loginSuccess: false, username: 'simone', password: 'test' };
+        this.state = { loginSuccess: false, username: '', password: '' };
     }
     updateField = (name, value) => {
         this.setState({ [name]: value });
@@ -21,7 +21,7 @@ class LoginForm extends React.Component {
                 this.setState({userRole: userObj.role})
             } else {
                 this.setState({loginSuccess: false});
-                alert("Wrong username or password");
+                
             }
         }).catch(() => {
             console.log("Fail in user login API");
