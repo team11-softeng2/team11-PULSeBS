@@ -1,4 +1,24 @@
-## Composer on the server side
+## Docker
+
+```bash
+cd / && docker-compose up
+```
+
+OR
+
+```bash
+#build and run the server image
+cd /serverBuild/ && sudo docker image build -t server .
+docker run -d -p 80:80 --name server server
+#build and run the mailer image
+cd /serverBuild/server/mailer/ && sudo docker image build -t mailer .
+sudo docker run -d --name mailer mailer
+#build and run the client image
+cd /clientBuild/ && sudo docker image build -t client .
+sudo docker run -itd -p 3000:3000 --name client client
+```
+
+## Server setup
 
 ### install php
 
@@ -10,22 +30,25 @@ sudo apt install php
 
 ```bash
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-# If you want to check the hash file programmatically, be sure to use the latest on the website above
+# If you want to check the hash file programmatically, be sure to use the latest one on the website above
 # php -r "if (hash_file('sha384', 'composer-setup.php') === 'c31c1e292ad7be5f49291169c0ac8f683499edddcfd4e42232982d0fd193004208a58ff6f353fde0012d35fdd72bc394') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 php composer-setup.php
 php -r "unlink('composer-setup.php');"
 ```
 
-#### composer as global variable
+### set composer as a global variable
 
     mv composer.phar /usr/local/bin/composer
 
 ### configure composer.json and phpunit.xml
 
-- vai sulla cartella server
-- composer require phpunit/phpunit
-- aprire il file appena creato nella cartella server
-- incollare questo:
+- navigate to /serverBuild/server and create a composer.json:
+
+```bash
+cd /serverBuild/server/ && composer require phpunit/phpunit
+```
+
+- open the file composer.json and paste the following:
 
 ```JSON
 {
@@ -42,7 +65,7 @@ php -r "unlink('composer-setup.php');"
 }
 ```
 
-- create a file phpunit.xml inside /serverBuild/server and paste the following
+- create a file phpunit.xml inside /serverBuild/server and paste the following:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -71,32 +94,37 @@ php -r "unlink('composer-setup.php');"
 composer dump-autoload -o
 ```
 
-## Useful Commands
+## Tests and Coverage
 
-#### phpunit
-
-##### running test
-
-###### server
-
-    alias testphp=./vendor/bin/phpunit
-    testphp
-
-###### client
+First, navigate to /serverBuild/server and define an alias:
 
 ```bash
-npm run test
+cd /serverBuild/server/ && alias testphp=./vendor/bin/phpunit
 ```
 
-##### report coverage server
+### report coverage server
 
-inside /serverBuild/server run:
+inside /serverBuild/server, run:
 
 ```bash
 testphp --coverage-clover reports/coverage/coverage.xml
 ```
 
-##### report coverage client
+### running test server
+
+inside /serverBuild/server, run:
+
+```bash
+testphp
+```
+
+### report test server
+
+```bash
+testphp --log-junit reports/tests/phpunit.report.xml
+```
+
+### report coverage client
 
 inside /clientBuild/client run:
 
@@ -104,9 +132,15 @@ inside /clientBuild/client run:
 npm run test -- --coverage --coverageReporters=lcov  --coverageDirectory=reports/coverage
 ```
 
-##### report test
+### running test client
 
-###### client
+inside /clientBuild/client run:
+
+```bash
+npm run test
+```
+
+### report test client
 
 inside /clientBuild/client run:
 
@@ -120,36 +154,11 @@ generate tests' reports:
 npm run test -- --testResultsProcessor=jest-sonar-reporter
 ```
 
-###### server
+## sonarCloud
+
+Calogero:
 
 ```bash
-testphp --log-junit reports/tests/phpunit.report.xml
-```
-
-#### Docker
-
-```bash
-#build and run the server image
-cd /serverBuild/ && sudo docker image build -t server .
-docker run -d -p 80:80 --name server server
-#build and run the mailer image
-cd /serverBuild/server/mailer/ && sudo docker image build -t mailer .
-sudo docker run -d --name mailer mailer
-#build and run the client image
-cd /clientBuild/ && sudo docker image build -t client .
-sudo docker run -itd -p 3000:3000 --name client client
-#sudo docker exec -it my-apache-php-app bash
-```
-
-OR
-
-```bash
-cd / && docker-compose up
-```
-
-##### sonarCloud commands
-
-```bash
-solo calogero source /etc/environment
+source /etc/environment
 sonar-scanner
 ```
