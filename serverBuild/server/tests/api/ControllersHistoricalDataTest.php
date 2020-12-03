@@ -1,10 +1,13 @@
 <?php
 use PHPUnit\Framework\TestCase;
-class ControllersHistoricalDataTest extends TestCase {
+
+class ControllersHistoricalDataTest extends TestCase
+{
     private $db;
     private $controllersHistoricalData;
 
-    public function testfindBookingsStatsFound(){
+    public function testfindBookingsStatsFound()
+    {
         $this->db = new SQLite3("./tests/dbStatistics.db");
         $filterTime = "L.idLesson";
         $filterCourse = "L.idCourse";
@@ -13,10 +16,11 @@ class ControllersHistoricalDataTest extends TestCase {
         $value = "bookingStatistics";
         $this->controllersHistoricalData = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
         $result = $this->controllersHistoricalData->findBookingsStats($filterTime, $filterCourse);
-        $this->assertTrue(( json_decode( $result , true ) == NULL ) ? false : true);
+        $this->assertTrue((json_decode($result, true) == null) ? false : true);
     }
 
-    public function testfindBookingsStatsNotFound(){
+    public function testfindBookingsStatsNotFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $filterTime = "L.idLesson";
         $filterCourse = "L.idCourse";
@@ -26,9 +30,10 @@ class ControllersHistoricalDataTest extends TestCase {
         $this->controllersHistoricalData = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
         $result = $this->controllersHistoricalData->findBookingsStats($filterTime, $filterCourse);
         $this->assertEquals(0, $result);
-        
     }
-    public function testProcessRequestStatsFound(){
+
+    public function testProcessRequestStatsFound()
+    {
         $this->db = new SQLite3("./tests/dbStatistics.db");
         $filterTime = "L.idLesson";
         $filterCourse = "L.idCourse";
@@ -42,7 +47,8 @@ class ControllersHistoricalDataTest extends TestCase {
         $this->assertFalse(empty($output));
     }
 
-    public function testProcessRequestStatsNotFound(){
+    public function testProcessRequestStatsNotFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $filterTime = "L.idLesson";
         $filterCourse = "L.idCourse";
@@ -53,7 +59,4 @@ class ControllersHistoricalDataTest extends TestCase {
         $this->expectOutputString('0');
         $this->controllersHistoricalData->processRequest();
     }
-
-
-
 }

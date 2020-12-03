@@ -1,10 +1,13 @@
 <?php
 use PHPUnit\Framework\TestCase;
-class GatewaysHistoricalDataTest extends TestCase {
+
+class GatewaysHistoricalDataTest extends TestCase
+{
     private $db;
     private $gatewayHistoricalData;
 
-    public function testgetHistoricalDataBookingsPerLectureFound(){
+    public function testgetHistoricalDataBookingsPerLectureFound()
+    {
         $this->db = new SQLite3("./tests/dbStatistics.db");
         $filterTime = "L.idLesson";
         $filterCourse = "L.idCourse";
@@ -13,7 +16,9 @@ class GatewaysHistoricalDataTest extends TestCase {
         $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type);
         $this->assertIsArray($result);
     }
-    public function testgetHistoricalDataBookingsPerMonthFound(){
+
+    public function testgetHistoricalDataBookingsPerMonthFound()
+    {
         $this->db = new SQLite3("./tests/dbStatistics.db");
         $filterTime = "year,monthOfYear";
         $filterCourse = "L.idCourse";
@@ -22,7 +27,9 @@ class GatewaysHistoricalDataTest extends TestCase {
         $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type);
         $this->assertIsArray($result);
     }
-    public function testgetHistoricalDataBookingsPerWeekFound(){
+
+    public function testgetHistoricalDataBookingsPerWeekFound()
+    {
         $this->db = new SQLite3("./tests/dbStatistics.db");
         $filterTime = "year_month_week";
         $filterCourse = "L.idCourse";
@@ -31,7 +38,9 @@ class GatewaysHistoricalDataTest extends TestCase {
         $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type);
         $this->assertIsArray($result);
     }
-    public function testgetHistoricalDataBookingsNotFound(){
+
+    public function testgetHistoricalDataBookingsNotFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $filterTime = "year_month_week";
         $filterCourse = "L.idCourse";

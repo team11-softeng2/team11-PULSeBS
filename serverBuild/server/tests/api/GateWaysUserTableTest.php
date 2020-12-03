@@ -1,11 +1,10 @@
 <?php
 
-
 use PHPUnit\Framework\TestCase;
 
 class GateWaysUserTableTest extends TestCase
 {
-    
+
     private $db;
     private $username;
     private $password;
@@ -67,16 +66,11 @@ class GateWaysUserTableTest extends TestCase
             "name"	TEXT,
             PRIMARY KEY("idUser" AUTOINCREMENT)
         );');
-
-        
-
     }
 
-
-    public function testLoginAccess(){
+    public function testLoginAccess()
+    {
         $this->db->exec('INSERT INTO "users" VALUES (1,"calogero","test","student","Calogero Pisano");');
-        
-        
         $this->username = "calogero";
         $this->password = "test";
         $this->gatewayUserTable = new Server\api\GatewaysUserTable($this->db);
@@ -85,17 +79,15 @@ class GateWaysUserTableTest extends TestCase
         $this->assertEquals("test", $res['password']);
         $this->assertEquals("student", $res['role']);
         $this->assertEquals("Calogero Pisano", $res['name']);
-           
     }
-    public function testLoginRefused(){
+
+    public function testLoginRefused()
+    {
         $this->db->exec('INSERT INTO "users" VALUES (1,"calogero","test","student","Calogero Pisano");');
         $this->username = "rocco";
         $this->password = "test2";
         $this->gatewayUserTable = new Server\api\GatewaysUserTable($this->db);
         $res = $this->gatewayUserTable->login($this->username, $this->password);
         $this->assertEquals(0, $res);
-           
     }
-    
 }
-?>

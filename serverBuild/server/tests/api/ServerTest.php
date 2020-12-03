@@ -87,7 +87,6 @@ class ServerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
         $contentType = $response->getHeaders()["Content-Type"][0];
         $this->assertEquals("application/json", $contentType);
-        echo $response->getBody();
         $this->assertEquals($exReturn, (string) $response->getBody());
         $this->client = null;
     }

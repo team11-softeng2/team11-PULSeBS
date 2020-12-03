@@ -1,28 +1,26 @@
 <?php
 
-
 use PHPUnit\Framework\TestCase;
 
 class ControllersStudentBookingTest extends TestCase
 {
-    
+
     private $db;
     private $controllersStudentBooking;
 
-    public function setUp(): void
-    {
-        
-    }
 //test FindBookableLessons--------------------------------------------------------------------------------------------------------
-    public function testfindBookableLessonsFound(){
+    public function testfindBookableLessonsFound()
+    {
         $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $result = $this->controllersStudentBooking->findBookableLessons();
-        $this->assertTrue(( json_decode( $result , true ) == NULL ) ? false : true);
+        $this->assertTrue((json_decode($result, true) == null) ? false : true);
     }
-    public function testfindBookableLessonsNotFound(){
+
+    public function testfindBookableLessonsNotFound()
+    {
         $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->restoreDB();
@@ -31,9 +29,8 @@ class ControllersStudentBookingTest extends TestCase
         $this->assertEquals(0, $result);
     }
 
-
-
-    public function testStudentBookingProcessRequestOutput(){
+    public function testStudentBookingProcessRequestOutput()
+    {
         $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
@@ -42,25 +39,28 @@ class ControllersStudentBookingTest extends TestCase
         $output = $this->getActualOutput();
         $this->assertNotEquals('0', $output);
         $this->assertFalse(empty($output));
-        
     }
-    public function testStudentBookingProcessRequestZeroOutput(){
-            $id = 7;
-            $this->db = new SQLite3("./tests/dbForTesting.db");
-            $this->restoreDB();
-            $this->expectOutputString('0');
-            $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
+
+    public function testStudentBookingProcessRequestZeroOutput()
+    {
+        $id = 7;
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+        $this->restoreDB();
+        $this->expectOutputString('0');
+        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $this->controllersStudentBooking->processRequest();
         //$this->assertFalse(empty($output));
-        
     }
 //---------------------------------------------------------------------------------------------------------------------------------------
 
 //test InsertNewBooking------------------------------------------------------------------------------------------------------------------
-    public function testInsertNewBooking(){
+    public function testInsertNewBooking()
+    {
         $this->db = new SQLite3("./tests/dbEmail.db");
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("POST", $this->db, "insertLecture");
-        $bookForTest = new class{
+        $bookForTest = new class
+
+        {
             public $idUser = 1;
             public $idLesson = 6;
             public $date = "2020-11-20 14:00:00";
@@ -70,12 +70,12 @@ class ControllersStudentBookingTest extends TestCase
         $exResult = json_encode(1);
         $this->assertGreaterThanOrEqual($exResult, $result);
         $this->deleteRow($result);
-
     }
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 //test UpdateBooking-------------------------------------------------------------------------------------------------------------------------
-    public function testUpdateBooking(){
+    public function testUpdateBooking()
+    {
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idBooking = 2;
@@ -84,7 +84,9 @@ class ControllersStudentBookingTest extends TestCase
         $this->assertEquals(1, $lineUpdated);
         $this->restoreValueAfterUpdate();
     }
-    public function testRequestUpdateBooking(){
+
+    public function testRequestUpdateBooking()
+    {
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idBooking = 2;
@@ -96,22 +98,27 @@ class ControllersStudentBookingTest extends TestCase
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 //test FindBookedLessons-------------------------------------------------------------------------------------------------------------------
-    public function testFindBookedLessonsFound(){
+    public function testFindBookedLessonsFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idUser = 3;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
         $result = $this->controllersStudentBooking->findStudentBookings();
-        $this->assertTrue(( json_decode( $result , true ) == NULL ) ? false : true);
+        $this->assertTrue((json_decode($result, true) == null) ? false : true);
     }
-    public function testFindBookedLessonsNotFound(){
+
+    public function testFindBookedLessonsNotFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $idUser = 1;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
         $result = $this->controllersStudentBooking->findStudentBookings();
         $this->assertEquals(0, $result);
     }
-    public function testRequestFindBookedLessonsFound(){
+
+    public function testRequestFindBookedLessonsFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idUser = 3;
@@ -122,37 +129,41 @@ class ControllersStudentBookingTest extends TestCase
         $this->assertFalse(empty($output));
     }
 
-    public function testRequestFindBookedLessonsNotFound(){
+    public function testRequestFindBookedLessonsNotFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $idUser = 1;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
         $this->expectOutputString('0');
         $this->controllersStudentBooking->processRequest();
-        
     }
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 //test FindLectureWithFullRoom--------------------------------------------------------------------------------------------------------------
-    public function testfindLectureWithFullRoomFound(){
+    public function testfindLectureWithFullRoomFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting2.db");
-        $this->updateDates(); 
+        $this->updateDates();
         $idUser = 7;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
         $result = $this->controllersStudentBooking->findLectureWithFullRoom();
-        $this->assertTrue(( json_decode( $result , true ) == NULL ) ? false : true);
+        $this->assertTrue((json_decode($result, true) == null) ? false : true);
     }
-    public function testfindLectureWithFullRoomNotFound(){
+
+    public function testfindLectureWithFullRoomNotFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $idUser = 7;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
         $result = $this->controllersStudentBooking->findLectureWithFullRoom();
         $this->assertEquals(0, $result);
-        
+
     }
 
-    public function testProcessRequestlecturesWithFullRoomFound(){
+    public function testProcessRequestlecturesWithFullRoomFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting2.db");
-        $this->updateDates(); 
+        $this->updateDates();
         $idUser = 7;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
         $this->controllersStudentBooking->processRequest();
@@ -161,7 +172,8 @@ class ControllersStudentBookingTest extends TestCase
         $this->assertFalse(empty($output));
     }
 
-    public function testProcessRequestlecturesWithFullRoomNotFound(){
+    public function testProcessRequestlecturesWithFullRoomNotFound()
+    {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $idUser = 7;
         $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
@@ -170,9 +182,9 @@ class ControllersStudentBookingTest extends TestCase
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
-
 //test Useful functions for testing---------------------------------------------------------------------------------------------------------
-    protected function restoreDB(){
+    protected function restoreDB()
+    {
         $this->db->exec('DROP TABLE IF EXISTS "lessons";
         CREATE TABLE IF NOT EXISTS "lessons" (
             "idLesson"	INTEGER,
@@ -228,15 +240,20 @@ class ControllersStudentBookingTest extends TestCase
             PRIMARY KEY("idUser" AUTOINCREMENT)
         );');
     }
-    protected function restoreValueAfterUpdate(){
+
+    protected function restoreValueAfterUpdate()
+    {
         $this->db->exec("update booking set active=1 where idBooking=2");
     }
-    protected function deleteRow($id){
-        $this->db->exec("delete from booking where idBooking=".$id."");
+
+    protected function deleteRow($id)
+    {
+        $this->db->exec("delete from booking where idBooking=" . $id . "");
     }
-    protected function updateDates(){
+
+    protected function updateDates()
+    {
         $this->db->exec("update booking set date=datetime('now', '3 days')");
         $this->db->exec("update lessons set date=date('now', '3 days');");
     }
 }
-?>
