@@ -22,10 +22,12 @@ class ControllersTeacherCourse
         if ($this->requestMethod == "GET") {
             if ($this->value == "teacherCourses") {
                 $response = $this->findTeacherCourses();
-                echo $response;
+                return $response;
+            } else {
+                return "Invalid endpoint.";
             }
         } else {
-            echo "Invalid request method.";
+            return "Invalid request method.";
         }
     }
 
