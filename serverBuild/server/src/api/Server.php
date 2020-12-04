@@ -66,21 +66,21 @@ if (isset($_GET['url'])) {
             $value = "courses";
             $requestMethod = $_SERVER['REQUEST_METHOD'];
             $controller = new Server\api\ControllersCourse($requestMethod, $dbConn, $value);
-            $controller->processRequest();
+            echo $controller->processRequest();
             break;
         case "studentCourses/$number":
             $value = "studentCourses";
             $requestMethod = $_SERVER['REQUEST_METHOD'];
             $id = $number;
             $controller = new Server\api\ControllersStudentCourse($requestMethod, $dbConn, $value, $id);
-            $controller->processRequest();
+            echo $controller->processRequest();
             break;
         case "teacherCourses/$number":
             $value = "teacherCourses";
             $requestMethod = $_SERVER['REQUEST_METHOD'];
             $id = $number;
             $controller = new Server\api\ControllersTeacherCourse($requestMethod, $dbConn, $value, $id);
-            $controller->processRequest();
+            echo $controller->processRequest();
             break;
         case "lecturesWithFullRoom/$number":
             $value = "lecturesWithFullRoom";

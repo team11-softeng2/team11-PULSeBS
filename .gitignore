@@ -6,3 +6,6 @@ serverBuild/server/composer.json
 clientBuild/client/package-lock.json
 
 clientbuild/client/debug.log
+serverBuild/server/.buildpath
+serverBuild/server/.project
+serverBuild/server/.settings/org.eclipse.wst.validation.prefs
