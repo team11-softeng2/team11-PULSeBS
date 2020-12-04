@@ -16,7 +16,6 @@ class ControllersTeacherCourseTest extends TestCase
     public function testGetAListOfValidCouresForTeacher()
     {
         $this->id = 2;
-        $this->populateDB();
         $this->controllersTeacherCourse = new Server\api\ControllersTeacherCourse("GET", $this->db, "teacherCourses", $this->id);
         $result = $this->controllersTeacherCourse->processRequest();
         $this->assertIsArray(json_decode($result));
@@ -26,7 +25,6 @@ class ControllersTeacherCourseTest extends TestCase
     public function testGetAEmptyListOfCoursesForTeacher()
     {
         $this->id = 1;
-        $this->emptyDB();
         $this->controllersTeacherCourse = new Server\api\ControllersTeacherCourse("GET", $this->db, "teacherCourses", $this->id);
         $result = $this->controllersTeacherCourse->processRequest();
         $this->assertEquals($result, 0);
@@ -46,25 +44,5 @@ class ControllersTeacherCourseTest extends TestCase
         $this->controllersTeacherCourse = new Server\api\ControllersTeacherCourse("GET", $this->db, "ticerCorsi");
         $result = $this->controllersTeacherCourse->processRequest();
         $this->assertEquals($result, "Invalid endpoint.");
-    }
-
-    protected function emptyDB()
-    {
-        $sql = "DELETE FROM courses";
-        $this->db->exec($sql);
-    }
-
-    protected function populateDB()
-    {
-        $sql = "DELETE FROM courses;
-                INSERT INTO courses (idCourse, idTeacher, name) VALUES
-                ('1', '2', 'Calculus I'),
-                ('2', '2', 'Software Engineering II'),
-                ('3', '2', 'Geometry'),
-                ('4', '12', 'Object Oriented Programming'),
-                ('5', '12', 'Computer Science'),
-                ('6', '13', 'Operating Systems'),
-                ('7', '13', 'Human computer interaction');";
-        $this->db->exec($sql);
     }
 }
