@@ -90,11 +90,13 @@ if (isset($_GET['url'])) {
             $controller->processRequest();
             break;
         case "deleteLecture/$number":
-            $value = "deleteLecture";
-            $requestMethod = "PUT";
-            $id = $number;
-            $controller = new Server\api\ControllersTeacherBooking($requestMethod, $dbConn, $value, $id);
-            $controller->processRequest();
+            if($_SERVER['REQUEST_METHOD'] != "OPTIONS") {
+                $value = "deleteLecture";
+                $requestMethod = "PUT";
+                $id = $number;
+                $controller = new Server\api\ControllersTeacherBooking($requestMethod, $dbConn, $value, $id);
+                $controller->processRequest();
+            }
             break;
         case "changeToOnline/$number":
             $value = "changeToOnline";
