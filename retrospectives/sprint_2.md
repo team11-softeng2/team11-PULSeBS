@@ -1,5 +1,4 @@
 Retrospective sprint 2 (team 11)
-
 =====================================
 
 
@@ -100,4 +99,4 @@ Retrospective sprint 2 (team 11)
     - Improve the sonarcloud test coverage.
 
 - One thing you are proud of as a Team!!
-    - We managed to complete all committed stories, considering also that they were more story points-heavy.
+    - We managed to complete all committed stories, considering also that they were more story points-heavy than the previous sprint.
