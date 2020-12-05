@@ -10,3 +10,4 @@ serverBuild/server/.buildpath
 serverBuild/server/.project
 serverBuild/server/.settings/org.eclipse.wst.validation.prefs
 .vscode/settings.json
+serverBuild/server/tests/RESTclient.http

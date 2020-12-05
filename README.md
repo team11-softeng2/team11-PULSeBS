@@ -8,13 +8,13 @@ OR
 
 ```bash
 #build and run the server image
-cd /serverBuild/ && sudo docker image build -t server .
+cd serverBuild/ && sudo docker image build -t server .
 docker run -d -p 80:80 --name server server
 #build and run the mailer image
-cd /serverBuild/server/mailer/ && sudo docker image build -t mailer .
+cd serverBuild/server/mailer/ && sudo docker image build -t mailer .
 sudo docker run -d --name mailer mailer
 #build and run the client image
-cd /clientBuild/ && sudo docker image build -t client .
+cd clientBuild/ && sudo docker image build -t client .
 sudo docker run -itd -p 3000:3000 --name client client
 ```
 
@@ -42,10 +42,10 @@ php -r "unlink('composer-setup.php');"
 
 ### configure composer.json and phpunit.xml
 
-- navigate to /serverBuild/server and create a composer.json:
+- navigate to serverBuild/server and create a composer.json:
 
 ```bash
-cd /serverBuild/server/ && composer require phpunit/phpunit
+cd serverBuild/server/ && composer require phpunit/phpunit
 ```
 
 - open the file composer.json and paste the following:
@@ -65,7 +65,7 @@ cd /serverBuild/server/ && composer require phpunit/phpunit
 }
 ```
 
-- create a file phpunit.xml inside /serverBuild/server and paste the following:
+- create a file phpunit.xml inside serverBuild/server and paste the following:
 
 ```XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -96,7 +96,7 @@ composer dump-autoload -o
 
 ## Tests and Coverage
 
-First, navigate to /serverBuild/server and define an alias:
+First, navigate to serverBuild/server and define an alias:
 
 ```bash
 cd serverBuild/server/ && alias testphp=./vendor/bin/phpunit
@@ -104,7 +104,7 @@ cd serverBuild/server/ && alias testphp=./vendor/bin/phpunit
 
 ### report coverage server
 
-inside /serverBuild/server, run:
+inside serverBuild/server, run:
 
 ```bash
 testphp --coverage-clover reports/coverage/coverage.xml
@@ -112,7 +112,7 @@ testphp --coverage-clover reports/coverage/coverage.xml
 
 ### running test server
 
-inside /serverBuild/server, run:
+inside serverBuild/server, run:
 
 ```bash
 testphp
@@ -126,7 +126,7 @@ testphp --log-junit reports/tests/phpunit.report.xml
 
 ### report coverage client
 
-inside /clientbuild/client run:
+inside clientbuild/client run:
 
 ```bash
 npm run test -- --coverage --coverageReporters=lcov  --coverageDirectory=reports/coverage
@@ -134,7 +134,7 @@ npm run test -- --coverage --coverageReporters=lcov  --coverageDirectory=reports
 
 ### running test client
 
-inside /clientbuild/client run:
+inside clientbuild/client run:
 
 ```bash
 npm run test
@@ -142,7 +142,7 @@ npm run test
 
 ### report test client
 
-inside /clientbuild/client run:
+inside clientbuild/client run:
 
 ```bash
 npm i -D jest-sonar-reporter
