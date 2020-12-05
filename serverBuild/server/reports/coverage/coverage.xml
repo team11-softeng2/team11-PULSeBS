@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1606927800">
-  <project timestamp="1606927800">
+<coverage generated="1607166410">
+  <project timestamp="1607166410">
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/ControllersCourse.php">
       <class name="Server\api\ControllersCourse" namespace="global">
-        <metrics complexity="5" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="14" coveredelements="0"/>
+        <metrics complexity="5" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="15" coveredelements="15"/>
       </class>
-      <line num="12" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="14" type="stmt" count="0"/>
-      <line num="15" type="stmt" count="0"/>
-      <line num="16" type="stmt" count="0"/>
-      <line num="19" type="method" name="processRequest" visibility="public" complexity="3" crap="12" count="0"/>
-      <line num="21" type="stmt" count="0"/>
-      <line num="22" type="stmt" count="0"/>
-      <line num="23" type="stmt" count="0"/>
-      <line num="24" type="stmt" count="0"/>
-      <line num="26" type="stmt" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="31" type="method" name="findCourses" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="33" type="stmt" count="0"/>
-      <line num="34" type="stmt" count="0"/>
-      <metrics loc="36" ncloc="36" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="14" coveredelements="0"/>
+      <line num="12" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="14" type="stmt" count="4"/>
+      <line num="15" type="stmt" count="4"/>
+      <line num="16" type="stmt" count="4"/>
+      <line num="17" type="stmt" count="4"/>
+      <line num="19" type="method" name="processRequest" visibility="public" complexity="3" crap="3" count="4"/>
+      <line num="21" type="stmt" count="4"/>
+      <line num="22" type="stmt" count="3"/>
+      <line num="23" type="stmt" count="2"/>
+      <line num="24" type="stmt" count="2"/>
+      <line num="26" type="stmt" count="1"/>
+      <line num="29" type="stmt" count="1"/>
+      <line num="33" type="method" name="findCourses" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="35" type="stmt" count="2"/>
+      <line num="36" type="stmt" count="2"/>
+      <metrics loc="38" ncloc="38" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="15" coveredelements="15"/>
     </file>
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/ControllersHistoricalData.php">
       <class name="Server\api\ControllersHistoricalData" namespace="global">
@@ -190,24 +191,25 @@
     </file>
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/ControllersStudentCourse.php">
       <class name="Server\api\ControllersStudentCourse" namespace="global">
-        <metrics complexity="5" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="15" coveredelements="0"/>
+        <metrics complexity="5" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="16" coveredelements="16"/>
       </class>
-      <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="15" type="stmt" count="0"/>
-      <line num="16" type="stmt" count="0"/>
-      <line num="17" type="stmt" count="0"/>
-      <line num="18" type="stmt" count="0"/>
-      <line num="20" type="method" name="processRequest" visibility="public" complexity="3" crap="12" count="0"/>
-      <line num="22" type="stmt" count="0"/>
-      <line num="23" type="stmt" count="0"/>
-      <line num="24" type="stmt" count="0"/>
-      <line num="25" type="stmt" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="0"/>
-      <line num="32" type="method" name="findStudentCourses" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="34" type="stmt" count="0"/>
-      <line num="35" type="stmt" count="0"/>
-      <metrics loc="37" ncloc="37" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="15" coveredelements="0"/>
+      <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="15" type="stmt" count="4"/>
+      <line num="16" type="stmt" count="4"/>
+      <line num="17" type="stmt" count="4"/>
+      <line num="18" type="stmt" count="4"/>
+      <line num="19" type="stmt" count="4"/>
+      <line num="20" type="method" name="processRequest" visibility="public" complexity="3" crap="3" count="4"/>
+      <line num="22" type="stmt" count="4"/>
+      <line num="23" type="stmt" count="3"/>
+      <line num="24" type="stmt" count="2"/>
+      <line num="25" type="stmt" count="2"/>
+      <line num="27" type="stmt" count="1"/>
+      <line num="30" type="stmt" count="1"/>
+      <line num="34" type="method" name="findStudentCourses" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="36" type="stmt" count="2"/>
+      <line num="37" type="stmt" count="2"/>
+      <metrics loc="39" ncloc="39" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="16" coveredelements="16"/>
     </file>
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/ControllersTeacherBooking.php">
       <class name="Server\api\ControllersTeacherBooking" namespace="global">
@@ -255,43 +257,45 @@
     </file>
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/ControllersTeacherCourse.php">
       <class name="Server\api\ControllersTeacherCourse" namespace="global">
-        <metrics complexity="5" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="15" coveredelements="0"/>
+        <metrics complexity="5" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="16" coveredelements="16"/>
       </class>
-      <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="15" type="stmt" count="0"/>
-      <line num="16" type="stmt" count="0"/>
-      <line num="17" type="stmt" count="0"/>
-      <line num="18" type="stmt" count="0"/>
-      <line num="20" type="method" name="processRequest" visibility="public" complexity="3" crap="12" count="0"/>
-      <line num="22" type="stmt" count="0"/>
-      <line num="23" type="stmt" count="0"/>
-      <line num="24" type="stmt" count="0"/>
-      <line num="25" type="stmt" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="0"/>
-      <line num="32" type="method" name="findTeacherCourses" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="34" type="stmt" count="0"/>
-      <line num="35" type="stmt" count="0"/>
-      <metrics loc="37" ncloc="37" classes="1" methods="3" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="15" coveredelements="0"/>
+      <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="4"/>
+      <line num="15" type="stmt" count="4"/>
+      <line num="16" type="stmt" count="4"/>
+      <line num="17" type="stmt" count="4"/>
+      <line num="18" type="stmt" count="4"/>
+      <line num="19" type="stmt" count="4"/>
+      <line num="20" type="method" name="processRequest" visibility="public" complexity="3" crap="3" count="4"/>
+      <line num="22" type="stmt" count="4"/>
+      <line num="23" type="stmt" count="3"/>
+      <line num="24" type="stmt" count="2"/>
+      <line num="25" type="stmt" count="2"/>
+      <line num="27" type="stmt" count="1"/>
+      <line num="30" type="stmt" count="1"/>
+      <line num="34" type="method" name="findTeacherCourses" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="36" type="stmt" count="2"/>
+      <line num="37" type="stmt" count="2"/>
+      <metrics loc="39" ncloc="39" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="16" coveredelements="16"/>
     </file>
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/GatewaysCourse.php">
       <class name="Server\api\GatewaysCourse" namespace="global">
-        <metrics complexity="4" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="13" coveredelements="0"/>
+        <metrics complexity="4" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="14" coveredelements="14"/>
       </class>
-      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="9" type="stmt" count="0"/>
-      <line num="12" type="method" name="findCourses" visibility="public" complexity="3" crap="12" count="0"/>
-      <line num="14" type="stmt" count="0"/>
-      <line num="16" type="stmt" count="0"/>
-      <line num="17" type="stmt" count="0"/>
-      <line num="18" type="stmt" count="0"/>
-      <line num="19" type="stmt" count="0"/>
-      <line num="23" type="stmt" count="0"/>
-      <line num="25" type="stmt" count="0"/>
-      <line num="26" type="stmt" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="0"/>
-      <metrics loc="31" ncloc="31" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="13" coveredelements="0"/>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="9" type="stmt" count="5"/>
+      <line num="10" type="stmt" count="5"/>
+      <line num="12" type="method" name="findCourses" visibility="public" complexity="3" crap="3" count="3"/>
+      <line num="14" type="stmt" count="3"/>
+      <line num="16" type="stmt" count="3"/>
+      <line num="17" type="stmt" count="3"/>
+      <line num="18" type="stmt" count="3"/>
+      <line num="20" type="stmt" count="2"/>
+      <line num="21" type="stmt" count="2"/>
+      <line num="23" type="stmt" count="2"/>
+      <line num="25" type="stmt" count="3"/>
+      <line num="26" type="stmt" count="2"/>
+      <line num="28" type="stmt" count="1"/>
+      <metrics loc="31" ncloc="31" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="14" coveredelements="14"/>
     </file>
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/GatewaysHistoricalData.php">
       <class name="Server\api\GatewaysHistoricalData" namespace="global">
@@ -570,22 +574,24 @@
     </file>
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/GatewaysStudentCourse.php">
       <class name="Server\api\GatewaysStudentCourse" namespace="global">
-        <metrics complexity="4" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="13" coveredelements="0"/>
+        <metrics complexity="4" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="15" coveredelements="15"/>
       </class>
-      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="9" type="stmt" count="0"/>
-      <line num="12" type="method" name="findStudentCourses" visibility="public" complexity="3" crap="12" count="0"/>
-      <line num="14" type="stmt" count="0"/>
-      <line num="19" type="stmt" count="0"/>
-      <line num="20" type="stmt" count="0"/>
-      <line num="21" type="stmt" count="0"/>
-      <line num="22" type="stmt" count="0"/>
-      <line num="26" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="0"/>
-      <line num="29" type="stmt" count="0"/>
-      <line num="30" type="stmt" count="0"/>
-      <line num="31" type="stmt" count="0"/>
-      <metrics loc="34" ncloc="34" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="13" coveredelements="0"/>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="9" type="stmt" count="7"/>
+      <line num="10" type="stmt" count="7"/>
+      <line num="12" type="method" name="findStudentCourses" visibility="public" complexity="3" crap="3" count="5"/>
+      <line num="14" type="stmt" count="5"/>
+      <line num="18" type="stmt" count="5"/>
+      <line num="19" type="stmt" count="5"/>
+      <line num="20" type="stmt" count="5"/>
+      <line num="21" type="stmt" count="5"/>
+      <line num="23" type="stmt" count="2"/>
+      <line num="24" type="stmt" count="2"/>
+      <line num="26" type="stmt" count="2"/>
+      <line num="28" type="stmt" count="5"/>
+      <line num="29" type="stmt" count="2"/>
+      <line num="31" type="stmt" count="3"/>
+      <metrics loc="34" ncloc="34" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="15" coveredelements="15"/>
     </file>
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/GatewaysTeacherBooking.php">
       <class name="Server\api\GatewaysTeacherBooking" namespace="global">
@@ -667,22 +673,24 @@
     </file>
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/GatewaysTeacherCourse.php">
       <class name="Server\api\GatewaysTeacherCourse" namespace="global">
-        <metrics complexity="4" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="13" coveredelements="0"/>
+        <metrics complexity="4" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="15" coveredelements="15"/>
       </class>
-      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="9" type="stmt" count="0"/>
-      <line num="12" type="method" name="findTeacherCourses" visibility="public" complexity="3" crap="12" count="0"/>
-      <line num="14" type="stmt" count="0"/>
-      <line num="17" type="stmt" count="0"/>
-      <line num="18" type="stmt" count="0"/>
-      <line num="19" type="stmt" count="0"/>
-      <line num="20" type="stmt" count="0"/>
-      <line num="24" type="stmt" count="0"/>
-      <line num="26" type="stmt" count="0"/>
-      <line num="27" type="stmt" count="0"/>
-      <line num="28" type="stmt" count="0"/>
-      <line num="29" type="stmt" count="0"/>
-      <metrics loc="32" ncloc="32" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="11" coveredstatements="0" elements="13" coveredelements="0"/>
+      <line num="7" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="7"/>
+      <line num="9" type="stmt" count="7"/>
+      <line num="10" type="stmt" count="7"/>
+      <line num="12" type="method" name="findTeacherCourses" visibility="public" complexity="3" crap="3" count="5"/>
+      <line num="14" type="stmt" count="5"/>
+      <line num="16" type="stmt" count="5"/>
+      <line num="17" type="stmt" count="5"/>
+      <line num="18" type="stmt" count="5"/>
+      <line num="19" type="stmt" count="5"/>
+      <line num="21" type="stmt" count="2"/>
+      <line num="22" type="stmt" count="2"/>
+      <line num="24" type="stmt" count="2"/>
+      <line num="26" type="stmt" count="5"/>
+      <line num="27" type="stmt" count="2"/>
+      <line num="29" type="stmt" count="3"/>
+      <metrics loc="32" ncloc="32" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="15" coveredelements="15"/>
     </file>
     <file name="/mnt/d/lessons/documentsLessons/softeng2/project2/team11-PULSeBS/serverBuild/server/src/api/GatewaysUserTable.php">
       <class name="Server\api\GatewaysUserTable" namespace="global">
@@ -699,6 +707,6 @@
       <line num="18" type="stmt" count="3"/>
       <metrics loc="22" ncloc="22" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="7" coveredstatements="7" elements="9" coveredelements="9"/>
     </file>
-    <metrics files="16" loc="1221" ncloc="1186" classes="16" methods="63" coveredmethods="29" conditionals="0" coveredconditionals="0" statements="539" coveredstatements="338" elements="602" coveredelements="367"/>
+    <metrics files="16" loc="1227" ncloc="1192" classes="16" methods="63" coveredmethods="44" conditionals="0" coveredconditionals="0" statements="547" coveredstatements="414" elements="610" coveredelements="458"/>
   </project>
 </coverage>
