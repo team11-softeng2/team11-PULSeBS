@@ -23,10 +23,12 @@ class ControllersNotification
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
                 $response = $this->sendNotification($input);
-                echo $response;
+                return $response;
+            } else {
+                return "Invalid endpoint.";
             }
         } else {
-            echo "Invalid request method.";
+            return "Invalid request method.";
         }
     }
 
