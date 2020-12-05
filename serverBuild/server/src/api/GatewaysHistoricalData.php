@@ -12,11 +12,10 @@ class GatewaysHistoricalData
 
     public function getHistoricalDataBookings($filterTime, $filterCourse, $active)
     {
-        //all bookings made by students
         $sql = "
         SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
                 COUNT(DISTINCT L.idLesson) as numberLectures,
-                (1.0*COUNT(DISTINCT B.idBooking))/(1.0*COUNT(DISTINCT L.idLesson)) as average,
+                round((1.0*COUNT(DISTINCT B.idBooking))/(1.0*COUNT(DISTINCT L.idLesson))) as average,
                 strftime('%Y-%m-%d', L.date) || ' ' || L.beginTime  as dateLecture,
                 L.idLesson as lectureID,
                 strftime('%W', L.date) as weekOfYear,
@@ -34,80 +33,15 @@ class GatewaysHistoricalData
         GROUP BY " . $filterTime . "
         ORDER BY year_month_week
         ";
-        $result = $this->db->query($sql);
-        $data = array();
-        if ($filterTime == "L.idLesson") {
-            //statistics per lecture
-            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-                $subArray = array(
-                    "numberBookings" => $row['numberBookings'],
-                    "lectureID" => $row['lectureID'],
-                    "weekOfYear" => $row['weekOfYear'],
-                    "monthOfYear" => $row['monthOfYear'],
-                    "year" => $row['year'],
-                    "dateLecture" => $row['dateLecture'],
-                    "year_month_week" => $row['year_month_week'],
-                    "courseID" => $row['courseID'],
-                );
-                $data[] = $subArray;
-            }
-            if (!empty($data)) {
-                return $data;
-            } else {
-                return 0;
-            }
-
-        } else if ($filterTime == "year,monthOfYear") {
-            //statistics per month
-            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-                $subArray = array(
-                    "numberBookings" => $row['numberBookings'],
-                    "numberLectures" => $row['numberLectures'],
-                    "average" => $row['average'],
-                    "monthOfYear" => $row['monthOfYear'],
-                    "year" => $row['year'],
-                );
-                $data[] = $subArray;
-            }
-            if (!empty($data)) {
-                return $data;
-            } else {
-                return 0;
-            }
-
-        } else if ($filterTime == "year_month_week") {
-            //statistics per weeek
-            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-                $subArray = array(
-                    "numberBookings" => $row['numberBookings'],
-                    "numberLectures" => $row['numberLectures'],
-                    "average" => $row['average'],
-                    "weekOfYear" => $row['weekOfYear'],
-                    "monthOfYear" => $row['monthOfYear'],
-                    "year" => $row['year'],
-                    "year_month_week" => $row['year_month_week'],
-                );
-                $data[] = $subArray;
-            }
-            if (!empty($data)) {
-                return $data;
-            } else {
-                return 0;
-            }
-        } else {
-            return "not valid filter time";
-
-        }
-
+        return $this->returnData($filterTime, $sql);
     }
 
     public function getHistoricalDataBookingsForTeacher($filterTime, $filterCourse, $active, $id)
     {
-        //all bookings made by students
         $sql = "
         SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
                 COUNT(DISTINCT L.idLesson) as numberLectures,
-                (1.0*COUNT(DISTINCT B.idBooking))/(1.0*COUNT(DISTINCT L.idLesson)) as average,
+                round((1.0*COUNT(DISTINCT B.idBooking))/(1.0*COUNT(DISTINCT L.idLesson))) as average,
                 strftime('%Y-%m-%d', L.date) || ' ' || L.beginTime  as dateLecture,
                 L.idLesson as lectureID,
                 strftime('%W', L.date) as weekOfYear,
@@ -131,9 +65,14 @@ class GatewaysHistoricalData
         GROUP BY " . $filterTime . "
         ORDER BY year_month_week
         ";
+        return $this->returnData($filterTime, $sql);
+    }
+
+    private function returnData($filter, $sql)
+    {
         $result = $this->db->query($sql);
         $data = array();
-        if ($filterTime == "L.idLesson") {
+        if ($filter == "L.idLesson") {
             //statistics per lecture
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                 $subArray = array(
@@ -154,7 +93,7 @@ class GatewaysHistoricalData
                 return 0;
             }
 
-        } else if ($filterTime == "year,monthOfYear") {
+        } else if ($filter == "year,monthOfYear") {
             //statistics per month
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                 $subArray = array(
@@ -172,7 +111,7 @@ class GatewaysHistoricalData
                 return 0;
             }
 
-        } else if ($filterTime == "year_month_week") {
+        } else if ($filter == "year_month_week") {
             //statistics per weeek
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                 $subArray = array(
@@ -193,9 +132,6 @@ class GatewaysHistoricalData
             }
         } else {
             return "not valid filter time";
-
         }
-
     }
-
 }
