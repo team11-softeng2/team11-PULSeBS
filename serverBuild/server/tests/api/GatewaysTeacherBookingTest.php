@@ -7,6 +7,11 @@ class GatewaysTeacherBookingTest extends TestCase
     private $db;
     private $gatewayTeacherBooking;
 
+    protected function setUp(): void
+    {
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+    }
+
     //test FindBookedStudentsForLecture-----------------------------------------------------------------------------------------
     public function testfindBookedStudentsForLectureFound()
     {
@@ -20,10 +25,30 @@ class GatewaysTeacherBookingTest extends TestCase
 
     public function testfindBookedStudentsForLectureNotFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->id = 3;
         $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
         $result = $this->gatewayTeacherBooking->findBookedStudentsForLecture($this->id);
+        $this->assertEquals(0, $result);
+    }
+//------------------------------------------------------------------------------------------------------------------------------
+
+//test FindScheduledLecturesForTeacher-----------------------------------------------------------------------------------------
+    public function testFindScheduledLecturesForTeacherFound()
+    {
+        $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->updateDates();
+        $this->id = 2;
+        $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+        $result = $this->gatewayTeacherBooking->findScheduledLecturesForTeacher($this->id);
+        $this->assertIsArray($result);
+        $this->assertCount(6, $result);
+    }
+
+    public function testFindScheduledLecturesForTeacherNotFound()
+    {
+        $this->id = 1;
+        $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+        $result = $this->gatewayTeacherBooking->findScheduledLecturesForTeacher($this->id);
         $this->assertEquals(0, $result);
     }
 //------------------------------------------------------------------------------------------------------------------------------
@@ -42,7 +67,6 @@ class GatewaysTeacherBookingTest extends TestCase
 
     public function testupdateToNotActiveLectureNotFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->id = 3;
         $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
         $result = $this->gatewayTeacherBooking->updateToNotActiveLecture($this->id);
@@ -51,7 +75,6 @@ class GatewaysTeacherBookingTest extends TestCase
 
     public function testUpdateNotActiveZeroResult()
     {
-        $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->id = 3;
         //$this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
 
@@ -83,7 +106,6 @@ class GatewaysTeacherBookingTest extends TestCase
 
     public function testchangeToOnlineLectureNotFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->id = 3;
         $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
         $result = $this->gatewayTeacherBooking->changeToOnlineLecture($this->id);
@@ -92,7 +114,6 @@ class GatewaysTeacherBookingTest extends TestCase
 
     public function testchangeToOnlineLectureZeroOutput()
     {
-        $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->id = 3;
         //$this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
 
@@ -122,7 +143,7 @@ class GatewaysTeacherBookingTest extends TestCase
     // }
 
     // public function testfindAllBookingsOfLectureNotFound(){
-    //     $this->db = new SQLite3("./tests/dbForTesting.db");
+    //
     //     $this->id = 3;
     //     $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
     //     $result = $this->gatewayTeacherBooking->findAllBookingsOfLecture($this->id);
@@ -145,7 +166,6 @@ class GatewaysTeacherBookingTest extends TestCase
 
     public function testvalidationDateBeforeUpdateFalse()
     {
-        $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->id = 3;
         $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
         $result = $this->gatewayTeacherBooking->validateDateBeforeUpdate($this->id);
@@ -168,7 +188,7 @@ class GatewaysTeacherBookingTest extends TestCase
 
     public function testvalidationDateBeforeUpdateToOnlineFalse()
     {
-        $this->db = new SQLite3("./tests/dbForTesting.db");
+
         $this->id = 3;
         $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
         $result = $this->gatewayTeacherBooking->validateDateBeforeUpdateToOnline($this->id);

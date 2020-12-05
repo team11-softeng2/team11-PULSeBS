@@ -69,7 +69,6 @@ class GatewaysHistoricalDataTest extends TestCase
 
     public function testgetHistoricalDataBookingsPerMonthPerTeacherFound()
     {
-
         $filterTime = "year,monthOfYear";
         $filterCourse = "L.idCourse";
         $type = "1";
@@ -82,7 +81,6 @@ class GatewaysHistoricalDataTest extends TestCase
 
     public function testgetHistoricalDataBookingsPerWeekPerTeacherFound()
     {
-
         $filterTime = "year_month_week";
         $filterCourse = "L.idCourse";
         $type = "1";

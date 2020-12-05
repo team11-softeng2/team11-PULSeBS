@@ -13,7 +13,6 @@ class ControllersHistoricalDataTest extends TestCase
 
     public function testfindBookingsStatsFound()
     {
-        $this->db = new SQLite3("./tests/dbStatistics.db");
         $filterTime = "L.idLesson";
         $filterCourse = "L.idCourse";
         $type = "1";
@@ -39,7 +38,6 @@ class ControllersHistoricalDataTest extends TestCase
 
     public function testProcessRequestStatsFound()
     {
-        $this->db = new SQLite3("./tests/dbStatistics.db");
         $filterTime = "L.idLesson";
         $filterCourse = "L.idCourse";
         $type = "1";
