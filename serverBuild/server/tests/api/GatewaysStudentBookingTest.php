@@ -20,7 +20,6 @@ class GatewaysStudentBookingTest extends TestCase
         $dataExcepted = array();
         $result = $this->gatewayStudentBooking->findStudentLessons($this->id);
         $this->assertIsArray($result);
-
     }
 
     public function testFindStudentLessonsNotFound()

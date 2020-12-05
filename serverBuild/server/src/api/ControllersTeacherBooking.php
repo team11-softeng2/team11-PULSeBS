@@ -3,7 +3,7 @@ namespace Server\api;
 
 use Server\api\GatewaysTeacherBooking;
 
-class ControllersTeacherBooking
+class ControllersTeacherBooking extends Controllers
 {
 
     private $requestMethod;
@@ -25,20 +25,22 @@ class ControllersTeacherBooking
     {
         if ($this->requestMethod == "GET") {
             if ($this->value == "bookedStudentsForLecture") {
-                $response = $this->findBookedStudentsForLecture($this->id);
-                echo $response;
+                return $this->findBookedStudentsForLecture($this->id);
             } elseif ($this->value == "scheduledLecturesForTeacher") {
-                $response = $this->findScheduledLecturesForTeacher($this->id);
-                echo $response;
+                return $this->findScheduledLecturesForTeacher($this->id);
+            } else {
+                return $this->invalidEndpoint;
             }
         } else if ($this->requestMethod == "PUT") {
             if ($this->value == "deleteLecture") {
-                $response = $this->updateToNotActiveLecture($this->id);
-                echo $response;
+                return $this->updateToNotActiveLecture($this->id);
             } elseif ($this->value == "changeToOnline") {
-                $response = $this->changeToOnlineLecture($this->id);
-                echo $response;
+                return $this->changeToOnlineLecture($this->id);
+            } else {
+                return $this->invalidEndpoint;
             }
+        } else {
+            return $this->invalidMethod;
         }
     }
 

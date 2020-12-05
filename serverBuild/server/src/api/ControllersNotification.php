@@ -3,7 +3,7 @@ namespace Server\api;
 
 use Server\api\GatewaysNotification;
 
-class ControllersNotification
+class ControllersNotification extends Controllers
 {
     private $requestMethod;
     private $notificationGateway;
@@ -22,13 +22,12 @@ class ControllersNotification
             if ($this->value == "sendNotification") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                $response = $this->sendNotification($input);
-                return $response;
+                return $this->sendNotification($input);
             } else {
-                return "Invalid endpoint.";
+                return $this->invalidEndpoint;
             }
         } else {
-            return "Invalid request method.";
+            return $this->invalidMethod;
         }
     }
 

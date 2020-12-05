@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 class ControllersHistoricalDataTest extends TestCase
 {
     private $db;
-    private $controllersHistoricalData;
+    private $controller;
 
     public function testfindBookingsStatsFound()
     {
@@ -14,8 +14,8 @@ class ControllersHistoricalDataTest extends TestCase
         $type = "1";
         $requestMethod = "GET";
         $value = "bookingStatistics";
-        $this->controllersHistoricalData = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
-        $result = $this->controllersHistoricalData->findBookingsStats($filterTime, $filterCourse);
+        $this->controller = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
+        $result = $this->controller->findBookingsStats($filterTime, $filterCourse);
         $this->assertTrue((json_decode($result, true) == null) ? false : true);
     }
 
@@ -27,8 +27,8 @@ class ControllersHistoricalDataTest extends TestCase
         $type = "1";
         $requestMethod = "GET";
         $value = "bookingStatistics";
-        $this->controllersHistoricalData = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
-        $result = $this->controllersHistoricalData->findBookingsStats($filterTime, $filterCourse);
+        $this->controller = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
+        $result = $this->controller->findBookingsStats($filterTime, $filterCourse);
         $this->assertEquals(0, $result);
     }
 
@@ -40,10 +40,9 @@ class ControllersHistoricalDataTest extends TestCase
         $type = "1";
         $requestMethod = "GET";
         $value = "bookingStatistics";
-        $this->controllersHistoricalData = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
-        $this->controllersHistoricalData->processRequest();
-        $output = $this->getActualOutput();
-        $this->assertNotEquals('0', $output);
+        $this->controller = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
+        $output = $this->controller->processRequest();
+        $this->assertNotEquals("0", $output);
         $this->assertFalse(empty($output));
     }
 
@@ -55,8 +54,7 @@ class ControllersHistoricalDataTest extends TestCase
         $type = "1";
         $requestMethod = "GET";
         $value = "bookingStatistics";
-        $this->controllersHistoricalData = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
-        $this->expectOutputString('0');
-        $this->controllersHistoricalData->processRequest();
+        $this->controller = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
+        $this->assertEquals("0", $this->controller->processRequest());
     }
 }

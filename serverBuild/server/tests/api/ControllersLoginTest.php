@@ -8,7 +8,7 @@ class ControllersLoginTest extends TestCase
     private $username;
     private $password;
     private $requestMethod;
-    private $controllerLogin;
+    private $controller;
 
     public function setUp(): void
     {
@@ -73,8 +73,8 @@ class ControllersLoginTest extends TestCase
         $this->username = "calogero";
         $this->password = "test";
         $this->requestMethod = "POST";
-        $this->controllerLogin = new Server\api\ControllersLogin($this->requestMethod, $this->db);
-        $response = $this->controllerLogin->checkLogin($this->username, $this->password);
+        $this->controller = new Server\api\ControllersLogin($this->requestMethod, $this->db);
+        $response = $this->controller->checkLogin($this->username, $this->password);
         $resBody = json_decode($response['body']);
 
         $this->assertEquals('HTTP/1.1 200 OK', $response['status_code_header']);
@@ -90,8 +90,8 @@ class ControllersLoginTest extends TestCase
         $this->username = "Rocco";
         $this->password = "test";
         $this->requestMethod = "POST";
-        $this->controllerLogin = new Server\api\ControllersLogin($this->requestMethod, $this->db);
-        $response = $this->controllerLogin->checkLogin($this->username, $this->password);
+        $this->controller = new Server\api\ControllersLogin($this->requestMethod, $this->db);
+        $response = $this->controller->checkLogin($this->username, $this->password);
         $this->assertEquals('HTTP/1.1 200 OK', $response['status_code_header']);
         $this->assertEquals(0, $response['body']);
     }
@@ -102,9 +102,8 @@ class ControllersLoginTest extends TestCase
         $this->username = "calogero";
         $this->password = "test";
         $this->requestMethod = "POST";
-        $this->controllerLogin = new Server\api\ControllersLogin($this->requestMethod, $this->db);
-        $this->expectOutputString('0');
-        $this->controllerLogin->processRequest();
+        $this->controller = new Server\api\ControllersLogin($this->requestMethod, $this->db);
+        $this->assertEquals(0, $this->controller->processRequest());
     }
 
     public function testProcessRequestWrongMethod()
@@ -113,8 +112,8 @@ class ControllersLoginTest extends TestCase
         $this->username = "calogero";
         $this->password = "test";
         $this->requestMethod = "GET";
-        $this->controllerLogin = new Server\api\ControllersLogin($this->requestMethod, $this->db);
+        $this->controller = new Server\api\ControllersLogin($this->requestMethod, $this->db);
         $this->expectException(Error::class);
-        $this->controllerLogin->processRequest();
+        $this->controller->processRequest();
     }
 }

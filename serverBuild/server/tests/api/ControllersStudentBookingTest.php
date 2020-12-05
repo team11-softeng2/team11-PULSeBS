@@ -6,7 +6,7 @@ class ControllersStudentBookingTest extends TestCase
 {
 
     private $db;
-    private $controllersStudentBooking;
+    private $controller;
 
 //test FindBookableLessons--------------------------------------------------------------------------------------------------------
     public function testfindBookableLessonsFound()
@@ -14,8 +14,8 @@ class ControllersStudentBookingTest extends TestCase
         $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
-        $result = $this->controllersStudentBooking->findBookableLessons();
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
+        $result = $this->controller->findBookableLessons();
         $this->assertTrue((json_decode($result, true) == null) ? false : true);
     }
 
@@ -24,8 +24,8 @@ class ControllersStudentBookingTest extends TestCase
         $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->restoreDB();
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
-        $result = $this->controllersStudentBooking->findBookableLessons();
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
+        $result = $this->controller->findBookableLessons();
         $this->assertEquals(0, $result);
     }
 
@@ -34,10 +34,9 @@ class ControllersStudentBookingTest extends TestCase
         $id = 1;
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
-        $this->controllersStudentBooking->processRequest();
-        $output = $this->getActualOutput();
-        $this->assertNotEquals('0', $output);
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
+        $output = $this->controller->processRequest();
+        $this->assertNotEquals(0, $output);
         $this->assertFalse(empty($output));
     }
 
@@ -46,10 +45,9 @@ class ControllersStudentBookingTest extends TestCase
         $id = 7;
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->restoreDB();
-        $this->expectOutputString('0');
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
-        $this->controllersStudentBooking->processRequest();
-        //$this->assertFalse(empty($output));
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
+        $this->assertEquals(0, $this->controller->processRequest());
+        // $this->assertFalse(empty($output));
     }
 //---------------------------------------------------------------------------------------------------------------------------------------
 
@@ -57,7 +55,7 @@ class ControllersStudentBookingTest extends TestCase
     public function testInsertNewBooking()
     {
         $this->db = new SQLite3("./tests/dbEmail.db");
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("POST", $this->db, "insertLecture");
+        $this->controller = new Server\api\ControllersStudentBooking("POST", $this->db, "insertLecture");
         $bookForTest = new class
 
         {
@@ -66,7 +64,7 @@ class ControllersStudentBookingTest extends TestCase
             public $date = "2020-11-20 14:00:00";
 
         };
-        $result = $this->controllersStudentBooking->insertNewBooklesson($bookForTest);
+        $result = $this->controller->insertNewBooklesson($bookForTest);
         $exResult = json_encode(1);
         $this->assertGreaterThanOrEqual($exResult, $result);
         $this->deleteRow($result);
@@ -79,8 +77,8 @@ class ControllersStudentBookingTest extends TestCase
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idBooking = 2;
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
-        $lineUpdated = $this->controllersStudentBooking->updateBooking($idBooking);
+        $this->controller = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
+        $lineUpdated = $this->controller->updateBooking($idBooking);
         $this->assertEquals(1, $lineUpdated);
         $this->restoreValueAfterUpdate();
     }
@@ -90,9 +88,8 @@ class ControllersStudentBookingTest extends TestCase
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idBooking = 2;
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
-        $this->expectOutputString('1');
-        $this->controllersStudentBooking->processRequest();
+        $this->controller = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
+        $this->assertEquals("1", $this->controller->processRequest());
         $this->restoreValueAfterUpdate();
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -103,8 +100,8 @@ class ControllersStudentBookingTest extends TestCase
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idUser = 3;
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
-        $result = $this->controllersStudentBooking->findStudentBookings();
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
+        $result = $this->controller->findStudentBookings();
         $this->assertTrue((json_decode($result, true) == null) ? false : true);
     }
 
@@ -112,8 +109,8 @@ class ControllersStudentBookingTest extends TestCase
     {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $idUser = 1;
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
-        $result = $this->controllersStudentBooking->findStudentBookings();
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
+        $result = $this->controller->findStudentBookings();
         $this->assertEquals(0, $result);
     }
 
@@ -122,10 +119,9 @@ class ControllersStudentBookingTest extends TestCase
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idUser = 3;
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
-        $this->controllersStudentBooking->processRequest();
-        $output = $this->getActualOutput();
-        $this->assertNotEquals('0', $output);
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
+        $output = $this->controller->processRequest();
+        $this->assertNotEquals(0, $output);
         $this->assertFalse(empty($output));
     }
 
@@ -133,9 +129,8 @@ class ControllersStudentBookingTest extends TestCase
     {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $idUser = 1;
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
-        $this->expectOutputString('0');
-        $this->controllersStudentBooking->processRequest();
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
+        $this->assertEquals(0, $this->controller->processRequest());
     }
 //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -145,8 +140,8 @@ class ControllersStudentBookingTest extends TestCase
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idUser = 7;
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
-        $result = $this->controllersStudentBooking->findLectureWithFullRoom();
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
+        $result = $this->controller->findLectureWithFullRoom();
         $this->assertTrue((json_decode($result, true) == null) ? false : true);
     }
 
@@ -154,8 +149,8 @@ class ControllersStudentBookingTest extends TestCase
     {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $idUser = 7;
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
-        $result = $this->controllersStudentBooking->findLectureWithFullRoom();
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
+        $result = $this->controller->findLectureWithFullRoom();
         $this->assertEquals(0, $result);
 
     }
@@ -165,10 +160,9 @@ class ControllersStudentBookingTest extends TestCase
         $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idUser = 7;
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
-        $this->controllersStudentBooking->processRequest();
-        $output = $this->getActualOutput();
-        $this->assertNotEquals('0', $output);
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
+        $output = $this->controller->processRequest();
+        $this->assertNotEquals(0, $output);
         $this->assertFalse(empty($output));
     }
 
@@ -176,9 +170,8 @@ class ControllersStudentBookingTest extends TestCase
     {
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $idUser = 7;
-        $this->controllersStudentBooking = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
-        $this->expectOutputString('0');
-        $this->controllersStudentBooking->processRequest();
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
+        $this->assertEquals(0, $this->controller->processRequest());
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------
 

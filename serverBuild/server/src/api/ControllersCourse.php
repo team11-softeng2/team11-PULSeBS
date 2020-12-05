@@ -3,7 +3,7 @@ namespace Server\api;
 
 use Server\api\GatewaysCourse;
 
-class ControllersCourse
+class ControllersCourse extends Controllers
 {
     private $requestMethod;
     private $courseGateway;
@@ -20,13 +20,12 @@ class ControllersCourse
     {
         if ($this->requestMethod == "GET") {
             if ($this->value == "courses") {
-                $response = $this->findCourses();
-                return $response;
+                return $this->findCourses();
             } else {
-                return "Invalid endpoint.";
+                return $this->invalidEndpoint;
             }
         } else {
-            return "Invalid request method.";
+            return $this->invalidMethod;
         }
     }
 

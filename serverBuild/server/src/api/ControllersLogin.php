@@ -3,7 +3,7 @@ namespace Server\api;
 
 use Server\api\GatewaysUserTable;
 
-class ControllersLogin
+class ControllersLogin extends Controllers
 {
     private $requestMethod;
     private $usersGateway;
@@ -12,8 +12,8 @@ class ControllersLogin
     {
         $this->requestMethod = $requestMethod;
         $this->usersGateway = new GatewaysUserTable($db);
-
     }
+
     public function processRequest()
     {
         if ($this->requestMethod == "POST") {
@@ -23,12 +23,12 @@ class ControllersLogin
             if (!headers_sent()) {
                 header($response['status_code_header']);
             }
-
-            echo $response['body'];
+            return $response['body'];
         } else {
             throw new Exception("Request method not valid");
         }
     }
+
     public function checkLogin($username, $password)
     {
         $result = $this->usersGateway->login($username, $password);
@@ -36,5 +36,4 @@ class ControllersLogin
         $response['body'] = json_encode($result);
         return $response;
     }
-
 }

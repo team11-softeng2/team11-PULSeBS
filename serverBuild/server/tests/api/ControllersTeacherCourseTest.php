@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 class ControllersTeacherCourseTest extends TestCase
 {
     private $db;
-    private $controllersTeacherCourse;
+    private $controller;
     private $id;
 
     protected function setUp(): void
@@ -16,8 +16,8 @@ class ControllersTeacherCourseTest extends TestCase
     public function testGetAListOfValidCouresForTeacher()
     {
         $this->id = 2;
-        $this->controllersTeacherCourse = new Server\api\ControllersTeacherCourse("GET", $this->db, "teacherCourses", $this->id);
-        $result = $this->controllersTeacherCourse->processRequest();
+        $this->controller = new Server\api\ControllersTeacherCourse("GET", $this->db, "teacherCourses", $this->id);
+        $result = $this->controller->processRequest();
         $this->assertIsArray(json_decode($result));
         $this->assertCount(3, json_decode($result));
     }
@@ -26,24 +26,25 @@ class ControllersTeacherCourseTest extends TestCase
     public function testGetAEmptyListOfCoursesForTeacher()
     {
         $this->id = 1;
-        $this->controllersTeacherCourse = new Server\api\ControllersTeacherCourse("GET", $this->db, "teacherCourses", $this->id);
-        $result = $this->controllersTeacherCourse->processRequest();
-        $this->assertEquals($result, 0);
+        $this->controller = new Server\api\ControllersTeacherCourse("GET", $this->db, "teacherCourses", $this->id);
+        $this->assertEquals(0, $this->controller->processRequest());
     }
 
     // get courses with wrong method
     public function testUseWrongMethod()
     {
-        $this->controllersTeacherCourse = new Server\api\ControllersTeacherCourse("POST", $this->db, "teacherCourses");
-        $result = $this->controllersTeacherCourse->processRequest();
+        $this->controller = new Server\api\ControllersTeacherCourse("POST", $this->db, "teacherCourses");
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
         $this->assertEquals($result, "Invalid request method.");
     }
 
     //use wrong endpoint
     public function testUseWrongEndpoint()
     {
-        $this->controllersTeacherCourse = new Server\api\ControllersTeacherCourse("GET", $this->db, "ticerCorsi");
-        $result = $this->controllersTeacherCourse->processRequest();
+        $this->controller = new Server\api\ControllersTeacherCourse("GET", $this->db, "ticerCorsi");
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
         $this->assertEquals($result, "Invalid endpoint.");
     }
 }

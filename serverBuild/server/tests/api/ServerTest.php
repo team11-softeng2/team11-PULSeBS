@@ -1,5 +1,4 @@
 <?php
-
 use PHPUnit\Framework\TestCase;
 
 class ServerTest extends TestCase
@@ -28,13 +27,11 @@ class ServerTest extends TestCase
     public function testApiCallBookableLessonsNotFound()
     {
         //create a fake response to a request
-        $exReturn = '0';
         $response = $this->client->request('GET', '/server/bookableLessons/0');
         $this->assertEquals(200, $response->getStatusCode());
         $contentType = $response->getHeaders()["Content-Type"][0];
         $this->assertEquals("application/json", $contentType);
-
-        $this->assertEquals($exReturn, (string) $response->getBody());
+        $this->assertEquals("0", (string) $response->getBody());
         $this->client = null;
     }
 
@@ -52,12 +49,11 @@ class ServerTest extends TestCase
 
     public function testApiCallstudentBookingsNotFoud()
     {
-        $exReturn = '0';
         $response = $this->client->request('GET', '/server/studentBookings/0');
         $this->assertEquals(200, $response->getStatusCode());
         $contentType = $response->getHeaders()["Content-Type"][0];
         $this->assertEquals("application/json", $contentType);
-        $this->assertEquals($exReturn, (string) $response->getBody());
+        $this->assertEquals("0", (string) $response->getBody());
         $this->client = null;
     }
 
@@ -81,13 +77,12 @@ class ServerTest extends TestCase
 
     public function testCallupdateBooking()
     {
-        $exReturn = '1';
         $this->updateDates();
         $response = $this->client->request('PUT', '/server/updateBooking/2');
         $this->assertEquals(200, $response->getStatusCode());
         $contentType = $response->getHeaders()["Content-Type"][0];
         $this->assertEquals("application/json", $contentType);
-        $this->assertEquals($exReturn, (string) $response->getBody());
+        $this->assertEquals("1", (string) $response->getBody());
         $this->client = null;
     }
 

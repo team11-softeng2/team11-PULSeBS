@@ -3,7 +3,7 @@ namespace Server\api;
 
 use Server\api\GatewaysHistoricalData;
 
-class ControllersHistoricalData
+class ControllersHistoricalData extends Controllers
 {
     private $requestMethod;
     private $bookingStatsGateways;
@@ -23,16 +23,19 @@ class ControllersHistoricalData
         $this->filterTime = $filterTime;
         $this->filterCourse = $filterCourse;
     }
+
     public function processRequest()
     {
         if ($this->requestMethod == "GET") {
             if ($this->value == "bookingStatistics") {
-                $response = $this->findBookingsStats($this->filterTime, $this->filterCourse);
-                echo $response;
+                return $this->findBookingsStats($this->filterTime, $this->filterCourse);
             } else if ($this->value == "teacherStatistics") {
-                $response = $this->findTeacherStats($this->filterTime, $this->filterCourse);
-                echo $response;
+                return $this->findTeacherStats($this->filterTime, $this->filterCourse);
+            } else {
+                return $this->invalidEndpoint;
             }
+        } else {
+            return $this->invalidMethod;
         }
     }
 

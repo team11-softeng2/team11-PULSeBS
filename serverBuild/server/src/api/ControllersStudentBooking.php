@@ -3,7 +3,7 @@ namespace Server\api;
 
 use Server\api\GatewaysStudentBooking;
 
-class ControllersStudentBooking
+class ControllersStudentBooking extends Controllers
 {
     private $requestMethod;
     private $studentBookingGateway;
@@ -19,34 +19,38 @@ class ControllersStudentBooking
         $this->value = $value;
         $this->id = $id;
     }
+
     public function processRequest()
     {
         if ($this->requestMethod == "POST") {
             if ($this->value == "insertLecture") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                $response = $this->insertNewBooklesson($input);
-                echo $response;
+                return $this->insertNewBooklesson($input);
+            } else {
+                return $this->invalidEndpoint;
             }
         } else if ($this->requestMethod == "GET") {
             if ($this->value == "bookableLessons") {
-                $response = $this->findBookableLessons();
-                echo $response;
-
+                return $this->findBookableLessons();
             } else if ($this->value == "studentBookings") {
-                $response = $this->findStudentBookings();
-                echo $response;
+                return $this->findStudentBookings();
             } else if ($this->value == "lecturesWithFullRoom") {
-                $response = $this->findLectureWithFullRoom();
-                echo $response;
+                return $this->findLectureWithFullRoom();
+            } else {
+                return $this->invalidEndpoint;
             }
         } else if ($this->requestMethod == "PUT") {
             if ($this->value == "updateBooking") {
-                $response = $this->updateBooking($this->id);
-                echo $response;
+                return $this->updateBooking($this->id);
+            } else {
+                return $this->invalidEndpoint;
             }
+        } else {
+            return $this->invalidMethod;
         }
     }
+
     public function findBookableLessons()
     {
         $allStudentLessons = $this->studentBookingGateway->findStudentLessons($this->id);
@@ -102,10 +106,12 @@ class ControllersStudentBooking
             return json_encode($studentBookingsDetail);
         }
     }
+
     public function updateBooking($id)
     {
         return json_encode($this->studentBookingGateway->updateBooking($id));
     }
+
     public function findLectureWithFullRoom()
     {
         $allStudentLectures = $this->studentBookingGateway->findStudentLessons($this->id);

@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 class ControllersCourseTest extends TestCase
 {
     private $db;
-    private $controllersCourse;
+    private $controller;
 
     protected function setUp(): void
     {
@@ -15,8 +15,8 @@ class ControllersCourseTest extends TestCase
     public function testGetAListOfValidCoures()
     {
         $this->restoreDB();
-        $this->controllersCourse = new Server\api\ControllersCourse("GET", $this->db, "courses");
-        $result = $this->controllersCourse->processRequest();
+        $this->controller = new Server\api\ControllersCourse("GET", $this->db, "courses");
+        $result = $this->controller->processRequest();
         $this->assertIsArray(json_decode($result));
         $this->assertCount(7, json_decode($result));
     }
@@ -24,8 +24,8 @@ class ControllersCourseTest extends TestCase
     public function testGetAEmptyListOfCourses()
     {
         $this->emptyDB();
-        $this->controllersCourse = new Server\api\ControllersCourse("GET", $this->db, "courses");
-        $result = $this->controllersCourse->processRequest();
+        $this->controller = new Server\api\ControllersCourse("GET", $this->db, "courses");
+        $result = $this->controller->processRequest();
         $this->assertEquals($result, 0);
         $this->restoreDB();
     }
@@ -33,16 +33,16 @@ class ControllersCourseTest extends TestCase
     // get courses with wrong method
     public function testUseWrongMethod()
     {
-        $this->controllersCourse = new Server\api\ControllersCourse("POST", $this->db, "courses");
-        $result = $this->controllersCourse->processRequest();
+        $this->controller = new Server\api\ControllersCourse("POST", $this->db, "courses");
+        $result = $this->controller->processRequest();
         $this->assertEquals($result, "Invalid request method.");
     }
 
     //use wrong endpoint
     public function testUseWrongEndpoint()
     {
-        $this->controllersCourse = new Server\api\ControllersCourse("GET", $this->db, "coursesssss");
-        $result = $this->controllersCourse->processRequest();
+        $this->controller = new Server\api\ControllersCourse("GET", $this->db, "coursesssss");
+        $result = $this->controller->processRequest();
         $this->assertEquals($result, "Invalid endpoint.");
     }
 
