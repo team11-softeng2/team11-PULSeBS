@@ -22,6 +22,7 @@ class ControllersTeacherCourseTest extends TestCase
         $this->assertCount(3, json_decode($result));
     }
 
+    // get courses of a student -> wrong id
     public function testGetAEmptyListOfCoursesForTeacher()
     {
         $this->id = 1;

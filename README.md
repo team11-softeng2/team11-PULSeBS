@@ -99,7 +99,7 @@ composer dump-autoload -o
 First, navigate to /serverBuild/server and define an alias:
 
 ```bash
-cd /serverBuild/server/ && alias testphp=./vendor/bin/phpunit
+cd serverBuild/server/ && alias testphp=./vendor/bin/phpunit
 ```
 
 ### report coverage server
@@ -156,9 +156,10 @@ npm run test -- --testResultsProcessor=jest-sonar-reporter
 
 ## sonarCloud
 
-Calogero:
+Follow instructions at https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
+
+**Calogero: source /etc/environment**
 
 ```bash
-source /etc/environment
 sonar-scanner
 ```
