@@ -6,6 +6,7 @@ client=$(ls | grep clientbuild)
 if [ "$server" != 'serverBuild' ] || [ "$client" != 'clientbuild' ]
 then
     echo wrong initial directory 
+    exit
 fi
 
 #generate client reports------------------------------------------------------------------
@@ -39,6 +40,7 @@ read updateSonar
 updateSonar=${updateSonar^^}
 if [ "$updateSonar" == "S" ]
 then 
+    cd ../../
     echo Are you Calogero?S/N
     read Calogero
     Calogero=${Calogero^^}
