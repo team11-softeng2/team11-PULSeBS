@@ -126,7 +126,7 @@ testphp --log-junit reports/tests/phpunit.report.xml
 
 ### report coverage client
 
-inside /clientBuild/client run:
+inside /clientbuild/client run:
 
 ```bash
 npm run test -- --coverage --coverageReporters=lcov  --coverageDirectory=reports/coverage
@@ -134,7 +134,7 @@ npm run test -- --coverage --coverageReporters=lcov  --coverageDirectory=reports
 
 ### running test client
 
-inside /clientBuild/client run:
+inside /clientbuild/client run:
 
 ```bash
 npm run test
@@ -142,7 +142,7 @@ npm run test
 
 ### report test client
 
-inside /clientBuild/client run:
+inside /clientbuild/client run:
 
 ```bash
 npm i -D jest-sonar-reporter

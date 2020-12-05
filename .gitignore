@@ -9,3 +9,4 @@ clientbuild/client/debug.log
 serverBuild/server/.buildpath
 serverBuild/server/.project
 serverBuild/server/.settings/org.eclipse.wst.validation.prefs
+.vscode/settings.json
