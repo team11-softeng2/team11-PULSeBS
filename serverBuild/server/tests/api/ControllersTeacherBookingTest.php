@@ -48,6 +48,45 @@ class ControllersTeacherBookingTest extends TestCase
     }
 //---------------------------------------------------------------------------------------------------------------------------------------------
 
+//test FindScheduledLecturesForTeacher----------------------------------------------------------------------------------------------------------
+    public function testfindScheduledLecturesForTeacherFound()
+    {
+        $this->setDatesToToday();
+        $this->id = 2;
+        $this->controller = new Server\api\ControllersTeacherBooking("GET", $this->db, "scheduledLecturesForTeacher", $this->id);
+        $result = $this->controller->findScheduledLecturesForTeacher($this->id);
+        $this->assertTrue((json_decode($result, true) == null) ? false : true);
+        $this->assertIsArray(json_decode($result));
+        $this->assertCount(6, json_decode($result));
+    }
+
+    public function testfindScheduledLecturesForTeacherNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+        $this->id = 2;
+        $this->controller = new Server\api\ControllersTeacherBooking("GET", $this->db, "scheduledLecturesForTeacher", $this->id);
+        $this->assertEquals(0, $this->controller->findScheduledLecturesForTeacher($this->id));
+    }
+
+    public function testProcessRequestScheduledLecturesForTeacherFound()
+    {
+        $this->setDatesToToday();
+        $this->id = 2;
+        $this->controller = new Server\api\ControllersTeacherBooking("GET", $this->db, "scheduledLecturesForTeacher", $this->id);
+        $output = $this->controller->processRequest();
+        $this->assertNotEquals(0, $output);
+        $this->assertFalse(empty($output));
+    }
+
+    public function testProcessRequestScheduledLecturesForTeacherNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+        $this->id = 2;
+        $this->controller = new Server\api\ControllersTeacherBooking("GET", $this->db, "scheduledLecturesForTeacher", $this->id);
+        $this->assertEquals(0, $this->controller->processRequest());
+    }
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
 //test updateToNotActiveLecture----------------------------------------------------------------------------------------------------------------
 
     public function testupdateToNotActiveLectureFound()
@@ -139,10 +178,19 @@ class ControllersTeacherBookingTest extends TestCase
         $this->assertEquals($result, "Invalid request method.");
     }
 
-    public function testUseWrongEndpoint()
+    public function testUseWrongEndpointWithGET()
     {
         $this->id = 3;
         $this->controller = new Server\api\ControllersTeacherBooking("GET", $this->db, "wrongEndPoint", $this->id);
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
+        $this->assertEquals($result, "Invalid endpoint.");
+    }
+
+    public function testUseWrongEndpointWithPUT()
+    {
+        $this->id = 3;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "wrongEndPointAgain", $this->id);
         $result = $this->controller->processRequest();
         $this->assertIsString($result);
         $this->assertEquals($result, "Invalid endpoint.");
@@ -154,6 +202,12 @@ class ControllersTeacherBookingTest extends TestCase
     {
         $this->db->exec("update booking set date=datetime('now', '3 days')");
         $this->db->exec("update lessons set date=date('now', '3 days');");
+    }
+
+    protected function setDatesToToday()
+    {
+        $this->db->exec("update booking set date=datetime('now', '1 days')");
+        $this->db->exec("update lessons set date=date('now', '1 days');");
     }
 
     protected function restoreModificationActiveLecture($idLecture)
