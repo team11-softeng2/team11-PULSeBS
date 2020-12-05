@@ -40,7 +40,7 @@ if (isset($_GET['url'])) {
             $requestMethod = "PUT";
             $id = $number;
             $controller = new Server\api\ControllersStudentBooking($requestMethod, $dbConn, $value, $id);
-            $controller->processRequest();
+            echo $controller->processRequest();
             break;
         case "bookedStudentsForLecture/$number":
             $value = "bookedStudentsForLecture";
@@ -60,7 +60,7 @@ if (isset($_GET['url'])) {
             $value = "sendNotification";
             $requestMethod = $_SERVER['REQUEST_METHOD'];
             $controller = new Server\api\ControllersNotification($requestMethod, $dbConn, $value);
-            $controller->processRequest();
+            echo $controller->processRequest();
             break;
         case "courses":
             $value = "courses";
@@ -90,7 +90,7 @@ if (isset($_GET['url'])) {
             $controller->processRequest();
             break;
         case "deleteLecture/$number":
-            if($_SERVER['REQUEST_METHOD'] != "OPTIONS") {
+            if ($_SERVER['REQUEST_METHOD'] != "OPTIONS") {
                 $value = "deleteLecture";
                 $requestMethod = "PUT";
                 $id = $number;
