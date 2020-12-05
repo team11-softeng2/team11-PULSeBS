@@ -65,20 +65,16 @@ class GatewaysNotification
             try {
                 $mail->addAddress($row['to'], $row['userName']);
             } catch (Exception $e) {
-                echo 'Invalid address skipped: ' . htmlspecialchars($row['email']) . '<br>';
+                return 'Invalid address skipped: ' . htmlspecialchars($row['email']);
                 continue;
             }
-
+            //Set subject and body of the next email
             $mail->Subject = $row['subject'];
             $mail->Body = $row['body'];
-
             try {
                 $mail->send();
-                // DEBUG
-                // print_r($row);
-                // echo 'Message sent to :' . htmlspecialchars($row['userName']) . ' (' . htmlspecialchars($row['to']) . ')';
             } catch (Exception $e) {
-                echo 'Mailer Error (' . htmlspecialchars($row['to']) . ') ' . $mail->ErrorInfo . '<br>';
+                return 'Mailer Error (' . htmlspecialchars($row['to']) . ') ' . $mail->ErrorInfo;
                 //Reset the connection to abort sending this message
                 //The loop will continue trying to send to the rest of the list
                 $mail->getSMTPInstance()->reset();
