@@ -8,6 +8,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 class GatewaysNotification
 {
     private $db = null;
+    private $signature = "<br><p>Regards, the Team 11.</p>";
     public function __construct($db)
     {
         $this->db = $db;
@@ -29,11 +30,10 @@ class GatewaysNotification
                 return $this->dispatch($queue);
                 break;
             case 'takenFromWaitingList':
-                $body = "Message body.";
-                return "To be implemented...";
+                $queue = $this->takenFromWaitingList($input->id);
+                return $this->dispatch($queue);
                 break;
             case 'lectureScheduleChange':
-                $body = "Message body.";
                 return "To be implemented...";
                 break;
             default:
@@ -61,20 +61,20 @@ class GatewaysNotification
         //Content
         $mail->isHTML(true); // Set email format to HTML
 
-        foreach ($queue as $key => $row) {
+        foreach ($queue as $recipient) {
             try {
-                $mail->addAddress($row['to'], $row['userName']);
+                $mail->addAddress($recipient['to'], $recipient['userName']);
             } catch (Exception $e) {
-                return 'Invalid address skipped: ' . htmlspecialchars($row['email']);
+                return 'Invalid address skipped: ' . htmlspecialchars($recipient['email']);
                 continue;
             }
             //Set subject and body of the next email
-            $mail->Subject = $row['subject'];
-            $mail->Body = $row['body'];
+            $mail->Subject = $recipient['subject'];
+            $mail->Body = $recipient['body'];
             try {
                 $mail->send();
             } catch (Exception $e) {
-                return 'Mailer Error (' . htmlspecialchars($row['to']) . ') ' . $mail->ErrorInfo;
+                return 'Mailer Error (' . htmlspecialchars($recipient['to']) . ') ' . $mail->ErrorInfo;
                 //Reset the connection to abort sending this message
                 //The loop will continue trying to send to the rest of the list
                 $mail->getSMTPInstance()->reset();
@@ -103,7 +103,7 @@ class GatewaysNotification
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $body = "Dear prof. " . $row['userName'] . ", the lecture of " . $row['name'] . " scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", has " . $row['studentsCount'] . " students currently booked.";
+            $body = "<p>Dear prof. " . $row['userName'] . ",</p><p>the <b>lecture of " . $row['name'] . "</b> scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", <b>has " . $row['studentsCount'] . " students currently booked</b>.</p>" . $this->signature;
             $subArray = array(
                 "to" => $row['email'],
                 "userName" => $row['userName'],
@@ -130,7 +130,7 @@ class GatewaysNotification
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $body = "Hi " . $row['userName'] . ", your booking for the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", has been confirmed.";
+            $body = "<p>Hi " . $row['userName'] . ",</p><p><b>your booking</b> for the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", <b>has been confirmed</b>.</p>" . $this->signature;
             $subArray = array(
                 "to" => $row['email'],
                 "userName" => $row['userName'],
@@ -158,11 +158,39 @@ class GatewaysNotification
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $body = "Hi " . $row['userName'] . ", this email is to inform you that the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", has been cancelled.";
+            $body = "<p>Hi " . $row['userName'] . ",</p><p>this email is to inform you that <b>the lecture of " . $row['courseName'] . "</b>, scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", <b>has been cancelled</b>.</p>" . $this->signature;
             $subArray = array(
                 "to" => $row['email'],
                 "userName" => $row['userName'],
                 "subject" => "Lecture Cancelled",
+                "body" => $body,
+            );
+            $data[] = $subArray;
+        }
+        if (!empty($data)) {
+            return $data;
+        } else {
+            return 0;
+        }
+    }
+
+    private function takenFromWaitingList($id)
+    {
+        $sql = "SELECT u.email, u.name as userName, c.name as courseName, l.date, l.beginTime
+                FROM booking as b, users as u, courses as c, lessons as l
+                WHERE   b.idBooking=$id AND
+                        isWaiting=0 AND
+                        b.idUser=u.idUser AND
+                        l.idLesson=b.idLesson AND
+                        l.idCourse=c.idCourse";
+        $result = $this->db->query($sql);
+        $data = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            $body = "<p>Hi " . $row['userName'] . ",</p><p>someone cancelled his reservation for the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ".<p>Therefore, <b>you have been taken from the waiting list</b> and <b>your previous booking is now confirmed</b>.</p>" . $this->signature;
+            $subArray = array(
+                "to" => $row['email'],
+                "userName" => $row['userName'],
+                "subject" => "Booking Confirmation",
                 "body" => $body,
             );
             $data[] = $subArray;
