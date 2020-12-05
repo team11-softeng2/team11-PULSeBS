@@ -6,6 +6,11 @@ class ControllersHistoricalDataTest extends TestCase
     private $db;
     private $controller;
 
+    protected function setUp(): void
+    {
+        $this->db = new SQLite3("./tests/dbStatistics.db");
+    }
+
     public function testfindBookingsStatsFound()
     {
         $this->db = new SQLite3("./tests/dbStatistics.db");
@@ -56,5 +61,31 @@ class ControllersHistoricalDataTest extends TestCase
         $value = "bookingStatistics";
         $this->controller = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
         $this->assertEquals("0", $this->controller->processRequest());
+    }
+
+    public function testUseWrongMethod()
+    {
+        $filterTime = "L.idLesson";
+        $filterCourse = "L.idCourse";
+        $type = "1";
+        $requestMethod = "POST";
+        $value = "bookingStatistics";
+        $this->controller = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
+        $this->assertEquals($result, "Invalid request method.");
+    }
+
+    public function testUseWrongEndpoint()
+    {
+        $filterTime = "L.idLesson";
+        $filterCourse = "L.idCourse";
+        $type = "1";
+        $requestMethod = "GET";
+        $value = "dammiLeStatistiche";
+        $this->controller = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
+        $this->assertEquals($result, "Invalid endpoint.");
     }
 }

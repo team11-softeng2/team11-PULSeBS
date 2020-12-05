@@ -6,10 +6,14 @@ class ControllersTeacherBookingTest extends TestCase
 
     private $db;
     private $controller;
+
+    protected function setUp(): void
+    {
+        $this->db = new SQLite3("./tests/dbForTesting2.db");
+    }
 //test FindBookedStudentsForLecture----------------------------------------------------------------------------------------------------------
     public function testfindBookedStudentsForLectureFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $this->id = 3;
         $this->controller = new Server\api\ControllersTeacherBooking("GET", $this->db, "bookedStudentsForLecture", $this->id);
@@ -27,7 +31,6 @@ class ControllersTeacherBookingTest extends TestCase
 
     public function testProcessRequestbookedStudentsForLectureFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $this->id = 3;
         $this->controller = new Server\api\ControllersTeacherBooking("GET", $this->db, "bookedStudentsForLecture", $this->id);
@@ -49,7 +52,6 @@ class ControllersTeacherBookingTest extends TestCase
 
     public function testupdateToNotActiveLectureFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $this->id = 3;
         $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "deleteLecture", $this->id);
@@ -68,7 +70,6 @@ class ControllersTeacherBookingTest extends TestCase
 
     public function testProcessRequestupdateToNotActiveLectureFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $this->id = 3;
         $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "deleteLecture", $this->id);
@@ -92,7 +93,6 @@ class ControllersTeacherBookingTest extends TestCase
 
     public function testchangeToOnlineFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $this->id = 3;
         $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToOnline", $this->id);
@@ -111,7 +111,6 @@ class ControllersTeacherBookingTest extends TestCase
 
     public function testProcessRequestchangeToOnlineFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $this->id = 3;
         $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToOnline", $this->id);
@@ -130,6 +129,24 @@ class ControllersTeacherBookingTest extends TestCase
     }
 
     //---------------------------------------------------------------------------------------------------------
+
+    public function testUseWrongMethod()
+    {
+        $this->id = 3;
+        $this->controller = new Server\api\ControllersTeacherBooking("POOOOST", $this->db, "bookedStudentsForLecture", $this->id);
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
+        $this->assertEquals($result, "Invalid request method.");
+    }
+
+    public function testUseWrongEndpoint()
+    {
+        $this->id = 3;
+        $this->controller = new Server\api\ControllersTeacherBooking("GET", $this->db, "wrongEndPoint", $this->id);
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
+        $this->assertEquals($result, "Invalid endpoint.");
+    }
 
     // function useful for testing they modify db in order to make tests
     //---------------------------------------------------------------------------------------------------------

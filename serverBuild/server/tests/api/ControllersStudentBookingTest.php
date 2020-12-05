@@ -8,11 +8,15 @@ class ControllersStudentBookingTest extends TestCase
     private $db;
     private $controller;
 
+    protected function setUp(): void
+    {
+        $this->db = new SQLite3("./tests/dbForTesting2.db");
+    }
+
 //test FindBookableLessons--------------------------------------------------------------------------------------------------------
     public function testfindBookableLessonsFound()
     {
         $id = 1;
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $result = $this->controller->findBookableLessons();
@@ -32,7 +36,6 @@ class ControllersStudentBookingTest extends TestCase
     public function testStudentBookingProcessRequestOutput()
     {
         $id = 1;
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "bookableLessons", $id);
         $output = $this->controller->processRequest();
@@ -74,7 +77,6 @@ class ControllersStudentBookingTest extends TestCase
 //test UpdateBooking-------------------------------------------------------------------------------------------------------------------------
     public function testUpdateBooking()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idBooking = 2;
         $this->controller = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
@@ -85,7 +87,6 @@ class ControllersStudentBookingTest extends TestCase
 
     public function testRequestUpdateBooking()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idBooking = 2;
         $this->controller = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
@@ -97,7 +98,6 @@ class ControllersStudentBookingTest extends TestCase
 //test FindBookedLessons-------------------------------------------------------------------------------------------------------------------
     public function testFindBookedLessonsFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idUser = 3;
         $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
@@ -116,7 +116,6 @@ class ControllersStudentBookingTest extends TestCase
 
     public function testRequestFindBookedLessonsFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idUser = 3;
         $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "studentBookings", $idUser);
@@ -137,7 +136,6 @@ class ControllersStudentBookingTest extends TestCase
 //test FindLectureWithFullRoom--------------------------------------------------------------------------------------------------------------
     public function testfindLectureWithFullRoomFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idUser = 7;
         $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
@@ -157,7 +155,6 @@ class ControllersStudentBookingTest extends TestCase
 
     public function testProcessRequestlecturesWithFullRoomFound()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
         $this->updateDates();
         $idUser = 7;
         $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "lecturesWithFullRoom", $idUser);
@@ -174,6 +171,24 @@ class ControllersStudentBookingTest extends TestCase
         $this->assertEquals(0, $this->controller->processRequest());
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------
+
+    public function testUseWrongMethod()
+    {
+        $idUser = 7;
+        $this->controller = new Server\api\ControllersStudentBooking("GEEEEEET", $this->db, "lecturesWithFullRoom", $idUser);
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
+        $this->assertEquals($result, "Invalid request method.");
+    }
+
+    public function testUseWrongEndpoint()
+    {
+        $idUser = 7;
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "nonExistingEnpoint", $idUser);
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
+        $this->assertEquals($result, "Invalid endpoint.");
+    }
 
 //test Useful functions for testing---------------------------------------------------------------------------------------------------------
     protected function restoreDB()

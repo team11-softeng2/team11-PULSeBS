@@ -30,7 +30,6 @@ class ControllersTeacherCourseTest extends TestCase
         $this->assertEquals(0, $this->controller->processRequest());
     }
 
-    // get courses with wrong method
     public function testUseWrongMethod()
     {
         $this->controller = new Server\api\ControllersTeacherCourse("POST", $this->db, "teacherCourses");
@@ -39,7 +38,6 @@ class ControllersTeacherCourseTest extends TestCase
         $this->assertEquals($result, "Invalid request method.");
     }
 
-    //use wrong endpoint
     public function testUseWrongEndpoint()
     {
         $this->controller = new Server\api\ControllersTeacherCourse("GET", $this->db, "ticerCorsi");

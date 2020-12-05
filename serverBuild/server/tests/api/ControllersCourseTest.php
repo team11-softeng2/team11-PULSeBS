@@ -30,19 +30,19 @@ class ControllersCourseTest extends TestCase
         $this->restoreDB();
     }
 
-    // get courses with wrong method
     public function testUseWrongMethod()
     {
         $this->controller = new Server\api\ControllersCourse("POST", $this->db, "courses");
         $result = $this->controller->processRequest();
+        $this->assertIsString($result);
         $this->assertEquals($result, "Invalid request method.");
     }
 
-    //use wrong endpoint
     public function testUseWrongEndpoint()
     {
         $this->controller = new Server\api\ControllersCourse("GET", $this->db, "coursesssss");
         $result = $this->controller->processRequest();
+        $this->assertIsString($result);
         $this->assertEquals($result, "Invalid endpoint.");
     }
 

@@ -12,7 +12,6 @@ class ControllersStudentCourseTest extends TestCase
         $this->db = new SQLite3("./tests/dbCourses.db");
     }
 
-    //get courses ok
     public function testGetAListOfValidCoures()
     {
         $this->id = 1;
@@ -29,19 +28,19 @@ class ControllersStudentCourseTest extends TestCase
         $this->assertEquals($result, 0);
     }
 
-    // get courses with wrong method
     public function testUseWrongMethod()
     {
         $this->controller = new Server\api\ControllersStudentCourse("POST", $this->db, "studentCourses", 1);
         $result = $this->controller->processRequest();
+        $this->assertIsString($result);
         $this->assertEquals($result, "Invalid request method.");
     }
 
-    //use wrong endpoint
     public function testUseWrongEndpoint()
     {
         $this->controller = new Server\api\ControllersStudentCourse("GET", $this->db, "stiudentcorsi", 1);
         $result = $this->controller->processRequest();
+        $this->assertIsString($result);
         $this->assertEquals($result, "Invalid endpoint.");
     }
 }
