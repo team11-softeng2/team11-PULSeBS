@@ -77,5 +77,5 @@ test("fullLecture click", async () => {
         }
     }
     await instance.handleEventClick(info);
-    expect(instance.state.showModal).toBe(false);
+    expect(instance.state.showModal).toBe(true);
 });

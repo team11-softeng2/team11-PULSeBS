@@ -30,8 +30,8 @@ class ModalStudent extends React.Component{
           </Modal.Body>
           
           <Modal.Footer>
-            <Button variant="danger" data-testid="delete-button" onClick={() => {this.props.addToWaitingList(this.props.elementId); this.props.closeModal();} }>Wait</Button>
-            <Button variant="secondary" data-testid="dontdelete-button" onClick={() => this.props.closeModal()}>
+            <Button variant="danger" data-testid="wait-button" onClick={() => {this.props.addToWaitingList(this.props.elementId); this.props.closeModal();} }>Wait</Button>
+            <Button variant="secondary" data-testid="dontwait-button" onClick={() => this.props.closeModal()}>
               Don't wait
             </Button>            
           </Modal.Footer>          
