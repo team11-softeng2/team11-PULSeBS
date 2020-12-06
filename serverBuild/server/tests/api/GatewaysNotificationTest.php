@@ -79,6 +79,35 @@ class GatewaysNotificationTest extends TestCase
         $this->assertEquals(0, $result);
     }
 
+    public function testDispatch()
+    {
+        $queue = array(array('to' => 'student@pulsebs.it', 'userName' => 'Test Suite Student', 'subject' => 'Automated Test', 'body' => 'This was an automated test done with PHP Unit. Please ignore this email'));
+        $result = $this->gatewayNotification->dispatch($queue);
+        $this->assertIsInt($result);
+        $this->assertEquals(1, $result);
+    }
+
+    public function testDispatchWithWrongAddressException()
+    {
+        $queue = array(array('to' => 'student!@#$%^&*()_~@pulsebs.it', 'userName' => 'Test Suite Student', 'subject' => 'Automated Test', 'body' => 'This was an automated test done with PHP Unit. Please ignore this email'));
+        $result = $this->gatewayNotification->dispatch($queue);
+        $this->assertIsString($result);
+        $this->assertEquals("Invalid Address.", $result);
+    }
+
+    // public function testDispatchWithTimeoutException()
+    // {
+    //     // Create a stub for the SomeClass class.
+    //     $stub = $this->createStub(Server\api\GatewaysNotification::class);
+    //     // Configure the stub.
+    //     $stub->method('dispatch')
+    //         ->will($this->throwException(new Exception("Mailer Error.")));
+
+    //     $queue = array(array('to' => 'student@pulsebs.it', 'userName' => 'Test Suite Student', 'subject' => 'Automated Test', 'body' => 'This was an automated test done with PHP Unit. Please ignore this email'));
+    //     // $this->assertIsString($result);
+    //     $this->assertEquals("Mailer Error.", $stub->dispatch($queue));
+    // }
+
     protected function updateEmails()
     {
         $this->db->exec("update users set email='teacher@pulsebs.it' where role='teacher'");

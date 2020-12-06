@@ -21,8 +21,8 @@ class ControllersNotification extends Controllers
         if ($this->requestMethod == "POST") {
             if ($this->value == "sendNotification") {
                 $postBody = file_get_contents("php://input");
-                $input = (json_decode($postBody));
-                return $this->sendNotification($input['type'], $input['id']);
+                $input = json_decode($postBody, true);
+                return $this->sendNotification($input["type"], $input["id"]);
             } else {
                 return $this->invalidEndpoint;
             }

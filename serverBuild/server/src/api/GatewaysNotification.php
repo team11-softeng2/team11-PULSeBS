@@ -42,7 +42,7 @@ class GatewaysNotification
         }
     }
 
-    private function dispatch($queue)
+    public function dispatch($queue)
     {
         if (empty($queue)) {
             return 0;
@@ -65,21 +65,22 @@ class GatewaysNotification
         foreach ($queue as $recipient) {
             try {
                 $mail->addAddress($recipient['to'], $recipient['userName']);
+                //Set subject and body of the next email
+                $mail->Subject = $recipient['subject'];
+                $mail->Body = $recipient['body'];
+                try {
+                    $mail->send();
+                } catch (Exception $e) {
+                    //Reset the connection to abort sending this message
+                    //The loop will continue trying to send to the rest of the list
+                    $mail->getSMTPInstance()->reset();
+                    return "Mailer Error.";
+                }
             } catch (Exception $e) {
-                return 'Invalid Address.';
+                return "Invalid Address.";
                 continue;
             }
-            //Set subject and body of the next email
-            $mail->Subject = $recipient['subject'];
-            $mail->Body = $recipient['body'];
-            try {
-                $mail->send();
-            } catch (Exception $e) {
-                //Reset the connection to abort sending this message
-                //The loop will continue trying to send to the rest of the list
-                $mail->getSMTPInstance()->reset();
-                return 'Mailer Error.';
-            }
+
             //Clear all addresses and attachments for the next iteration
             $mail->clearAddresses();
             $mail->clearAttachments();

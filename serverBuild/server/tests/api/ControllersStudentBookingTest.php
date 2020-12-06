@@ -181,10 +181,19 @@ class ControllersStudentBookingTest extends TestCase
         $this->assertEquals($result, "Invalid request method.");
     }
 
-    public function testUseWrongEndpoint()
+    public function testUseWrongEndpointGET()
     {
         $idUser = 7;
         $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "nonExistingEnpoint", $idUser);
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
+        $this->assertEquals($result, "Invalid endpoint.");
+    }
+
+    public function testUseWrongEndpointPUT()
+    {
+        $idUser = 7;
+        $this->controller = new Server\api\ControllersStudentBooking("PUT", $this->db, "nonExistingEnpoint", $idUser);
         $result = $this->controller->processRequest();
         $this->assertIsString($result);
         $this->assertEquals($result, "Invalid endpoint.");
