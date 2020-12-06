@@ -59,7 +59,7 @@ class ControllersStudentBooking extends Controllers
         } else {
             $allStudentLessons = array_column($allStudentLessons, "idLesson");
         }
-        $lessonsBooked = $this->studentBookingGateway->findStundetBookedLessons($this->id);
+        $lessonsBooked = $this->studentBookingGateway->findStudentBookedLessons($this->id);
         if ($lessonsBooked == 0) {
             $lessonsBooked = array();
         } else {
@@ -85,7 +85,7 @@ class ControllersStudentBooking extends Controllers
 
     public function findStudentBookings()
     {
-        $studentBookings = $this->studentBookingGateway->findStundetBookedLessons($this->id);
+        $studentBookings = $this->studentBookingGateway->findStudentBookedLessons($this->id);
         if ($studentBookings == 0) {
             return json_encode(0);
         } else {
@@ -122,7 +122,7 @@ class ControllersStudentBooking extends Controllers
         } else {
             $lecturesFullRoom = array_column($lecturesFullRoom, "idLesson");
         }
-        $lecturesAlreadyBooked = $this->studentBookingGateway->findStundetBookedLessons($this->id);
+        $lecturesAlreadyBooked = $this->studentBookingGateway->findStudentBookedLessons($this->id);
         if ($lecturesAlreadyBooked == 0) {
             $lecturesAlreadyBooked = array();
         } else {
