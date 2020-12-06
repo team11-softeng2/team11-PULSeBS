@@ -159,8 +159,7 @@ class TeacherHistoricalDataPage extends React.Component{
                 plotOptions: {
                   bar: {
                     horizontal: false,
-                    columnWidth: '55%',
-                    endingShape: 'rounded'
+                    columnWidth: '55%'
                   },
                 },
                 dataLabels: {
