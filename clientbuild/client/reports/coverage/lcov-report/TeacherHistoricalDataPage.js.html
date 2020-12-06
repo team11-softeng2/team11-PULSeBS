@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">19.64% </span>
+                <span class="strong">19.3% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/56</span>
+                <span class='fraction'>11/57</span>
             </div>
         
             
@@ -36,16 +36,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.9% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/31</span>
+                <span class='fraction'>4/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.4% </span>
+                <span class="strong">22.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/47</span>
+                <span class='fraction'>11/48</span>
             </div>
         
             
@@ -261,7 +261,13 @@
 <a name='L203'></a><a href='#L203'>203</a>
 <a name='L204'></a><a href='#L204'>204</a>
 <a name='L205'></a><a href='#L205'>205</a>
-<a name='L206'></a><a href='#L206'>206</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -426,6 +432,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -467,14 +479,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import ApexChart from "react-apexcharts";
 import TeacherDataSelectionList from './TeacherDataSelectionList';
 import API from './API.js';
 import moment from 'moment';
 &nbsp;
-class TeacherHistoricalDataPage extends React.Component{
-    constructor(props){
+class TeacherHistoricalDataPage extends React.Component {
+    constructor(props) {
         super(props);
 &nbsp;
         this.state = {
@@ -487,26 +499,26 @@ class TeacherHistoricalDataPage extends React.Component{
         };
     }
 &nbsp;
-    render(){
+    render() {
         return &lt;&gt;
             &lt;Container fluid&gt;
                 &lt;Row&gt;
                     &lt;Col className='col-2 mt-3'&gt;
-                        &lt;TeacherDataSelectionList 
-                            options={this.state.detailLevels} 
+                        &lt;TeacherDataSelectionList
+                            options={this.state.detailLevels}
                             currentActive={this.state.currentDetail}
-                            handleClick={this.handleNewDetailClick}/&gt;
+                            handleClick={this.handleNewDetailClick} /&gt;
                     &lt;/Col&gt;
 &nbsp;
                     &lt;Col className='col-8 mt-3'&gt;
-                        {this.state.series !== undefined &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;ApexChart options={this.state.options} series={this.state.series} type="bar" height={700}/&gt;}</span>
+                        {this.state.series !== undefined &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;ApexChart options={this.state.options} series={this.state.series} type="bar" height={700} /&gt;}</span>
                     &lt;/Col&gt;
 &nbsp;
                     &lt;Col className='col-2 mt-3'&gt;
-                        &lt;TeacherDataSelectionList 
-                            options={this.state.courses.map(<span class="fstat-no" title="function not covered" >c </span>=&gt; <span class="cstat-no" title="statement not covered" >c.courseName)</span>} 
+                        &lt;TeacherDataSelectionList
+                            options={this.state.courses.map(<span class="fstat-no" title="function not covered" >c </span>=&gt; <span class="cstat-no" title="statement not covered" >c.courseName)</span>}
                             currentActive={this.state.currentCourse}
-                            handleClick={this.handleNewCourseClick}/&gt;
+                            handleClick={this.handleNewCourseClick} /&gt;
                     &lt;/Col&gt;
                 &lt;/Row&gt;
             &lt;/Container&gt;
@@ -519,92 +531,92 @@ class TeacherHistoricalDataPage extends React.Component{
 &nbsp;
     updateCourses = () =&gt; {
         API.getCoursesOfTeacher(this.props.teacherId)
-        .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
-<span class="cstat-no" title="statement not covered" >            this.setState({ courses: res, currentCourse: res[0].courseName }, <span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                this.getDataFromServerAndUpdate();</span>
+            .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
+<span class="cstat-no" title="statement not covered" >                this.setState({ courses: res, currentCourse: res[0].courseName }, <span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                    this.getDataFromServerAndUpdate();</span>
+                });
+            })
+            .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >                console.log('error in getting list of courses from server');</span>
+<span class="cstat-no" title="statement not covered" >                console.log(err);</span>
             });
-        })
-        .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
-<span class="cstat-no" title="statement not covered" >            console.log('error in getting list of courses from server');</span>
-<span class="cstat-no" title="statement not covered" >            console.log(err);</span>
-        });
     }
 &nbsp;
     getDataFromServerAndUpdate = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >        if(this.state.currentDetail === 'Lecture'){</span>
+<span class="cstat-no" title="statement not covered" >        if (this.state.currentDetail === 'Lecture') {</span>
             var currentCourseId = <span class="cstat-no" title="statement not covered" >this.state.courses.filter(<span class="fstat-no" title="function not covered" >c </span>=&gt; <span class="cstat-no" title="statement not covered" >c.courseName === this.state.currentCourse)</span>[0].idCourse;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            API.getTeacherStatistics(this.props.teacherId, 'L.idLesson', currentCourseId)</span>
-            .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
-                //console.log(res)
-                var numberOfBookingsArray = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >d.numberBookings)</span></span>
-                var lectureDatesArray = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >d.dateLecture)</span></span>
+                .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
+                    //console.log(res)
+                    var numberOfBookingsArray = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >d.numberBookings)</span></span>
+                    var lectureDatesArray = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >d.dateLecture)</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >                this.updateGraphData(</span>
-                    [{
-                        name: 'Bookings',
-                        data: numberOfBookingsArray
-                    }],
-                    lectureDatesArray,
-                    'Number of bookings',
-                    'Bookings',
-                    'Number of bookings per single lecture'
-                );
-            })
-            .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
-<span class="cstat-no" title="statement not covered" >                console.log('error in getting statistics by lesson from server');</span>
-<span class="cstat-no" title="statement not covered" >                console.log(err);</span>
-            });
+<span class="cstat-no" title="statement not covered" >                    this.updateGraphData(</span>
+                        [{
+                            name: 'Bookings',
+                            data: numberOfBookingsArray
+                        }],
+                        lectureDatesArray,
+                        'Number of bookings',
+                        'Bookings',
+                        'Number of bookings per single lecture'
+                    );
+                })
+                .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >                    console.log('error in getting statistics by lesson from server');</span>
+<span class="cstat-no" title="statement not covered" >                    console.log(err);</span>
+                });
         }
-        else <span class="cstat-no" title="statement not covered" >if(this.state.currentDetail === 'Week'){</span>
+        else <span class="cstat-no" title="statement not covered" >if (this.state.currentDetail === 'Week') {</span>
 <span class="cstat-no" title="statement not covered" >            currentCourseId = this.state.courses.filter(<span class="fstat-no" title="function not covered" >c </span>=&gt; <span class="cstat-no" title="statement not covered" >c.courseName === this.state.currentCourse)</span>[0].idCourse;</span>
-            
+&nbsp;
 <span class="cstat-no" title="statement not covered" >            API.getTeacherStatistics(this.props.teacherId, 'year_month_week', currentCourseId)</span>
-            .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
-                //console.log(res)
-                var avgNumberOfBookingsArray = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >d.average)</span></span>
-                var weekOfYear = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >moment().week(d.weekOfYear).year(d.year).format('YYYY-MM-DD'))</span></span>
+                .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
+                    //console.log(res)
+                    var avgNumberOfBookingsArray = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >d.average)</span></span>
+                    var weekOfYear = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >moment().week(d.weekOfYear).year(d.year).format('YYYY-MM-DD'))</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >                this.updateGraphData(</span>
-                    [{
-                        name: 'Bookings',
-                        data: avgNumberOfBookingsArray
-                    }],
-                    weekOfYear,
-                    'Average number of bookings',
-                    'Bookings (average)',
-                    'Average number of bookings per week'
-                );
-            })
-            .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
-<span class="cstat-no" title="statement not covered" >                console.log('error in getting statistics by week from server');</span>
-<span class="cstat-no" title="statement not covered" >                console.log(err);</span>
-            });
+<span class="cstat-no" title="statement not covered" >                    this.updateGraphData(</span>
+                        [{
+                            name: 'Bookings',
+                            data: avgNumberOfBookingsArray
+                        }],
+                        weekOfYear,
+                        'Average number of bookings',
+                        'Bookings (average)',
+                        'Average number of bookings per week'
+                    );
+                })
+                .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >                    console.log('error in getting statistics by week from server');</span>
+<span class="cstat-no" title="statement not covered" >                    console.log(err);</span>
+                });
         }
-        else <span class="cstat-no" title="statement not covered" >if(this.state.currentDetail === 'Month'){</span>
+        else <span class="cstat-no" title="statement not covered" >if (this.state.currentDetail === 'Month') {</span>
 <span class="cstat-no" title="statement not covered" >            currentCourseId = this.state.courses.filter(<span class="fstat-no" title="function not covered" >c </span>=&gt; <span class="cstat-no" title="statement not covered" >c.courseName === this.state.currentCourse)</span>[0].idCourse;</span>
-            
-<span class="cstat-no" title="statement not covered" >            API.getTeacherStatistics(this.props.teacherId, 'year,monthOfYear', currentCourseId)</span>
-            .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
-                //console.log(res)
-                var avgNumberOfBookingsArray = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >d.average)</span></span>
-                var monthOfYear = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >moment().week(d.monthOfYear).year(d.year).format('YYYY-MM'))</span></span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >                this.updateGraphData(</span>
-                    [{
-                        name: 'Bookings',
-                        data: avgNumberOfBookingsArray
-                    }],
-                    monthOfYear,
-                    'Average number of bookings',
-                    'Bookings (average)',
-                    'Average number of bookings per month'
-                );
-            })
-            .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
-<span class="cstat-no" title="statement not covered" >                console.log('error in getting statistics by month from server');</span>
-<span class="cstat-no" title="statement not covered" >                console.log(err);</span>
-            });
+<span class="cstat-no" title="statement not covered" >            API.getTeacherStatistics(this.props.teacherId, 'year,monthOfYear', currentCourseId)</span>
+                .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
+                    //console.log(res)
+                    var avgNumberOfBookingsArray = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >d.average.toFixed(2))</span></span>
+                    var monthOfYear = <span class="cstat-no" title="statement not covered" >res.map(<span class="fstat-no" title="function not covered" >d </span>=&gt; <span class="cstat-no" title="statement not covered" >moment().week(d.monthOfYear).year(d.year).format('YYYY-MM'))</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    this.updateGraphData(</span>
+                        [{
+                            name: 'Bookings',
+                            data: avgNumberOfBookingsArray
+                        }],
+                        monthOfYear,
+                        'Average number of bookings',
+                        'Bookings (average)',
+                        'Average number of bookings per month'
+                    );
+                })
+                .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
+<span class="cstat-no" title="statement not covered" >                    console.log('error in getting statistics by month from server');</span>
+<span class="cstat-no" title="statement not covered" >                    console.log(err);</span>
+                });
         }
     }
 &nbsp;
@@ -623,50 +635,56 @@ class TeacherHistoricalDataPage extends React.Component{
     updateGraphData = <span class="fstat-no" title="function not covered" >(s</span>eries, xlabel, ytitle, tooltip, title) =&gt; {
 <span class="cstat-no" title="statement not covered" >        this.setState({</span>
             series: series,
-              options: {
+            options: {
                 plotOptions: {
-                  bar: {
-                    horizontal: false,
-                    columnWidth: '55%',
-                    endingShape: 'rounded'
-                  },
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%'
+                    },
                 },
                 dataLabels: {
-                  enabled: false
+                    enabled: false
+                },
+                yaxis: {
+                    labels: {
+                        formatter: <span class="fstat-no" title="function not covered" >fu</span>nction (value) {
+<span class="cstat-no" title="statement not covered" >                            return value.toFixed(2);</span>
+                        }
+                    },
                 },
                 stroke: {
-                  show: true,
-                  width: 2,
-                  colors: ['transparent']
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
                 },
                 title: {
                     text: title,
                     align: 'center'
                 },
                 xaxis: {
-                  categories: xlabel,
+                    categories: xlabel,
                 },
                 yaxis: {
-                  title: {
-                    text: ytitle
-                  },
-                  labels: {
-                    formatter: <span class="fstat-no" title="function not covered" >fu</span>nction (value) {
-<span class="cstat-no" title="statement not covered" >                        return value.toFixed(2);</span>
+                    title: {
+                        text: ytitle
+                    },
+                    labels: {
+                        formatter: <span class="fstat-no" title="function not covered" >fu</span>nction (value) {
+<span class="cstat-no" title="statement not covered" >                            return value.toFixed(2);</span>
+                        }
                     }
-                }
                 },
                 fill: {
-                  opacity: 1
+                    opacity: 1
                 },
                 tooltip: {
-                  y: {
-                    formatter: <span class="fstat-no" title="function not covered" >fu</span>nction (val) {
-<span class="cstat-no" title="statement not covered" >                      return val + ' ' + tooltip</span>
+                    y: {
+                        formatter: <span class="fstat-no" title="function not covered" >fu</span>nction (val) {
+<span class="cstat-no" title="statement not covered" >                            return val + ' ' + tooltip</span>
+                        }
                     }
-                  }
                 }
-              }
+            }
         });
     }
 }
@@ -678,7 +696,7 @@ export default TeacherHistoricalDataPage;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 05 2020 12:05:23 GMT+0100 (Central European Standard Time)
+                at Sun Dec 06 2020 18:49:45 GMT+0100 (GMT+01:00)
             </div>
         </div>
         <script src="prettify.js"></script>

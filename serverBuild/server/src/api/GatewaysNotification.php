@@ -8,6 +8,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 class GatewaysNotification
 {
     private $db = null;
+
     private $signature = "<br><p>Regards, the Team 11.</p>";
     public function __construct($db)
     {
@@ -78,7 +79,7 @@ class GatewaysNotification
                 }
             } catch (Exception $e) {
                 return "Invalid Address.";
-                continue;
+                // continue;
             }
 
             //Clear all addresses and attachments for the next iteration
@@ -91,7 +92,7 @@ class GatewaysNotification
     private function studentsAttendingNextLecture()
     {
         $tomorrow = date('Y-m-d', strtotime("tomorrow"));
-        $sql = "SELECT l.*, c.name, t1.studentsCount, u.name as userName, u.email
+        $sql = "SELECT l.*, c.name as courseName, t1.studentsCount, u.name as userName, u.email
                 FROM    (SELECT COUNT(*) as studentsCount, idLesson
                         FROM booking
                         WHERE date LIKE '$tomorrow%'
@@ -101,23 +102,7 @@ class GatewaysNotification
                         l.inPresence=1 AND
                         l.active=1 AND
                         u.idUser=l.idTeacher";
-        $result = $this->db->query($sql);
-        $data = array();
-        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $body = "<p>Dear prof. " . $row['userName'] . ",</p><p>the <b>lecture of " . $row['name'] . "</b> scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", <b>has " . $row['studentsCount'] . " students currently booked</b>.</p>" . $this->signature;
-            $subArray = array(
-                "to" => $row['email'],
-                "userName" => $row['userName'],
-                "subject" => "Lecture Information",
-                "body" => $body,
-            );
-            $data[] = $subArray;
-        }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+        return $this->returnData($sql, "Lecture Information");
     }
 
     private function bookingConfirmation($id)
@@ -128,23 +113,7 @@ class GatewaysNotification
                         b.idUser=u.idUser AND
                         l.idLesson=b.idLesson AND
                         l.idCourse=c.idCourse";
-        $result = $this->db->query($sql);
-        $data = array();
-        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $body = "<p>Hi " . $row['userName'] . ",</p><p><b>your booking</b> for the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", <b>has been confirmed</b>.</p>" . $this->signature;
-            $subArray = array(
-                "to" => $row['email'],
-                "userName" => $row['userName'],
-                "subject" => "Booking Confirmation",
-                "body" => $body,
-            );
-            $data[] = $subArray;
-        }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+        return $this->returnData($sql, "Booking Confirmation");
     }
 
     private function lectureCancelled($id)
@@ -156,23 +125,7 @@ class GatewaysNotification
                         b.idUser=u.idUser AND
                         l.idLesson=b.idLesson AND
                         l.idCourse=c.idCourse";
-        $result = $this->db->query($sql);
-        $data = array();
-        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $body = "<p>Hi " . $row['userName'] . ",</p><p>this email is to inform you that <b>the lecture of " . $row['courseName'] . "</b>, scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", <b>has been cancelled</b>.</p>" . $this->signature;
-            $subArray = array(
-                "to" => $row['email'],
-                "userName" => $row['userName'],
-                "subject" => "Lecture Cancelled",
-                "body" => $body,
-            );
-            $data[] = $subArray;
-        }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+        return $this->returnData($sql, "Lecture Cancelled");
     }
 
     private function takenFromWaitingList($id)
@@ -184,14 +137,36 @@ class GatewaysNotification
                         b.idUser=u.idUser AND
                         l.idLesson=b.idLesson AND
                         l.idCourse=c.idCourse";
+        return $this->returnData($sql, "Taken From Waiting List");
+    }
+
+    private function returnData($sql, $subject)
+    {
         $result = $this->db->query($sql);
         $data = array();
+
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            $body = "<p>Hi " . $row['userName'] . ",</p><p>someone cancelled his reservation for the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ".<p>Therefore, <b>you have been taken from the waiting list</b> and <b>your previous booking is now confirmed</b>.</p>" . $this->signature;
+            switch ($subject) {
+                case 'Lecture Information':
+                    $body = "<p>Dear prof. " . $row['userName'] . ",</p><p>the <b>lecture of " . $row['courseName'] . "</b> scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", <b>has " . $row['studentsCount'] . " students currently booked</b>.</p>" . $this->signature;
+                    break;
+                case 'Booking Confirmation':
+                    $body = "<p>Hi " . $row['userName'] . ",</p><p><b>your booking</b> for the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", <b>has been confirmed</b>.</p>" . $this->signature;
+                    break;
+                case 'Lecture Cancelled':
+                    $body = "<p>Hi " . $row['userName'] . ",</p><p>this email is to inform you that <b>the lecture of " . $row['courseName'] . "</b>, scheduled for " . $row['date'] . " at " . $row['beginTime'] . ", <b>has been cancelled</b>.</p>" . $this->signature;
+                    break;
+                case 'Taken From Waiting List':
+                    $body = "<p>Hi " . $row['userName'] . ",</p><p>someone cancelled his reservation for the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ".<p>Therefore, <b>you have been taken from the waiting list</b> and <b>your previous booking is now confirmed</b>.</p>" . $this->signature;
+                    break;
+                default:
+                    $body = "Null";
+                    break;
+            }
             $subArray = array(
                 "to" => $row['email'],
                 "userName" => $row['userName'],
-                "subject" => "Booking Confirmation",
+                "subject" => $subject,
                 "body" => $body,
             );
             $data[] = $subArray;
@@ -202,5 +177,4 @@ class GatewaysNotification
             return 0;
         }
     }
-
 }
