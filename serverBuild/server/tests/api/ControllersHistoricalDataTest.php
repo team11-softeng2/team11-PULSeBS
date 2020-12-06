@@ -98,7 +98,7 @@ class ControllersHistoricalDataTest extends TestCase
         $this->controller = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
         $result = $this->controller->processRequest();
         $this->assertIsString($result);
-        $this->assertEquals($result, "Invalid request method.");
+        $this->assertEquals("Invalid request method.", $result);
     }
 
     public function testUseWrongEndpoint()
@@ -111,6 +111,6 @@ class ControllersHistoricalDataTest extends TestCase
         $this->controller = new Server\api\ControllersHistoricalData($requestMethod, $this->db, $value, $filterTime, $filterCourse, $type);
         $result = $this->controller->processRequest();
         $this->assertIsString($result);
-        $this->assertEquals($result, "Invalid endpoint.");
+        $this->assertEquals("Invalid endpoint.", $result);
     }
 }

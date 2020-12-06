@@ -25,7 +25,7 @@ class ControllersStudentCourseTest extends TestCase
     {
         $this->controller = new Server\api\ControllersStudentCourse("GET", $this->db, "studentCourses", 2);
         $result = $this->controller->processRequest();
-        $this->assertEquals($result, 0);
+        $this->assertEquals(0, $result);
     }
 
     public function testUseWrongMethod()
@@ -33,7 +33,7 @@ class ControllersStudentCourseTest extends TestCase
         $this->controller = new Server\api\ControllersStudentCourse("POST", $this->db, "studentCourses", 1);
         $result = $this->controller->processRequest();
         $this->assertIsString($result);
-        $this->assertEquals($result, "Invalid request method.");
+        $this->assertEquals("Invalid request method.", $result);
     }
 
     public function testUseWrongEndpoint()
@@ -41,6 +41,6 @@ class ControllersStudentCourseTest extends TestCase
         $this->controller = new Server\api\ControllersStudentCourse("GET", $this->db, "stiudentcorsi", 1);
         $result = $this->controller->processRequest();
         $this->assertIsString($result);
-        $this->assertEquals($result, "Invalid endpoint.");
+        $this->assertEquals("Invalid endpoint.", $result);
     }
 }

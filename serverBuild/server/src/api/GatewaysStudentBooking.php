@@ -4,6 +4,8 @@ namespace Server\api;
 class GatewaysStudentBooking
 {
     private $db = null;
+    protected $format = "Y-m-d H:i:s";
+
     public function __construct($db)
     {
         $this->db = $db;
@@ -23,7 +25,7 @@ class GatewaysStudentBooking
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            if ($row['date'] . " " . $row['beginTime'] >= date("Y-m-d H:i:s", strtotime("+1 hours", strtotime(date("Y-m-d H:i:s"))))) {
+            if ($row['date'] . " " . $row['beginTime'] >= date($this->format, strtotime("+1 hours", strtotime(date($this->format))))) {
                 $subArray = array(
                     "idLesson" => $row['idLesson'],
                 );
@@ -47,7 +49,7 @@ class GatewaysStudentBooking
         and B.active=1
         and L.active=1
         and L.inPresence=1
-        and B.date>='" . date("Y-m-d H:i:s") . "'";
+        and B.date>='" . date($this->format) . "'";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -132,5 +134,5 @@ class GatewaysStudentBooking
         }
 
     }
-    
+
 }
