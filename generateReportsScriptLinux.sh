@@ -5,7 +5,7 @@ client=$(ls | grep clientbuild)
 
 if [ "$server" != 'serverBuild' ] || [ "$client" != 'clientbuild' ]
 then
-    echo wrong initial directory 
+    echo Wrong initial directory! Go to project root and run me again. 
     exit
 fi
 
@@ -37,15 +37,11 @@ cd ../../serverBuild/server
 #SonarCloud 
 echo Do you want to update SonarCloud as well?S/N
 read updateSonar
-updateSonar=${updateSonar^^}
-if [ "$updateSonar" == "S" ]
-then 
+if [ "$updateSonar" == "S" ]; then 
     cd ../../
     echo Are you Calogero?S/N
     read Calogero
-    Calogero=${Calogero^^}
-    if [ "$Calogero" == "S" ] 
-    then
+    if [ "$Calogero" == "S" ]; then
         source /etc/environment
         sonar-scanner
     else
