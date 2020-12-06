@@ -25,3 +25,8 @@ code {
   float: right;
   margin-top: 5px;
 }
+
+.classroom {
+  position: absolute;
+  bottom: 0;
+}

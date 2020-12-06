@@ -129,7 +129,8 @@ class App extends React.Component {
                   title: l.name,
                   start: new Date(l.date + "T" + l.beginTime),
                   end: new Date(l.date + "T" + l.endTime),
-                  type:"bookableLecture"
+                  type:"bookableLecture",
+                  classroom: l.idClassroom,
                 }})} 
                 bookASeat = {this.bookASeat}
                 deleteBooking = {this.deleteBooking}
@@ -140,7 +141,8 @@ class App extends React.Component {
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),
                     color:"#dc3546",
-                    type:"fullLecture"
+                    type:"fullLecture",
+                    classroom: l.idClassroom,
                   }})}
                 bookings = {this.state.bookings.map((l) => {
                   return {
@@ -149,7 +151,8 @@ class App extends React.Component {
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),
                     color:"green",
-                    type:"bookings"
+                    type:"bookings",
+                    classroom: l.idClassroom,
                   }})} />
                 :
               <Redirect to="/"></Redirect>
@@ -173,6 +176,8 @@ class App extends React.Component {
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),
                     color: l.inPresence === 1 ? "" : "green",
+                    inPresence: l.inPresence,
+                    classroom: l.idClassroom,
                   }
                 })}
                 deleteLecture = {this.deleteLecture}

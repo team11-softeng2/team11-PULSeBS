@@ -24,7 +24,9 @@ class ModalStudent extends React.Component{
             <br/>
             <b>Begin time:</b> {this.props.lectureBeginTime.slice(0,5)}
             <br/>
-            <b>End time:</b> {this.props.lectureEndTime.slice(0,5)}</p>
+            <b>End time:</b> {this.props.lectureEndTime.slice(0,5)}
+            <br/>
+            <b>Classroom:</b> {this.props.lectureClassroom}</p>
           </Modal.Body>
           {this.props.lectureColor === "green" ? 
           <Modal.Footer>
