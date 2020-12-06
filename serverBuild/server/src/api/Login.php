@@ -10,7 +10,7 @@ if (!$dbConn) {
 $request_method = $_SERVER['REQUEST_METHOD'];
 
 $controller = new Server\api\ControllersLogin($request_method, $dbConn);
-$controller->processRequest();
+echo $controller->processRequest();
 
 // if($_SERVER['REQUEST_METHOD'] == 'POST') {
 //     $postBody = file_get_contents("php://input");
