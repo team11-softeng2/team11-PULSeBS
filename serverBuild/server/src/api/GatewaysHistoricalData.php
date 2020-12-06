@@ -15,7 +15,7 @@ class GatewaysHistoricalData
         $sql = "
         SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
                 COUNT(DISTINCT L.idLesson) as numberLectures,
-                round((1.0*COUNT(DISTINCT B.idBooking))/(1.0*COUNT(DISTINCT L.idLesson))) as average,
+                (1.0*COUNT(DISTINCT B.idBooking))/(1.0*COUNT(DISTINCT L.idLesson)) as average,
                 strftime('%Y-%m-%d', L.date) || ' ' || L.beginTime  as dateLecture,
                 L.idLesson as lectureID,
                 strftime('%W', L.date) as weekOfYear,
@@ -41,7 +41,7 @@ class GatewaysHistoricalData
         $sql = "
         SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
                 COUNT(DISTINCT L.idLesson) as numberLectures,
-                round((1.0*COUNT(DISTINCT B.idBooking))/(1.0*COUNT(DISTINCT L.idLesson))) as average,
+                (1.0*COUNT(DISTINCT B.idBooking))/(1.0*COUNT(DISTINCT L.idLesson)) as average,
                 strftime('%Y-%m-%d', L.date) || ' ' || L.beginTime  as dateLecture,
                 L.idLesson as lectureID,
                 strftime('%W', L.date) as weekOfYear,
