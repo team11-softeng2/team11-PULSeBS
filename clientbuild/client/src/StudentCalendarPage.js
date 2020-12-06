@@ -33,7 +33,7 @@ class StudentCalendarPage extends React.Component{
         			
         			<Col className='col-4'/>
         		</Row>
-				<Calendar view={"student"} events={this.props.bookableLectures.concat(this.props.bookings).concat(this.props.fullLectures)} bookASeat = {this.props.bookASeat} deleteBooking = {this.props.deleteBooking}/>
+				<Calendar view={"student"} events={this.props.bookableLectures.concat(this.props.bookings).concat(this.props.fullLectures)} bookASeat = {this.props.bookASeat} deleteBooking = {this.props.deleteBooking} addToWaitingList = {this.props.addToWaitingList}/>
         	</Container>
         </>
       }

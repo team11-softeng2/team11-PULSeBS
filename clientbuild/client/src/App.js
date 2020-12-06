@@ -90,6 +90,7 @@ class App extends React.Component {
       //Aggiorno la lista delle lezioni prenotabili dallo studente
       this.getBookableStudentLectures(this.state.userId);
       this.getStudentBookings(this.state.userId);
+      this.getFullLectures(this.state.userId);
     })
     .catch(() => {
       console.log("Error in newBooking function");
@@ -115,6 +116,17 @@ class App extends React.Component {
     });
   }
 
+  addToWaitingList = (lectureId) => {
+    console.log("Lista d'attesa per la lezione " + lectureId);
+    /*
+    API.addToWaitingList(lectureId, this.state.userId).then(() => {
+      this.getBookableStudentLectures(this.state.userId);
+      this.getStudentBookings(this.state.userId);
+      this.getFullLectures(this.state.userId);
+    });
+    */
+  }
+
   render(props) {
     return (
       <Router>
@@ -134,9 +146,10 @@ class App extends React.Component {
                 }})} 
                 bookASeat = {this.bookASeat}
                 deleteBooking = {this.deleteBooking}
+                addToWaitingList = {this.addToWaitingList}
                 fullLectures = {this.state.fullLectures.map((l) => {
                   return {
-                    id: l.idBooking,
+                    id: l.idLesson,
                     title: l.name,
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),

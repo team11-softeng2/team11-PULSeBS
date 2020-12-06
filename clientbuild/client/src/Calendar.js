@@ -60,6 +60,8 @@ class Calendar extends React.Component{
               lectureColor = {this.state.lectureColor}
               bookASeat = {this.props.bookASeat}
               deleteBooking = {this.props.deleteBooking}
+              lectureType = {this.state.lectureType}
+              addToWaitingList = {this.props.addToWaitingList}
               ></ModalStudent>
             :
               <ModalTeacher
@@ -93,7 +95,7 @@ class Calendar extends React.Component{
           }
           );
         }
-        if(info.event.extendedProps.type !== "fullLecture") {
+        //if(info.event.extendedProps.type !== "fullLecture") {
           this.setState({showModal: true});
           this.setState({lectureTitle: info.event.title});
           let beginTime = info.event.start.toLocaleTimeString();
@@ -105,7 +107,8 @@ class Calendar extends React.Component{
           this.setState({lectureClassroom: info.event.extendedProps.classroom});
           this.setState({elementId: info.event.id});
           this.setState({lectureColor: info.event.backgroundColor});
-        }
+          this.setState({lectureType: info.event.extendedProps.type});
+        //}
     }
 }
 
