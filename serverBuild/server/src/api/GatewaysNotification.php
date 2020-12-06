@@ -79,7 +79,6 @@ class GatewaysNotification
                 }
             } catch (Exception $e) {
                 return "Invalid Address.";
-                // continue;
             }
 
             //Clear all addresses and attachments for the next iteration
@@ -160,7 +159,6 @@ class GatewaysNotification
                     $body = "<p>Hi " . $row['userName'] . ",</p><p>someone cancelled his reservation for the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ".<p>Therefore, <b>you have been taken from the waiting list</b> and <b>your previous booking is now confirmed</b>.</p>" . $this->signature;
                     break;
                 default:
-                    $body = "Null";
                     break;
             }
             $subArray = array(

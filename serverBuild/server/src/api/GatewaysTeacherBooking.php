@@ -5,6 +5,8 @@ class GatewaysTeacherBooking
 {
 
     private $db = null;
+    protected $format = "Y-m-d H:i:s";
+
     public function __construct($db)
     {
         $this->db = $db;
@@ -60,18 +62,15 @@ class GatewaysTeacherBooking
         } else {
             return 0;
         }
-
     }
 
     public function updateToNotActiveLecture($idLecture)
     {
         if ($this->validateDateBeforeUpdate($idLecture)) {
             $sqlUpdateLessonTable = "update lessons set active=0 where idLesson=" . $idLecture . "";
-            //$sqlUpdateBookingTable = "update booking set active=0, isWaiting=0 where idLesson=" . $idLecture . "";
             $this->db->exec($sqlUpdateLessonTable);
             $changesLessonTable = $this->db->changes();
             if ($changesLessonTable > 0) {
-                //$this->db->exec($sqlUpdateBookingTable);
                 return $changesLessonTable;
             } else {
                 return 0;
@@ -85,11 +84,9 @@ class GatewaysTeacherBooking
     {
         if ($this->validateDateBeforeUpdateToOnline($idLecture)) {
             $sqlUpdateLessonTable = "update lessons set inPresence=0 where idLesson=" . $idLecture . "";
-            //$sqlUpdateBookingTable = "update booking set active=0, isWaiting=0 where idLesson=" . $idLecture . "";
             $this->db->exec($sqlUpdateLessonTable);
             $changesLessonTable = $this->db->changes();
             if ($changesLessonTable > 0) {
-                //$this->db->exec($sqlUpdateBookingTable);
                 return $changesLessonTable;
             } else {
                 return 0;
@@ -97,7 +94,6 @@ class GatewaysTeacherBooking
         } else {
             return -1;
         }
-
     }
 
     public function validateDateBeforeUpdate($idLecture)
@@ -106,11 +102,10 @@ class GatewaysTeacherBooking
         $result = $this->db->query($sql)->fetchArray(SQLITE3_ASSOC);
         if ($result) {
             date_default_timezone_set("Europe/Rome");
-            $currentDateTimePlusOneHour = date("Y-m-d H:i:s", strtotime("+1 hours", strtotime(date("Y-m-d H:i:s"))));
+            $currentDateTimePlusOneHour = date($this->format, strtotime("+1 hours", strtotime(date($this->format))));
             $dateTimeLecture = $result['date'] . " " . $result['beginTime'];
             return ($currentDateTimePlusOneHour < $dateTimeLecture); //if true it is possible to delete
-        } else {
-            //no row found
+        } else { //no row found
             return false;
         }
     }
@@ -120,11 +115,10 @@ class GatewaysTeacherBooking
         $result = $this->db->query($sql)->fetchArray(SQLITE3_ASSOC);
         if ($result) {
             date_default_timezone_set("Europe/Rome");
-            $currentDateTimePlusOneHour = date("Y-m-d H:i:s", strtotime("+30 minutes", strtotime(date("Y-m-d H:i:s"))));
+            $currentDateTimePlusOneHour = date($this->format, strtotime("+30 minutes", strtotime(date($this->format))));
             $dateTimeLecture = $result['date'] . " " . $result['beginTime'];
             return ($currentDateTimePlusOneHour < $dateTimeLecture); //if true it is possible to delete
-        } else {
-            //no row found
+        } else { //no row found
             return false;
         }
     }

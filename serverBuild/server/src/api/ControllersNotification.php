@@ -33,8 +33,7 @@ class ControllersNotification extends Controllers
 
     public function sendNotification($type, $id)
     {
-        $response = json_encode($this->notificationGateway->sendEmail($type, $id));
-        return $response;
+        return json_encode($this->notificationGateway->sendEmail($type, $id));
     }
 
 }

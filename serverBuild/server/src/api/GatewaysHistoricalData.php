@@ -87,12 +87,6 @@ class GatewaysHistoricalData
                 );
                 $data[] = $subArray;
             }
-            if (!empty($data)) {
-                return $data;
-            } else {
-                return 0;
-            }
-
         } else if ($filter == "year,monthOfYear") {
             //statistics per month
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -105,12 +99,6 @@ class GatewaysHistoricalData
                 );
                 $data[] = $subArray;
             }
-            if (!empty($data)) {
-                return $data;
-            } else {
-                return 0;
-            }
-
         } else if ($filter == "year_month_week") {
             //statistics per weeek
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -125,13 +113,14 @@ class GatewaysHistoricalData
                 );
                 $data[] = $subArray;
             }
-            if (!empty($data)) {
-                return $data;
-            } else {
-                return 0;
-            }
         } else {
             return "not valid filter time";
+        }
+
+        if (!empty($data)) {
+            return $data;
+        } else {
+            return 0;
         }
     }
 }
