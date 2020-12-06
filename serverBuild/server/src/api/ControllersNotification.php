@@ -22,7 +22,7 @@ class ControllersNotification extends Controllers
             if ($this->value == "sendNotification") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->sendNotification($input);
+                return $this->sendNotification($input['type'], $input['id']);
             } else {
                 return $this->invalidEndpoint;
             }
@@ -31,9 +31,9 @@ class ControllersNotification extends Controllers
         }
     }
 
-    public function sendNotification($input)
+    public function sendNotification($type, $id)
     {
-        $response = json_encode($this->notificationGateway->sendEmail($input));
+        $response = json_encode($this->notificationGateway->sendEmail($type, $id));
         return $response;
     }
 

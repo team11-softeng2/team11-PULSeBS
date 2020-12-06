@@ -14,29 +14,30 @@ class GatewaysNotification
         $this->db = $db;
     }
 
-    public function sendEmail($input)
+    public function sendEmail($type, $id)
     {
-        switch ($input->type) {
+        switch ($type) {
             case 'studentsAttendingNextLecture':
                 $queue = $this->studentsAttendingNextLecture();
                 return $this->dispatch($queue);
                 break;
             case 'bookingConfirmation':
-                $queue = $this->bookingConfirmation($input->id);
+                $queue = $this->bookingConfirmation($id);
                 return $this->dispatch($queue);
                 break;
             case 'lectureCancelled':
-                $queue = $this->lectureCancelled($input->id);
+                $queue = $this->lectureCancelled($id);
                 return $this->dispatch($queue);
                 break;
             case 'takenFromWaitingList':
-                $queue = $this->takenFromWaitingList($input->id);
+                $queue = $this->takenFromWaitingList($id);
                 return $this->dispatch($queue);
                 break;
-            case 'lectureScheduleChange':
-                return "To be implemented...";
-                break;
+            // case 'lectureScheduleChange':
+            //     return "To be implemented...";
+            //     break;
             default:
+                return 0;
                 break;
         }
     }
@@ -65,7 +66,7 @@ class GatewaysNotification
             try {
                 $mail->addAddress($recipient['to'], $recipient['userName']);
             } catch (Exception $e) {
-                return 'Invalid address skipped: ' . htmlspecialchars($recipient['email']);
+                return 'Invalid Address.';
                 continue;
             }
             //Set subject and body of the next email
@@ -74,11 +75,10 @@ class GatewaysNotification
             try {
                 $mail->send();
             } catch (Exception $e) {
-                return 'Mailer Error (' . htmlspecialchars($recipient['to']) . ') ' . $mail->ErrorInfo;
                 //Reset the connection to abort sending this message
                 //The loop will continue trying to send to the rest of the list
                 $mail->getSMTPInstance()->reset();
-                return 0;
+                return 'Mailer Error.';
             }
             //Clear all addresses and attachments for the next iteration
             $mail->clearAddresses();

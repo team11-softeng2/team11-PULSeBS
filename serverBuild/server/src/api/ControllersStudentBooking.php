@@ -79,11 +79,7 @@ class ControllersStudentBooking extends Controllers
     public function insertNewBooklesson($input)
     {
         $response = json_encode($this->studentBookingGateway->insertBooking($input));
-        $inputEmail = (object) [
-            'type' => 'bookingConfirmation',
-            'id' => $response,
-        ];
-        $emailRes = $this->gatewayNotification->sendEmail($inputEmail);
+        $this->gatewayNotification->sendEmail('bookingConfirmation', $response);
         return $response;
     }
 
