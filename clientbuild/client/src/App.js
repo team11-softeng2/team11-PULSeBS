@@ -11,6 +11,7 @@ import StudentCalendarPage from './StudentCalendarPage';
 import TeacherCalendarPage from './TeacherCalendarPage';
 import TeacherHistoricalDataPage from './TeacherHistoricalDataPage';
 import BookingManagerPage from './BookingManagerPage';
+import SupportOfficerPage from './SupportOfficerPage';
 //import { buildEventApis, getRectCenter } from '@fullcalendar/react';
 
 class App extends React.Component {
@@ -45,6 +46,8 @@ class App extends React.Component {
     } else if(user.role === "teacher") {
       this.getTeacherLectures(user.idUser);
     } else if(user.Role === "booking-manager") {
+      // ...
+    } else if(user.Role === "support-officer") {
       // ...
     }
   }
@@ -186,6 +189,14 @@ class App extends React.Component {
           <Route path="/booking-manager">
             {(this.state.loggedin === true && this.state.userRole === "booking-manager") ? 
               <BookingManagerPage/>
+                :
+              <Redirect to="/"></Redirect>
+            }
+          </Route>
+
+          <Route path="/support-officer">
+            {(this.state.loggedin === true && this.state.userRole === "support-officer") ? 
+              <SupportOfficerPage/>
                 :
               <Redirect to="/"></Redirect>
             }
