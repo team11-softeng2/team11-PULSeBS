@@ -120,7 +120,7 @@ class App extends React.Component {
 
   render(props) {
     return (
-      <Router>
+      <Router className="h-100"> { /* full height pages */ } 
         <TopBar loggedin = {this.state.loggedin} logout={this.logout} role={this.state.userRole} userName = {this.state.userName}></TopBar>
         <Switch>
           
