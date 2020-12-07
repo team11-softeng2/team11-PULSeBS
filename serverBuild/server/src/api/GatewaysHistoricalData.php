@@ -12,6 +12,13 @@ class GatewaysHistoricalData
 
     public function getHistoricalDataBookings($filterTime, $filterCourse, $active)
     {
+        $nwfilterCourse = explode(',', $filterCourse);
+        $nwfilterCourse = array_map(function($course){
+            return "'$course'";
+        }, $nwfilterCourse) ;
+        $nwfilterCourse = implode(',', $nwfilterCourse);
+        $filterCourse = $filterCourse == 'L.idCourse' ? 'L.idCourse' : $nwfilterCourse;
+        
         $sql = "
         SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
                 COUNT(DISTINCT L.idLesson) as numberLectures,
@@ -29,7 +36,7 @@ class GatewaysHistoricalData
                     ON
                 L.idLesson=B.idLesson
         WHERE   L.idClassRoom<>0 AND
-                L.idCourse IN (" . $filterCourse . ")
+                L.idCourse IN (".($filterCourse == 'L.idCourse' ? $filterCourse : (''.$filterCourse.'')).")
         GROUP BY " . $filterTime . "
         ORDER BY year_month_week
         ";
@@ -38,6 +45,13 @@ class GatewaysHistoricalData
 
     public function getHistoricalDataBookingsForTeacher($filterTime, $filterCourse, $active, $id)
     {
+        $nwfilterCourse = explode(',', $filterCourse);
+        $nwfilterCourse = array_map(function($course){
+            return "'$course'";
+        }, $nwfilterCourse) ;
+        $nwfilterCourse = implode(',', $nwfilterCourse);
+        $filterCourse = $filterCourse == 'L.idCourse' ? 'L.idCourse' : $nwfilterCourse;
+        
         $sql = "
         SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
                 COUNT(DISTINCT L.idLesson) as numberLectures,
@@ -57,11 +71,11 @@ class GatewaysHistoricalData
 				        l.idCourse=c.idCourse AND
 				        c.idTeacher=u.idUser AND
 				        b.active=" . $active . " AND
-				        u.idUser=" . $id . ") B
+				        u.idUser='" . $id . "') B
                     ON
                 L.idLesson=B.idLesson
         WHERE   L.idClassRoom<>0 AND
-                L.idCourse IN (" . $filterCourse . ")
+                L.idCourse IN (".($filterCourse == 'L.idCourse' ? $filterCourse : (''.$filterCourse.'')).")
         GROUP BY " . $filterTime . "
         ORDER BY year_month_week
         ";
