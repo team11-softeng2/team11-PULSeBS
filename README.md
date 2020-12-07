@@ -1,3 +1,17 @@
+# Run the App
+
+```bash
+./start.sh
+```
+
+# Execute Tests
+
+```bash
+./reports.sh
+```
+
+# Other Commands
+
 ## Docker
 
 ```bash
@@ -14,11 +28,11 @@ docker run -d -p 80:80 --name server server
 cd serverBuild/server/mailer/ && sudo docker image build -t mailer .
 sudo docker run -d --name mailer mailer
 #build and run the client image
-cd clientBuild/ && sudo docker image build -t client .
+cd clientbuild/ && sudo docker image build -t client .
 sudo docker run -itd -p 3000:3000 --name client client
 ```
 
-## Server setup
+## Server Setup
 
 ### install php
 
@@ -74,12 +88,14 @@ cd serverBuild/server/ && composer require phpunit/phpunit
         verbose="true"
         stopOnFailure="false">
     <testsuites>
-        <testsuite name="Test suite">
-            <directory>tests</directory>
+        <testsuite name="Test Suite">
+            <directory suffix=".php">tests</directory>
         </testsuite>
     </testsuites>
     <coverage>
-        <include><directory suffix=".php">src</directory></include>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
         <exclude>
             <file>src/api/Server.php</file>
             <file>src/api/Login.php</file>
@@ -157,9 +173,3 @@ npm run test -- --testResultsProcessor=jest-sonar-reporter
 ## sonarCloud
 
 Follow instructions at https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
-
-**Calogero: source /etc/environment**
-
-```bash
-sonar-scanner
-```
