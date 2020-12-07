@@ -39,7 +39,7 @@ class GatewaysStudentBooking
         }
     }
 
-    public function findStundetBookedLessons($id)
+    public function findStudentBookedLessons($id)
     {
         date_default_timezone_set("Europe/Rome");
         $sql = "SELECT B.idLesson as idLesson, idBooking
@@ -92,7 +92,7 @@ class GatewaysStudentBooking
     public function findDetailsOfLessons($lessons)
     {
         $lessons = implode(",", $lessons);
-        $sql = "SELECT L.idLesson, C.name, L.date, L.beginTime, L.endTime
+        $sql = "SELECT L.idLesson, C.name, L.date, L.beginTime, L.endTime, L.idClassRoom
         FROM LESSONS L JOIN courses C
         WHERE L.idCourse=C.idCourse
         and L.idLesson in (" . $lessons . ")";
@@ -105,6 +105,7 @@ class GatewaysStudentBooking
                 "date" => $row['date'],
                 "beginTime" => $row['beginTime'],
                 "endTime" => $row['endTime'],
+                "idClassroom" => $row['idClassRoom'],
             );
             $data[] = $subArray;
         }

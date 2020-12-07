@@ -42,7 +42,7 @@ class GatewaysStudentBookingTest extends TestCase
         $this->id = 7;
         $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
         $dataExcepted = array();
-        $result = $this->gatewayStudentBooking->findStundetBookedLessons($this->id);
+        $result = $this->gatewayStudentBooking->findStudentBookedLessons($this->id);
         $this->assertIsArray($result);
     }
 
@@ -52,7 +52,7 @@ class GatewaysStudentBookingTest extends TestCase
         $this->id = 7;
         $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
         $dataExcepted = array();
-        $result = $this->gatewayStudentBooking->findStundetBookedLessons($this->id);
+        $result = $this->gatewayStudentBooking->findStudentBookedLessons($this->id);
         $this->assertEquals(0, $result);
     }
 //------------------------------------------------------------------------------------------------------------------------------
