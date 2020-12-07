@@ -7,7 +7,7 @@
 # Execute Tests
 
 ```bash
-./reports.sh
+./tests.sh
 ```
 
 # Other Commands
