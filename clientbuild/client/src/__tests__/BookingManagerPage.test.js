@@ -61,15 +61,3 @@ test('updateBookingGraphData', async () => {
   await instance.updateBookingGraphData("test", xArray, yArray, "test");
   expect(instance.state.bookingSeries).not.toBe(undefined);
 });
-
-/*
-test('updateCancellationGraphData', async () => {
-  const component = shallow(<BookingManagerPage/>);
-  const instance = component.instance();
-  const xArray = [0, 0.4444444444444444, 0.5];
-  const yArray = [0, 0.4444444444444444, 0.5];
-  expect(instance.state.cancellationSeries).toBe(undefined);
-  await instance.updateCancellationGraphData("test", xArray, yArray);
-  expect(instance.state.cancellationSeries).not.toBe(undefined);
-});
-*/
