@@ -7,7 +7,7 @@
     // $Students
 
     
-        $dbConn = new SQLite3("./db_V2.db");
+        $dbConn = new SQLite3("./db.db");
         
         // $num = count($data);
         //     for ($c=0; $c < $num; $c++) {
@@ -110,11 +110,11 @@
         $i=0;
         foreach($enrollments as $enrollment){
             if($i==0){
-                $sqlInsertRow = $sqlInsertRow . " ('".$enrollment['Code']."', ".$enrollment['Student'].")";
+                $sqlInsertRow = $sqlInsertRow . " (".$enrollment['Student'].", '".$enrollment['Code']."')";
                 $i=1;
             }
             else{
-                $sqlInsertRow = $sqlInsertRow . ", ('".$enrollment['Code']."', ".$enrollment['Student'].")";
+                $sqlInsertRow = $sqlInsertRow . ", (".$enrollment['Student'].", '".$enrollment['Code']."')";
 
             }
         }
@@ -154,13 +154,17 @@
                     $lecturesToBeAdded = array_filter($schedule, function($val) {
                         return $val['Day'] == 'Mon';
                     }) ;
+                    
                     foreach($lecturesToBeAdded as $lecture){
                         //insert on lessons table
                         //insertLecture 
                         $time = explode("-", $lecture['Time']);
+                        $time[0] = strftime('%H:%M', strtotime($time[0]));
+                        $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if($j == 0){
                             $sqlInsertLectures = $sqlInsertLectures ." ('".$lecture['Code']."', '-1', '".$lecture['Room']."', '".$actualDate->format("Y-m-d")."', '".$time[0]."', '".$time[1]."', 1, 1)";
                             $j = 1;
+                            
                         }
                         else {
                             $sqlInsertLectures = $sqlInsertLectures .", ('".$lecture['Code']."', '-1', '".$lecture['Room']."', '".$actualDate->format("Y-m-d")."', '".$time[0]."', '".$time[1]."', 1, 1)";
@@ -172,7 +176,7 @@
                 break;
                 case '2':
                     //tue
-                    $lessonsToBeAdded = array_filter($schedule, function($val) {
+                    $lecturesToBeAdded = array_filter($schedule, function($val) {
                         return $val['Day'] == 'Tue';
                     }) ;
                     foreach($lecturesToBeAdded as $lecture){
@@ -180,6 +184,8 @@
                         
                         //insertLecture 
                         $time = explode("-", $lecture['Time']);
+                        $time[0] = strftime('%H:%M', strtotime($time[0]));
+                        $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if($j == 0){
                             $sqlInsertLectures = $sqlInsertLectures." ('".$lecture['Code']."', '-1', '".$lecture['Room']."', '".$actualDate->format("Y-m-d")."', '".$time[0]."', '".$time[1]."', 1, 1)";
                             $j = 1;
@@ -193,7 +199,7 @@
                 break;
                 case '3':
                     //wed
-                    $lessonsToBeAdded = array_filter($schedule, function($val) {
+                    $lecturesToBeAdded = array_filter($schedule, function($val) {
                         return $val['Day'] == 'Wed';
                     }) ;
                     foreach($lecturesToBeAdded as $lecture){
@@ -201,6 +207,8 @@
                             
                         //insertLecture 
                         $time = explode("-", $lecture['Time']);
+                        $time[0] = strftime('%H:%M', strtotime($time[0]));
+                        $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if($j == 0){
                             $sqlInsertLectures = $sqlInsertLectures ." ('".$lecture['Code']."', '-1', '".$lecture['Room']."', '".$actualDate->format("Y-m-d")."', '".$time[0]."', '".$time[1]."', 1, 1)";
                             $j = 1;
@@ -214,7 +222,7 @@
                 break;
                 case '4':
                     //thu
-                    $lessonsToBeAdded = array_filter($schedule, function($val) {
+                    $lecturesToBeAdded = array_filter($schedule, function($val) {
                         return $val['Day'] == 'Thu';
                     }) ;
                     foreach($lecturesToBeAdded as $lecture){
@@ -222,6 +230,8 @@
                         
                         //insertLecture 
                         $time = explode("-", $lecture['Time']);
+                        $time[0] = strftime('%H:%M', strtotime($time[0]));
+                        $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if($j == 0){
                             $sqlInsertLectures = $sqlInsertLectures." ('".$lecture['Code']."', '-1', '".$lecture['Room']."', '".$actualDate->format("Y-m-d")."', '".$time[0]."', '".$time[1]."', 1, 1)";
                             $j = 1;
@@ -235,7 +245,7 @@
                 break;
                 case '5':
                     //fri
-                    $lessonsToBeAdded = array_filter($schedule, function($val) {
+                    $lecturesToBeAdded = array_filter($schedule, function($val) {
                         return $val['Day'] == 'Fri';
                     }) ;
                     foreach($lecturesToBeAdded as $lecture){
@@ -243,6 +253,8 @@
                             
                         //insertLecture 
                         $time = explode("-", $lecture['Time']);
+                        $time[0] = strftime('%H:%M', strtotime($time[0]));
+                        $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if($j == 0){
                             $sqlInsertLectures = $sqlInsertLectures." ('".$lecture['Code']."', '-1', '".$lecture['Room']."', '".$actualDate->format("Y-m-d")."', '".$time[0]."', '".$time[1]."', 1, 1)";
                             $j = 1;
@@ -310,11 +322,179 @@
         return $actualDate>'2021-01-06' || $actualDate<'2020-12-23';
 
     }
+
+
+    function findStudentLessons($id)
+    {
+        global $dbConn;
+        date_default_timezone_set("Europe/Rome");
+        $dateForQuery = date("Y-m-d");
+        $sql = "SELECT idLesson, date, beginTime
+        from lessons L join enrollment E
+        where L.idCourse=E.idCourse
+        and E.idUser=" . $id . "
+        and date>='" . $dateForQuery . "'
+        and inPresence =1
+        and active=1";
+        $result = $dbConn->query($sql);
+        $data = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            if ($row['date'] . " " . $row['beginTime'] >= date('Y-m-d H:i:s', strtotime("+1 hours", strtotime(date('Y-m-d H:i:s'))))) {
+                $subArray = array(
+                    "idLesson" => $row['idLesson'],
+                );
+                $data[] = $subArray;
+            }
+        }
+        if (!empty($data)) {
+            return $data;
+        } else {
+            return 0;
+        }
+    }
+
+
+    function getHistoricalDataBookings($filterTime, $filterCourse, $active)
+    {
+        
+        $nwfilterCourse = explode(',', $filterCourse);
+        $nwfilterCourse = array_map(function($course){
+            return "'$course'";
+        }, $nwfilterCourse) ;
+        $nwfilterCourse = implode(',', $nwfilterCourse);
+        $filterCourse = $filterCourse == 'L.idCourse' ? 'L.idCourse' : $nwfilterCourse;
+        
+        
+        $sql = "
+        SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
+                COUNT(DISTINCT L.idLesson) as numberLectures,
+                (1.0*COUNT(DISTINCT B.idBooking))/(1.0*COUNT(DISTINCT L.idLesson)) as average,
+                strftime('%Y-%m-%d', L.date) || ' ' || L.beginTime  as dateLecture,
+                L.idLesson as lectureID,
+                strftime('%W', L.date) as weekOfYear,
+                strftime('%m', L.date) as monthOfYear,
+                strftime('%Y', L.date) as year,
+                strftime('%Y', L.date) || strftime('%m', L.date) || strftime('%W', L.date) as year_month_week,
+                L.idCourse as courseID
+        FROM    lessons L
+                    Left join
+                (SELECT * FROM booking WHERE active=" . $active . ") B
+                    ON
+                L.idLesson=B.idLesson
+        WHERE   L.idClassRoom<>0 AND
+                L.idCourse IN (".($filterCourse == 'L.idCourse' ? $filterCourse : (''.$filterCourse.'')).")
+        GROUP BY " . $filterTime . "
+        ORDER BY year_month_week
+        ";
+        
+        return returnData($filterTime, $sql);
+    }
+
+    function returnData($filter, $sql)
+    {
+        global $dbConn;
+        $result = $dbConn->query($sql);
+        $data = array();
+        if ($filter == "L.idLesson") {
+            //statistics per lecture
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                $subArray = array(
+                    "numberBookings" => $row['numberBookings'],
+                    "lectureID" => $row['lectureID'],
+                    "weekOfYear" => $row['weekOfYear'],
+                    "monthOfYear" => $row['monthOfYear'],
+                    "year" => $row['year'],
+                    "dateLecture" => $row['dateLecture'],
+                    "year_month_week" => $row['year_month_week'],
+                    "courseID" => $row['courseID'],
+                );
+                $data[] = $subArray;
+            }
+        } else if ($filter == "year,monthOfYear") {
+            //statistics per month
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                $subArray = array(
+                    "numberBookings" => $row['numberBookings'],
+                    "numberLectures" => $row['numberLectures'],
+                    "average" => $row['average'],
+                    "monthOfYear" => $row['monthOfYear'],
+                    "year" => $row['year'],
+                );
+                $data[] = $subArray;
+            }
+        } else if ($filter == "year_month_week") {
+            //statistics per weeek
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                $subArray = array(
+                    "numberBookings" => $row['numberBookings'],
+                    "numberLectures" => $row['numberLectures'],
+                    "average" => $row['average'],
+                    "weekOfYear" => $row['weekOfYear'],
+                    "monthOfYear" => $row['monthOfYear'],
+                    "year" => $row['year'],
+                    "year_month_week" => $row['year_month_week'],
+                );
+                $data[] = $subArray;
+            }
+        } else {
+            return "not valid filter time";
+        }
+
+        if (!empty($data)) {
+            return $data;
+        } else {
+            return 0;
+        }
+    }
+
     
+    function getHistoricalDataBookingsForTeacher($filterTime, $filterCourse, $active, $id)
+    {
+        global $dbConn;
+        $nwfilterCourse = explode(',', $filterCourse);
+        $nwfilterCourse = array_map(function($course){
+            return "'$course'";
+        }, $nwfilterCourse) ;
+        $nwfilterCourse = implode(',', $nwfilterCourse);
+        $filterCourse = $filterCourse == 'L.idCourse' ? 'L.idCourse' : $nwfilterCourse;
+        
+        $sql = "
+        SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
+                COUNT(DISTINCT L.idLesson) as numberLectures,
+                (1.0*COUNT(DISTINCT B.idBooking))/(1.0*COUNT(DISTINCT L.idLesson)) as average,
+                strftime('%Y-%m-%d', L.date) || ' ' || L.beginTime  as dateLecture,
+                L.idLesson as lectureID,
+                strftime('%W', L.date) as weekOfYear,
+                strftime('%m', L.date) as monthOfYear,
+                strftime('%Y', L.date) as year,
+                strftime('%Y', L.date) || strftime('%m', L.date) || strftime('%W', L.date) as year_month_week,
+                L.idCourse as courseID
+        FROM    lessons L
+                    Left join
+                (SELECT b.*
+		        FROM  	booking as b, lessons as l, courses as c, users as u
+		        WHERE 	b.idLesson=l.idLesson AND
+				        l.idCourse=c.idCourse AND
+				        c.idTeacher=u.idUser AND
+				        b.active=" . $active . " AND
+				        u.idUser=" . $id . ") B
+                    ON
+                L.idLesson=B.idLesson
+        WHERE   L.idClassRoom<>0 AND
+                L.idCourse IN (".($filterCourse == 'L.idCourse' ? $filterCourse : (''.$filterCourse.'')).")
+        GROUP BY " . $filterTime . "
+        ORDER BY year_month_week
+        ";
+        return returnData($filterTime, $sql);
+    }
+
+
+
     //setUpCoursesDB();
     //setUpLessons();
     //setUpStudents();
     //setUpProfessors();
-    setUpEnrollment();
-    
+    //setUpEnrollment();
+    $result = getHistoricalDataBookingsForTeacher('L.idLesson', 'L.idCourse', '1', '2');
+    print_r(json_encode($result));
 ?>

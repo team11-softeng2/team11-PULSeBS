@@ -13,7 +13,7 @@ $msg = "Invalid API!";
 if (isset($_GET['url'])) {
     $var = $_GET['url'];
     $value = "undefined";
-    $number = intval(preg_replace('/[^0-9]+/', '', $var));
+    $number = strval(preg_replace('/[^0-9]+\//', '', $var));
     switch ($var) {
         case "bookableLessons/$number":
             $value = "bookableLessons";
