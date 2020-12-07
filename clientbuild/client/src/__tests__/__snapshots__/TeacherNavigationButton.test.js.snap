@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders learn react link 1`] = `
+<a
+  className="mr-4 text-light"
+  href="/teacher/historicalData"
+  onClick={[Function]}
+>
+  Historical data page
+</a>
+`;
