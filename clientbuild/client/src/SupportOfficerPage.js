@@ -29,7 +29,7 @@ class SupportOfficerPage extends React.Component {
                 <p>Select the operation you want to perform.</p>
             </div>
             <Container fluid>
-                <Row className="justify-content-center align-items-center">
+                <Row className="justify-content-center">
                     {this.state.options.map((opt) => <CardButton key={opt.id} option={opt}></CardButton>)}
                 </Row>
             </Container>
@@ -41,16 +41,16 @@ const CardButton = (props) => {
 
     let { option } = props;
     const [hovered, setHovered] = useState(false);
-    const toggleHoverTrue = () => setHovered(true);
-    const toggleHoverFalse = () => setHovered(false);
+    const toggleIn = () => setHovered(true);
+    const toggleOut = () => setHovered(false);
 
     return <>
         <Col lg="2">
             <Card
                 className={"text-center bg-white" + (hovered ? " shadow" : "")}
                 style={{ cursor: "pointer" }}
-                onMouseEnter={toggleHoverTrue}
-                onMouseLeave={toggleHoverFalse}>
+                onMouseEnter={toggleIn}
+                onMouseLeave={toggleOut}>
                 <Card.Body> {
                     (option.id === 0) ?
                         <FaTools size={32} className="mt-3 mb-4" /> :
