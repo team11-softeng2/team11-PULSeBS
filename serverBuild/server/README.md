@@ -156,6 +156,23 @@ Each endpoint is preceded by /server/src/api/
 
   - Response: number of notifications sent
 
+## Support Officer
+  - POST `/setUpCourses`
+    - Body: parsed CSV of Courses into JSON
+    - Response: return 1 or 0 (errors) 
+  - POST `/setUpStudents`
+    - Body: parsed CSV of Students into JSON
+      - Response: return 1 or 0 (errors)
+  - POST `/setUpProfessors`
+    - Body: parsed CSV of Professors into JSON
+    - Response: return 1 or 0 (errors)
+  - POST `/setUpEnrollment`
+    - Body: parsed CSV of Enrollments into JSON
+    - Response: return 1 or 0 (errors)
+  - POST `/setUpLessons`
+    - Body: parsed CSV of Schedule into JSON
+    - Response: return 1 or 0 (errors)
+
 # DB structure
 
 - Classroom ( <u>idClassRoom</u>, totalSeats )

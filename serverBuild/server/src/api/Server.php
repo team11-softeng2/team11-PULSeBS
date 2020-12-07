@@ -109,6 +109,31 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersHistoricalData($_SERVER['REQUEST_METHOD'], $dbConn, $value, $filterTime, $filterCourse, $active, $idTeacher);
             echo $controller->processRequest();
             break;
+        case "setUpCourses":
+            $value = "setUpCourses";
+            $controller = new Server\api\ControllersSupportOfficer($_SERVER['REQUEST_METHOD'], $dbConn, $value);
+            echo $controller->processRequest();
+            break;
+        case "setUpStudents":
+            $value = "setUpStudents";
+            $controller = new Server\api\ControllersSupportOfficer($_SERVER['REQUEST_METHOD'], $dbConn, $value);
+            echo $controller->processRequest();
+            break;
+        case "setUpProfessors":
+            $value = "setUpProfessors";
+            $controller = new Server\api\ControllersSupportOfficer($_SERVER['REQUEST_METHOD'], $dbConn, $value);
+            echo $controller->processRequest();
+            break;
+        case "setUpEnrollment":
+            $value = "setUpEnrollment";
+            $controller = new Server\api\ControllersSupportOfficer($_SERVER['REQUEST_METHOD'], $dbConn, $value);
+            echo $controller->processRequest();
+            break;
+        case "setUpLessons":
+            $value = "setUpLessons";
+            $controller = new Server\api\ControllersSupportOfficer($_SERVER['REQUEST_METHOD'], $dbConn, $value);
+            echo $controller->processRequest();
+            break;
         default:
             echo $msg;
     }
