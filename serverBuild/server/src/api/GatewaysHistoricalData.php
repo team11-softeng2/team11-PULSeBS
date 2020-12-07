@@ -71,7 +71,7 @@ class GatewaysHistoricalData
 				        l.idCourse=c.idCourse AND
 				        c.idTeacher=u.idUser AND
 				        b.active=" . $active . " AND
-				        u.idUser=" . $id . ") B
+				        u.idUser='" . $id . "') B
                     ON
                 L.idLesson=B.idLesson
         WHERE   L.idClassRoom<>0 AND
