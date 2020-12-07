@@ -1,6 +1,6 @@
 #!/bin/bash
 #define variables
-project_path=$(dirname $0)
+project_path=$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )
 executable=$(basename $0)
 docker_compose_file="docker-compose.yml"
 server_tag="roccopetruzzi/pulsebs:latest_server"
@@ -12,12 +12,12 @@ ready=0
 serverFolderPresent=$(find $project_path -type d -maxdepth 1 -name serverBuild | wc -l | tr -d " ")
 clientFolderPresent=$(find $project_path -type d -maxdepth 1 -name clientbuild | wc -l | tr -d " ")
 if [ $serverFolderPresent -eq 1 ] && [ $clientFolderPresent -eq 1 ]; then
-    echo "Do you want to build the Docker Images using local files?Y/N"
+    echo "Do you want to build the Docker Images using local files (the resulting App might be unstable)?Y/N"
     read answer
     if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then 
         #build latest images locally
         cd $project_path/serverBuild/ && sudo docker image build -t $server_tag .
-        cd $project_path/server/mailer/ && sudo docker image build -t $mailer_tag .
+        cd $project_path/serverBuild/server/mailer/ && sudo docker image build -t $mailer_tag .
         cd $project_path/clientbuild/ && sudo docker image build -t $client_tag .
         message="Build completed successfully!"
         ready=1
@@ -67,3 +67,4 @@ if [ $ready -eq 1 ]; then
         echo "To start the App, run: cd $project_path && docker-compose up"
     fi
 fi
+exit 0
