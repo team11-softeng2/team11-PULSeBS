@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import {Link} from 'react-router-dom';
 import TeacherNavigationButton from './TeacherNavigationButton';
+import BookingManagerNavButton from './BookingManagerNavButton';
 
 class TopBar extends React.Component{
     render(){
@@ -20,6 +21,11 @@ class TopBar extends React.Component{
                         {
                             this.props.role === 'teacher' &&
                             <TeacherNavigationButton/>
+                        }
+
+                        {
+                            this.props.role === 'booking-manager' &&
+                            <BookingManagerNavButton/>
                         }
 
                         <Link className="text-light" to="/" onClick= {() => this.props.logout()} data-testid="logout-link">

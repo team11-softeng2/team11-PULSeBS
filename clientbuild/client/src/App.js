@@ -11,6 +11,7 @@ import StudentCalendarPage from './StudentCalendarPage';
 import TeacherCalendarPage from './TeacherCalendarPage';
 import TeacherHistoricalDataPage from './TeacherHistoricalDataPage';
 import BookingManagerPage from './BookingManagerPage';
+import ContactTracingPage from './ContactTracingPage';
 //import { buildEventApis, getRectCenter } from '@fullcalendar/react';
 
 class App extends React.Component {
@@ -198,6 +199,14 @@ class App extends React.Component {
                 ></TeacherCalendarPage>
                 :
                 <Redirect to="/"></Redirect>
+            }
+          </Route>
+
+          <Route path="/booking-manager/contact-tracing">
+            {(this.state.loggedin === true && this.state.userRole === "booking-manager") ? 
+              <ContactTracingPage/>
+                :
+              <Redirect to="/"></Redirect>
             }
           </Route>
 
