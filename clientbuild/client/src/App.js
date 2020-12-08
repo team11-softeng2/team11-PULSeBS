@@ -3,7 +3,7 @@ import API from './API';
 import LoginForm from './LoginForm';
 import TopBar from './TopBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -11,13 +11,14 @@ import StudentCalendarPage from './StudentCalendarPage';
 import TeacherCalendarPage from './TeacherCalendarPage';
 import TeacherHistoricalDataPage from './TeacherHistoricalDataPage';
 import BookingManagerPage from './BookingManagerPage';
-import SupportOfficerPage from './SupportOfficerPage';
+import SupportOfficerPage from './SupportOfficer/SupportOfficerPage';
+import SupportOfficerSetupPage from './SupportOfficer/SupportOfficerSetupPage';
 //import { buildEventApis, getRectCenter } from '@fullcalendar/react';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       loggedin: false,
       userName: undefined,  //Nome dell'utente loggato
@@ -31,59 +32,59 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    
+
   }
 
   setLoggedIn = (user) => {
-    this.setState({loggedin: true});
-    this.setState({userName: user.name});
-    this.setState({userRole: user.role});
-    this.setState({userId: user.idUser});
-    if(user.role === "student") {
+    this.setState({ loggedin: true });
+    this.setState({ userName: user.name });
+    this.setState({ userRole: user.role });
+    this.setState({ userId: user.idUser });
+    if (user.role === "student") {
       this.getBookableStudentLectures(user.idUser);
       this.getStudentBookings(user.idUser);
       this.getFullLectures(user.idUser);
-    } else if(user.role === "teacher") {
+    } else if (user.role === "teacher") {
       this.getTeacherLectures(user.idUser);
-    } else if(user.Role === "booking-manager") {
+    } else if (user.Role === "booking-manager") {
       // ...
-    } else if(user.Role === "support-officer") {
+    } else if (user.Role === "support-officer") {
       // ...
     }
   }
 
-  logout = () =>{
+  logout = () => {
     API.logout()
-    .then(() => {
-      this.setState({loggedin: false});
-    	console.log('logout success');
-    })
-    .catch(() => {
-    	console.log('error during logout');
-    });
+      .then(() => {
+        this.setState({ loggedin: false });
+        console.log('logout success');
+      })
+      .catch(() => {
+        console.log('error during logout');
+      });
   }
 
   getStudentBookings = (userId) => {
     API.getStudentBookings(userId).then((allBookings) => {
-      this.setState({bookings: allBookings});
+      this.setState({ bookings: allBookings });
     });
   }
 
   getBookableStudentLectures = (userId) => {
     API.getBookableStudentLectures(userId).then((lectures) => {
-      this.setState({bookableLectures: lectures});
+      this.setState({ bookableLectures: lectures });
     });
   }
 
   getTeacherLectures = (teacherId) => {
     API.getTeacherLectures(teacherId).then((lectures) => {
-      this.setState({teacherLectures: lectures});
+      this.setState({ teacherLectures: lectures });
     });
   }
 
   getFullLectures = (studentId) => {
     API.getFullLectures(this.state.userId).then((lectures) => {
-      this.setState({fullLectures: lectures});
+      this.setState({ fullLectures: lectures });
     });
   }
 
@@ -94,11 +95,11 @@ class App extends React.Component {
       this.getBookableStudentLectures(this.state.userId);
       this.getStudentBookings(this.state.userId);
     })
-    .catch(() => {
-      console.log("Error in newBooking function");
-    });
+      .catch(() => {
+        console.log("Error in newBooking function");
+      });
   }
-  
+
   deleteBooking = (lectureId) => {
     API.deleteBooking(lectureId).then(() => {
       this.getStudentBookings(this.state.userId);
@@ -120,93 +121,104 @@ class App extends React.Component {
 
   render(props) {
     return (
-      <Router className="h-100"> { /* full height pages */ } 
-        <TopBar loggedin = {this.state.loggedin} logout={this.logout} role={this.state.userRole} userName = {this.state.userName}></TopBar>
+      <Router className="h-100"> { /* full height pages */}
+        <TopBar loggedin={this.state.loggedin} logout={this.logout} role={this.state.userRole} userName={this.state.userName}></TopBar>
         <Switch>
-          
+
           <Route path="/student">
-            {(this.state.loggedin === true && this.state.userRole === "student") ? 
+            {(this.state.loggedin === true && this.state.userRole === "student") ?
               <StudentCalendarPage bookableLectures={this.state.bookableLectures.map((l) => {
                 return {
                   id: l.idLesson,
                   title: l.name,
                   start: new Date(l.date + "T" + l.beginTime),
                   end: new Date(l.date + "T" + l.endTime),
-                  type:"bookableLecture"
-                }})} 
-                bookASeat = {this.bookASeat}
-                deleteBooking = {this.deleteBooking}
-                fullLectures = {this.state.fullLectures.map((l) => {
+                  type: "bookableLecture"
+                }
+              })}
+                bookASeat={this.bookASeat}
+                deleteBooking={this.deleteBooking}
+                fullLectures={this.state.fullLectures.map((l) => {
                   return {
                     id: l.idBooking,
                     title: l.name,
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),
-                    color:"#dc3546",
-                    type:"fullLecture"
-                  }})}
-                bookings = {this.state.bookings.map((l) => {
+                    color: "#dc3546",
+                    type: "fullLecture"
+                  }
+                })}
+                bookings={this.state.bookings.map((l) => {
                   return {
                     id: l.idBooking,
                     title: l.name,
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),
-                    color:"green",
-                    type:"bookings"
-                  }})} />
-                :
+                    color: "green",
+                    type: "bookings"
+                  }
+                })} />
+              :
               <Redirect to="/"></Redirect>
             }
           </Route>
 
           <Route path="/teacher/historicalData">
-            {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
-                <TeacherHistoricalDataPage teacherId={this.state.userId}/>
-                :
-                <Redirect to="/"></Redirect>
+            {(this.state.loggedin === true && this.state.userRole === "teacher") ?
+              <TeacherHistoricalDataPage teacherId={this.state.userId} />
+              :
+              <Redirect to="/"></Redirect>
             }
           </Route>
 
           <Route path="/teacher">
-            {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
-                <TeacherCalendarPage lectures={this.state.teacherLectures.map((l) => {
-                  return {
-                    id: l.idLesson,
-                    title: l.courseName,
-                    start: new Date(l.date + "T" + l.beginTime),
-                    end: new Date(l.date + "T" + l.endTime),
-                    color: l.inPresence === 1 ? "" : "green",
-                  }
-                })}
-                deleteLecture = {this.deleteLecture}
-                changeToOnline = {this.changeToOnline}
-                ></TeacherCalendarPage>
-                :
-                <Redirect to="/"></Redirect>
+            {(this.state.loggedin === true && this.state.userRole === "teacher") ?
+              <TeacherCalendarPage lectures={this.state.teacherLectures.map((l) => {
+                return {
+                  id: l.idLesson,
+                  title: l.courseName,
+                  start: new Date(l.date + "T" + l.beginTime),
+                  end: new Date(l.date + "T" + l.endTime),
+                  color: l.inPresence === 1 ? "" : "green",
+                }
+              })}
+                deleteLecture={this.deleteLecture}
+                changeToOnline={this.changeToOnline}
+              ></TeacherCalendarPage>
+              :
+              <Redirect to="/"></Redirect>
             }
           </Route>
 
           <Route path="/booking-manager">
-            {(this.state.loggedin === true && this.state.userRole === "booking-manager") ? 
-              <BookingManagerPage/>
-                :
+            {(this.state.loggedin === true && this.state.userRole === "booking-manager") ?
+              <BookingManagerPage />
+              :
               <Redirect to="/"></Redirect>
             }
           </Route>
 
+          <Route path="/support-officer/setup">
+            {(this.state.loggedin === true && this.state.userRole === "support-officer") ?
+              <SupportOfficerSetupPage />
+              :
+              <Redirect to="/"></Redirect>
+            }
+          </Route>
+          
           <Route path="/support-officer">
-            {(this.state.loggedin === true && this.state.userRole === "support-officer") ? 
-              <SupportOfficerPage/>
-                :
+            {(this.state.loggedin === true && this.state.userRole === "support-officer") ?
+              <SupportOfficerPage />
+              :
               <Redirect to="/"></Redirect>
             }
           </Route>
-
+          
           <Route path="/">
             <Row className="height-100">
               <Col sm={4}></Col>
               <Col sm={4} className="below-nav my-3">
-                <LoginForm setLoggedIn={this.setLoggedIn}/>
+                <LoginForm setLoggedIn={this.setLoggedIn} />
               </Col>
             </Row>
           </Route>

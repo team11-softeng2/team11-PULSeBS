@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Row, Container, Button, Col, Card } from "react-bootstrap";
+import { Row, Container, Col, Card } from "react-bootstrap";
 import { FaTools, FaEdit } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
 
 class SupportOfficerPage extends React.Component {
 
@@ -8,8 +9,8 @@ class SupportOfficerPage extends React.Component {
         super(props);
         this.state = {
             options: [
-                { id: 0, name: "Setup" },
-                { id: 1, name: "Other operations..." },
+                { id: 0, name: "Setup", path: "/setup"},
+                { id: 1, name: "Other operations...", path: "/todo" },
                 /*{ code: 3, name: "Other"},
                 { code: 4, name: "Other" },
                 { code: 5, name: "Other" },
@@ -24,7 +25,7 @@ class SupportOfficerPage extends React.Component {
 
     render() {
         return <>
-            <div class="text-center mt-5 p-5 mb-5">
+            <div className="text-center mt-5 p-5 mb-5">
                 <h1>Welcome!</h1>
                 <p>Select the operation you want to perform.</p>
             </div>
@@ -35,6 +36,7 @@ class SupportOfficerPage extends React.Component {
             </Container>
         </>
     }
+
 }
 
 const CardButton = (props) => {
@@ -43,6 +45,7 @@ const CardButton = (props) => {
     const [hovered, setHovered] = useState(false);
     const toggleIn = () => setHovered(true);
     const toggleOut = () => setHovered(false);
+    const history = useHistory();
 
     return <>
         <Col lg="2">
@@ -50,7 +53,8 @@ const CardButton = (props) => {
                 className={"text-center bg-white" + (hovered ? " shadow" : "")}
                 style={{ cursor: "pointer" }}
                 onMouseEnter={toggleIn}
-                onMouseLeave={toggleOut}>
+                onMouseLeave={toggleOut}
+                onClick={(ev) => { ev.preventDefault(); history.push(history.location.pathname + option.path); }}>
                 <Card.Body> {
                     (option.id === 0) ?
                         <FaTools size={32} className="mt-3 mb-4" /> :
