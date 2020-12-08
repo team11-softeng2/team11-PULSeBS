@@ -5,11 +5,10 @@ namespace Server\api;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
-class GatewaysNotification
+class GatewaysNotification extends Gateways
 {
-    private $db = null;
-
     private $signature = "<br><p>Regards, the Team 11.</p>";
+
     public function __construct($db)
     {
         $this->db = $db;
@@ -169,10 +168,7 @@ class GatewaysNotification
             );
             $data[] = $subArray;
         }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+
+        return $this->returnArray($data);
     }
 }

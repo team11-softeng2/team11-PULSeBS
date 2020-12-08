@@ -1,9 +1,8 @@
 <?php
 namespace Server\api;
 
-class GatewaysUserTable
+class GatewaysUserTable extends Gateways
 {
-    private $db = null;
     public function __construct($db)
     {
         $this->db = $db;

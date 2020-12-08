@@ -1,5 +1,4 @@
 <?php
-
 namespace Server\api;
 
 use Server\api\GatewaysSupportOfficer;

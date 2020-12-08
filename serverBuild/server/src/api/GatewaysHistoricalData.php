@@ -1,10 +1,8 @@
 <?php
 namespace Server\api;
 
-class GatewaysHistoricalData
+class GatewaysHistoricalData extends Gateways
 {
-
-    private $db = null;
     public function __construct($db)
     {
         $this->db = $db;
@@ -13,12 +11,12 @@ class GatewaysHistoricalData
     public function getHistoricalDataBookings($filterTime, $filterCourse, $active)
     {
         $nwfilterCourse = explode(',', $filterCourse);
-        $nwfilterCourse = array_map(function($course){
+        $nwfilterCourse = array_map(function ($course) {
             return "'$course'";
-        }, $nwfilterCourse) ;
+        }, $nwfilterCourse);
         $nwfilterCourse = implode(',', $nwfilterCourse);
         $filterCourse = $filterCourse == 'L.idCourse' ? 'L.idCourse' : $nwfilterCourse;
-        
+
         $sql = "
         SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
                 COUNT(DISTINCT L.idLesson) as numberLectures,
@@ -36,7 +34,7 @@ class GatewaysHistoricalData
                     ON
                 L.idLesson=B.idLesson
         WHERE   L.idClassRoom<>0 AND
-                L.idCourse IN (".($filterCourse == 'L.idCourse' ? $filterCourse : (''.$filterCourse.'')).")
+                L.idCourse IN (" . ($filterCourse == 'L.idCourse' ? $filterCourse : ('' . $filterCourse . '')) . ")
         GROUP BY " . $filterTime . "
         ORDER BY year_month_week
         ";
@@ -46,12 +44,12 @@ class GatewaysHistoricalData
     public function getHistoricalDataBookingsForTeacher($filterTime, $filterCourse, $active, $id)
     {
         $nwfilterCourse = explode(',', $filterCourse);
-        $nwfilterCourse = array_map(function($course){
+        $nwfilterCourse = array_map(function ($course) {
             return "'$course'";
-        }, $nwfilterCourse) ;
+        }, $nwfilterCourse);
         $nwfilterCourse = implode(',', $nwfilterCourse);
         $filterCourse = $filterCourse == 'L.idCourse' ? 'L.idCourse' : $nwfilterCourse;
-        
+
         $sql = "
         SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
                 COUNT(DISTINCT L.idLesson) as numberLectures,
@@ -75,7 +73,7 @@ class GatewaysHistoricalData
                     ON
                 L.idLesson=B.idLesson
         WHERE   L.idClassRoom<>0 AND
-                L.idCourse IN (".($filterCourse == 'L.idCourse' ? $filterCourse : (''.$filterCourse.'')).")
+                L.idCourse IN (" . ($filterCourse == 'L.idCourse' ? $filterCourse : ('' . $filterCourse . '')) . ")
         GROUP BY " . $filterTime . "
         ORDER BY year_month_week
         ";
@@ -131,10 +129,6 @@ class GatewaysHistoricalData
             return "not valid filter time";
         }
 
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+        return $this->returnArray($data);
     }
 }

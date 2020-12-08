@@ -1,10 +1,8 @@
 <?php
 namespace Server\api;
 
-class GatewaysTeacherBooking
+class GatewaysTeacherBooking extends Gateways
 {
-
-    private $db = null;
     protected $format = "Y-m-d H:i:s";
 
     public function __construct($db)
@@ -24,11 +22,8 @@ class GatewaysTeacherBooking
             );
             $data[] = $subArray;
         }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+
+        return $this->returnArray($data);
     }
 
     public function findScheduledLecturesForTeacher($id)
@@ -57,11 +52,8 @@ class GatewaysTeacherBooking
             );
             $data[] = $subArray;
         }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+
+        return $this->returnArray($data);
     }
 
     public function updateToNotActiveLecture($idLecture)

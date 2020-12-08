@@ -1,9 +1,8 @@
 <?php
 namespace Server\api;
 
-class GatewaysUser
+class GatewaysUser extends Gateways
 {
-    private $db = null;
     public function __construct($db)
     {
         $this->db = $db;
@@ -24,10 +23,7 @@ class GatewaysUser
             );
             $data[] = $subArray;
         }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+
+        return $this->returnArray($data);
     }
 }

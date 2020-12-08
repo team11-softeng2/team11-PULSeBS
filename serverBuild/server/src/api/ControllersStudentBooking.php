@@ -5,11 +5,13 @@ use Server\api\GatewaysStudentBooking;
 
 class ControllersStudentBooking extends Controllers
 {
+    private $gatewayNotification;
+
     public function __construct($requestMethod, $db, $value, $id = -1)
     {
         $this->requestMethod = $requestMethod;
         $this->gateway = new GatewaysStudentBooking($db);
-        $this->gateway = new GatewaysNotification($db);
+        $this->gatewayNotification = new GatewaysNotification($db);
         $this->value = $value;
         $this->id = $id;
     }
@@ -73,7 +75,7 @@ class ControllersStudentBooking extends Controllers
     public function insertNewBooklesson($input)
     {
         $response = json_encode($this->gateway->insertBooking($input));
-        $this->gateway->sendEmail('bookingConfirmation', $response);
+        $this->gatewayNotification->sendEmail('bookingConfirmation', $response);
         return $response;
     }
 

@@ -1,9 +1,8 @@
 <?php
 namespace Server\api;
 
-class GatewaysStudentBooking
+class GatewaysStudentBooking extends Gateways
 {
-    private $db = null;
     protected $format = "Y-m-d H:i:s";
 
     public function __construct($db)
@@ -32,11 +31,8 @@ class GatewaysStudentBooking
                 $data[] = $subArray;
             }
         }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+
+        return $this->returnArray($data);
     }
 
     public function findStudentBookedLessons($id)
@@ -59,11 +55,8 @@ class GatewaysStudentBooking
             );
             $data[] = $subArray;
         }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+
+        return $this->returnArray($data);
     }
     public function findLessonsWithFullRoom()
     {
@@ -82,11 +75,8 @@ class GatewaysStudentBooking
             );
             $data[] = $subArray;
         }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+
+        return $this->returnArray($data);
     }
 
     public function findDetailsOfLessons($lessons)
@@ -109,11 +99,8 @@ class GatewaysStudentBooking
             );
             $data[] = $subArray;
         }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+
+        return $this->returnArray($data);
     }
 
     public function insertBooking($input)

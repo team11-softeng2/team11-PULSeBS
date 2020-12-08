@@ -2,9 +2,8 @@
 
 namespace Server\api;
 
-class GatewaysSupportOfficer
+class GatewaysSupportOfficer extends Gateways
 {
-    private $db = null;
     public function __construct($db)
     {
         $this->db = $db;
@@ -19,13 +18,13 @@ class GatewaysSupportOfficer
             $name = trim($name);
 
             if ($i == 0) {
-                $sqlInsertRow = $sqlInsertRow . " ('" . $course['Code'] . "', 
-                '" . $course['Teacher'] . "','" . $name . "', '" . $course['Year'] . "', 
+                $sqlInsertRow = $sqlInsertRow . " ('" . $course['Code'] . "',
+                '" . $course['Teacher'] . "','" . $name . "', '" . $course['Year'] . "',
                 '" . $course['Semester'] . "')";
                 $i = 1;
             } else {
-                $sqlInsertRow = $sqlInsertRow . ", ('" . $course['Code'] . "', 
-                '" . $course['Teacher'] . "','" . $name . "', '" . $course['Year'] . "', 
+                $sqlInsertRow = $sqlInsertRow . ", ('" . $course['Code'] . "',
+                '" . $course['Teacher'] . "','" . $name . "', '" . $course['Year'] . "',
                 '" . $course['Semester'] . "')";
             }
         }
@@ -96,7 +95,7 @@ class GatewaysSupportOfficer
 
     public function setUpLessons($schedule)
     {
-        
+
         //count number of days in a range
         $beginDate = new \DateTime("2020-09-28");
         $endDate = new \DateTime("2021-01-16");
@@ -125,7 +124,7 @@ class GatewaysSupportOfficer
 
                     foreach ($lecturesToBeAdded as $lecture) {
                         //insert on lessons table
-                        //insertLecture 
+                        //insertLecture
                         $time = explode("-", $lecture['Time']);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
@@ -135,7 +134,6 @@ class GatewaysSupportOfficer
                         } else {
                             $sqlInsertLectures = $sqlInsertLectures . ", ('" . $lecture['Code'] . "', '-1', '" . $lecture['Room'] . "', '" . $actualDate->format("Y-m-d") . "', '" . $time[0] . "', '" . $time[1] . "', 1, 1)";
                         }
-
 
                     }
                     break;
@@ -147,7 +145,7 @@ class GatewaysSupportOfficer
                     foreach ($lecturesToBeAdded as $lecture) {
                         //insert on lessons table
 
-                        //insertLecture 
+                        //insertLecture
                         $time = explode("-", $lecture['Time']);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
@@ -157,7 +155,6 @@ class GatewaysSupportOfficer
                         } else {
                             $sqlInsertLectures = $sqlInsertLectures . ", ('" . $lecture['Code'] . "', '-1', '" . $lecture['Room'] . "', '" . $actualDate->format("Y-m-d") . "', '" . $time[0] . "', '" . $time[1] . "', 1, 1)";
                         }
-                        
 
                     }
                     break;
@@ -169,7 +166,7 @@ class GatewaysSupportOfficer
                     foreach ($lecturesToBeAdded as $lecture) {
                         //insert on lessons table
 
-                        //insertLecture 
+                        //insertLecture
                         $time = explode("-", $lecture['Time']);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
@@ -179,7 +176,6 @@ class GatewaysSupportOfficer
                         } else {
                             $sqlInsertLectures = $sqlInsertLectures . ", ('" . $lecture['Code'] . "', '-1', '" . $lecture['Room'] . "', '" . $actualDate->format("Y-m-d") . "', '" . $time[0] . "', '" . $time[1] . "', 1, 1)";
                         }
-                        
 
                     }
                     break;
@@ -191,7 +187,7 @@ class GatewaysSupportOfficer
                     foreach ($lecturesToBeAdded as $lecture) {
                         //insert on lessons table
 
-                        //insertLecture 
+                        //insertLecture
                         $time = explode("-", $lecture['Time']);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
@@ -201,7 +197,6 @@ class GatewaysSupportOfficer
                         } else {
                             $sqlInsertLectures = $sqlInsertLectures . ", ('" . $lecture['Code'] . "', '-1', '" . $lecture['Room'] . "', '" . $actualDate->format("Y-m-d") . "', '" . $time[0] . "', '" . $time[1] . "', 1, 1)";
                         }
-                        
 
                     }
                     break;
@@ -213,7 +208,7 @@ class GatewaysSupportOfficer
                     foreach ($lecturesToBeAdded as $lecture) {
                         //insert on lessons table
 
-                        //insertLecture 
+                        //insertLecture
                         $time = explode("-", $lecture['Time']);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
@@ -223,7 +218,6 @@ class GatewaysSupportOfficer
                         } else {
                             $sqlInsertLectures = $sqlInsertLectures . ", ('" . $lecture['Code'] . "', '-1', '" . $lecture['Room'] . "', '" . $actualDate->format("Y-m-d") . "', '" . $time[0] . "', '" . $time[1] . "', 1, 1)";
                         }
-                        
 
                     }
                     break;
@@ -232,11 +226,10 @@ class GatewaysSupportOfficer
             $actualDate->add(new \DateInterval('P1D'));
         }
 
-
         $return = $this->db->exec($sqlInsertLectures);
         //update idTeacher in lesssons table
-        $sqlupdateLecturesWithTeacher = "update lessons 
-        set idTeacher = (select idTeacher 
+        $sqlupdateLecturesWithTeacher = "update lessons
+        set idTeacher = (select idTeacher
         FROM courses c
         where c.idCourse = lessons.idCourse)";
         $this->db->exec($sqlupdateLecturesWithTeacher);
@@ -247,7 +240,7 @@ class GatewaysSupportOfficer
         $classRooms = array_map(function ($class) {
             return array(
                 'Room' => $class['Room'],
-                'Seats' => $class['Seats']
+                'Seats' => $class['Seats'],
             );
         }, $schedule);
         $classRooms = $this->unique_multidim_array($classRooms, 'Room');
