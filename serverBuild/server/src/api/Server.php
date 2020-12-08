@@ -26,6 +26,11 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersStudentBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value);
             echo $controller->processRequest();
             break;
+        case "students":
+            $value = "students";
+            $controller = new Server\api\ControllersUser($_SERVER['REQUEST_METHOD'], $dbConn, $value);
+            echo $controller->processRequest();
+            break;
         case "studentBookings/$number":
             $value = "studentBookings";
             $id = $number;
