@@ -5,17 +5,11 @@ use Server\api\GatewaysStudentBooking;
 
 class ControllersStudentBooking extends Controllers
 {
-    private $requestMethod;
-    private $studentBookingGateway;
-    private $id;
-    private $value;
-    private $gatewayNotification;
-
     public function __construct($requestMethod, $db, $value, $id = -1)
     {
         $this->requestMethod = $requestMethod;
-        $this->studentBookingGateway = new GatewaysStudentBooking($db);
-        $this->gatewayNotification = new GatewaysNotification($db);
+        $this->gateway = new GatewaysStudentBooking($db);
+        $this->gateway = new GatewaysNotification($db);
         $this->value = $value;
         $this->id = $id;
     }
@@ -53,44 +47,44 @@ class ControllersStudentBooking extends Controllers
 
     public function findBookableLessons()
     {
-        $allStudentLessons = $this->studentBookingGateway->findStudentLessons($this->id);
+        $allStudentLessons = $this->gateway->findStudentLessons($this->id);
         if ($allStudentLessons == 0) {
             return json_encode(0);
         } else {
             $allStudentLessons = array_column($allStudentLessons, "idLesson");
         }
-        $lessonsBooked = $this->studentBookingGateway->findStudentBookedLessons($this->id);
+        $lessonsBooked = $this->gateway->findStudentBookedLessons($this->id);
         if ($lessonsBooked == 0) {
             $lessonsBooked = array();
         } else {
             $lessonsBooked = array_column($lessonsBooked, "idLesson");
         }
-        $lessonsWithFullRoom = $this->studentBookingGateway->findLessonsWithFullRoom();
+        $lessonsWithFullRoom = $this->gateway->findLessonsWithFullRoom();
         if ($lessonsWithFullRoom == 0) {
             $lessonsWithFullRoom = array();
         } else {
             $lessonsWithFullRoom = array_column($lessonsWithFullRoom, "idLesson");
         }
         $response = array_diff($allStudentLessons, $lessonsBooked, $lessonsWithFullRoom);
-        $response = $this->studentBookingGateway->findDetailsOfLessons($response);
+        $response = $this->gateway->findDetailsOfLessons($response);
         return json_encode($response);
     }
 
     public function insertNewBooklesson($input)
     {
-        $response = json_encode($this->studentBookingGateway->insertBooking($input));
-        $this->gatewayNotification->sendEmail('bookingConfirmation', $response);
+        $response = json_encode($this->gateway->insertBooking($input));
+        $this->gateway->sendEmail('bookingConfirmation', $response);
         return $response;
     }
 
     public function findStudentBookings()
     {
-        $studentBookings = $this->studentBookingGateway->findStudentBookedLessons($this->id);
+        $studentBookings = $this->gateway->findStudentBookedLessons($this->id);
         if ($studentBookings == 0) {
             return json_encode(0);
         } else {
             $studentBookingsDetail = array_column($studentBookings, "idLesson");
-            $studentBookingsDetail = $this->studentBookingGateway->findDetailsOfLessons($studentBookingsDetail);
+            $studentBookingsDetail = $this->gateway->findDetailsOfLessons($studentBookingsDetail);
             foreach ($studentBookingsDetail as $key => $row) {
                 foreach ($studentBookings as $key1 => $row1) {
                     if ($studentBookings[$key1]['idLesson'] == $studentBookingsDetail[$key]['idLesson']) {
@@ -105,24 +99,24 @@ class ControllersStudentBooking extends Controllers
 
     public function updateBooking($id)
     {
-        return json_encode($this->studentBookingGateway->updateBooking($id));
+        return json_encode($this->gateway->updateBooking($id));
     }
 
     public function findLectureWithFullRoom()
     {
-        $allStudentLectures = $this->studentBookingGateway->findStudentLessons($this->id);
+        $allStudentLectures = $this->gateway->findStudentLessons($this->id);
         if ($allStudentLectures == 0) {
             $allStudentLectures = array();
         } else {
             $allStudentLectures = array_column($allStudentLectures, "idLesson");
         }
-        $lecturesFullRoom = $this->studentBookingGateway->findLessonsWithFullRoom();
+        $lecturesFullRoom = $this->gateway->findLessonsWithFullRoom();
         if ($lecturesFullRoom == 0) {
             $lecturesFullRoom = array();
         } else {
             $lecturesFullRoom = array_column($lecturesFullRoom, "idLesson");
         }
-        $lecturesAlreadyBooked = $this->studentBookingGateway->findStudentBookedLessons($this->id);
+        $lecturesAlreadyBooked = $this->gateway->findStudentBookedLessons($this->id);
         if ($lecturesAlreadyBooked == 0) {
             $lecturesAlreadyBooked = array();
         } else {
@@ -133,7 +127,7 @@ class ControllersStudentBooking extends Controllers
         if (empty($resultLectures)) {
             return json_encode(0);
         } else {
-            $resultLectures = $this->studentBookingGateway->findDetailsOfLessons($resultLectures);
+            $resultLectures = $this->gateway->findDetailsOfLessons($resultLectures);
             return json_encode($resultLectures);
         }
     }

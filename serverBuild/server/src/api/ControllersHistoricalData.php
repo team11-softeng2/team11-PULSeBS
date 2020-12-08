@@ -5,21 +5,17 @@ use Server\api\GatewaysHistoricalData;
 
 class ControllersHistoricalData extends Controllers
 {
-    private $requestMethod;
-    private $bookingStatsGateways;
     private $isActive;
-    private $idTeacher;
-    private $value;
     private $filterTime;
     private $filterCourse;
 
-    public function __construct($requestMethod, $db, $value, $filterTime, $filterCourse, $isActive = -1, $idTeacher = -1)
+    public function __construct($requestMethod, $db, $value, $filterTime, $filterCourse, $isActive = -1, $id = -1)
     {
         $this->requestMethod = $requestMethod;
-        $this->bookingStatsGateways = new GatewaysHistoricalData($db);
+        $this->gateway = new GatewaysHistoricalData($db);
         $this->value = $value;
         $this->isActive = $isActive;
-        $this->idTeacher = $idTeacher;
+        $this->idTeacher = $id;
         $this->filterTime = $filterTime;
         $this->filterCourse = $filterCourse;
     }
@@ -41,13 +37,13 @@ class ControllersHistoricalData extends Controllers
 
     public function findBookingsStats($filterTime, $filterCourse)
     {
-        $bookingStats = $this->bookingStatsGateways->getHistoricalDataBookings($filterTime, $filterCourse, $this->isActive);
+        $bookingStats = $this->gateway->getHistoricalDataBookings($filterTime, $filterCourse, $this->isActive);
         return json_encode($bookingStats);
     }
 
     public function findTeacherStats($filterTime, $filterCourse)
     {
-        $teacherStats = $this->bookingStatsGateways->getHistoricalDataBookingsForTeacher($filterTime, $filterCourse, $this->isActive, $this->idTeacher);
+        $teacherStats = $this->gateway->getHistoricalDataBookingsForTeacher($filterTime, $filterCourse, $this->isActive, $this->idTeacher);
         return json_encode($teacherStats);
     }
 

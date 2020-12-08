@@ -6,11 +6,6 @@ use Server\api\GatewaysSupportOfficer;
 
 class ControllersSupportOfficer extends Controllers
 {
-    private $requestMethod;
-    private $supportOfficerGateway;
-    private $id;
-    private $value;
-
     public function __construct($requestMethod, $db, $value, $id = -1)
     {
         $this->requestMethod = $requestMethod;
@@ -51,27 +46,27 @@ class ControllersSupportOfficer extends Controllers
 
     public function setUpCourses($input)
     {
-        $response = $this->supportOfficerGateway->setUpCourses($input);
+        $response = $this->gateway->setUpCourses($input);
         return $response ? 1 : 0;
     }
     public function setUpStudents($input)
     {
-        $response = $this->supportOfficerGateway->setUpStudents($input);
+        $response = $this->gateway->setUpStudents($input);
         return $response ? 1 : 0;
     }
     public function setUpEnrollment($input)
     {
-        $response = $this->supportOfficerGateway->setUpEnrollment($input);
+        $response = $this->gateway->setUpEnrollment($input);
         return $response ? 1 : 0;
     }
     public function setUpLessons($input)
     {
-        $response = $this->supportOfficerGateway->setUpLessons($input);
+        $response = $this->gateway->setUpLessons($input);
         return $response ? 1 : 0;
     }
     public function setUpProfessors($input)
     {
-        $response = $this->supportOfficerGateway->setUpProfessors($input);
+        $response = $this->gateway->setUpProfessors($input);
         return $response ? 1 : 0;
     }
 }

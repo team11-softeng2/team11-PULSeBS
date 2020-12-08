@@ -5,14 +5,10 @@ use Server\api\GatewaysNotification;
 
 class ControllersNotification extends Controllers
 {
-    private $requestMethod;
-    private $notificationGateway;
-    private $value;
-
     public function __construct($requestMethod, $db, $value)
     {
         $this->requestMethod = $requestMethod;
-        $this->notificationGateway = new GatewaysNotification($db);
+        $this->gateway = new GatewaysNotification($db);
         $this->value = $value;
     }
 
@@ -33,7 +29,7 @@ class ControllersNotification extends Controllers
 
     public function sendNotification($type, $id)
     {
-        return json_encode($this->notificationGateway->sendEmail($type, $id));
+        return json_encode($this->gateway->sendEmail($type, $id));
     }
 
 }
