@@ -50,13 +50,14 @@ class GatewaysNotification extends Gateways
 
         $mail = new PHPMailer(true); // Passing `true` enables exceptions
         //Server settings
+        $info = parse_ini_file(dirname(__FILE__) . '/../../mailer/.credentials.ini');
         $mail->isSMTP(); // Set mailer to use SMTP
-        $mail->Host = 'smtp.gmail.com'; // Specify main and backup SMTP servers
+        $mail->Host = $info['host']; // Specify main and backup SMTP servers
         $mail->SMTPAuth = true; // Enable SMTP authentication
-        $mail->Username = 'team11.pulsebs@gmail.com'; // SMTP username
-        $mail->Password = 'w38W42f3Vuy4Ws8ysFXNm68CpEt4U2'; // SMTP password
+        $mail->Username = $info['username']; // SMTP username
+        $mail->Password = $info['password']; // SMTP password
         $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
-        $mail->Port = 587; // TCP port to connect to
+        $mail->Port = $info['port']; // TCP port to connect to
         //Recipients
         $mail->setFrom('no-reply@pulsebs.it', 'PULSeBS');
         //Content
