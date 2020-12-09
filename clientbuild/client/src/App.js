@@ -160,7 +160,7 @@ class App extends React.Component {
                   }})}
                 waitingBookings = {this.state.waitingBookings.map((l) => {
                   return {
-                    id: l.idLesson,
+                    id: l.idBooking,
                     title: l.name,
                     start: new Date(l.date + "T" + l.beginTime),
                     end: new Date(l.date + "T" + l.endTime),
