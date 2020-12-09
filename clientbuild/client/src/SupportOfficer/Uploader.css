@@ -1,4 +1,4 @@
-.Uploader {
+.Container {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -15,8 +15,8 @@
   width: 100%;
 }
   
-.File {
-  margin-left: 32px;
+.FileType {
+  margin-left: 64px;
   align-items: flex-start;
   justify-items: flex-start;
   flex: 1;
@@ -54,43 +54,7 @@
   box-sizing: border-box;
 }
 
-
-/* DROPZONE */
-.Dropzone {
-  height: 250px;
-  width: 250px;
-  background-color: #fff;
-  border: 2px dashed rgb(187, 186, 186);
-  border-radius: 15%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  font-size: 16px;
-}
-
-.Highlight {
-  background-color: rgb(235, 235, 235);
-}
-
-.UploadIcon {
-  opacity: 0.4;
-  height: 64px;
-  width: 64px;
-}
-
-.FileIcon {
-  opacity: 0.8;
-  height: 64px;
-  width: 64px;
-}
-
-.FileInput {
-  display: none;
-}
-
 /* BUTTON */
-
 button {
   font-family: 'Roboto medium', sans-serif;
   font-size: 14px;
@@ -111,7 +75,7 @@ button {
   user-select: none;
   border: 0;
   border-radius: 2px;
-  background: rgba(103, 58, 183, 1);
+  background: #3F51B5;
   color: #fff;
   outline: 0;
 }
