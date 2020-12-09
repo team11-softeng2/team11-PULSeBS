@@ -16,10 +16,13 @@ if [ $serverFolderPresent -eq 1 ] && [ $clientFolderPresent -eq 1 ]; then
     read answer
     if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then 
         #build latest images locally
+        echo "[+] SERVER"
         cd $project_path/serverBuild/ && sudo docker image build -t $server_tag .
+        echo "[+] MAILER"
         cd $project_path/serverBuild/server/mailer/ && sudo docker image build -t $mailer_tag .
+        echo "[+] CLIENT"
         cd $project_path/clientbuild/ && sudo docker image build -t $client_tag .
-        message="Build completed successfully!"
+        echo "[+] Build completed successfully!"
         ready=1
     fi  
 fi
@@ -29,10 +32,13 @@ if [ $ready -eq 0 ]; then
     read answer
     if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then 
         #pull latest images from Docker
+        echo "[+] SERVER"
         docker pull $server_tag
+        echo "[+] MAILER"
         docker pull $mailer_tag
+        echo "[+] CLIENT"
         docker pull $client_tag
-        message="Images pulled successfully!"
+        echo "[+] Images pulled successfully!"
         ready=1
     fi
 fi
@@ -58,16 +64,18 @@ mailer:
 
 #Run the App
 images=$(docker images | tr -s " " | cut -d " " -f -2 | egrep "($(echo $server_tag | tr ":" " ")|$(echo $client_tag | tr ":" " ")|$(echo $mailer_tag | tr ":" " "))" | wc -l | tr -d " ")
-if [ $ready -eq 1 ] && [ $images -eq 3 ]; then
-    echo "Do you want to run the PULSeBS as a Docker App now?Y/N"
-    read answer
-    if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then 
-        cd $project_path && docker-compose up
-    else
-        echo $message;
-        echo "To start the App, run: cd $project_path && docker-compose up"
-    fi
+if [ $images -eq 3 ]; then
+  if [ $ready -ne 1 ]; then
+    echo "Looks like you have $images/3 required to run this App, but they might be outdated."
+  fi
+  echo "Do you want to run the PULSeBS as a Docker App now?Y/N"
+  read answer
+  if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then 
+      cd $project_path && docker-compose up
+  else
+      echo "To start the App, run: cd $project_path && docker-compose up"
+  fi
 else
-    echo "Sorry, looks like you have $images/3 images required to run this App. Try running the script again."
+  echo "Sorry, looks like you have $images/3 images required to run this App. Try running the script again."
 fi
 exit 0
