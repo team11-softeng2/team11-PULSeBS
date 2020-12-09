@@ -403,6 +403,6 @@ async function getAllStudents() {
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses, 
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER, 
-    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, getAllStudents
+    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, getAllStudents, getWaitingBookings
 };
 export default API;
