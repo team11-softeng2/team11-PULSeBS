@@ -11,6 +11,13 @@ class GatewaysSupportOfficer extends Gateways
 
     public function setUpCourses($courses)
     {
+
+        //truncate tables
+        $truncate = $this->truncateCoursesTable();
+        if ($truncate == false) {
+            return false;
+        }
+
         $sqlInsertRow = "insert or replace into courses(idCourse, idTeacher, name, year, semester) values";
         $i = 0;
         foreach ($courses as $course) {
@@ -33,6 +40,12 @@ class GatewaysSupportOfficer extends Gateways
 
     public function setUpStudents($students)
     {
+
+        //truncate tables
+        $truncate = $this->truncateStudentsFromUsersTable();
+        if ($truncate == false) {
+            return false;
+        }
 
         $sqlInsertRow = "insert or replace into users(idUser, userName, password, role, name, email, city, birthday, ssn) values";
         $i = 0;
@@ -58,6 +71,13 @@ class GatewaysSupportOfficer extends Gateways
 
     public function setUpProfessors($professors)
     {
+
+        //truncate tables
+        $truncate = $this->truncateProfessorsFromUsersTable();
+        if ($truncate == false) {
+            return false;
+        }
+
         $sqlInsertRow = "insert or replace into users(idUser, userName, password, role, name, email, city, birthday, ssn) values";
         $i = 0;
         foreach ($professors as $professor) {
@@ -80,6 +100,13 @@ class GatewaysSupportOfficer extends Gateways
 
     public function setUpEnrollment($enrollments)
     {
+        //truncate tables
+        $truncate = $this->truncateEnrollmentTable();
+        if ($truncate == false) {
+            return false;
+        }
+
+
         $sqlInsertRow = "insert or replace into enrollment(idUser, idCourse) values";
         $i = 0;
         foreach ($enrollments as $enrollment) {
@@ -95,6 +122,17 @@ class GatewaysSupportOfficer extends Gateways
 
     public function setUpLessons($schedule)
     {
+        //truncate tables
+        $truncate1 = $this->truncateLessonsTable();
+        $truncate2 = $this->truncateClassRoomsTable();
+
+        if ($truncate1 == false) {
+            return false;
+        }
+        if ($truncate2 == false) {
+            return false;
+        }
+
 
         //count number of days in a range
         $beginDate = new \DateTime("2020-09-28");
@@ -134,7 +172,6 @@ class GatewaysSupportOfficer extends Gateways
                         } else {
                             $sqlInsertLectures = $sqlInsertLectures . ", ('" . $lecture['Code'] . "', '-1', '" . $lecture['Room'] . "', '" . $actualDate->format("Y-m-d") . "', '" . $time[0] . "', '" . $time[1] . "', 1, 1)";
                         }
-
                     }
                     break;
                 case '2':
@@ -155,7 +192,6 @@ class GatewaysSupportOfficer extends Gateways
                         } else {
                             $sqlInsertLectures = $sqlInsertLectures . ", ('" . $lecture['Code'] . "', '-1', '" . $lecture['Room'] . "', '" . $actualDate->format("Y-m-d") . "', '" . $time[0] . "', '" . $time[1] . "', 1, 1)";
                         }
-
                     }
                     break;
                 case '3':
@@ -176,7 +212,6 @@ class GatewaysSupportOfficer extends Gateways
                         } else {
                             $sqlInsertLectures = $sqlInsertLectures . ", ('" . $lecture['Code'] . "', '-1', '" . $lecture['Room'] . "', '" . $actualDate->format("Y-m-d") . "', '" . $time[0] . "', '" . $time[1] . "', 1, 1)";
                         }
-
                     }
                     break;
                 case '4':
@@ -197,7 +232,6 @@ class GatewaysSupportOfficer extends Gateways
                         } else {
                             $sqlInsertLectures = $sqlInsertLectures . ", ('" . $lecture['Code'] . "', '-1', '" . $lecture['Room'] . "', '" . $actualDate->format("Y-m-d") . "', '" . $time[0] . "', '" . $time[1] . "', 1, 1)";
                         }
-
                     }
                     break;
                 case '5':
@@ -218,7 +252,6 @@ class GatewaysSupportOfficer extends Gateways
                         } else {
                             $sqlInsertLectures = $sqlInsertLectures . ", ('" . $lecture['Code'] . "', '-1', '" . $lecture['Room'] . "', '" . $actualDate->format("Y-m-d") . "', '" . $time[0] . "', '" . $time[1] . "', 1, 1)";
                         }
-
                     }
                     break;
             }
@@ -275,5 +308,36 @@ class GatewaysSupportOfficer extends Gateways
     public function validDate($actualDate)
     {
         return $actualDate > '2021-01-06' || $actualDate < '2020-12-23';
+    }
+
+    public function truncateStudentsFromUsersTable()
+    {
+        $sql = "DELETE FROM users WHERE role<>'booking-manager' AND role<>'support-officer' AND role<>'teacher'";
+        return $this->db->exec($sql);
+    }
+    public function truncateProfessorsFromUsersTable()
+    {
+        $sql = "DELETE FROM users WHERE role<>'booking-manager' AND role<>'support-officer' AND role<>'student'";
+        return $this->db->exec($sql);
+    }
+    public function truncateEnrollmentTable()
+    {
+        $sql = 'DELETE FROM Enrollment';
+        return $this->db->exec($sql);
+    }
+    public function truncateLessonsTable()
+    {
+        $sql = 'DELETE FROM lessons';
+        return $this->db->exec($sql);
+    }
+    public function truncateClassRoomsTable()
+    {
+        $sql = 'DELETE FROM Classroom';
+        return $this->db->exec($sql);
+    }
+    public function truncateCoursesTable()
+    {
+        $sql = 'DELETE FROM Courses';
+        return $this->db->exec($sql);
     }
 }

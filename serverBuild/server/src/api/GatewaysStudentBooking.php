@@ -45,6 +45,7 @@ class GatewaysStudentBooking extends Gateways
         and B.active=1
         and L.active=1
         and L.inPresence=1
+        and B.isWaiting=0
         and B.date>='" . date($this->format) . "'";
         $result = $this->db->query($sql);
         $data = array();
