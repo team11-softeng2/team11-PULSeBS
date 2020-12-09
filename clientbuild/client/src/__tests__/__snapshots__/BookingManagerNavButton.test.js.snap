@@ -3,9 +3,9 @@
 exports[`render button 1`] = `
 <a
   className="mr-4 text-light"
-  href="/teacher/historicalData"
+  href="/booking-manager/contact-tracing"
   onClick={[Function]}
 >
-  Historical data page
+  Generate contact tracing report
 </a>
 `;
