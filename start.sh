@@ -57,7 +57,8 @@ mailer:
     - server" > $project_path/$docker_compose_file
 
 #Run the App
-if [ $ready -eq 1 ]; then
+images=$(docker images | tr -s " " | cut -d " " -f -2 | egrep "($(echo $server_tag | tr ":" " ")|$(echo $client_tag | tr ":" " ")|$(echo $mailer_tag | tr ":" " "))" | wc -l | tr -d " ")
+if [ $ready -eq 1 ] && [ $images -eq 3 ]; then
     echo "Do you want to run the PULSeBS as a Docker App now?Y/N"
     read answer
     if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then 
@@ -66,5 +67,7 @@ if [ $ready -eq 1 ]; then
         echo $message;
         echo "To start the App, run: cd $project_path && docker-compose up"
     fi
+else
+    echo "Sorry, looks like you have $images/3 images required to run this App. Try running the script again."
 fi
 exit 0
