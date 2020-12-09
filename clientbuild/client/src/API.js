@@ -368,9 +368,25 @@ async function getTeacherStatistics(teacherId, filterTime, courseIds) {
     }
 }
 
+async function getAllStudents() {
+    const url = "http://localhost/server/students";
+
+    const response = await fetch(url);
+    const students = await response.json();
+    if (response.ok) {
+        if (students === 0) {
+            return [];
+        }
+        return students;
+    } else {
+        let err = { status: response.status, errorObj: students };
+        throw err;
+    }
+}
+
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses, 
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER, 
-    getCoursesOfTeacher, getFullLectures, getTeacherStatistics
+    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, getAllStudents
 };
 export default API;
