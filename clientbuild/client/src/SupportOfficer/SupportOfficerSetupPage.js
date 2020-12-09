@@ -1,23 +1,24 @@
 import React from "react";
-import Uploader from "./Uploader";
-import { Stepper, Step, StepLabel, Button, Typography } from '@material-ui/core';
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@material-ui/core/';
+import { Stepper, Step, StepLabel, StepContent, Button, Typography } from '@material-ui/core';
+import Dropzone from "./Dropzone"
 
 class SupportOfficerSetupPage extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedFile: null,
+            files: [],
             activeStep: 0,
             steps: [
-                'Choose the csv file', 'Select the file type', 'Check information and submit'
+                'Students', 'Teachers', 'Courses', 'Lectures', 'Classes', 'Submit'
             ]
         };
 
         this.handleNext = this.handleNext.bind(this);
         this.handleBack = this.handleBack.bind(this);
         this.handleReset = this.handleReset.bind(this);
+
+        this.onFileAdded = this.onFileAdded.bind(this);
     }
 
     componentDidMount = () => {
@@ -44,61 +45,87 @@ class SupportOfficerSetupPage extends React.Component {
     getStepContent(stepIndex) {
         switch (stepIndex) {
             case 0:
-                return <Uploader />;
+                return `upload the students csv file.`;
             case 1:
-                return <>
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend">File Type</FormLabel>
-                        <RadioGroup aria-label="fileType" name="fileType" value={this.state.fileType} onChange={this.handleChange}>
-                            <FormControlLabel value="students" control={<Radio color="primary" />} label="Students" />
-                            <FormControlLabel value="teachers" control={<Radio color="primary" />} label="Teachers" />
-                            <FormControlLabel value="courses" control={<Radio color="primary" />} label="Courses" />
-                            <FormControlLabel value="lectures" control={<Radio color="primary" />} label="Lectures" />
-                            <FormControlLabel value="classes" control={<Radio color="primary" />} label="Classes" />
-                        </RadioGroup>
-                    </FormControl>
-                </>
+                return `upload the teachers csv file.`;
             case 2:
-                return <div>THIRD</div>;
+                return `upload the courses csv file.`;
+            case 3:
+                return `upload the lectures csv file.`;
+            case 4:
+                return `upload the classes csv file.`;
+            case 5:
+                return `check the files and submit.`;
             default:
                 return <div>Unknown stepIndex</div>;
         }
     }
 
+    onFileAdded(file) {
+        const activeStep = this.state.activeStep;
+        /* replace or add the file */
+        this.setState(prevState=> {
+            for(let f of prevState.files) {
+                /* check the new file is not present in files */ 
+                if(f !== undefined && file.name === f.name) return ({});
+            }
+            prevState.files[activeStep] = file;
+            return ({ files: prevState.files });
+        })
+    }
+
     render() {
         return <>
-            <div className="h-100 w-100 p-5">
-                <Stepper activeStep={this.state.activeStep} alternativeLabel>
-                    {this.state.steps.map((label) => (
+            <div className="d-flex align-items-center" style={{ height: "calc(100% - 56px" }}>
+                <Stepper style={{ minWidth: "350px", marginLeft:"64px", marginRight:"128px" }} activeStep={this.state.activeStep} orientation="vertical">
+                    {this.state.steps.map((label, index) => (
                         <Step key={label}>
                             <StepLabel>{label}</StepLabel>
+                            <StepContent>
+                                <Typography>{this.getStepContent(index)}</Typography>
+                                <div className="my-3">
+                                    <div>
+                                        <Button
+                                            disabled={this.state.activeStep === 0}
+                                            onClick={this.handleBack}
+                                            style={{ marginRight:"8px"}}
+                                        >
+                                            Back
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            disabled={this.state.files[this.state.activeStep] === undefined && this.state.files.length !== 5}
+                                            onClick={this.handleNext}
+                                            style={{ marginLeft:"8px"}}
+                                        >
+                                            {this.state.activeStep === this.state.steps.length - 1 ? 'Finish' : 'Next'}
+                                        </Button>
+                                    </div>
+                                </div>
+                            </StepContent>
                         </Step>
                     ))}
                 </Stepper>
-                <div>
-                    {this.state.activeStep === this.state.steps.length ? (
-                        <div>
-                            <Typography>All steps completed</Typography>
-                            <Button onClick={this.handleReset}>Reset</Button>
-                        </div>
-                    ) : (
-                            <div>
-                                <div className="p-5 d-flex justify-content-center" style={{height: "600px"}} >
-                                    {this.getStepContent(this.state.activeStep)}
+
+                <div className="w-100 d-flex align-items-center h-100" style={{ marginLeft:"128px", marginRigth:"64px" }}>
+                    <div>
+                        <Dropzone
+                            onFileAdded={this.onFileAdded}
+                            disabled={this.state.activeStep === this.state.steps.length-1}
+                            file={this.state.files[this.state.activeStep]}
+                        />
+                    </div>
+                    <div style={{ marginLeft:"32px" }}>
+                        {this.state.files.map(file => {
+                            return (
+                                <div key={file.name} style={{ height: "50px", padding: "8px", overflow: "hidden" }}>
+                                    <span style={{ marginBottom: "8px", fontSize: "16px", color: "#555", textOverflow: "ellipsis", overflow: "hidden" }}>{file.name}</span>
                                 </div>
-                                <div>
-                                    <Button
-                                        disabled={this.state.activeStep === 0}
-                                        onClick={this.handleBack}
-                                    >
-                                        Back
-                                    </Button>
-                                    <Button variant="contained" color="primary" onClick={this.handleNext}>
-                                        {this.setState.activeStep === this.state.steps.length - 1 ? 'Finish' : 'Next'}
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
+                            );
+                        })}
+                    </div>
+
                 </div>
             </div>
         </>

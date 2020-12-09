@@ -7,8 +7,7 @@ class Dropzone extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            highlight: false,
-            file: null,
+            highlight: false
         };
 
         this.fileInputRef = React.createRef();
@@ -38,7 +37,7 @@ class Dropzone extends Component {
 
     onDragOver(event) {
         event.preventDefault();
-        if (this.props.disabed) return;
+        if (this.props.disabled) return;
         this.setState({ hightlight: true });
     }
 
@@ -48,7 +47,7 @@ class Dropzone extends Component {
 
     onDrop(event) {
         event.preventDefault();
-        if (this.props.disabed) return;
+        if (this.props.disabled) return;
         if (event.dataTransfer.files.length > 0) {
             const file = event.dataTransfer.files[0];
             if (file.type === "text/csv") {
@@ -78,12 +77,12 @@ class Dropzone extends Component {
                     onChange={this.onFileAdded}
                 />
                 {
-                    this.props.file === null ?
+                    this.props.file === undefined ?
                         <FaFileUpload className="UploadIcon my-3" />
                         :
                         <FaFileAlt className="FileIcon my-3" />
                 }
-                <span className="Filename">{this.props.file !== null ? this.props.file.name : "Choose a file"}</span>
+                <span className="Filename">{this.props.file !== undefined ? this.props.file.name : "Choose a file"}</span>
             </div>
         </>
     }
