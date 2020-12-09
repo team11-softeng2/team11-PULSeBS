@@ -89,12 +89,11 @@ class App extends React.Component {
 
   getWaitingBookings = (studentId) => {
     //console.log("API.getWaitingBookings mancante");
-    this.setState({waitingBookings: [{"idLesson":348,"name":"Gestione dei progetti","date":"2020-12-11","beginTime":"13:00","endTime":"16:00","idClassroom":"8","peopleWaiting":0}]});
-    /*
+    //this.setState({waitingBookings: [{"idLesson":348,"name":"Gestione dei progetti","date":"2020-12-11","beginTime":"13:00","endTime":"16:00","idClassroom":"8","peopleWaiting":0}]});
+    
     API.getWaitingBookings(this.state.userId).then((bookings) => {
       this.setState({waitingBookings: bookings});
     });
-    */
   }
 
   bookASeat = (lectureId, date, beginTime) => {

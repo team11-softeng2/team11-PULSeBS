@@ -90,7 +90,7 @@ async function getStudentBookings(studentId) {
 
 // API to retrieve all the lectures the student is waiting for
 async function getWaitingBookings(studentId) {
-    const url = "http://localhost/server/waitingBookings/" + studentId; //Da definire
+    const url = "http://localhost/server/waitingLessons/" + studentId;
     const response = await fetch(url);
     const booking = await response.json();
     if (response.ok) {
