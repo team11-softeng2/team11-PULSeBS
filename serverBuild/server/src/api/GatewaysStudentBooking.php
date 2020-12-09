@@ -31,7 +31,6 @@ class GatewaysStudentBooking extends Gateways
                 $data[] = $subArray;
             }
         }
-
         return $this->returnArray($data);
     }
 
@@ -56,9 +55,33 @@ class GatewaysStudentBooking extends Gateways
             );
             $data[] = $subArray;
         }
-
         return $this->returnArray($data);
     }
+
+    public function findStudentWaitingLessons($id)
+    {
+        date_default_timezone_set("Europe/Rome");
+        $sql = "SELECT B.idLesson as idLesson, idBooking
+        from booking B join lessons L
+        where B.idLesson=L.idLesson
+        and idUser=" . $id . "
+        and B.active=1
+        and L.active=1
+        and L.inPresence=1
+        and B.isWaiting=1
+        and B.date>='" . date($this->format) . "'";
+        $result = $this->db->query($sql);
+        $data = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            $subArray = array(
+                "idLesson" => $row['idLesson'],
+                "idBooking" => $row['idBooking'],
+            );
+            $data[] = $subArray;
+        }
+        return $this->returnArray($data);
+    }
+
     public function findLessonsWithFullRoom()
     {
         $sql = "SELECT L.idLesson
@@ -76,7 +99,6 @@ class GatewaysStudentBooking extends Gateways
             );
             $data[] = $subArray;
         }
-
         return $this->returnArray($data);
     }
 

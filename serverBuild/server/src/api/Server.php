@@ -21,6 +21,12 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersStudentBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
             echo $controller->processRequest();
             break;
+        case "waitingLessons/$number":
+            $value = "waitingLessons";
+            $id = $number;
+            $controller = new Server\api\ControllersStudentBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
+            echo $controller->processRequest();
+            break;
         case "insertLecture":
             $value = "insertLecture";
             $controller = new Server\api\ControllersStudentBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value);

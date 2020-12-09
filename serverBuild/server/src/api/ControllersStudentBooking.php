@@ -29,6 +29,8 @@ class ControllersStudentBooking extends Controllers
         } else if ($this->requestMethod == "GET") {
             if ($this->value == "bookableLessons") {
                 return $this->findBookableLessons();
+            } else if ($this->value == "waitingLessons") {
+                return $this->findWaitingLessons();
             } else if ($this->value == "studentBookings") {
                 return $this->findStudentBookings();
             } else if ($this->value == "lecturesWithFullRoom") {
@@ -55,19 +57,29 @@ class ControllersStudentBooking extends Controllers
         } else {
             $allStudentLessons = array_column($allStudentLessons, "idLesson");
         }
+
         $lessonsBooked = $this->gateway->findStudentBookedLessons($this->id);
         if ($lessonsBooked == 0) {
             $lessonsBooked = array();
         } else {
             $lessonsBooked = array_column($lessonsBooked, "idLesson");
         }
+
+        $lessonsWaiting = $this->gateway->findStudentWaitingLessons($this->id);
+        if ($lessonsWaiting == 0) {
+            $lessonsWaiting = array();
+        } else {
+            $lessonsWaiting = array_column($lessonsWaiting, "idLesson");
+        }
+
         $lessonsWithFullRoom = $this->gateway->findLessonsWithFullRoom();
         if ($lessonsWithFullRoom == 0) {
             $lessonsWithFullRoom = array();
         } else {
             $lessonsWithFullRoom = array_column($lessonsWithFullRoom, "idLesson");
         }
-        $response = array_diff($allStudentLessons, $lessonsBooked, $lessonsWithFullRoom);
+
+        $response = array_diff($allStudentLessons, $lessonsBooked, $lessonsWaiting, $lessonsWithFullRoom);
         $response = $this->gateway->findDetailsOfLessons($response);
         return json_encode($response);
     }
@@ -82,6 +94,26 @@ class ControllersStudentBooking extends Controllers
     public function findStudentBookings()
     {
         $studentBookings = $this->gateway->findStudentBookedLessons($this->id);
+        if ($studentBookings == 0) {
+            return json_encode(0);
+        } else {
+            $studentBookingsDetail = array_column($studentBookings, "idLesson");
+            $studentBookingsDetail = $this->gateway->findDetailsOfLessons($studentBookingsDetail);
+            foreach ($studentBookingsDetail as $key => $row) {
+                foreach ($studentBookings as $key1 => $row1) {
+                    if ($studentBookings[$key1]['idLesson'] == $studentBookingsDetail[$key]['idLesson']) {
+                        $idBooking = $studentBookings[$key1]['idBooking'];
+                    }
+                }
+                $studentBookingsDetail[$key]['idBooking'] = $idBooking;
+            }
+            return json_encode($studentBookingsDetail);
+        }
+    }
+
+    public function findWaitingLessons()
+    {
+        $studentBookings = $this->gateway->findStudentWaitingLessons($this->id);
         if ($studentBookings == 0) {
             return json_encode(0);
         } else {
