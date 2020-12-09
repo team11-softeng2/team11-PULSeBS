@@ -37,6 +37,7 @@ class Calendar extends React.Component{
                 slotMinTime="08:00:00"
                 slotMaxTime="20:00:00"
                 allDaySlot={false}
+                slotEventOverlap={false}
                 eventContent= { function(info) {
                   return <><p>{info.event.title}</p>
                    {info.event.extendedProps.inPresence === 0 ?
