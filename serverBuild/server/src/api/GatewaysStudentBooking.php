@@ -111,7 +111,7 @@ class GatewaysStudentBooking extends Gateways
 
     public function insertBooking($input)
     {
-        $sql = "insert into booking(idUser, idLesson, active, date, isWaiting) values('" . $input->idUser . "', '" . $input->idLesson . "', 1, '" . $input->date . "', 0)";
+        $sql = "insert into booking(idUser, idLesson, active, date, isWaiting) values('" . $input->idUser . "', '" . $input->idLesson . "', 1, '" . $input->date . "', '" . $this->isWaiting($input->idLesson) . "')";
         $return = $this->db->exec($sql);
         if ($return) {
             return $this->db->lastInsertRowID();
@@ -125,5 +125,20 @@ class GatewaysStudentBooking extends Gateways
         if ($return) {
             return $this->db->changes();
         }
+    }
+
+    # returns 1 if there are more booking than actual seats, given a lesson id;
+    # returns 0 if there are still seats available, given a lesson id.
+    private function isWaiting($id)
+    {
+        $sql = "SELECT COUNT(b.idBooking) as bookedSeats, ifnull(cr.totalSeats, COUNT(b.idBooking)+1) as totalSeats
+                FROM booking as b, courses as c, lessons as l, ClassRoom as cr
+                WHERE   b.idLesson=$id AND
+                        l.idLesson=b.idLesson AND
+                        c.idCourse=l.idCourse AND
+                        cr.idClassRoom=l.idClassRoom AND
+                        b.active=1";
+        $result = $this->db->query($sql)->fetchArray(SQLITE3_ASSOC);
+        return $result["bookedSeats"] >= $result["totalSeats"] ? 1 : 0;
     }
 }
