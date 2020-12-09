@@ -5,11 +5,11 @@ if (isset($_SERVER['REQUEST_METHOD'])) {
     if ($_SERVER['HTTP_USER_AGENT'] == 'GuzzleHttp/7') {
         $dbConn = new \SQLite3("../../tests/dbForTesting2.db");
     } else {
-        $dbConn = new \SQLite3("../db.db");
+        $dbConn = new \SQLite3("../db_V3.db");
     }
 }
 
-$msg = "Invalid API!";
+$msg = "Invalid endpoint.";
 if (isset($_GET['url'])) {
     $var = $_GET['url'];
     $value = "undefined";
