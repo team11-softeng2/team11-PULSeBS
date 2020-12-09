@@ -142,15 +142,30 @@ class GatewaysStudentBooking extends Gateways
 
     public function updateBooking($id)
     {
-        $sql = "update booking set active=0, isWaiting=0 where idBooking=" . $id . "";
+        // delete my booking
+        $sql = "UPDATE booking SET active=0, isWaiting=0 WHERE idBooking=$id";
         $return = $this->db->exec($sql);
+        // if there was someone waiting for a seat at this booking's lecture, set his/her booking to isWaiting=0
+        $sql = "UPDATE booking
+                SET isWaiting=0
+                WHERE idBooking=(SELECT b.idBooking
+                                FROM    (SELECT idLesson
+                                        FROM booking
+                                        WHERE idBooking=$id) as l, booking as b
+                                WHERE   b.idLesson=l.idLesson AND
+                                        b.active=1 AND
+                                        b.isWaiting=1
+                                ORDER BY b.idBooking
+                                LIMIT 1)";
+        $return = $this->db->exec($sql);
+
         if ($return) {
             return $this->db->changes();
         }
     }
 
-    # returns 1 if there are more booking than actual seats, given a lesson id;
-    # returns 0 if there are still seats available, given a lesson id.
+    // returns 1 if there are more booking than actual seats, given a lesson id;
+    // returns 0 if there are still seats available, given a lesson id.
     private function isWaiting($id)
     {
         $sql = "SELECT COUNT(b.idBooking) as bookedSeats, ifnull(cr.totalSeats, COUNT(b.idBooking)+1) as totalSeats
