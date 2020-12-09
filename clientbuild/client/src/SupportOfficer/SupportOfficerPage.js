@@ -50,7 +50,7 @@ const CardButton = (props) => {
     return <>
         <Col lg="2">
             <Card
-                className={"text-center bg-white" + (hovered ? " shadow" : "")}
+                className={"text-center bg-white rounded" + (hovered ? " shadow" : "")}
                 style={{ cursor: "pointer" }}
                 onMouseEnter={toggleIn}
                 onMouseLeave={toggleOut}
