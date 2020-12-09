@@ -82,10 +82,15 @@ class GatewaysStudentBooking extends Gateways
     public function findDetailsOfLessons($lessons)
     {
         $lessons = implode(",", $lessons);
-        $sql = "SELECT L.idLesson, C.name, L.date, L.beginTime, L.endTime, L.idClassRoom
-        FROM LESSONS L JOIN courses C
-        WHERE L.idCourse=C.idCourse
-        and L.idLesson in (" . $lessons . ")";
+        $sql = "SELECT  L.idLesson, C.name, L.date, L.beginTime, L.endTime, L.idClassRoom, ifnull(B.peopleWaiting, 0) as peopleWaiting
+                FROM 	lessons L LEFT JOIN (SELECT idLesson, COUNT(b.idLesson) as peopleWaiting
+                        FROM booking as b
+                        WHERE 	b.idLesson IN ($lessons)
+                                AND b.active=1
+                                AND b.isWaiting=1
+                        GROUP BY b.idLesson) B ON B.idLesson=L.idLesson, courses as C
+                WHERE 	L.idCourse=C.idCourse AND
+                        L.idLesson IN ($lessons)";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -96,10 +101,10 @@ class GatewaysStudentBooking extends Gateways
                 "beginTime" => $row['beginTime'],
                 "endTime" => $row['endTime'],
                 "idClassroom" => $row['idClassRoom'],
+                "peopleWaiting" => $row['peopleWaiting'],
             );
             $data[] = $subArray;
         }
-
         return $this->returnArray($data);
     }
 
@@ -110,17 +115,14 @@ class GatewaysStudentBooking extends Gateways
         if ($return) {
             return $this->db->lastInsertRowID();
         }
-
     }
 
     public function updateBooking($id)
     {
-        $sql = "update booking set active=0 where idBooking=" . $id . "";
+        $sql = "update booking set active=0, isWaiting=0 where idBooking=" . $id . "";
         $return = $this->db->exec($sql);
         if ($return) {
             return $this->db->changes();
         }
-
     }
-
 }
