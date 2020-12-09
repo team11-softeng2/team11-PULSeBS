@@ -156,7 +156,14 @@ class ControllersStudentBooking extends Controllers
         } else {
             $lecturesAlreadyBooked = array_column($lecturesAlreadyBooked, "idLesson");
         }
-        $allStudentLectures = array_diff($allStudentLectures, $lecturesAlreadyBooked);
+        $lessonsWaiting = $this->gateway->findStudentWaitingLessons($this->id);
+        if ($lessonsWaiting == 0) {
+            $lessonsWaiting = array();
+        } else {
+            $lessonsWaiting = array_column($lessonsWaiting, "idLesson");
+        }
+
+        $allStudentLectures = array_diff($allStudentLectures, $lecturesAlreadyBooked, $lessonsWaiting);
         $resultLectures = array_intersect($lecturesFullRoom, $allStudentLectures);
         if (empty($resultLectures)) {
             return json_encode(0);
