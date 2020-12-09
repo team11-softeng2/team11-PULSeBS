@@ -1,6 +1,5 @@
 import React, { useState, Component } from 'react'
 import Dropzone from "./Dropzone"
-import './Uploader.css'
 
 class Uploader extends Component {
   constructor(props) {
