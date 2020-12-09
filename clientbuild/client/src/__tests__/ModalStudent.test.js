@@ -89,7 +89,6 @@ test("Modal content render full booking", () => {
 const closeModalMock = jest.fn();
 const deleteBookingMock = jest.fn();
 const bookASeatMock = jest.fn();
-const addToWaitingListMock = jest.fn();
 
 describe("Modal buttons", () => {
     test("Modal don't delete button", () => {
@@ -204,12 +203,12 @@ describe("Modal buttons", () => {
             lectureEndTime = {"12:00:00"}
             elementId = {1}
             closeModal = {closeModalMock}
-            addToWaitingList = {addToWaitingListMock}
+            bookASeat = {bookASeatMock}
             lectureType = {"fullLecture"}
             />);
         const dontwaitButton = queryByTestId("dontwait-button");
         fireEvent.click(dontwaitButton);
-        expect(addToWaitingListMock).toHaveBeenCalledTimes(0);
+        expect(bookASeatMock).toHaveBeenCalledTimes(1);
     });
 
     test("Modal wait button", () => {
@@ -221,11 +220,62 @@ describe("Modal buttons", () => {
             lectureEndTime = {"12:00:00"}
             elementId = {1}
             closeModal = {closeModalMock}
-            addToWaitingList = {addToWaitingListMock}
+            bookASeat = {bookASeatMock}
             lectureType = {"fullLecture"}
             />);
         const waitButton = queryByTestId("wait-button");
         fireEvent.click(waitButton);
-        expect(addToWaitingListMock).toHaveBeenCalledTimes(1);
+        expect(bookASeatMock).toHaveBeenCalledTimes(2);
+    });
+
+    test("onHide waitingBooking", () => {
+        const {queryAllByRole} = render(<ModalStudent
+            show={true} 
+            lectureTitle = {"test"}
+            lectureDate = {"2020-10-10"}
+            lectureBeginTime = {"10:00:00"}
+            lectureEndTime = {"12:00:00"}
+            elementId = {1}
+            studentList = {[]}
+            closeModal = {closeModalMock}
+            lectureType = {"waitingBooking"}
+            />);
+        const buttons = queryAllByRole("button");
+        fireEvent.click(buttons[0]);
+        expect();
+    });
+
+    test("Modal don't leave button", () => {
+        const {queryByTestId} = render(<ModalStudent
+            show={true} 
+            lectureTitle = {"test"}
+            lectureDate = {"2020-10-10"}
+            lectureBeginTime = {"10:00:00"}
+            lectureEndTime = {"12:00:00"}
+            elementId = {1}
+            closeModal = {closeModalMock}
+            deleteBooking = {deleteBookingMock}
+            lectureType = {"waitingBooking"}
+            />);
+        const dontwaitButton = queryByTestId("dontdeletewait-button");
+        fireEvent.click(dontwaitButton);
+        expect(deleteBookingMock).toHaveBeenCalledTimes(1);
+    });
+
+    test("Modal leave waiting list button", () => {
+        const {queryByTestId} = render(<ModalStudent
+            show={true} 
+            lectureTitle = {"test"}
+            lectureDate = {"2020-10-10"}
+            lectureBeginTime = {"10:00:00"}
+            lectureEndTime = {"12:00:00"}
+            elementId = {1}
+            closeModal = {closeModalMock}
+            deleteBooking = {deleteBookingMock}
+            lectureType = {"waitingBooking"}
+            />);
+        const waitButton = queryByTestId("deletewait-button");
+        fireEvent.click(waitButton);
+        expect(deleteBookingMock).toHaveBeenCalledTimes(2);
     });
 })

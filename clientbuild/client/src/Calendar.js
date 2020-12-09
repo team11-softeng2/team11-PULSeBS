@@ -4,6 +4,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import ModalStudent from './ModalStudent';
 import ModalTeacher from './ModalTeacher';
 import API from './API';
+import { InputGroup } from 'react-bootstrap';
 
 class Calendar extends React.Component{
     constructor(props) {
@@ -62,7 +63,7 @@ class Calendar extends React.Component{
               bookASeat = {this.props.bookASeat}
               deleteBooking = {this.props.deleteBooking}
               lectureType = {this.state.lectureType}
-              addToWaitingList = {this.props.addToWaitingList}
+              peopleWaiting = {this.state.peopleWaiting}
               ></ModalStudent>
             :
               <ModalTeacher
@@ -109,6 +110,7 @@ class Calendar extends React.Component{
           this.setState({elementId: info.event.id});
           this.setState({lectureColor: info.event.backgroundColor});
           this.setState({lectureType: info.event.extendedProps.type});
+          this.setState({peopleWaiting: info.event.extendedProps.peopleWaiting});
         //}
     }
 }
