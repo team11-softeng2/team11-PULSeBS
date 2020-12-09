@@ -1,12 +1,12 @@
 import React from 'react';
-import { Container, Row, Col, Form, Alert, ListGroup, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Alert, Button, Table } from 'react-bootstrap';
 import API from './API';
 
 class ContactTracingPage extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { allStudents: [], filteredStudents: [], alwaysShowStudents: false };
+        this.state = { allStudents: [], filteredStudents: [], alwaysShowStudents: false, maxStudentsToShow: 100 };
     }
 
     render(){
@@ -25,9 +25,9 @@ class ContactTracingPage extends React.Component {
                             Number of students found: {this.state.filteredStudents.length}
                         </Alert>
 
-                        { (this.state.filteredStudents.length > 50 && this.state.alwaysShowStudents === false) && <>
+                        { (this.state.filteredStudents.length > this.state.maxStudentsToShow && this.state.alwaysShowStudents === false) && <>
                           <Alert variant='danger'>
-                              Too many students to show (> 50). Please narrow your search first. <br></br>
+                        Too many students to show (> {this.state.maxStudentsToShow}). Please narrow your search first. <br></br>
                               <Button 
                                 className='mt-3' 
                                 variant='danger' 
@@ -38,7 +38,7 @@ class ContactTracingPage extends React.Component {
                              
                         </> }
 
-                        {  (this.state.filteredStudents.length > 50 && this.state.alwaysShowStudents === true) && 
+                        {  (this.state.filteredStudents.length > this.state.maxStudentsToShow && this.state.alwaysShowStudents === true) && 
                             <Alert variant='info'>
                                 Currently showing {this.state.filteredStudents.length} students.
                                 <Button 
@@ -52,11 +52,22 @@ class ContactTracingPage extends React.Component {
 
                     </Col>
 
-                    <Col className='col-5'>
-                        <ListGroup className='mt-3'>
-                            {(this.state.filteredStudents.length <= 50 || this.state.alwaysShowStudents === true) &&
-                                this.state.filteredStudents.map(s => this.createStudentListItem(s))}
-                        </ListGroup>
+                    <Col className='col-8'>
+                        <Table className='mt-3' striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Student id</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {(this.state.filteredStudents.length <= this.state.maxStudentsToShow || this.state.alwaysShowStudents === true) &&
+                                    this.state.filteredStudents.map(s => this.createStudentTableRow(s))}
+                            </tbody>
+                        </Table>
                     </Col>
                 </Row>
             </Container>
@@ -77,13 +88,15 @@ class ContactTracingPage extends React.Component {
         console.log(s);
     }
 
-    createStudentListItem = (s) => {
-        return <>
-            <ListGroup.Item key={s.idStudent}>
-                {s.name}
-                <Button className='float-right' variant='danger' onClick={() => {this.handleStudentButtonClick(s);}}>Generate report from this student</Button>
-            </ListGroup.Item>
-        </>
+    createStudentTableRow = (s) => {
+        return <tr>
+            <td>{s.name}</td>
+            <td>{s.email}</td>
+            <td>{s.idStudent}</td>
+            <td>
+                <Button className='mt-1' variant='danger' onClick={() => {this.handleStudentButtonClick(s);}}>Generate report from this student</Button>
+            </td>
+        </tr>
     }
 
     studentMatchesInput = (s, wordsInInput) => {
