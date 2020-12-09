@@ -14,9 +14,9 @@ class StudentCalendarPage extends React.Component{
         return <>
         	<Container fluid>
         		<Row>
-        			<Col className='col-4'/>
+        			<Col className='col-3'/>
         			
-        			<Col className='col-4'>
+        			<Col className='col-6'>
         				<Alert variant='info' className="text-center"> 
         					<h3>My lecture bookings:</h3>
 							<Badge pill variant="primary">
@@ -27,13 +27,16 @@ class StudentCalendarPage extends React.Component{
 							</Badge>{' '}
 							<Badge pill variant="danger">
 								Full lectures
+							</Badge>{' '}
+							<Badge pill variant="danger" style={{background: "orange"}}>
+								Waiting
 							</Badge>
         				</Alert>
         			</Col>
         			
-        			<Col className='col-4'/>
+        			<Col className='col-3'/>
         		</Row>
-				<Calendar view={"student"} events={this.props.bookableLectures.concat(this.props.bookings).concat(this.props.fullLectures)} bookASeat = {this.props.bookASeat} deleteBooking = {this.props.deleteBooking} addToWaitingList = {this.props.addToWaitingList}/>
+				<Calendar view={"student"} events={this.props.bookableLectures.concat(this.props.bookings).concat(this.props.fullLectures).concat(this.props.waitingBookings)} bookASeat = {this.props.bookASeat} deleteBooking = {this.props.deleteBooking} />
         	</Container>
         </>
       }

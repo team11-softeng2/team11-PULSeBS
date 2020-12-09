@@ -88,6 +88,22 @@ async function getStudentBookings(studentId) {
     }
 }
 
+// API to retrieve all the lectures the student is waiting for
+async function getWaitingBookings(studentId) {
+    const url = "http://localhost/server/waitingBookings/" + studentId; //Da definire
+    const response = await fetch(url);
+    const booking = await response.json();
+    if (response.ok) {
+        if (booking === 0) {
+            return [];
+        }
+        return booking;
+    } else {
+        let err = { status: response.status, errorObj: booking };
+        throw err;
+    }
+}
+
 //API per prenotare un posto a lezione
 async function bookASeat(lectureId, studentId, date) {
     const url = "http://localhost/server/insertLecture"

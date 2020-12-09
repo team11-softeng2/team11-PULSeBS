@@ -27,6 +27,7 @@ class App extends React.Component {
       bookings: [],         //Lezioni già prenotate dallo studente
       teacherLectures: [],  //Lezioni in presenza dell'insegnante
       fullLectures: [],     //Lezioni prenotabili dallo studente ma che sono piene
+      waitingBookings: [],  //Lezioni per le quali lo studente si è messo in attesa
     };
   }
 
@@ -43,6 +44,7 @@ class App extends React.Component {
       this.getBookableStudentLectures(user.idUser);
       this.getStudentBookings(user.idUser);
       this.getFullLectures(user.idUser);
+      this.getWaitingBookings(user.idUser);
     } else if(user.role === "teacher") {
       this.getTeacherLectures(user.idUser);
     } else if(user.Role === "booking-manager") {
@@ -85,6 +87,16 @@ class App extends React.Component {
     });
   }
 
+  getWaitingBookings = (studentId) => {
+    console.log("API.getWaitingBookings mancante");
+    this.setState({waitingBookings: [{"idLesson":348,"name":"Gestione dei progetti","date":"2020-12-11","beginTime":"13:00","endTime":"16:00","idClassroom":"8","peopleWaiting":0}]});
+    /*
+    API.getWaitingBookings(this.state.userId).then((bookings) => {
+      this.setState({waitingBookings: bookings});
+    });
+    */
+  }
+
   bookASeat = (lectureId, date, beginTime) => {
     let composedDate = date + " " + beginTime;
     API.bookASeat(lectureId, this.state.userId, composedDate).then(() => {
@@ -92,6 +104,7 @@ class App extends React.Component {
       this.getBookableStudentLectures(this.state.userId);
       this.getStudentBookings(this.state.userId);
       this.getFullLectures(this.state.userId);
+      this.getWaitingBookings(this.state.userId);
     })
     .catch(() => {
       console.log("Error in newBooking function");
@@ -102,6 +115,8 @@ class App extends React.Component {
     API.deleteBooking(lectureId).then(() => {
       this.getStudentBookings(this.state.userId);
       this.getBookableStudentLectures(this.state.userId);
+      this.getFullLectures(this.state.userId);
+      this.getWaitingBookings(this.state.userId);
     });
   }
 
@@ -115,17 +130,6 @@ class App extends React.Component {
     API.changeToOnline(lectureId).then(() => {
       this.getTeacherLectures(this.state.userId);
     });
-  }
-
-  addToWaitingList = (lectureId) => {
-    console.log("Lista d'attesa per la lezione " + lectureId);
-    /*
-    API.addToWaitingList(lectureId, this.state.userId).then(() => {
-      this.getBookableStudentLectures(this.state.userId);
-      this.getStudentBookings(this.state.userId);
-      this.getFullLectures(this.state.userId);
-    });
-    */
   }
 
   render(props) {
@@ -147,7 +151,6 @@ class App extends React.Component {
                 }})} 
                 bookASeat = {this.bookASeat}
                 deleteBooking = {this.deleteBooking}
-                addToWaitingList = {this.addToWaitingList}
                 fullLectures = {this.state.fullLectures.map((l) => {
                   return {
                     id: l.idLesson,
@@ -157,6 +160,18 @@ class App extends React.Component {
                     color:"#dc3546",
                     type:"fullLecture",
                     classroom: l.idClassroom,
+                    peopleWaiting: l.peopleWaiting,
+                  }})}
+                waitingBookings = {this.state.waitingBookings.map((l) => {
+                  return {
+                    id: l.idLesson,
+                    title: l.name,
+                    start: new Date(l.date + "T" + l.beginTime),
+                    end: new Date(l.date + "T" + l.endTime),
+                    color:"orange",
+                    type:"waitingBooking",
+                    classroom: l.idClassroom,
+                    peopleWaiting: l.peopleWaiting,
                   }})}
                 bookings = {this.state.bookings.map((l) => {
                   return {
