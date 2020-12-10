@@ -145,6 +145,12 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersSupportOfficer($_SERVER['REQUEST_METHOD'], $dbConn, $value);
             echo $controller->processRequest();
             break;
+        case "findStudentContacts/$number":
+            $value = "findStudentContacts";
+            $idStudent = $number;
+            $controller = new Server\api\ControllersReportTracing($_SERVER['REQUEST_METHOD'], $dbConn, $value, $idStudent);
+            echo $controller->processRequest();
+            break;
         default:
             echo $msg;
     }

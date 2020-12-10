@@ -177,6 +177,10 @@ Each endpoint is preceded by /server/src/api/
 - POST `/setUpLessons`
   - Body: parsed CSV of Schedule into JSON
   - Response: return 1 or 0 (errors)
+## Report Tracing
+
+  - GET `/findStudentContacts/:studentID`
+    - Response: list of students and teacher that met the studentID or 0 if nothing is found
 
 # DB structure
 
