@@ -133,7 +133,7 @@ class GatewaysStudentBooking extends Gateways
 
     public function insertBooking($input)
     {
-        $sql = "insert into booking(idUser, idLesson, active, date, isWaiting) values('" . $input->idUser . "', '" . $input->idLesson . "', 1, '" . $input->date . "', '" . $this->isWaiting($input->idLesson) . "')";
+        $sql = "INSERT INTO booking(idUser, idLesson, active, date, isWaiting) VALUES('" . $input->idUser . "', '" . $input->idLesson . "', 1, '" . $input->date . "', '" . $this->isWaiting($input->idLesson) . "')";
         $return = $this->db->exec($sql);
         if ($return) {
             return $this->db->lastInsertRowID();
@@ -145,26 +145,28 @@ class GatewaysStudentBooking extends Gateways
         // delete my booking
         $sql = "UPDATE booking SET active=0, isWaiting=0 WHERE idBooking=$id";
         $return = $this->db->exec($sql);
-        // if there was someone waiting for a seat at this booking's lecture, set his/her booking to isWaiting=0
-        $sql = "UPDATE booking
+
+        // if there was someone waiting for a seat for the lecture relative to this booking, set his/her booking to isWaiting=0
+        $lessonId = $this->db->query("SELECT idLesson FROM booking WHERE idBooking=$id")->fetchArray(SQLITE3_ASSOC)["idLesson"];
+        if ($this->isWaiting($lessonId) == 0) {
+            $sql = "UPDATE booking
                 SET isWaiting=0
-                WHERE idBooking=(SELECT b.idBooking
-                                FROM    (SELECT idLesson
-                                        FROM booking
-                                        WHERE idBooking=$id) as l, booking as b
-                                WHERE   b.idLesson=l.idLesson AND
-                                        b.active=1 AND
-                                        b.isWaiting=1
-                                ORDER BY b.idBooking
+                WHERE idBooking=(SELECT idBooking
+                                FROM    booking
+                                WHERE   idLesson=$lessonId AND
+                                        active=1 AND
+                                        isWaiting=1
+                                ORDER BY idBooking
                                 LIMIT 1)";
-        $return = $this->db->exec($sql);
+            $this->db->exec($sql);
+        }
 
         if ($return) {
             return $this->db->changes();
         }
     }
 
-    // returns 1 if there are more booking than actual seats, given a lesson id;
+    // returns 1 if there are more confirmed bookings than actual seats, given a lesson id;
     // returns 0 if there are still seats available, given a lesson id.
     private function isWaiting($id)
     {
@@ -174,7 +176,7 @@ class GatewaysStudentBooking extends Gateways
                         l.idLesson=b.idLesson AND
                         c.idCourse=l.idCourse AND
                         cr.idClassRoom=l.idClassRoom AND
-                        b.active=1";
+                        b.active=1 AND b.isWaiting=0";
         $result = $this->db->query($sql)->fetchArray(SQLITE3_ASSOC);
         return $result["bookedSeats"] >= $result["totalSeats"] ? 1 : 0;
     }
