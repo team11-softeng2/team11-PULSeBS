@@ -25,7 +25,7 @@ async function userLogin(username, password) {
 
 async function logout() {
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:80/server/api/logout.php')      //Da verificare
+        fetch('http://localhost/server/api/logout.php')      //Da verificare
             .then((response) => {
                 if (response.ok) {
                     resolve(0);
