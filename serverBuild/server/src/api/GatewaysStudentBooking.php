@@ -133,10 +133,12 @@ class GatewaysStudentBooking extends Gateways
 
     public function insertBooking($input)
     {
-        $sql = "INSERT INTO booking(idUser, idLesson, active, date, isWaiting) VALUES('" . $input->idUser . "', '" . $input->idLesson . "', 1, '" . $input->date . "', '" . $this->isWaiting($input->idLesson) . "')";
-        $return = $this->db->exec($sql);
-        if ($return) {
-            return $this->db->lastInsertRowID();
+        $isWaiting = $this->isWaiting($input->idLesson);
+        $sql = "INSERT INTO booking('idUser', 'idLesson', 'active', 'date', 'isWaiting') VALUES('" . $input->idUser . "', '" . $input->idLesson . "', 1, '" . $input->date . "', '" . $isWaiting . "')";
+        if ($this->db->exec($sql)) {
+            return array("bookingId" => $this->db->lastInsertRowID(), "isWaiting" => $isWaiting);
+        } else {
+            return array();
         }
     }
 
@@ -144,30 +146,41 @@ class GatewaysStudentBooking extends Gateways
     {
         // delete my booking
         $sql = "UPDATE booking SET active=0, isWaiting=0 WHERE idBooking=$id";
-        $return = $this->db->exec($sql);
-
-        // if there was someone waiting for a seat for the lecture relative to this booking, set his/her booking to isWaiting=0
-        $lessonId = $this->db->query("SELECT idLesson FROM booking WHERE idBooking=$id")->fetchArray(SQLITE3_ASSOC)["idLesson"];
-        if ($this->isWaiting($lessonId) == 0) {
-            $sql = "UPDATE booking
-                SET isWaiting=0
-                WHERE idBooking=(SELECT idBooking
-                                FROM    booking
-                                WHERE   idLesson=$lessonId AND
-                                        active=1 AND
-                                        isWaiting=1
-                                ORDER BY idBooking
-                                LIMIT 1)";
-            $this->db->exec($sql);
+        // if my booking was deleted successfully
+        if ($this->db->exec($sql)) {
+            // get the lesson id of this booking
+            $lessonId = $this->db->query("SELECT idLesson FROM booking WHERE idBooking=$id")->fetchArray(SQLITE3_ASSOC)["idLesson"];
+            // if there was someone waiting for a seat in this lecture (the one with lowest bookingId)
+            if ($this->isWaiting($lessonId) == 0) {
+                // get the bookingId
+                $bookingId = $this->db->query("SELECT idBooking
+                                    FROM    booking
+                                    WHERE   idLesson=$lessonId AND
+                                            active=1 AND
+                                            isWaiting=1
+                                    ORDER BY idBooking
+                                    LIMIT 1")->fetchArray(SQLITE3_ASSOC)["idBooking"];
+                // set the booking to isWaiting=0
+                $sql = "UPDATE booking
+                    SET isWaiting=0
+                    WHERE idBooking=$bookingId";
+                // if operation was successfull, return the bookingId; otherwise return 0 on any other error
+                if ($this->db->exec($sql)) {
+                    return $bookingId;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
         }
 
-        if ($return) {
-            return $this->db->changes();
-        }
     }
 
-    // returns 1 if there are more confirmed bookings than actual seats, given a lesson id;
-    // returns 0 if there are still seats available, given a lesson id.
+    // returns 1 if there are more confirmed bookings than actual seats, given a lesson id -> student must wait
+    // returns 0 if there are still seats available, given a lesson id -> booking confirmed (no waiting needed)
     private function isWaiting($id)
     {
         $sql = "SELECT COUNT(b.idBooking) as bookedSeats, ifnull(cr.totalSeats, COUNT(b.idBooking)+1) as totalSeats

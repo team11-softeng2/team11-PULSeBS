@@ -84,13 +84,6 @@ class ControllersStudentBooking extends Controllers
         return json_encode($response);
     }
 
-    public function insertNewBooklesson($input)
-    {
-        $response = json_encode($this->gateway->insertBooking($input));
-        $this->gatewayNotification->sendEmail('bookingConfirmation', $response);
-        return $response;
-    }
-
     public function findStudentBookings()
     {
         $studentBookings = $this->gateway->findStudentBookedLessons($this->id);
@@ -131,11 +124,6 @@ class ControllersStudentBooking extends Controllers
         }
     }
 
-    public function updateBooking($id)
-    {
-        return json_encode($this->gateway->updateBooking($id));
-    }
-
     public function findLectureWithFullRoom()
     {
         $allStudentLectures = $this->gateway->findStudentLessons($this->id);
@@ -173,4 +161,27 @@ class ControllersStudentBooking extends Controllers
         }
     }
 
+    public function insertNewBooklesson($input)
+    {
+        $response = $this->gateway->insertBooking($input);
+        if (!empty($response)) {
+            if ($response["isWaiting"] == 0) {
+                $this->gatewayNotification->sendEmail('bookingConfirmation', $response["bookingId"]);
+            }
+            return json_encode($response["bookingId"]);
+        } else {
+            return 0;
+        }
+    }
+
+    public function updateBooking($id)
+    {
+        $response = $this->gateway->updateBooking($id);
+        if ($response) {
+            $this->gatewayNotification->sendEmail('takenFromWaitingList', $response);
+            return json_encode($response);
+        } else {
+            return 0;
+        }
+    }
 }
