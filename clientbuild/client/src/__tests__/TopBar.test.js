@@ -14,6 +14,16 @@ describe("TopBar renderer", () => {
         const tree = TestRenderer.create(<Router><TopBar loggedin = {false}/></Router>).toJSON();
         expect(tree).toMatchSnapshot();
     });
+
+    test("Render as teacher", () => {
+        const tree = TestRenderer.create(<Router><TopBar loggedin = {true} role = {"teacher"}/></Router>).toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+
+    test("Render as booking manager", () => {
+        const tree = TestRenderer.create(<Router><TopBar loggedin = {true} role = {"booking-manager"}/></Router>).toJSON();
+        expect(tree).toMatchSnapshot();
+    });
 })
 
 describe("Logout render", () => {
