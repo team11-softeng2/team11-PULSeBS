@@ -59,6 +59,14 @@ describe("get functions", () => {
     expect(instance.state.fullLectures.length).toBe(1);
   });
 
+  test('getWaitingBookings', async () => {
+    const component = shallow(<App/>);
+    const instance = component.instance();
+    API.getWaitingBookings = jest.fn(() => Promise.resolve(["test"]));
+    await instance.getWaitingBookings(1);
+    expect(instance.state.waitingBookings).toStrictEqual(["test"]);
+  });
+
   test("setLoggedIn student", () => {
     const component = shallow(<App/>);
     const instance = component.instance();
@@ -85,6 +93,19 @@ describe("get functions", () => {
     expect(instance.state.userName).toBe("Rocco");
     expect(instance.state.userRole).toBe("teacher");
     expect(instance.getTeacherLectures).toHaveBeenCalledTimes(1);
+  });
+
+  test("setLoggedIn booking-manager", () => {
+    const component = shallow(<App/>);
+    const instance = component.instance();
+    expect(instance.state.loggedin).toBe(false);
+    expect(instance.state.userId).toBe(undefined);
+    expect(instance.state.userName).toBe(undefined);
+    instance.setLoggedIn({role: "booking-manager", name:"Test", idUser: 99});
+    expect(instance.state.loggedin).toBe(true);
+    expect(instance.state.userId).toBe(99);
+    expect(instance.state.userName).toBe("Test");
+    expect(instance.state.userRole).toBe("booking-manager");
   });
   
   test("logout", async () => {
