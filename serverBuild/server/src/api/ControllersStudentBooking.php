@@ -22,7 +22,7 @@ class ControllersStudentBooking extends Controllers
             if ($this->value == "insertLecture") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->insertNewBooklesson($input);
+                return $this->insertBooking($input);
             } else {
                 return $this->invalidEndpoint;
             }
@@ -161,7 +161,7 @@ class ControllersStudentBooking extends Controllers
         }
     }
 
-    public function insertNewBooklesson($input)
+    public function insertBooking($input)
     {
         $response = $this->gateway->insertBooking($input);
         if (!empty($response)) {
@@ -181,7 +181,7 @@ class ControllersStudentBooking extends Controllers
             $this->gatewayNotification->sendEmail('takenFromWaitingList', $response);
             return json_encode($response);
         } else {
-            return 0;
+            return json_encode(0);
         }
     }
 }

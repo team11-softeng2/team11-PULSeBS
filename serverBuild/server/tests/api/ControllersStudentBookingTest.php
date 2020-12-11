@@ -67,7 +67,7 @@ class ControllersStudentBookingTest extends TestCase
             public $date = "2020-11-20 14:00:00";
 
         };
-        $result = $this->controller->insertNewBooklesson($bookForTest);
+        $result = $this->controller->insertBooking($bookForTest);
         $exResult = json_encode(1);
         $this->assertGreaterThanOrEqual($exResult, $result);
         $this->deleteRow($result);
@@ -77,21 +77,40 @@ class ControllersStudentBookingTest extends TestCase
 //test UpdateBooking-------------------------------------------------------------------------------------------------------------------------
     public function testUpdateBooking()
     {
+        $this->db = new SQLite3("./tests/dbWaiting.db");
         $this->updateDates();
+        $this->restoreValues();
+
+        $idBooking = 4;
+        $this->controller = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
+        $bookingWaiting = $this->controller->updateBooking($idBooking);
+        $this->assertIsInt(json_decode($bookingWaiting));
+        $this->assertEquals(0, $bookingWaiting);
+
         $idBooking = 2;
         $this->controller = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
-        $lineUpdated = $this->controller->updateBooking($idBooking);
-        $this->assertEquals(1, $lineUpdated);
-        $this->restoreValueAfterUpdate();
+        $bookingWaiting = $this->controller->updateBooking($idBooking);
+        $this->assertIsInt(json_decode($bookingWaiting));
+        $this->assertEquals(3, $bookingWaiting);
+
+        $this->restoreValues();
     }
 
     public function testRequestUpdateBooking()
     {
+        $this->db = new SQLite3("./tests/dbWaiting.db");
         $this->updateDates();
+        $this->restoreValues();
+
+        $idBooking = 4;
+        $this->controller = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
+        $this->assertEquals("0", $this->controller->processRequest());
+
         $idBooking = 2;
         $this->controller = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
-        $this->assertEquals("1", $this->controller->processRequest());
-        $this->restoreValueAfterUpdate();
+        $this->assertEquals("3", $this->controller->processRequest());
+
+        $this->restoreValues();
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -258,19 +277,19 @@ class ControllersStudentBookingTest extends TestCase
         );');
     }
 
-    protected function restoreValueAfterUpdate()
+    protected function restoreValues()
     {
-        $this->db->exec("update booking set active=1 where idBooking=2");
+        $this->db->exec('UPDATE booking SET active=1; UPDATE booking SET isWaiting=1 WHERE idBooking>2;');
     }
 
     protected function deleteRow($id)
     {
-        $this->db->exec("delete from booking where idBooking=" . $id . "");
+        $this->db->exec("DELETE FROM booking WHERE idBooking=" . $id . "");
     }
 
     protected function updateDates()
     {
-        $this->db->exec("update booking set date=datetime('now', '3 days')");
-        $this->db->exec("update lessons set date=date('now', '3 days');");
+        $this->db->exec("UPDATE booking SET date=datetime('now', '3 days')");
+        $this->db->exec("UPDATE lessons SET date=date('now', '3 days');");
     }
 }

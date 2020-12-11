@@ -9,7 +9,7 @@ class GatewaysStudentBookingTest extends TestCase
     private $gatewayStudentBooking;
     private $idStudent;
 
-//test FindStundentLessons-----------------------------------------------------------------------------------------
+//test FindStudentLessons-----------------------------------------------------------------------------------------
     public function testFindStudentLessonsFound()
     {
         $this->db = new SQLite3("./tests/dbForTesting2.db");
@@ -117,23 +117,31 @@ class GatewaysStudentBookingTest extends TestCase
             public $idUser = 20;
             public $idLesson = 20;
             public $date = "2021-12-20 11:00:00";
-
         };
         $result = $this->gatewayStudentBooking->insertBooking($bookForTest);
-        $this->assertIsInt($result);
+        $this->assertIsArray($result);
+        $this->assertIsInt($result["bookingId"]);
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------
 
 //test UpdateBooking-----------------------------------------------------------------------------------------------------------------------
     public function testUpdateBooking()
     {
-        $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->db = new SQLite3("./tests/dbWaiting.db");
         $this->updateDates();
         $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
-        $idBooking = 2;
-        $lineUpdated = $this->gatewayStudentBooking->updateBooking($idBooking);
-        $this->assertEquals(1, $lineUpdated);
-        $this->restoreValueAfterUpdate();
+
+        $this->restoreValues();
+
+        $bookingWaiting = $this->gatewayStudentBooking->updateBooking(4);
+        $this->assertIsInt($bookingWaiting);
+        $this->assertEquals(0, $bookingWaiting);
+
+        $bookingWaiting = $this->gatewayStudentBooking->updateBooking(2);
+        $this->assertIsInt($bookingWaiting);
+        $this->assertEquals(3, $bookingWaiting);
+
+        $this->restoreValues();
     }
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -195,14 +203,14 @@ class GatewaysStudentBookingTest extends TestCase
         );');
     }
 
-    protected function restoreValueAfterUpdate()
+    protected function restoreValues()
     {
-        $this->db->exec("update booking set active=1 where idBooking=2");
+        $this->db->exec('UPDATE booking SET active=1; UPDATE booking SET isWaiting=1 WHERE idBooking>2;');
     }
 
     protected function updateDates()
     {
-        $this->db->exec("update booking set date=datetime('now', '3 days')");
-        $this->db->exec("update lessons set date=date('now', '3 days');");
+        $this->db->exec("UPDATE booking SET date=datetime('now', '3 days')");
+        $this->db->exec("UPDATE lessons SET date=date('now', '3 days');");
     }
 }
