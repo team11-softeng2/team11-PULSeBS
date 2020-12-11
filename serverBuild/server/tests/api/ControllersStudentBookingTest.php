@@ -92,8 +92,6 @@ class ControllersStudentBookingTest extends TestCase
         $bookingWaiting = $this->controller->updateBooking($idBooking);
         $this->assertIsInt(json_decode($bookingWaiting));
         $this->assertEquals(3, $bookingWaiting);
-
-        $this->restoreValues();
     }
 
     public function testRequestUpdateBooking()
@@ -109,10 +107,59 @@ class ControllersStudentBookingTest extends TestCase
         $idBooking = 2;
         $this->controller = new Server\api\ControllersStudentBooking("PUT", $this->db, "updateBooking", $idBooking);
         $this->assertEquals("3", $this->controller->processRequest());
-
-        $this->restoreValues();
     }
 //-----------------------------------------------------------------------------------------------------------------------------------------
+
+//test FindWaitingLessons-------------------------------------------------------------------------------------------------------------------
+    public function testFindWaitingLessonsFound()
+    {
+        $this->db = new SQLite3("./tests/dbWaiting.db");
+        $this->updateDates();
+        $this->restoreValues();
+
+        $idUser = 900001;
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "waitingLessons", $idUser);
+        $result = $this->controller->findWaitingLessons();
+        $this->assertTrue((json_decode($result, true) == null) ? false : true);
+    }
+
+    public function testFindWaitingLessonsNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbWaiting.db");
+        $this->updateDates();
+        $this->restoreValues();
+
+        $idUser = 900000;
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "waitingLessons", $idUser);
+        $result = $this->controller->findWaitingLessons();
+        $this->assertEquals(0, $result);
+    }
+
+    public function testRequestFindWaitingLessonsFound()
+    {
+        $this->db = new SQLite3("./tests/dbWaiting.db");
+        $this->updateDates();
+        $this->restoreValues();
+
+        $idUser = 900002;
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "waitingLessons", $idUser);
+        $output = $this->controller->processRequest();
+        $this->assertNotEquals(0, $output);
+        $this->assertFalse(empty($output));
+        $this->assertCount(1, json_decode($output));
+    }
+
+    public function testRequestFindWaitingLessonsNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbWaiting.db");
+        $this->updateDates();
+        $this->restoreValues();
+
+        $idUser = 900633;
+        $this->controller = new Server\api\ControllersStudentBooking("GET", $this->db, "waitingLessons", $idUser);
+        $this->assertEquals(0, $this->controller->processRequest());
+    }
+//------------------------------------------------------------------------------------------------------------------------------------------
 
 //test FindBookedLessons-------------------------------------------------------------------------------------------------------------------
     public function testFindBookedLessonsFound()

@@ -34,6 +34,31 @@ class GatewaysStudentBookingTest extends TestCase
     }
 //-----------------------------------------------------------------------------------------------------------------------
 
+//test FindWaitingLesson--------------------------------------------------------------------------------------------------
+    public function testFindWaitingLessonFound()
+    {
+        $this->db = new SQLite3("./tests/dbWaiting.db");
+        $this->restoreValues();
+
+        $this->id = 900001;
+        $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
+        $result = $this->gatewayStudentBooking->findStudentWaitingLessons($this->id);
+        $this->assertIsArray($result);
+        $this->assertCount(1, $result);
+    }
+
+    public function testFindWaitingLessonNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbWaiting.db");
+        $this->restoreValues();
+
+        $this->id = 900000;
+        $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
+        $result = $this->gatewayStudentBooking->findStudentWaitingLessons($this->id);
+        $this->assertEquals(0, $result);
+    }
+//------------------------------------------------------------------------------------------------------------------------------
+
 //test FindBookedLesson--------------------------------------------------------------------------------------------------
     public function testFindBookedLessonFound()
     {
@@ -41,7 +66,6 @@ class GatewaysStudentBookingTest extends TestCase
         $this->updateDates();
         $this->id = 7;
         $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
-        $dataExcepted = array();
         $result = $this->gatewayStudentBooking->findStudentBookedLessons($this->id);
         $this->assertIsArray($result);
     }
@@ -51,7 +75,6 @@ class GatewaysStudentBookingTest extends TestCase
         $this->db = new SQLite3("./tests/dbForTesting.db");
         $this->id = 7;
         $this->gatewayStudentBooking = new Server\api\GatewaysStudentBooking($this->db);
-        $dataExcepted = array();
         $result = $this->gatewayStudentBooking->findStudentBookedLessons($this->id);
         $this->assertEquals(0, $result);
     }
