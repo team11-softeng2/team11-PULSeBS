@@ -8,6 +8,8 @@
 ./start.sh
 ```
 
+<b><a href='https://www.docker.com/products/docker-desktop'>Docker</a></b> must be running, and ports 80 and 3000 available, on the hosting machine.
+
 # Execute Tests
 
 ```bash
