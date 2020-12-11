@@ -95,6 +95,8 @@ if (isset($_GET['url'])) {
                 $id = $number;
                 $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
                 echo $controller->processRequest();
+                $gatewayNotification = new Server\api\GatewaysNotification($dbConn);
+                $gatewayNotification->sendEmail('lectureCancelled', $id);
             }
             break;
         case "changeToOnline/$number":

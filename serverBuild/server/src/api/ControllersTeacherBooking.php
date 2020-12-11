@@ -54,7 +54,7 @@ class ControllersTeacherBooking extends Controllers
     public function updateToNotActiveLecture($idLecture)
     {
         $result = $this->gateway->updateToNotActiveLecture($idLecture);
-        $this->gatewayNotification->sendEmail('lectureCancelled', $idLecture);
+        //$this->gatewayNotification->sendEmail('lectureCancelled', $idLecture);
         return json_encode($result);
     }
 
