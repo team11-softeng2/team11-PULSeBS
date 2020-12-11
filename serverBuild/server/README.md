@@ -60,12 +60,12 @@ Each endpoint is preceded by /server/src/api/
 - POST `/insertLecture`
 
   - Body: { "idUser", "idLesson", "date" }
-  - Response: return the new booking id
+  - Response: returns the new <b>:bookingId</b> on success, <b>0</b> on failure
 
 - PUT `/updateBooking/:bookingId`
 
   - Params: bookingId
-  - Response: rows modified (should be always one)
+  - Response: returns the oldest <b>:bookingId</b> in the waiting list for that lecture on success, <b>0</b> if the waiting list was empty or on failure
 
 - PUT `/deleteLecture/:lectureId`
 
@@ -177,10 +177,11 @@ Each endpoint is preceded by /server/src/api/
 - POST `/setUpLessons`
   - Body: parsed CSV of Schedule into JSON
   - Response: return 1 or 0 (errors)
+
 ## Report Tracing
 
-  - GET `/findStudentContacts/:studentID`
-    - Response: list of students and teacher that met the studentID or 0 if nothing is found
+- GET `/findStudentContacts/:studentID`
+  - Response: list of students and teacher that met the studentID or 0 if nothing is found
 
 # DB structure
 
