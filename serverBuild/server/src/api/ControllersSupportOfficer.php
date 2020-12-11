@@ -22,19 +22,19 @@ class ControllersSupportOfficer extends Controllers
             } else if ($this->value == "setUpStudents") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->setUpCourses($input);
+                return $this->setUpStudents($input);
             } else if ($this->value == "setUpProfessors") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->setUpCourses($input);
+                return $this->setUpProfessors($input);
             } else if ($this->value == "setUpEnrollment") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->setUpCourses($input);
+                return $this->setUpEnrollment($input);
             } else if ($this->value == "setUpLessons") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->setUpCourses($input);
+                return $this->setUpLessons($input);
             } else {
                 return $this->invalidEndpoint;
             }
