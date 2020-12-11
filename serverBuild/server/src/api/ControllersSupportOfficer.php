@@ -1,4 +1,5 @@
 <?php
+
 namespace Server\api;
 
 use Server\api\GatewaysSupportOfficer;
@@ -14,33 +15,35 @@ class ControllersSupportOfficer extends Controllers
     }
     public function processRequest()
     {
+        $output = null;
         if ($this->requestMethod == "POST") {
             if ($this->value == "setUpCourse") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->setUpCourses($input);
+                $output = $this->setUpCourses($input);
             } else if ($this->value == "setUpStudents") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->setUpCourses($input);
+                $output = $this->setUpStudents($input);
             } else if ($this->value == "setUpProfessors") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->setUpCourses($input);
+                $output = $this->setUpProfessors($input);
             } else if ($this->value == "setUpEnrollment") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->setUpCourses($input);
+                $output = $this->setUpEnrollment($input);
             } else if ($this->value == "setUpLessons") {
                 $postBody = file_get_contents("php://input");
                 $input = (json_decode($postBody));
-                return $this->setUpCourses($input);
+                $output = $this->setUpLessons($input);
             } else {
-                return $this->invalidEndpoint;
+                $output = $this->invalidEndpoint;
             }
         } else {
-            return $this->invalidMethod;
+            $output = $this->invalidMethod;
         }
+        return $output;
     }
 
     public function setUpCourses($input)
