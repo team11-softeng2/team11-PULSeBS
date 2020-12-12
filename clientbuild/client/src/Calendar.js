@@ -4,7 +4,6 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import ModalStudent from './ModalStudent';
 import ModalTeacher from './ModalTeacher';
 import API from './API';
-import { InputGroup } from 'react-bootstrap';
 
 class Calendar extends React.Component{
     constructor(props) {
