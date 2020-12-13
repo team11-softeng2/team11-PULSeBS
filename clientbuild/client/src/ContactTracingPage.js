@@ -17,7 +17,7 @@ class ContactTracingPage extends React.Component {
                         <Form className='mt-3'>
                             <Form.Group controlId="formStudentName">
                                 <Form.Label>Enter the positive student's name:</Form.Label>
-                                <Form.Control type="text" placeholder="Mario Rossi" onChange={this.handleOnChangeText}/>
+                                <Form.Control type="text" placeholder="Mario Rossi" data-testid="studentName-test" onChange={this.handleOnChangeText}/>
                             </Form.Group>
                         </Form>
 
@@ -94,7 +94,7 @@ class ContactTracingPage extends React.Component {
             <td>{s.email}</td>
             <td>{s.idStudent}</td>
             <td>
-                <Button className='mt-1' variant='danger' onClick={() => {this.handleStudentButtonClick(s);}}>Generate report from this student</Button>
+                <Button className='mt-1' variant='danger'data-testid="button-test" onClick={() => {this.handleStudentButtonClick(s);}}>Generate report from this student</Button>
             </td>
         </tr>
     }
