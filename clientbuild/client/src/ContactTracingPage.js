@@ -28,22 +28,22 @@ class ContactTracingPage extends React.Component {
                         { (this.state.filteredStudents.length > this.state.maxStudentsToShow && this.state.alwaysShowStudents === false) && <>
                           <Alert variant='danger'>
                         Too many students to show (> {this.state.maxStudentsToShow}). Please narrow your search first. <br></br>
-                              <Button 
-                                className='mt-3' 
-                                variant='danger' 
+                              <Button
+                                className='mt-3'
+                                variant='danger'
                                 onClick={() => {this.setState({alwaysShowStudents: true});}}>
                                     Show them anyway
                               </Button>
-                          </Alert> 
-                             
+                          </Alert>
+
                         </> }
 
-                        {  (this.state.filteredStudents.length > this.state.maxStudentsToShow && this.state.alwaysShowStudents === true) && 
+                        {  (this.state.filteredStudents.length > this.state.maxStudentsToShow && this.state.alwaysShowStudents === true) &&
                             <Alert variant='info'>
                                 Currently showing {this.state.filteredStudents.length} students.
-                                <Button 
-                                className='mt-3' 
-                                variant='success' 
+                                <Button
+                                className='mt-3'
+                                variant='success'
                                 onClick={() => {this.setState({alwaysShowStudents: false});}}>
                                     Restrict number of students to be shown
                             </Button>
@@ -89,7 +89,7 @@ class ContactTracingPage extends React.Component {
     }
 
     createStudentTableRow = (s) => {
-        return <tr>
+        return <tr key={s.idStudent}>
             <td>{s.name}</td>
             <td>{s.email}</td>
             <td>{s.idStudent}</td>
@@ -115,7 +115,7 @@ class ContactTracingPage extends React.Component {
     handleOnChangeText = (event) => {
         var currentTextInput = event.target.value.toLowerCase();
         var wordsInInput = currentTextInput.split(' ').filter(w => w !== '');
-        
+
         var filteredStudents = this.state.allStudents.filter(s => this.studentMatchesInput(s, wordsInInput));
         this.setState({ filteredStudents: filteredStudents });
     }

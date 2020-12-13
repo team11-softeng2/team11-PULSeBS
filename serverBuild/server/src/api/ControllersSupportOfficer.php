@@ -9,7 +9,7 @@ class ControllersSupportOfficer extends Controllers
     public function __construct($requestMethod, $db, $value, $id = -1)
     {
         $this->requestMethod = $requestMethod;
-        $this->studentCourseGateway = new GatewaysSupportOfficer($db);
+        $this->gateway = new GatewaysSupportOfficer($db);
         $this->value = $value;
         $this->id = $id;
     }
@@ -17,25 +17,25 @@ class ControllersSupportOfficer extends Controllers
     {
         $output = null;
         if ($this->requestMethod == "POST") {
-            if ($this->value == "setUpCourse") {
+            if ($this->value == "setUpCourses") {
                 $postBody = file_get_contents("php://input");
-                $input = (json_decode($postBody));
+                $input = (\json_decode($postBody, true));
                 $output = $this->setUpCourses($input);
             } else if ($this->value == "setUpStudents") {
                 $postBody = file_get_contents("php://input");
-                $input = (json_decode($postBody));
+                $input = (json_decode($postBody, true));
                 $output = $this->setUpStudents($input);
             } else if ($this->value == "setUpProfessors") {
                 $postBody = file_get_contents("php://input");
-                $input = (json_decode($postBody));
+                $input = (json_decode($postBody, true));
                 $output = $this->setUpProfessors($input);
             } else if ($this->value == "setUpEnrollment") {
                 $postBody = file_get_contents("php://input");
-                $input = (json_decode($postBody));
+                $input = (json_decode($postBody, true));
                 $output = $this->setUpEnrollment($input);
             } else if ($this->value == "setUpLessons") {
                 $postBody = file_get_contents("php://input");
-                $input = (json_decode($postBody));
+                $input = (json_decode($postBody, true));
                 $output = $this->setUpLessons($input);
             } else {
                 $output = $this->invalidEndpoint;
