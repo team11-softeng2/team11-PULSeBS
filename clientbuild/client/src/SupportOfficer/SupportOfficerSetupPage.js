@@ -1,6 +1,8 @@
 import React from "react";
 import { Stepper, Step, StepLabel, StepContent, Button, Typography } from '@material-ui/core';
 import Dropzone from "./Dropzone"
+import Papa from 'papaparse';
+import API from '../API';
 
 class SupportOfficerSetupPage extends React.Component {
 
@@ -27,7 +29,23 @@ class SupportOfficerSetupPage extends React.Component {
     handleNext() {
         this.setState(prevState => ({
             activeStep: prevState.activeStep + 1
-        }));
+        }), () => {
+            //callback after successful state update
+            Papa.parse(this.state.files[0], {
+                complete: (res) => {
+                    console.log(res.data);
+
+                    API.setUpStudents(res.data)
+                    .then((res) => {
+                        console.log('set up students successful');
+                    })
+                    .catch((err) => {
+                        console.log('error in setting up students');
+                        console.log(err);
+                    });
+                }
+            });
+        });
     };
 
     handleBack() {

@@ -13,7 +13,7 @@ async function userLogin(username, password) {
                 if(obj === 0 ) {        //Da modificare in base a quanto ritorna il server. Sarebbe utile che ritorni l'id o anche nome e cognome la visualizzare, e il ruolo
                     reject(obj);
                 } else {
-                    resolve(obj);    
+                    resolve(obj);
                 }
                 */
                 resolve(obj);
@@ -237,7 +237,7 @@ async function getBookingStatisticsByMonth(courseIds) {
         let err = { status: response.status, errorObj: stats };
         throw err;
     }
-} 
+}
 async function getBookingStatisticsByWeek(courseIds) {
     const url = `http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=${courseIds.toString()}`;
 
@@ -283,7 +283,7 @@ async function getCancellationsStatisticsByMonth(courseIds) {
         let err = { status: response.status, errorObj: stats };
         throw err;
     }
-} 
+}
 async function getCancellationsStatisticsByWeek(courseIds) {
     const url = `http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=${courseIds.toString()}&type=0`;
 
@@ -351,7 +351,7 @@ async function getTeacherStatistics(teacherId, filterTime, courseIds) {
 
     const response = await fetch(url);
 
-    /* //if the backend returns an error, this prints the message (instead .json() just fails) 
+    /* //if the backend returns an error, this prints the message (instead .json() just fails)
     const text = await response.text();
     console.log(text)
     */
@@ -368,9 +368,66 @@ async function getTeacherStatistics(teacherId, filterTime, courseIds) {
     }
 }
 
+async function setUpStudents(jsonData) {
+    const url = "http://localhost/server/setUpStudents"
+    var jsonDataDebug = [
+      {
+        "Id": 900000,
+        "Name": 'Ambra',
+        "Surname": 'Ferri',
+        "City": "Poggio Ferro",
+        "OfficialEmail": "s900000@students.politu.it",
+        "Birthday": "1991-11-04",
+        "SSN": "MK97060783"
+      },
+      {
+        "Id": 900001,
+        "Name": 'Gianfranco',
+        "Surname": 'Trentini',
+        "City": "Fenestrelle",
+        "OfficialEmail": "s900001@students.politu.it",
+        "Birthday": "1991-11-05",
+        "SSN": "SP80523410"
+      }
+    ];
+    
+    var bodyToSend = JSON.stringify(jsonDataDebug);
+    console.log(bodyToSend);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+
+        //useful if server returns error
+        const text = await response.text();
+        console.log(text)
+        return true;
+
+
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /setUpStudents: " + e);
+        throw e;
+    }
+}
+
 const API = {
-    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses, 
-    getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER, 
-    getCoursesOfTeacher, getFullLectures, getTeacherStatistics
+    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses,
+    getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER,
+    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents
 };
 export default API;
