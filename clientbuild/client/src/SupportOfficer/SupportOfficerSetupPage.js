@@ -36,29 +36,9 @@ class SupportOfficerSetupPage extends React.Component {
               this.handleFinish();
             }
         });
-
-        //to remove, debug only
-        this.convertAndSendStudents(this.state.files[0]);
     };
 
     handleFinish = () => {
-      /*
-      Papa.parse(this.state.files[0], {
-          complete: (res) => {
-              console.log(res.data);
-
-              API.setUpStudents(res.data)
-              .then((res) => {
-                  console.log('set up students successful');
-              })
-              .catch((err) => {
-                  console.log('error in setting up students');
-                  console.log(err);
-              });
-          }
-      });
-      */
-
       this.convertAndSendStudents(this.state.files[0]);
     }
 

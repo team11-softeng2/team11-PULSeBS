@@ -371,6 +371,7 @@ async function getTeacherStatistics(teacherId, filterTime, courseIds) {
 async function setUpStudents(jsonData) {
     const url = "http://localhost/server/setUpStudents"
     /*
+    The backend needs the data like this:
     var jsonDataDebug = [
       {
         "Id": 900000,
