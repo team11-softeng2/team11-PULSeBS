@@ -31,22 +31,71 @@ class SupportOfficerSetupPage extends React.Component {
             activeStep: prevState.activeStep + 1
         }), () => {
             //callback after successful state update
-            Papa.parse(this.state.files[0], {
-                complete: (res) => {
-                    console.log(res.data);
-
-                    API.setUpStudents(res.data)
-                    .then((res) => {
-                        console.log('set up students successful');
-                    })
-                    .catch((err) => {
-                        console.log('error in setting up students');
-                        console.log(err);
-                    });
-                }
-            });
+            if (this.state.activeStep === this.state.steps.length){
+              //if the user clicked on Finish
+              this.handleFinish();
+            }
         });
+
+        //to remove, debug only
+        this.convertAndSendStudents(this.state.files[0]);
     };
+
+    handleFinish = () => {
+      /*
+      Papa.parse(this.state.files[0], {
+          complete: (res) => {
+              console.log(res.data);
+
+              API.setUpStudents(res.data)
+              .then((res) => {
+                  console.log('set up students successful');
+              })
+              .catch((err) => {
+                  console.log('error in setting up students');
+                  console.log(err);
+              });
+          }
+      });
+      */
+
+      this.convertAndSendStudents(this.state.files[0]);
+    }
+
+    convertAndSendStudents = (studentsCSVFile) => {
+      Papa.parse(studentsCSVFile, {
+          complete: (res) => {
+              //console.log(res.data);
+
+              //first row are the fields
+              var fields = res.data[0];
+              //remove the first row so to only have students
+              var students = res.data.slice(1, res.data.length);
+
+              var jsonToSend = [], currentObj;
+              var i, j;
+
+              //for each students, construct an object with all the
+              //fields specified in the first line of the file
+              for(i = 0; i < students.length; i++){
+                currentObj = {};
+                for(j = 0; j < fields.length; j++){
+                  currentObj[fields[j]] = students[i][j];
+                }
+                jsonToSend.push(currentObj);
+              }
+
+              API.setUpStudents(jsonToSend)
+              .then((res) => {
+                  console.log('set up students successful');
+              })
+              .catch((err) => {
+                  console.log('error in setting up students');
+                  console.log(err);
+              });
+          }
+      });
+    }
 
     handleBack() {
         this.setState(prevState => ({
@@ -84,7 +133,7 @@ class SupportOfficerSetupPage extends React.Component {
         /* replace or add the file */
         this.setState(prevState=> {
             for(let f of prevState.files) {
-                /* check the new file is not present in files */ 
+                /* check the new file is not present in files */
                 if(f !== undefined && file.name === f.name) return ({});
             }
             prevState.files[activeStep] = file;

@@ -370,6 +370,7 @@ async function getTeacherStatistics(teacherId, filterTime, courseIds) {
 
 async function setUpStudents(jsonData) {
     const url = "http://localhost/server/setUpStudents"
+    /*
     var jsonDataDebug = [
       {
         "Id": 900000,
@@ -390,9 +391,10 @@ async function setUpStudents(jsonData) {
         "SSN": "SP80523410"
       }
     ];
-    
-    var bodyToSend = JSON.stringify(jsonDataDebug);
-    console.log(bodyToSend);
+    */
+
+    var bodyToSend = JSON.stringify(jsonData);
+    //console.log(bodyToSend);
     const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -403,12 +405,12 @@ async function setUpStudents(jsonData) {
     });
 
     try {
-
+        /*
         //useful if server returns error
         const text = await response.text();
         console.log(text)
         return true;
-
+        */
 
         const resJ = await response.json();
         if (response.ok) {
