@@ -179,7 +179,8 @@
 <a name='L121'></a><a href='#L121'>121</a>
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
-<a name='L124'></a><a href='#L124'>124</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -302,6 +303,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import { Container, Row, Col, Form, Alert, Button, Table } from 'react-bootstrap';
 import API from './API';
@@ -332,22 +334,22 @@ class ContactTracingPage extends React.Component {
                         { (this.state.filteredStudents.length &gt; this.state.maxStudentsToShow &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >this.state.alwaysShowStudents === false)</span> &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;&gt;</span>
                           &lt;Alert variant='danger'&gt;
                         Too many students to show (&gt; {this.state.maxStudentsToShow}). Please narrow your search first. &lt;br&gt;&lt;/br&gt;
-                              &lt;Button 
-                                className='mt-3' 
-                                variant='danger' 
+                              &lt;Button
+                                className='mt-3'
+                                variant='danger'
                                 onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >this.setState({alwaysShowStudents: true});}</span>}&gt;
                                     Show them anyway
                               &lt;/Button&gt;
-                          &lt;/Alert&gt; 
-                             
+                          &lt;/Alert&gt;
+&nbsp;
                         &lt;/&gt; }
 &nbsp;
-                        {  (this.state.filteredStudents.length &gt; this.state.maxStudentsToShow &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >this.state.alwaysShowStudents === true)</span> &amp;&amp; 
+                        {  (this.state.filteredStudents.length &gt; this.state.maxStudentsToShow &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >this.state.alwaysShowStudents === true)</span> &amp;&amp;
 <span class="branch-2 cbranch-no" title="branch not covered" >                            &lt;Alert variant='info'&gt;</span>
                                 Currently showing {this.state.filteredStudents.length} students.
-                                &lt;Button 
-                                className='mt-3' 
-                                variant='success' 
+                                &lt;Button
+                                className='mt-3'
+                                variant='success'
                                 onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >this.setState({alwaysShowStudents: false});}</span>}&gt;
                                     Restrict number of students to be shown
                             &lt;/Button&gt;
@@ -393,7 +395,7 @@ class ContactTracingPage extends React.Component {
     }
 &nbsp;
     createStudentTableRow = (s) =&gt; {
-        return &lt;tr&gt;
+        return &lt;tr key={s.idStudent}&gt;
             &lt;td&gt;{s.name}&lt;/td&gt;
             &lt;td&gt;{s.email}&lt;/td&gt;
             &lt;td&gt;{s.idStudent}&lt;/td&gt;
@@ -419,20 +421,21 @@ class ContactTracingPage extends React.Component {
     handleOnChangeText = (event) =&gt; {
         var currentTextInput = event.target.value.toLowerCase();
         var wordsInInput = currentTextInput.split(' ').filter(w =&gt; w !== '');
-        
+&nbsp;
         var filteredStudents = this.state.allStudents.filter(<span class="fstat-no" title="function not covered" >s </span>=&gt; <span class="cstat-no" title="statement not covered" >this.studentMatchesInput(s, wordsInInput))</span>;
         this.setState({ filteredStudents: filteredStudents });
     }
 }
 &nbsp;
-export default ContactTracingPage;</pre></td></tr></table></pre>
+export default ContactTracingPage;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Dec 13 2020 19:32:46 GMT+0100 (GMT+01:00)
+                at Sun Dec 13 2020 19:34:16 GMT+0100 (GMT+01:00)
             </div>
         </div>
         <script src="prettify.js"></script>
