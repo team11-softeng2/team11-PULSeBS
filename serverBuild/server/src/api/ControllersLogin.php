@@ -22,7 +22,7 @@ class ControllersLogin extends Controllers
             }
             return $response['body'];
         } else {
-            throw new Exception("Request method not valid");
+            throw new \Exception("Request method not valid");
         }
     }
 
