@@ -42,28 +42,34 @@ class SupportOfficerSetupPage extends React.Component {
       this.convertAndSendStudents(this.state.files[0]);
     }
 
+    csvDataToJSON = (csvData) => {
+      //first row are the fields
+      var fields = csvData[0];
+      //remove the first row so to only have data rows
+      var data = csvData.slice(1, csvData.length);
+
+      var jsonToSend = [], currentObj;
+      var i, j;
+
+      //for each data row, construct an object with all the
+      //fields specified in the first line of the file
+      for(i = 0; i < data.length; i++){
+        currentObj = {};
+        for(j = 0; j < fields.length; j++){
+          currentObj[fields[j]] = data[i][j];
+        }
+        jsonToSend.push(currentObj);
+      }
+
+      return jsonToSend;
+    }
+
     convertAndSendStudents = (studentsCSVFile) => {
       Papa.parse(studentsCSVFile, {
           complete: (res) => {
               //console.log(res.data);
 
-              //first row are the fields
-              var fields = res.data[0];
-              //remove the first row so to only have students
-              var students = res.data.slice(1, res.data.length);
-
-              var jsonToSend = [], currentObj;
-              var i, j;
-
-              //for each students, construct an object with all the
-              //fields specified in the first line of the file
-              for(i = 0; i < students.length; i++){
-                currentObj = {};
-                for(j = 0; j < fields.length; j++){
-                  currentObj[fields[j]] = students[i][j];
-                }
-                jsonToSend.push(currentObj);
-              }
+              var jsonToSend = this.csvDataToJSON(res.data);
 
               API.setUpStudents(jsonToSend)
               .then((res) => {
