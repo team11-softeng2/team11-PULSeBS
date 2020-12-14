@@ -71,8 +71,6 @@ test("different legth of search result", async () => {
   await instance.handleOnChangeText({target: {value: "te"}});
   expect(instance.state.filteredStudents.length).toBe(2);
   expect(instance.state.maxStudentsToShow).toBe(3);
-  //console.log(component.find("button"));
-  //instance.handleStudentButtonClick({name: "testName", email: "testEmail", idStudent: "testID"});
 });
 
 test("click on generate report button", async () => {
