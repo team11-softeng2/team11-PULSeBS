@@ -70,7 +70,7 @@ class BookingManagerPage extends React.Component {
                         // Fixes the overlapping problem of the component
                         menu: provided => ({ ...provided, zIndex: 9999 })
                     }}
-                    getOptionLabel={(course) => course.courseName}
+                    getOptionLabel={(course) => course.courseName + ' of Prof. ' + course.teacherName}
                     getOptionValue={(course) => course.idCourse}
                     onChange={selection => this.handleSelectionChange(selection)}
                 />
