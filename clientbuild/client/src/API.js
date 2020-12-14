@@ -610,6 +610,9 @@ async function getStudentContacts(studentId) {
     const response = await fetch(url);
     const people = await response.json();
     if (response.ok) {
+        if (people === 0) {
+            return [];
+        }
         return people;
     } else {
         let err = { status: response.status, errorObj: people };

@@ -2,6 +2,7 @@
 
 exports[`renders learn react link 1`] = `
 Array [
+  " ",
   <nav
     className="navbar navbar-expand navbar-dark bg-dark"
   >
