@@ -49,9 +49,9 @@ class App extends React.Component {
       this.getWaitingBookings(user.idUser);
     } else if(user.role === "teacher") {
       this.getTeacherLectures(user.idUser);
-    } else if (user.Role === "booking-manager") {
+    } else if (user.role === "booking-manager") {
       // ...
-    } else if (user.Role === "support-officer") {
+    } else if (user.role === "support-officer") {
       // ...
     }
   }

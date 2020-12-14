@@ -32,6 +32,7 @@ class ContactTracingPage extends React.Component {
                               <Button
                                 className='mt-3'
                                 variant='danger'
+                                id="manyButton-test"
                                 onClick={() => {this.setState({alwaysShowStudents: true});}}>
                                     Show them anyway
                               </Button>
@@ -45,6 +46,7 @@ class ContactTracingPage extends React.Component {
                                 <Button
                                 className='mt-3'
                                 variant='success'
+                                id="restrictButton-test"
                                 onClick={() => {this.setState({alwaysShowStudents: false});}}>
                                     Restrict number of students to be shown
                             </Button>
@@ -102,7 +104,7 @@ class ContactTracingPage extends React.Component {
             <td>{s.email}</td>
             <td>{s.idStudent}</td>
             <td>
-                <Button className='mt-1' variant='danger'data-testid="button-test" onClick={() => {this.handleStudentButtonClick(s);}}>Generate report from this student</Button>
+                <Button className='mt-1' variant='danger'data-testid="button-test" id={"reportButton-test" + s.idStudent} onClick={() => {this.handleStudentButtonClick(s);}}>Generate report from this student</Button>
             </td>
         </tr>
     }

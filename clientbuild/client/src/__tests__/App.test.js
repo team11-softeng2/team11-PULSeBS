@@ -88,6 +88,7 @@ describe("get functions", () => {
     expect(instance.state.userName).toBe(undefined);
     instance.getTeacherLectures = jest.fn();
     await instance.setLoggedIn({role: "teacher", name:"Rocco", idUser: 2});
+    await instance.setState({teacherLectures: [{inPresence: 1}, {inPresence: 0}]});
     expect(instance.state.loggedin).toBe(true);
     expect(instance.state.userId).toBe(2);
     expect(instance.state.userName).toBe("Rocco");
@@ -106,6 +107,19 @@ describe("get functions", () => {
     expect(instance.state.userId).toBe(99);
     expect(instance.state.userName).toBe("Test");
     expect(instance.state.userRole).toBe("booking-manager");
+  });
+
+  test("setLoggedIn support-officer", () => {
+    const component = shallow(<App/>);
+    const instance = component.instance();
+    expect(instance.state.loggedin).toBe(false);
+    expect(instance.state.userId).toBe(undefined);
+    expect(instance.state.userName).toBe(undefined);
+    instance.setLoggedIn({role: "support-officer", name:"Test", idUser: 99});
+    expect(instance.state.loggedin).toBe(true);
+    expect(instance.state.userId).toBe(99);
+    expect(instance.state.userName).toBe("Test");
+    expect(instance.state.userRole).toBe("support-officer");
   });
   
   test("logout", async () => {
