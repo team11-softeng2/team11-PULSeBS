@@ -31,7 +31,7 @@ class SupportOfficerPage extends React.Component {
             </div>
             <Container fluid>
                 <Row className="justify-content-center">
-                    {this.state.options.map((opt) => <CardButton key={opt.id} option={opt}></CardButton>)}
+                    {this.state.options.map((opt) => <CardButton key={opt.id} option={opt} id={"card" + opt.id}></CardButton>)}
                 </Row>
             </Container>
         </>

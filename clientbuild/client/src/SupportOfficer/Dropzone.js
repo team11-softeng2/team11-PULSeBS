@@ -38,11 +38,11 @@ class Dropzone extends Component {
     onDragOver(event) {
         event.preventDefault();
         if (this.props.disabled) return;
-        this.setState({ hightlight: true });
+        this.setState({ highlight: true });
     }
 
     onDragLeave(event) {
-        this.setState({ hightlight: false });
+        this.setState({ highlight: false });
     }
 
     onDrop(event) {
@@ -56,13 +56,13 @@ class Dropzone extends Component {
                 }
             }
         }
-        this.setState({ hightlight: false });
+        this.setState({ highlight: false });
     }
 
     render() {
         return <>
             <div
-                className={`Dropzone ${this.state.hightlight ? "Highlight" : ""}`}
+                className={`Dropzone ${this.state.highlight ? "Highlight" : ""}`}
                 onDragOver={this.onDragOver}
                 onDragLeave={this.onDragLeave}
                 onDrop={this.onDrop}
