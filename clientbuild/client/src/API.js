@@ -400,9 +400,23 @@ async function getAllStudents() {
     }
 }
 
+   //  list of people in contact with a student
+async function getStudentContacts(studentId) {
+    const url = "http://localhost/server/findStudentContacts/" + studentId;
+
+    const response = await fetch(url);
+    const people = await response.json();
+    if (response.ok) {
+        return people;
+    } else {
+        let err = { status: response.status, errorObj: people };
+        throw err;
+    }
+}
+
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses, 
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER, 
-    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, getAllStudents, getWaitingBookings
+    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, getAllStudents, getWaitingBookings, getStudentContacts
 };
 export default API;

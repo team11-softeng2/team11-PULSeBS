@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { Container, Row, Col, Form, Alert, Button, Table } from 'react-bootstrap';
 import API from './API';
+import jsPDF from 'jspdf';
 
 class ContactTracingPage extends React.Component {
     constructor(props) {
@@ -86,6 +87,13 @@ class ContactTracingPage extends React.Component {
     handleStudentButtonClick = (s) => {
         console.log('clicked student: ');
         console.log(s);
+        const doc = new jsPDF();
+        doc.text('Contact tracing report', 70, 20);
+        API.getStudentContacts(s.idStudent).then( (p) => {
+            //to do
+        });
+        doc.text('No contacts', 10, 40);
+        doc.save("report.pdf");
     }
 
     createStudentTableRow = (s) => {
