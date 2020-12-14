@@ -407,10 +407,9 @@ async function setUpStudents(jsonData) {
 
     try {
         /*
-        //useful if server returns error
+        //useful if server returns error, it lets you see the error message
         const text = await response.text();
         console.log(text)
-        return true;
         */
 
         const resJ = await response.json();
@@ -428,9 +427,153 @@ async function setUpStudents(jsonData) {
     }
 }
 
+async function setUpProfessors(jsonData) {
+    const url = "http://localhost/server/setUpProfessors"
+
+    var bodyToSend = JSON.stringify(jsonData);
+    //console.log(bodyToSend);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        /*
+        //useful if server returns error, it lets you see the error message
+        const text = await response.text();
+        console.log(text)
+        */
+
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /setUpProfessors: " + e);
+        throw e;
+    }
+}
+
+async function setUpCourses(jsonData) {
+    const url = "http://localhost/server/setUpCourses"
+
+    var bodyToSend = JSON.stringify(jsonData);
+    //console.log(bodyToSend);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        /*
+        //useful if server returns error, it lets you see the error message
+        const text = await response.text();
+        console.log(text)
+        */
+
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /setUpCourses: " + e);
+        throw e;
+    }
+}
+
+async function setUpLectures(jsonData) {
+    const url = "http://localhost/server/setUpLessons"
+
+    var bodyToSend = JSON.stringify(jsonData);
+    //console.log(bodyToSend);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        /*
+        //useful if server returns error, it lets you see the error message
+        const text = await response.text();
+        console.log(text)
+        */
+
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /setUpLessons: " + e);
+        throw e;
+    }
+}
+
+async function setUpClasses(jsonData) {
+    const url = "http://localhost/server/setUpEnrollment"
+
+    var bodyToSend = JSON.stringify(jsonData);
+    //console.log(bodyToSend);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        /*
+        //useful if server returns error, it lets you see the error message
+        const text = await response.text();
+        console.log(text)
+        */
+
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /setUpEnrollment: " + e);
+        throw e;
+    }
+}
+
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses,
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER,
-    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents
+    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses
 };
 export default API;

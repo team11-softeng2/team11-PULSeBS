@@ -38,8 +38,128 @@ class SupportOfficerSetupPage extends React.Component {
         });
     };
 
-    handleFinish = () => {
-      this.convertAndSendStudents(this.state.files[0]);
+    handleFinish = async() => {
+      //they have to be called one after the other otherwise the db has concurrency problems
+      await this.convertAndSendStudents(this.state.files[0]);
+      await this.convertAndSendTeachers(this.state.files[1]);
+      await this.convertAndSendCourses(this.state.files[2]);
+      await this.convertAndSendLectures(this.state.files[3]);
+      await this.convertAndSendClasses(this.state.files[4]);
+
+      console.log('finished all api calls for the setup');
+    }
+
+    convertAndSendClasses = async(classesCSVFile) => {
+      //console.log('calling classes')
+      return new Promise((resolve, reject) => {
+        Papa.parse(classesCSVFile, {
+            complete: (res) => {
+                //console.log(res.data);
+                var jsonToSend = this.csvDataToJSON(res.data);
+
+                API.setUpClasses(jsonToSend)
+                .then((res) => {
+                    console.log('set up classes successful');
+                    resolve();
+                })
+                .catch((err) => {
+                    console.log('error in setting up classes');
+                    console.log(err);
+                    reject();
+                });
+            }
+        });
+      })
+    }
+
+    convertAndSendStudents = async(studentsCSVFile) => {
+      //console.log('calling students')
+      return new Promise((resolve, reject) => {
+        Papa.parse(studentsCSVFile, {
+            complete: (res) => {
+                //console.log(res.data);
+                var jsonToSend = this.csvDataToJSON(res.data);
+
+                API.setUpStudents(jsonToSend)
+                .then((res) => {
+                    console.log('set up students successful');
+                    resolve();
+                })
+                .catch((err) => {
+                    console.log('error in setting up students');
+                    console.log(err);
+                    reject();
+                });
+            }
+        });
+      })
+    }
+
+    convertAndSendLectures = async(lecturesCSVFile) => {
+      //console.log('calling lectures')
+      return new Promise((resolve, reject) => {
+        Papa.parse(lecturesCSVFile, {
+            complete: (res) => {
+                //console.log(res.data);
+                var jsonToSend = this.csvDataToJSON(res.data);
+
+                API.setUpLectures(jsonToSend)
+                .then((res) => {
+                    console.log('set up lectures successful');
+                    resolve();
+                })
+                .catch((err) => {
+                    console.log('error in setting up lectures');
+                    console.log(err);
+                    reject();
+                });
+            }
+        });
+      })
+    }
+
+    convertAndSendCourses = async(coursesCSVFile) => {
+      //console.log('calling courses')
+      return new Promise((resolve, reject) => {
+        Papa.parse(coursesCSVFile, {
+            complete: (res) => {
+                //console.log(res.data);
+                var jsonToSend = this.csvDataToJSON(res.data);
+                API.setUpCourses(jsonToSend)
+                .then((res) => {
+                    console.log('set up Courses successful');
+                    resolve();
+                })
+                .catch((err) => {
+                    console.log('error in setting up Courses');
+                    console.log(err);
+                    reject();
+                });
+            }
+        });
+      })
+    }
+
+    convertAndSendTeachers = async(teachersCSVFile) => {
+      //console.log('calling teachers')
+      return new Promise((resolve, reject) => {
+        Papa.parse(teachersCSVFile, {
+            complete: (res) => {
+                //console.log(res.data);
+                var jsonToSend = this.csvDataToJSON(res.data);
+                API.setUpProfessors(jsonToSend)
+                .then((res) => {
+                    console.log('set up teachers successful');
+                    resolve();
+                })
+                .catch((err) => {
+                    console.log('error in setting up teachers');
+                    console.log(err);
+                    reject();
+                });
+            }
+        });
+      })
     }
 
     csvDataToJSON = (csvData) => {
@@ -62,25 +182,6 @@ class SupportOfficerSetupPage extends React.Component {
       }
 
       return jsonToSend;
-    }
-
-    convertAndSendStudents = (studentsCSVFile) => {
-      Papa.parse(studentsCSVFile, {
-          complete: (res) => {
-              //console.log(res.data);
-
-              var jsonToSend = this.csvDataToJSON(res.data);
-
-              API.setUpStudents(jsonToSend)
-              .then((res) => {
-                  console.log('set up students successful');
-              })
-              .catch((err) => {
-                  console.log('error in setting up students');
-                  console.log(err);
-              });
-          }
-      });
     }
 
     handleBack() {
