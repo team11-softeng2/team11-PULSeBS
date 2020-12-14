@@ -7,7 +7,7 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         // prefilled user pass fields just for convenience for testing purposes
-        this.state = { loginSuccess: false, username: '', password: '' };
+        this.state = { loginSuccess: false, username: 'support-officer', password: 'test' };
     }
     updateField = (name, value) => {
         this.setState({ [name]: value });
@@ -50,6 +50,8 @@ class LoginForm extends React.Component {
             return <Redirect to='/teacher'/>;
         } else if (this.state.loginSuccess === true && this.state.userRole === "booking-manager") { 
             return <Redirect to='/booking-manager'/>;
+        } else if(this.state.loginSuccess === true && this.state.userRole === "support-officer") {
+            return <Redirect to='/support-officer'/>;
         } else {
             return <div>
                 <form className='form' method={'POST'} data-testid="login-form"
