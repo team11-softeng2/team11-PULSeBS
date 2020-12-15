@@ -92,7 +92,7 @@ class ContactTracingPage extends React.Component {
         text = text + 'Contact tracing report:' + '\n' + '\n';
         API.getStudentContacts(s.idStudent).then( (plist) => {
             plist.forEach(p =>{ 
-                text = text + p.name + '\n';
+                text = text + p.name + '    role: ' + p.role + '    email: ' + p.email + '\n';
                 });
             doc.text(text, 10, 10);
             doc.save("report.pdf");

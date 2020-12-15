@@ -43,8 +43,8 @@ class GatewaysReportTracing extends Gateways
             $subArray = array(
                 "idUser" => $row['idUser'],
                 "name" => $row['name'],
-                "name" => $row['email'],
-                "name" => $row['role'],
+                "email" => $row['email'],
+                "role" => $row['role'],
             );
             $dataContactStudents[] = $subArray;
         }
@@ -53,8 +53,8 @@ class GatewaysReportTracing extends Gateways
             $subArray = array(
                 "idUser" => $row['idUser'],
                 "name" => $row['name'],
-                "name" => $row['email'],
-                "name" => $row['role'],
+                "email" => $row['email'],
+                "role" => $row['role'],
             );
             $dataContactTeachers[] = $subArray;
         }
