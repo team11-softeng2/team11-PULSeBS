@@ -88,11 +88,13 @@ class ContactTracingPage extends React.Component {
         console.log('clicked student: ');
         console.log(s);
         const doc = new jsPDF();
-        doc.text('Contact tracing report', 70, 20);
+        var text = []
+        text.push('Contact tracing report:');
+        //doc.text('Contact tracing report', 70, 20);
         API.getStudentContacts(s.idStudent).then( (p) => {
-            //to do
+            text.push(p.name);
         });
-        doc.text('No contacts', 10, 40);
+        doc.text(text, 10, 10);
         doc.save("report.pdf");
     }
 
