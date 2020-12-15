@@ -10,7 +10,7 @@ class LoginTest extends TestCase
         $this->client = new GuzzleHttp\Client(['base_uri' => 'http://localhost']);
     }
 
-    public function testLoginWorks()
+    /* public function testLoginWorks()
     {
         $body = '{"username":"calogero","password":"test"}';
         $response = $this->client->request('POST', 'server/src/api/Login.php', [
@@ -25,7 +25,7 @@ class LoginTest extends TestCase
         $password = json_decode($response->getBody())->{"password"};
         $this->assertEquals("test", $password);
         $this->client = null;
-    }
+    } */
 
     public function testLoginNotWork()
     {

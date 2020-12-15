@@ -113,7 +113,7 @@ class ControllersLoginTest extends TestCase
         $this->password = "test";
         $this->requestMethod = "GET";
         $this->controller = new Server\api\ControllersLogin($this->requestMethod, $this->db);
-        $this->expectException(Error::class);
+        $this->expectException(\Exception::class);
         $this->controller->processRequest();
     }
 }
