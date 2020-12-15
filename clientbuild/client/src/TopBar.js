@@ -13,7 +13,7 @@ class TopBar extends React.Component{
                     :
                     <>
                     <Navbar.Text className = "text-align-center" data-testid="welcome-message">
-                    Welcome {this.props.userName}
+                    { (this.props.role !== "support-officer") ? "Welcome " + this.props.userName : "" }
                     </Navbar.Text>
 
                     <ul className="ml-auto">

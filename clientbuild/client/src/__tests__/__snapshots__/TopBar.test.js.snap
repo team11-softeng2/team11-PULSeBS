@@ -13,7 +13,7 @@ exports[`TopBar renderer Render as booking manager 1`] = `
     className="text-align-center navbar-text"
     data-testid="welcome-message"
   >
-    Welcome 
+    Welcome undefined
   </span>
   <ul
     className="ml-auto"
@@ -71,7 +71,7 @@ exports[`TopBar renderer Render as teacher 1`] = `
     className="text-align-center navbar-text"
     data-testid="welcome-message"
   >
-    Welcome 
+    Welcome undefined
   </span>
   <ul
     className="ml-auto"
@@ -129,7 +129,7 @@ exports[`TopBar renderer Whit User logged in 1`] = `
     className="text-align-center navbar-text"
     data-testid="welcome-message"
   >
-    Welcome 
+    Welcome undefined
   </span>
   <ul
     className="ml-auto"

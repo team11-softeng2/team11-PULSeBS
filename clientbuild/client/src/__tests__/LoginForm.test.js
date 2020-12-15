@@ -103,6 +103,15 @@ describe("Input value", () => {
         expect(instance.state.userRole).toBe("booking-manager");
     });
 
+    test("redirect to support-officer home", async () => {
+        const component = shallow(<LoginForm/>);
+        const instance = component.instance();
+        await instance.setState({loginSuccess: true});
+        await instance.setState({userRole: "support-officer"});
+        expect(instance.state.loginSuccess).toBe(true);
+        expect(instance.state.userRole).toBe("support-officer");
+    });
+
     test("correct login", async () => {
         const component = shallow(<LoginForm setLoggedIn={jest.fn()}/>);
         const instance = component.instance();

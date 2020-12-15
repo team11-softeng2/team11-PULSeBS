@@ -7,6 +7,7 @@ import { shallow } from 'enzyme';
 import { fireEvent } from '@testing-library/react';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import jsPDF from 'jspdf';
 
 configure({ adapter: new Adapter() });
 
@@ -15,17 +16,16 @@ test('renders learn react link', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  
 test('student name input box', () => {
-  API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", userId: 1}, {name: "test2", userId: 2}, {name: "student3", userId: 3}]));
+  API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", idStudent: 1}, {name: "test2", idStudent: 2}, {name: "student3", idStudent: 3}]));
   const {queryByTestId} = render(<ContactTracingPage/>);
   const studentNameInput = queryByTestId("studentName-test");
-  fireEvent.change(studentNameInput, {target: {value: "test1"}});
-  expect(studentNameInput.value).toBe("test1");
+  fireEvent.change(studentNameInput, {target: {value: "te"}});
+  expect(studentNameInput.value).toBe("te");
 });
 
 test("studentMatchesInput", () => {
-  API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", userId: 1}, {name: "test2", userId: 2}, {name: "student3", userId: 3}]));
+  API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", idStudent: 1}, {name: "test2", idStudent: 2}, {name: "student3", idStudent: 3}]));
   const component = shallow(<ContactTracingPage/>);
   const instance = component.instance();
   const res1 = instance.studentMatchesInput({name: "test1"}, "pos");
@@ -35,96 +35,52 @@ test("studentMatchesInput", () => {
 });
 
 test("createStudentTableRow", () => {
-  API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", userId: 1}, {name: "test2", userId: 2}, {name: "student3", userId: 3}]));
+  API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", idStudent: 1}, {name: "test2", idStudent: 2}, {name: "student3", idStudent: 3}]));
   const component = shallow(<ContactTracingPage/>);
   const instance = component.instance();
   const res = instance.createStudentTableRow({name: "testName", email: "testEmail", idStudent: "testID"});
-  console.log(res);
   expect(res).not.toBe(undefined);
 });
 
-/*
-test('updateCourses', async () => {
-  const component = shallow(<TeacherHistoricalDataPage teacherId={2}/>);
+test("handleStudentButtonClick", () => {
+  API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", idStudent: 1}, {name: "test2", idStudent: 2}, {name: "student3", idStudent: 3}]));
+  jsPDF.save = jest.fn();
+  const component = shallow(<ContactTracingPage/>);
   const instance = component.instance();
-  API.getCoursesOfTeacher = jest.fn(() => Promise.resolve([{courseName: "test"}]));
-  await instance.updateCourses();
-  expect(instance.state.currentCourse).toBe("test");
+  instance.handleStudentButtonClick({name: "testName", email: "testEmail", idStudent: "testID"});
+  expect();
 });
 
-test('getDataFromServerAndUpdate', async () => {
-  const component = shallow(<TeacherHistoricalDataPage teacherId={2}/>);
-  const instance = component.instance();
-  API.getTeacherStatistics = jest.fn(() => Promise.resolve([{numberOfBookings: 10, dataLecture: 1}, {numberOfBookings: 20, dataLecture: 2}]));
-  instance.updateGraphData = jest.fn();
-  await instance.setState({currentCourse: "test"});
-  await instance.setState({currentDetail: "Lecture"});
-  await instance.setState({courses: [{courseName: "test", idCourse: 1}]});
-  await instance.getDataFromServerAndUpdate();
-  expect(instance.updateGraphData).toHaveBeenCalledTimes(2);
-  API.getTeacherStatistics = jest.fn(() => Promise.resolve([{average: 1, weekOfYear: 1, year: 1}, {average: 2, weekOfYear: 2, year: 2}]));
-  await instance.setState({currentCourse: "test"});
-  await instance.setState({currentDetail: "Week"});
-  await instance.setState({courses: [{courseName: "test", idCourse: 1}]});
-  await instance.getDataFromServerAndUpdate();
-  expect(instance.updateGraphData).toHaveBeenCalledTimes(3);
-  API.getTeacherStatistics = jest.fn(() => Promise.resolve([{average: 1, monthOfYear: 1, year: 1}, {average: 2, monthOfYear: 2, year: 2}]));
-  await instance.setState({currentCourse: "test"});
-  await instance.setState({currentDetail: "Month"});
-  await instance.setState({courses: [{courseName: "test", idCourse: 1}]});
-  await instance.getDataFromServerAndUpdate();
-  expect(instance.updateGraphData).toHaveBeenCalledTimes(4);
+test("different legth of search result", async () => {
+  API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", idStudent: 1}, {name: "test2", idStudent: 2}, {name: "student3", idStudent: 3}]));
+  const component = await shallow(<ContactTracingPage/>);
+  const instance = await component.instance();
+  instance.setState({maxStudentsToShow: 1});
+
+  //More than maxStudentsToShow
+  await instance.handleOnChangeText({target: {value: "te"}});
+  expect(instance.state.filteredStudents.length).toBe(2);
+  expect(instance.state.alwaysShowStudents).toBe(false);
+  await component.find("#manyButton-test").simulate("click");
+  expect(instance.state.alwaysShowStudents).toBe(true);
+  await component.find("#restrictButton-test").simulate("click");
+  expect(instance.state.alwaysShowStudents).toBe(false);
+
+  //Less than maxStudentsToShow
+  instance.setState({maxStudentsToShow: 3});
+  await instance.handleOnChangeText({target: {value: "te"}});
+  expect(instance.state.filteredStudents.length).toBe(2);
+  expect(instance.state.maxStudentsToShow).toBe(3);
 });
 
-test('getDataFromServerAndUpdate API error', async () => {
-  const component = shallow(<TeacherHistoricalDataPage teacherId={2}/>);
-  const instance = component.instance();
-  API.getTeacherStatistics = jest.fn(() => Promise.reject([]));
-  instance.updateGraphData = jest.fn();
-  await instance.setState({currentCourse: "test"});
-  await instance.setState({currentDetail: "Lecture"});
-  await instance.setState({courses: [{courseName: "test", idCourse: 1}]});
-  try {
-    await instance.getDataFromServerAndUpdate();
-    expect(true).toBe(false);
-  } catch(e) {
-      expect(true).toBe(true);
-  }
-  //expect(instance.updateGraphData).toHaveBeenCalledTimes(2);
-  await instance.setState({currentCourse: "test"});
-  await instance.setState({currentDetail: "Week"});
-  await instance.setState({courses: [{courseName: "test", idCourse: 1}]});
-  try {
-    await instance.getDataFromServerAndUpdate();
-    expect(true).toBe(false);
-  } catch(e) {
-      expect(true).toBe(true);
-  }
-  await instance.setState({currentCourse: "test"});
-  await instance.setState({currentDetail: "Month"});
-  await instance.setState({courses: [{courseName: "test", idCourse: 1}]});
-  try {
-    await instance.getDataFromServerAndUpdate();
-    expect(true).toBe(false);
-  } catch(e) {
-      expect(true).toBe(true);
-  }
+test("click on generate report button", async () => {
+  API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", idStudent: 1}, {name: "test2", idStudent: 2}, {name: "student3", idStudent: 3}]));
+  const component = await shallow(<ContactTracingPage/>);
+  const instance = await component.instance();
+  instance.setState({maxStudentsToShow: 10});
+  await instance.handleOnChangeText({target: {value: "te"}});
+  instance.handleStudentButtonClick = jest.fn();
+  await component.find("#reportButton-test1").simulate("click");
+  expect(component.find("#reportButton-test1").text()).toBe("Generate report from this student");
+  expect(instance.handleStudentButtonClick).toHaveBeenCalledTimes(1);
 });
-
-test('handleNewDetailClick and handleNewCourseClick', async () => {
-  const component = shallow(<TeacherHistoricalDataPage teacherId={2}/>);
-  const instance = component.instance();
-  const eventMock = {
-    currentTarget: {
-      innerText: "test",
-    }
-  };
-  instance.getDataFromServerAndUpdate = jest.fn();
-  await instance.handleNewDetailClick(eventMock);
-  expect(instance.state.currentDetail).toBe("test");
-  expect(instance.getDataFromServerAndUpdate).toHaveBeenCalledTimes(2);
-  await instance.handleNewCourseClick(eventMock);
-  expect(instance.state.currentDetail).toBe("test");
-  expect(instance.getDataFromServerAndUpdate).toHaveBeenCalledTimes(3);
-});
-*/
