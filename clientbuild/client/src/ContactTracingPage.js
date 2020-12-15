@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { Container, Row, Col, Form, Alert, Button, Table } from 'react-bootstrap';
 import API from './API';
 import jsPDF from 'jspdf';
+import FileSaver from 'file-saver';
+import { convertArrayToCSV } from 'convert-array-to-csv';
 
 class ContactTracingPage extends React.Component {
     constructor(props) {
@@ -96,6 +98,9 @@ class ContactTracingPage extends React.Component {
                 });
             doc.text(text, 10, 10);
             doc.save("report.pdf");
+            const csv = convertArrayToCSV(plist);
+            const csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            FileSaver.saveAs(csvData, 'data.csv');
         });
     }
 
