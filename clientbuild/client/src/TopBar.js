@@ -64,6 +64,7 @@ const HomeLink = (props) => {
     }
 
     return <Navbar.Brand
+                data-testid="home-link"
                 onClick={(ev) => { ev.preventDefault(); onHomeClick() }}
                 style={{ cursor:'pointer' }}
             >
