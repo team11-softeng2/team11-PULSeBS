@@ -35,7 +35,6 @@ Array [
           <div
             className="card-body"
           >
-             
             <svg
               className="mt-3 mb-4"
               fill="currentColor"
@@ -81,7 +80,6 @@ Array [
           <div
             className="card-body"
           >
-             
             <svg
               className="mt-3 mb-4"
               fill="currentColor"
