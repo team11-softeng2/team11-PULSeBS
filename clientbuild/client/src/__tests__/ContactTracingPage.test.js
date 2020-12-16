@@ -8,6 +8,7 @@ import { fireEvent } from '@testing-library/react';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import jsPDF from 'jspdf';
+import FileSaver from 'file-saver';
 
 configure({ adapter: new Adapter() });
 
@@ -75,6 +76,9 @@ test("different legth of search result", async () => {
 
 test("click on generate report button", async () => {
   API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", idStudent: 1}, {name: "test2", idStudent: 2}, {name: "student3", idStudent: 3}]));
+  API.getStudentContacts = jest.fn(() => Promise.resolve([{name: "test1", role: "student", email: "test1@test.com"}, {name: "test2", role: "student", email: "test2@test.com"}]));
+  FileSaver.saveAs = jest.fn();
+  jsPDF.save = jest.fn();
   const component = await shallow(<ContactTracingPage/>);
   const instance = await component.instance();
   instance.setState({maxStudentsToShow: 10});

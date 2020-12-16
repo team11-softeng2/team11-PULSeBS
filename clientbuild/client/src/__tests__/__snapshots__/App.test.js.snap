@@ -8,6 +8,12 @@ Array [
   >
     <span
       className="navbar-brand"
+      onClick={[Function]}
+      style={
+        Object {
+          "cursor": "pointer",
+        }
+      }
     >
       PULSeBS
     </span>

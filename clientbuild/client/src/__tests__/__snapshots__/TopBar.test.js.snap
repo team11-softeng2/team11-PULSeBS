@@ -6,6 +6,12 @@ exports[`TopBar renderer Render as booking manager 1`] = `
 >
   <span
     className="navbar-brand"
+    onClick={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
   >
     PULSeBS
   </span>
@@ -64,6 +70,12 @@ exports[`TopBar renderer Render as teacher 1`] = `
 >
   <span
     className="navbar-brand"
+    onClick={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
   >
     PULSeBS
   </span>
@@ -122,6 +134,12 @@ exports[`TopBar renderer Whit User logged in 1`] = `
 >
   <span
     className="navbar-brand"
+    onClick={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
   >
     PULSeBS
   </span>
@@ -173,6 +191,12 @@ exports[`TopBar renderer Without user logged in 1`] = `
 >
   <span
     className="navbar-brand"
+    onClick={[Function]}
+    style={
+      Object {
+        "cursor": "pointer",
+      }
+    }
   >
     PULSeBS
   </span>
