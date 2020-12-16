@@ -9,7 +9,7 @@ class SupportOfficerPage extends React.Component {
         super(props);
         this.state = {
             options: [
-                { id: 0, name: "Setup", path: "/setup"},
+                { id: 0, name: "Setup", path: "/setup" },
                 { id: 1, name: "Other operations...", path: "/todo" },
                 /*{ code: 3, name: "Other"},
                 { code: 4, name: "Other" },
@@ -47,6 +47,18 @@ const CardButton = (props) => {
     const toggleOut = () => setHovered(false);
     const history = useHistory();
 
+    const optionIcon = (optionId) => {
+        switch (optionId) {
+            case 0:
+                return <FaTools size={32} className="mt-3 mb-4" />
+            case 1:
+                return <FaEdit size={32} className="mt-3 mb-4" />
+            default:
+                break;
+
+        }
+    }
+
     return <>
         <Col lg="2">
             <Card
@@ -55,13 +67,8 @@ const CardButton = (props) => {
                 onMouseEnter={toggleIn}
                 onMouseLeave={toggleOut}
                 onClick={(ev) => { ev.preventDefault(); history.push(history.location.pathname + option.path); }}>
-                <Card.Body> {
-                    (option.id === 0) ?
-                        <FaTools size={32} className="mt-3 mb-4" /> :
-                        (option.id === 1) ?
-                            <FaEdit size={32} className="mt-3 mb-4" /> :
-                            // default
-                            <FaEdit size={32} className="mt-3 mb-4" />}
+                <Card.Body>
+                    {optionIcon(option.id)}
                     <Card.Text>{option.name}</Card.Text>
                 </Card.Body>
             </Card>
