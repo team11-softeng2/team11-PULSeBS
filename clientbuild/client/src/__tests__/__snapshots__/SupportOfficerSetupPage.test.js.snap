@@ -195,7 +195,7 @@ exports[`renders SupportOfficerPage page 1`] = `
           <span
             className="MuiTypography-root MuiStepLabel-label MuiTypography-body2 MuiTypography-displayBlock"
           >
-            Teachers
+            Professors
           </span>
         </span>
       </span>
@@ -301,7 +301,7 @@ exports[`renders SupportOfficerPage page 1`] = `
           <span
             className="MuiTypography-root MuiStepLabel-label MuiTypography-body2 MuiTypography-displayBlock"
           >
-            Lectures
+            Schedule
           </span>
         </span>
       </span>
@@ -354,7 +354,7 @@ exports[`renders SupportOfficerPage page 1`] = `
           <span
             className="MuiTypography-root MuiStepLabel-label MuiTypography-body2 MuiTypography-displayBlock"
           >
-            Classes
+            Enrollemnt
           </span>
         </span>
       </span>

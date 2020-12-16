@@ -53,13 +53,13 @@ test("getStepContent", async () => {
     let res = instance.getStepContent(0);
     expect(res).toBe(`upload the students csv file.`);
     res = instance.getStepContent(1);
-    expect(res).toBe(`upload the teachers csv file.`);
+    expect(res).toBe(`upload the professors csv file.`);
     res = instance.getStepContent(2);
     expect(res).toBe(`upload the courses csv file.`);
     res = instance.getStepContent(3);
-    expect(res).toBe(`upload the lectures csv file.`);
+    expect(res).toBe(`upload the schedule csv file.`);
     res = instance.getStepContent(4);
-    expect(res).toBe(`upload the classes csv file.`);
+    expect(res).toBe(`upload the enrollment csv file.`);
     res = instance.getStepContent(5);
     expect(res).toBe(`check the files and submit.`);
     res = instance.getStepContent(6);
