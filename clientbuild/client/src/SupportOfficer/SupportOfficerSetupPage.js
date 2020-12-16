@@ -3,6 +3,7 @@ import { Stepper, Step, StepLabel, StepContent, Button, Typography } from '@mate
 import Dropzone from "./Dropzone"
 import Papa from 'papaparse';
 import API from '../API';
+import SetupResultModal from './SetupResultModal.js'
 
 class SupportOfficerSetupPage extends React.Component {
 
@@ -13,7 +14,9 @@ class SupportOfficerSetupPage extends React.Component {
             activeStep: 0,
             steps: [
                 'Students', 'Teachers', 'Courses', 'Lectures', 'Classes', 'Submit'
-            ]
+            ],
+            showResultModal: false,
+            setupResult: undefined
         };
 
         this.handleNext = this.handleNext.bind(this);
@@ -39,14 +42,22 @@ class SupportOfficerSetupPage extends React.Component {
     };
 
     handleFinish = async() => {
-      //they have to be called one after the other otherwise the db has concurrency problems
-      await this.convertAndSendStudents(this.state.files[0]);
-      await this.convertAndSendTeachers(this.state.files[1]);
-      await this.convertAndSendCourses(this.state.files[2]);
-      await this.convertAndSendLectures(this.state.files[3]);
-      await this.convertAndSendClasses(this.state.files[4]);
+      try{
+        //they have to be called one after the other otherwise the db has concurrency problems
+        await this.convertAndSendStudents(this.state.files[0]);
+        await this.convertAndSendTeachers(this.state.files[1]);
+        await this.convertAndSendCourses(this.state.files[2]);
+        await this.convertAndSendLectures(this.state.files[3]);
+        await this.convertAndSendClasses(this.state.files[4]);
 
-      console.log('finished all api calls for the setup');
+        console.log('finished all api calls for the setup');
+        this.setState({ showResultModal: true, setupResult: true });
+      }
+      catch(err){
+        console.log('an error has occurred');
+        console.log(err);
+        this.setState({ showResultModal: true, setupResult: false });
+      }
     }
 
     convertAndSendClasses = async(classesCSVFile) => {
@@ -60,12 +71,12 @@ class SupportOfficerSetupPage extends React.Component {
                 API.setUpClasses(jsonToSend)
                 .then((res) => {
                     console.log('set up classes successful');
-                    resolve();
+                    resolve(true);
                 })
                 .catch((err) => {
                     console.log('error in setting up classes');
                     console.log(err);
-                    reject();
+                    reject(false);
                 });
             }
         });
@@ -83,12 +94,12 @@ class SupportOfficerSetupPage extends React.Component {
                 API.setUpStudents(jsonToSend)
                 .then((res) => {
                     console.log('set up students successful');
-                    resolve();
+                    resolve(true);
                 })
                 .catch((err) => {
                     console.log('error in setting up students');
                     console.log(err);
-                    reject();
+                    reject(false);
                 });
             }
         });
@@ -106,12 +117,12 @@ class SupportOfficerSetupPage extends React.Component {
                 API.setUpLectures(jsonToSend)
                 .then((res) => {
                     console.log('set up lectures successful');
-                    resolve();
+                    resolve(true);
                 })
                 .catch((err) => {
                     console.log('error in setting up lectures');
                     console.log(err);
-                    reject();
+                    reject(false);
                 });
             }
         });
@@ -128,12 +139,12 @@ class SupportOfficerSetupPage extends React.Component {
                 API.setUpCourses(jsonToSend)
                 .then((res) => {
                     console.log('set up Courses successful');
-                    resolve();
+                    resolve(true);
                 })
                 .catch((err) => {
                     console.log('error in setting up Courses');
                     console.log(err);
-                    reject();
+                    reject(false);
                 });
             }
         });
@@ -150,12 +161,12 @@ class SupportOfficerSetupPage extends React.Component {
                 API.setUpProfessors(jsonToSend)
                 .then((res) => {
                     console.log('set up teachers successful');
-                    resolve();
+                    resolve(true);
                 })
                 .catch((err) => {
                     console.log('error in setting up teachers');
                     console.log(err);
-                    reject();
+                    reject(false);
                 });
             }
         });
@@ -282,6 +293,8 @@ class SupportOfficerSetupPage extends React.Component {
 
                 </div>
             </div>
+
+            <SetupResultModal show={this.state.showResultModal} res={this.state.setupResult}/>
         </>
     }
 
