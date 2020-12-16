@@ -49,8 +49,8 @@ class Dropzone extends Component {
         event.preventDefault();
         if (this.props.disabled) return;
         if (event.dataTransfer.files.length > 0) {
-            const file = event.dataTransfer.files[0];
-            if (file.type === "text/csv") {
+            let file = event.dataTransfer.files[0];
+            if (file.name.split('.')[1] === "csv") {
                 if (this.props.onFileAdded) {
                     this.props.onFileAdded(file);
                 }
