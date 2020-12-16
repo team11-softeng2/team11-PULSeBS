@@ -5,15 +5,10 @@ use Server\api\GatewaysTeacherCourse;
 
 class ControllersTeacherCourse extends Controllers
 {
-    private $requestMethod;
-    private $teacherCourseGateway;
-    private $id;
-    private $value;
-
     public function __construct($requestMethod, $db, $value, $id = -1)
     {
         $this->requestMethod = $requestMethod;
-        $this->teacherCourseGateway = new GatewaysTeacherCourse($db);
+        $this->gateway = new GatewaysTeacherCourse($db);
         $this->value = $value;
         $this->id = $id;
     }
@@ -32,7 +27,7 @@ class ControllersTeacherCourse extends Controllers
 
     public function findTeacherCourses()
     {
-        $teacherCourses = $this->teacherCourseGateway->findTeacherCourses($this->id);
+        $teacherCourses = $this->gateway->findTeacherCourses($this->id);
         return json_encode($teacherCourses);
     }
 }

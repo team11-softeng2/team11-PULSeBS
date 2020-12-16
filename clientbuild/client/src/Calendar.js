@@ -15,6 +15,7 @@ class Calendar extends React.Component{
           lectureBeginTime: "",
           lectureEndTime: "",
           lectureDate: undefined,
+          lectureClassroom: undefined,
           elementId: undefined,
           inPresence: undefined,
           studentList: [],
@@ -36,6 +37,16 @@ class Calendar extends React.Component{
                 slotMinTime="08:00:00"
                 slotMaxTime="20:00:00"
                 allDaySlot={false}
+                slotEventOverlap={false}
+                eventContent= { function(info) {
+                  return <><p>{info.event.title}</p>
+                   {info.event.extendedProps.inPresence === 0 ?
+                    null
+                    :
+                    <p className={"classroom"}>{"Classroom: " + info.event.extendedProps.classroom}</p>
+                   }
+                    </>;
+                }}
             />
             {this.props.view === "student" ?
               <ModalStudent 
@@ -45,10 +56,13 @@ class Calendar extends React.Component{
               lectureDate = {this.state.lectureDate}
               lectureBeginTime = {this.state.lectureBeginTime}
               lectureEndTime = {this.state.lectureEndTime}
+              lectureClassroom = {this.state.lectureClassroom}
               elementId = {this.state.elementId}
               lectureColor = {this.state.lectureColor}
               bookASeat = {this.props.bookASeat}
               deleteBooking = {this.props.deleteBooking}
+              lectureType = {this.state.lectureType}
+              peopleWaiting = {this.state.peopleWaiting}
               ></ModalStudent>
             :
               <ModalTeacher
@@ -58,6 +72,7 @@ class Calendar extends React.Component{
                 lectureDate = {this.state.lectureDate}
                 lectureBeginTime = {this.state.lectureBeginTime}
                 lectureEndTime = {this.state.lectureEndTime}
+                lectureClassroom = {this.state.lectureClassroom}
                 elementId = {this.state.elementId}
                 studentList = {this.state.studentList}
                 deleteLecture = {this.props.deleteLecture}
@@ -81,7 +96,7 @@ class Calendar extends React.Component{
           }
           );
         }
-        if(info.event.extendedProps.type !== "fullLecture") {
+        //if(info.event.extendedProps.type !== "fullLecture") {
           this.setState({showModal: true});
           this.setState({lectureTitle: info.event.title});
           let beginTime = info.event.start.toLocaleTimeString();
@@ -90,9 +105,12 @@ class Calendar extends React.Component{
           this.setState({lectureBeginTime: beginTime});
           this.setState({lectureEndTime: endTime});
           this.setState({lectureDate: date});
+          this.setState({lectureClassroom: info.event.extendedProps.classroom});
           this.setState({elementId: info.event.id});
           this.setState({lectureColor: info.event.backgroundColor});
-        }
+          this.setState({lectureType: info.event.extendedProps.type});
+          this.setState({peopleWaiting: info.event.extendedProps.peopleWaiting});
+        //}
     }
 }
 

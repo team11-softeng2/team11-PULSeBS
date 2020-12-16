@@ -1,0 +1,484 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders SupportOfficerPage page 1`] = `
+<div
+  className="d-flex align-items-center"
+  style={
+    Object {
+      "height": "calc(100% - 56px",
+    }
+  }
+>
+  <div
+    className="MuiPaper-root MuiStepper-root MuiStepper-vertical MuiPaper-elevation0"
+    style={
+      Object {
+        "marginLeft": "64px",
+        "marginRight": "128px",
+        "minWidth": "350px",
+      }
+    }
+  >
+    <div
+      className="MuiStep-root MuiStep-vertical"
+    >
+      <span
+        className="MuiStepLabel-root MuiStepLabel-vertical"
+      >
+        <span
+          className="MuiStepLabel-iconContainer"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiStepIcon-root MuiStepIcon-active"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="12"
+            />
+            <text
+              className="MuiStepIcon-text"
+              textAnchor="middle"
+              x="12"
+              y="16"
+            >
+              1
+            </text>
+          </svg>
+        </span>
+        <span
+          className="MuiStepLabel-labelContainer"
+        >
+          <span
+            className="MuiTypography-root MuiStepLabel-label MuiStepLabel-active MuiTypography-body2 MuiTypography-displayBlock"
+          >
+            Students
+          </span>
+        </span>
+      </span>
+      <div
+        className="MuiStepContent-root"
+        disabled={false}
+        icon={1}
+      >
+        <div
+          className="MuiCollapse-container MuiStepContent-transition MuiCollapse-entered"
+          style={
+            Object {
+              "minHeight": "0px",
+            }
+          }
+        >
+          <div
+            className="MuiCollapse-wrapper"
+          >
+            <div
+              className="MuiCollapse-wrapperInner"
+            >
+              <p
+                className="MuiTypography-root MuiTypography-body1"
+              >
+                upload the students csv file.
+              </p>
+              <div
+                className="my-3"
+              >
+                <div>
+                  <button
+                    className="MuiButtonBase-root MuiButton-root MuiButton-text Mui-disabled Mui-disabled"
+                    disabled={true}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onDragLeave={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseLeave={[Function]}
+                    onMouseUp={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    style={
+                      Object {
+                        "marginRight": "8px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    <span
+                      className="MuiButton-label"
+                    >
+                      Back
+                    </span>
+                  </button>
+                  <button
+                    className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary Mui-disabled Mui-disabled"
+                    disabled={true}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onDragLeave={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseLeave={[Function]}
+                    onMouseUp={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    style={
+                      Object {
+                        "marginLeft": "8px",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="button"
+                  >
+                    <span
+                      className="MuiButton-label"
+                    >
+                      Next
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="MuiStepConnector-root MuiStepConnector-vertical Mui-disabled"
+    >
+      <span
+        className="MuiStepConnector-line MuiStepConnector-lineVertical"
+      />
+    </div>
+    <div
+      className="MuiStep-root MuiStep-vertical"
+    >
+      <span
+        className="MuiStepLabel-root MuiStepLabel-vertical Mui-disabled"
+      >
+        <span
+          className="MuiStepLabel-iconContainer"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiStepIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="12"
+            />
+            <text
+              className="MuiStepIcon-text"
+              textAnchor="middle"
+              x="12"
+              y="16"
+            >
+              2
+            </text>
+          </svg>
+        </span>
+        <span
+          className="MuiStepLabel-labelContainer"
+        >
+          <span
+            className="MuiTypography-root MuiStepLabel-label MuiTypography-body2 MuiTypography-displayBlock"
+          >
+            Teachers
+          </span>
+        </span>
+      </span>
+      <div
+        className="MuiStepContent-root"
+        disabled={true}
+        icon={2}
+      />
+    </div>
+    <div
+      className="MuiStepConnector-root MuiStepConnector-vertical Mui-disabled"
+    >
+      <span
+        className="MuiStepConnector-line MuiStepConnector-lineVertical"
+      />
+    </div>
+    <div
+      className="MuiStep-root MuiStep-vertical"
+    >
+      <span
+        className="MuiStepLabel-root MuiStepLabel-vertical Mui-disabled"
+      >
+        <span
+          className="MuiStepLabel-iconContainer"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiStepIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="12"
+            />
+            <text
+              className="MuiStepIcon-text"
+              textAnchor="middle"
+              x="12"
+              y="16"
+            >
+              3
+            </text>
+          </svg>
+        </span>
+        <span
+          className="MuiStepLabel-labelContainer"
+        >
+          <span
+            className="MuiTypography-root MuiStepLabel-label MuiTypography-body2 MuiTypography-displayBlock"
+          >
+            Courses
+          </span>
+        </span>
+      </span>
+      <div
+        className="MuiStepContent-root"
+        disabled={true}
+        icon={3}
+      />
+    </div>
+    <div
+      className="MuiStepConnector-root MuiStepConnector-vertical Mui-disabled"
+    >
+      <span
+        className="MuiStepConnector-line MuiStepConnector-lineVertical"
+      />
+    </div>
+    <div
+      className="MuiStep-root MuiStep-vertical"
+    >
+      <span
+        className="MuiStepLabel-root MuiStepLabel-vertical Mui-disabled"
+      >
+        <span
+          className="MuiStepLabel-iconContainer"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiStepIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="12"
+            />
+            <text
+              className="MuiStepIcon-text"
+              textAnchor="middle"
+              x="12"
+              y="16"
+            >
+              4
+            </text>
+          </svg>
+        </span>
+        <span
+          className="MuiStepLabel-labelContainer"
+        >
+          <span
+            className="MuiTypography-root MuiStepLabel-label MuiTypography-body2 MuiTypography-displayBlock"
+          >
+            Lectures
+          </span>
+        </span>
+      </span>
+      <div
+        className="MuiStepContent-root"
+        disabled={true}
+        icon={4}
+      />
+    </div>
+    <div
+      className="MuiStepConnector-root MuiStepConnector-vertical Mui-disabled"
+    >
+      <span
+        className="MuiStepConnector-line MuiStepConnector-lineVertical"
+      />
+    </div>
+    <div
+      className="MuiStep-root MuiStep-vertical"
+    >
+      <span
+        className="MuiStepLabel-root MuiStepLabel-vertical Mui-disabled"
+      >
+        <span
+          className="MuiStepLabel-iconContainer"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiStepIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="12"
+            />
+            <text
+              className="MuiStepIcon-text"
+              textAnchor="middle"
+              x="12"
+              y="16"
+            >
+              5
+            </text>
+          </svg>
+        </span>
+        <span
+          className="MuiStepLabel-labelContainer"
+        >
+          <span
+            className="MuiTypography-root MuiStepLabel-label MuiTypography-body2 MuiTypography-displayBlock"
+          >
+            Classes
+          </span>
+        </span>
+      </span>
+      <div
+        className="MuiStepContent-root"
+        disabled={true}
+        icon={5}
+      />
+    </div>
+    <div
+      className="MuiStepConnector-root MuiStepConnector-vertical Mui-disabled"
+    >
+      <span
+        className="MuiStepConnector-line MuiStepConnector-lineVertical"
+      />
+    </div>
+    <div
+      className="MuiStep-root MuiStep-vertical"
+    >
+      <span
+        className="MuiStepLabel-root MuiStepLabel-vertical Mui-disabled"
+      >
+        <span
+          className="MuiStepLabel-iconContainer"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiStepIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="12"
+            />
+            <text
+              className="MuiStepIcon-text"
+              textAnchor="middle"
+              x="12"
+              y="16"
+            >
+              6
+            </text>
+          </svg>
+        </span>
+        <span
+          className="MuiStepLabel-labelContainer"
+        >
+          <span
+            className="MuiTypography-root MuiStepLabel-label MuiTypography-body2 MuiTypography-displayBlock"
+          >
+            Submit
+          </span>
+        </span>
+      </span>
+      <div
+        className="MuiStepContent-root MuiStepContent-last"
+        disabled={true}
+        icon={6}
+      />
+    </div>
+  </div>
+  <div
+    className="w-100 d-flex align-items-center h-100"
+    style={
+      Object {
+        "marginLeft": "128px",
+        "marginRigth": "64px",
+      }
+    }
+  >
+    <div>
+      <div
+        className="Dropzone "
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onDragOver={[Function]}
+        onDrop={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+      >
+        <input
+          accept=".csv"
+          className="FileInput"
+          onChange={[Function]}
+          type="file"
+        />
+        <svg
+          className="UploadIcon my-3"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          style={
+            Object {
+              "color": undefined,
+            }
+          }
+          viewBox="0 0 384 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm65.18 216.01H224v80c0 8.84-7.16 16-16 16h-32c-8.84 0-16-7.16-16-16v-80H94.82c-14.28 0-21.41-17.29-11.27-27.36l96.42-95.7c6.65-6.61 17.39-6.61 24.04 0l96.42 95.7c10.15 10.07 3.03 27.36-11.25 27.36zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"
+          />
+        </svg>
+        <span
+          className="Filename"
+        >
+          Choose a file
+        </span>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "marginLeft": "32px",
+        }
+      }
+    />
+  </div>
+</div>
+`;

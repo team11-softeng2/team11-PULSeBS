@@ -1,9 +1,8 @@
 <?php
 namespace Server\api;
 
-class GatewaysCourse
+class GatewaysCourse extends Gateways
 {
-    private $db = null;
     public function __construct($db)
     {
         $this->db = $db;
@@ -11,21 +10,19 @@ class GatewaysCourse
 
     public function findCourses()
     {
-        $sql = "SELECT idCourse, name
-                FROM courses";
+        $sql = "SELECT C.idCourse as idCourse, C.name as name, U.name as teacherName 
+                FROM courses C, users U
+                WHERE C.idTeacher=U.idUser";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             $subArray = array(
                 "idCourse" => $row['idCourse'],
                 "courseName" => $row['name'],
+                "teacherName" => $row['teacherName']
             );
             $data[] = $subArray;
         }
-        if (!empty($data)) {
-            return $data;
-        } else {
-            return 0;
-        }
+        return $this->returnArray($data);
     }
 }

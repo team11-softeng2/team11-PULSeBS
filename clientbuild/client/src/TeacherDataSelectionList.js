@@ -15,6 +15,7 @@ class TeacherDataSelectionList extends React.Component{
                     key={option}
                     action 
                     active={this.props.currentActive === option} 
+                    data-testid={"test" + option}
                     onClick={(event) => { this.props.handleClick(event); }}
                 >
                     {option}

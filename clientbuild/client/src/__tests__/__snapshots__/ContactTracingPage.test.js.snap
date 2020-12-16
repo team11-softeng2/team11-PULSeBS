@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders learn react link 1`] = `
+<div
+  className="container-fluid"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-3 col"
+    >
+      <form
+        className="mt-3"
+      >
+        <div
+          className="form-group"
+        >
+          <label
+            className="form-label"
+            htmlFor="formStudentName"
+          >
+            Enter the positive student's name:
+          </label>
+          <input
+            className="form-control"
+            data-testid="studentName-test"
+            id="formStudentName"
+            onChange={[Function]}
+            placeholder="Mario Rossi"
+            type="text"
+          />
+        </div>
+      </form>
+      <div
+        className="fade alert alert-danger show"
+        role="alert"
+      >
+        Number of students found: 
+        0
+      </div>
+    </div>
+    <div
+      className="col-8 col"
+    >
+      <table
+        className="mt-3 table table-striped table-bordered table-hover"
+      >
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Email
+            </th>
+            <th>
+              Student id
+            </th>
+            <th>
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </div>
+  </div>
+</div>
+`;

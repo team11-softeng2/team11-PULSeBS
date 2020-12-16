@@ -14,6 +14,21 @@ describe("TopBar renderer", () => {
         const tree = TestRenderer.create(<Router><TopBar loggedin = {false}/></Router>).toJSON();
         expect(tree).toMatchSnapshot();
     });
+
+    test("Render as teacher", () => {
+        const tree = TestRenderer.create(<Router><TopBar loggedin = {true} role = {"teacher"}/></Router>).toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+
+    test("Render as booking manager", () => {
+        const tree = TestRenderer.create(<Router><TopBar loggedin = {true} role = {"booking-manager"}/></Router>).toJSON();
+        expect(tree).toMatchSnapshot();
+    });
+
+    test("Render as support officer", () => {
+        const tree = TestRenderer.create(<Router><TopBar loggedin = {true} role = {"support-officer"}/></Router>).toJSON();
+        expect(tree).toMatchSnapshot();
+    });
 })
 
 describe("Logout render", () => {
@@ -41,4 +56,20 @@ test("Logout button", () => {
     const {queryByTestId} = render(<Router><TopBar logout = {logout}/></Router>);
     fireEvent.click(queryByTestId("logout-link"));
     expect(logout).toHaveBeenCalledTimes(1);
-})
+});
+
+test("Home button for default", () => {
+    const {queryByTestId} = render(<Router><TopBar /></Router>);
+    expect(global.window.location.pathname).toEqual('/');
+    fireEvent.click(queryByTestId("home-link"));
+    expect(global.window.location.pathname).toEqual('/');
+});
+
+test("Home button for support-officer", () => {
+    const {queryByTestId} = render(<Router><TopBar loggedin = {true} role = {"support-officer"}/></Router>);
+    expect(global.window.location.pathname).toEqual('/');
+    fireEvent.click(queryByTestId("home-link"));
+    expect(global.window.location.pathname).toEqual('/support-officer');
+    fireEvent.click(queryByTestId("home-link"));
+    expect(global.window.location.pathname).toEqual('/support-officer');
+});

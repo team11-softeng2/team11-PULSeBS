@@ -5,14 +5,10 @@ use Server\api\GatewaysNotification;
 
 class ControllersNotification extends Controllers
 {
-    private $requestMethod;
-    private $notificationGateway;
-    private $value;
-
     public function __construct($requestMethod, $db, $value)
     {
         $this->requestMethod = $requestMethod;
-        $this->notificationGateway = new GatewaysNotification($db);
+        $this->gateway = new GatewaysNotification($db);
         $this->value = $value;
     }
 
@@ -21,8 +17,8 @@ class ControllersNotification extends Controllers
         if ($this->requestMethod == "POST") {
             if ($this->value == "sendNotification") {
                 $postBody = file_get_contents("php://input");
-                $input = (json_decode($postBody));
-                return $this->sendNotification($input['type'], $input['id']);
+                $input = json_decode($postBody, true);
+                return $this->sendNotification($input["type"], $input["id"]);
             } else {
                 return $this->invalidEndpoint;
             }
@@ -33,8 +29,7 @@ class ControllersNotification extends Controllers
 
     public function sendNotification($type, $id)
     {
-        $response = json_encode($this->notificationGateway->sendEmail($type, $id));
-        return $response;
+        return json_encode($this->gateway->sendEmail($type, $id));
     }
 
 }

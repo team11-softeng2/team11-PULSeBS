@@ -17,6 +17,7 @@ exports[`renders learn react link 1`] = `
         <button
           className="list-group-item active list-group-item-action"
           data-rb-event-key={null}
+          data-testid="testLecture"
           disabled={false}
           onClick={[Function]}
         >
@@ -25,6 +26,7 @@ exports[`renders learn react link 1`] = `
         <button
           className="list-group-item list-group-item-action"
           data-rb-event-key={null}
+          data-testid="testWeek"
           disabled={false}
           onClick={[Function]}
         >
@@ -33,6 +35,7 @@ exports[`renders learn react link 1`] = `
         <button
           className="list-group-item list-group-item-action"
           data-rb-event-key={null}
+          data-testid="testMonth"
           disabled={false}
           onClick={[Function]}
         >

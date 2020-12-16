@@ -165,13 +165,6 @@ class TeacherHistoricalDataPage extends React.Component {
                 dataLabels: {
                     enabled: false
                 },
-                yaxis: {
-                    labels: {
-                        formatter: function (value) {
-                            return value.toFixed(2);
-                        }
-                    },
-                },
                 stroke: {
                     show: true,
                     width: 2,

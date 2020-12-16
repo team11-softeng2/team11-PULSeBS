@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render button 1`] = `
+<a
+  className="mr-4 text-light"
+  href="/booking-manager/contact-tracing"
+  onClick={[Function]}
+>
+  Generate contact tracing report
+</a>
+`;

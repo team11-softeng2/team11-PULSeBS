@@ -13,7 +13,7 @@ async function userLogin(username, password) {
                 if(obj === 0 ) {        //Da modificare in base a quanto ritorna il server. Sarebbe utile che ritorni l'id o anche nome e cognome la visualizzare, e il ruolo
                     reject(obj);
                 } else {
-                    resolve(obj);    
+                    resolve(obj);
                 }
                 */
                 resolve(obj);
@@ -25,7 +25,7 @@ async function userLogin(username, password) {
 
 async function logout() {
     return new Promise((resolve, reject) => {
-        fetch('http://localhost:80/server/api/logout.php')      //Da verificare
+        fetch('http://localhost/server/api/logout.php')      //Da verificare
             .then((response) => {
                 if (response.ok) {
                     resolve(0);
@@ -75,6 +75,22 @@ async function getBooking(lectureId) {
 // API to retrieve all the bookings of a student
 async function getStudentBookings(studentId) {
     const url = "http://localhost/server/studentBookings/" + studentId;
+    const response = await fetch(url);
+    const booking = await response.json();
+    if (response.ok) {
+        if (booking === 0) {
+            return [];
+        }
+        return booking;
+    } else {
+        let err = { status: response.status, errorObj: booking };
+        throw err;
+    }
+}
+
+// API to retrieve all the lectures the student is waiting for
+async function getWaitingBookings(studentId) {
+    const url = "http://localhost/server/waitingLessons/" + studentId;
     const response = await fetch(url);
     const booking = await response.json();
     if (response.ok) {
@@ -237,7 +253,7 @@ async function getBookingStatisticsByMonth(courseIds) {
         let err = { status: response.status, errorObj: stats };
         throw err;
     }
-} 
+}
 async function getBookingStatisticsByWeek(courseIds) {
     const url = `http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=${courseIds.toString()}`;
 
@@ -283,7 +299,7 @@ async function getCancellationsStatisticsByMonth(courseIds) {
         let err = { status: response.status, errorObj: stats };
         throw err;
     }
-} 
+}
 async function getCancellationsStatisticsByWeek(courseIds) {
     const url = `http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=${courseIds.toString()}&type=0`;
 
@@ -351,7 +367,7 @@ async function getTeacherStatistics(teacherId, filterTime, courseIds) {
 
     const response = await fetch(url);
 
-    /* //if the backend returns an error, this prints the message (instead .json() just fails) 
+    /* //if the backend returns an error, this prints the message (instead .json() just fails)
     const text = await response.text();
     console.log(text)
     */
@@ -368,9 +384,245 @@ async function getTeacherStatistics(teacherId, filterTime, courseIds) {
     }
 }
 
+async function setUpStudents(jsonData) {
+    const url = "http://localhost/server/setUpStudents"
+    /*
+    The backend needs the data like this:
+    var jsonDataDebug = [
+      {
+        "Id": 900000,
+        "Name": 'Ambra',
+        "Surname": 'Ferri',
+        "City": "Poggio Ferro",
+        "OfficialEmail": "s900000@students.politu.it",
+        "Birthday": "1991-11-04",
+        "SSN": "MK97060783"
+      },
+      {
+        "Id": 900001,
+        "Name": 'Gianfranco',
+        "Surname": 'Trentini',
+        "City": "Fenestrelle",
+        "OfficialEmail": "s900001@students.politu.it",
+        "Birthday": "1991-11-05",
+        "SSN": "SP80523410"
+      }
+    ];
+    */
+
+    var bodyToSend = JSON.stringify(jsonData);
+    //console.log(bodyToSend);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        /*
+        //useful if server returns error, it lets you see the error message
+        const text = await response.text();
+        console.log(text)
+        */
+
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /setUpStudents: " + e);
+        throw e;
+    }
+}
+
+async function setUpProfessors(jsonData) {
+    const url = "http://localhost/server/setUpProfessors"
+
+    var bodyToSend = JSON.stringify(jsonData);
+    //console.log(bodyToSend);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        /*
+        //useful if server returns error, it lets you see the error message
+        const text = await response.text();
+        console.log(text)
+        */
+
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /setUpProfessors: " + e);
+        throw e;
+    }
+}
+
+async function setUpCourses(jsonData) {
+    const url = "http://localhost/server/setUpCourses"
+
+    var bodyToSend = JSON.stringify(jsonData);
+    //console.log(bodyToSend);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        /*
+        //useful if server returns error, it lets you see the error message
+        const text = await response.text();
+        console.log(text)
+        */
+
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /setUpCourses: " + e);
+        throw e;
+    }
+}
+
+async function setUpLectures(jsonData) {
+    const url = "http://localhost/server/setUpLessons"
+
+    var bodyToSend = JSON.stringify(jsonData);
+    //console.log(bodyToSend);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        /*
+        //useful if server returns error, it lets you see the error message
+        const text = await response.text();
+        console.log(text)
+        */
+
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /setUpLessons: " + e);
+        throw e;
+    }
+}
+
+async function setUpClasses(jsonData) {
+    const url = "http://localhost/server/setUpEnrollment"
+
+    var bodyToSend = JSON.stringify(jsonData);
+    //console.log(bodyToSend);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        /*
+        //useful if server returns error, it lets you see the error message
+        const text = await response.text();
+        console.log(text)
+        */
+
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /setUpEnrollment: " + e);
+        throw e;
+    }
+}
+
+async function getAllStudents() {
+    const url = "http://localhost/server/students";
+
+    const response = await fetch(url);
+    const students = await response.json();
+    if (response.ok) {
+        if (students === 0) {
+            return [];
+        }
+        return students;
+    } else {
+        let err = { status: response.status, errorObj: students };
+        throw err;
+    }
+}
+
+   //  list of people in contact with a student
+async function getStudentContacts(studentId) {
+    const url = "http://localhost/server/findStudentContacts/" + studentId;
+
+    const response = await fetch(url);
+    const people = await response.json();
+    if (response.ok) {
+        if (people === 0) {
+            return [];
+        }
+        return people;
+    } else {
+        let err = { status: response.status, errorObj: people };
+        throw err;
+    }
+}
+
 const API = {
-    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses, 
-    getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER, 
-    getCoursesOfTeacher, getFullLectures, getTeacherStatistics
+    userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses,
+    getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER,
+    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses, getAllStudents, getWaitingBookings, getStudentContacts
 };
 export default API;

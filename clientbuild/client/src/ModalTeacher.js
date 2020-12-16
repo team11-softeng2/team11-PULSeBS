@@ -32,7 +32,14 @@ class ModalTeacher extends React.Component{
                             <br/>
                             <b>Begin time:</b> {this.props.lectureBeginTime.slice(0,5)}
                             <br/>
-                            <b>End time:</b> {this.props.lectureEndTime.slice(0,5)}</p>
+                            <b>End time:</b> {this.props.lectureEndTime.slice(0,5)}
+                            {this.props.lectureColor === "" ? 
+                            <>
+                            <br/>
+                            <b>Classroom:</b> {this.props.lectureClassroom}
+                            </> 
+                            : null}
+                            </p>
                         </Col>
                         <Col>
                             <Row>

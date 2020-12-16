@@ -1,3 +1,23 @@
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=team11PULSBS&metric=security_rating)](https://sonarcloud.io/dashboard?id=team11PULSBS) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=team11PULSBS&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=team11PULSBS) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=team11PULSBS&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=team11PULSBS)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=team11PULSBS&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=team11PULSBS) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=team11PULSBS&metric=bugs)](https://sonarcloud.io/dashboard?id=team11PULSBS) [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=team11PULSBS&metric=sqale_index)](https://sonarcloud.io/dashboard?id=team11PULSBS)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=team11PULSBS&metric=ncloc)](https://sonarcloud.io/dashboard?id=team11PULSBS) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=team11PULSBS&metric=coverage)](https://sonarcloud.io/dashboard?id=team11PULSBS) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=team11PULSBS&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=team11PULSBS) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=team11PULSBS&metric=code_smells)](https://sonarcloud.io/dashboard?id=team11PULSBS)
+
+# Run the App
+
+```bash
+./start.sh
+```
+
+<b><a href='https://www.docker.com/products/docker-desktop'>Docker</a></b> must be running, and ports 80 and 3000 available, on the hosting machine.
+
+# Execute Tests
+
+```bash
+./tests.sh
+```
+
+# Other Commands
+
 ## Docker
 
 ```bash
@@ -14,11 +34,11 @@ docker run -d -p 80:80 --name server server
 cd serverBuild/server/mailer/ && sudo docker image build -t mailer .
 sudo docker run -d --name mailer mailer
 #build and run the client image
-cd clientBuild/ && sudo docker image build -t client .
+cd clientbuild/ && sudo docker image build -t client .
 sudo docker run -itd -p 3000:3000 --name client client
 ```
 
-## Server setup
+## Server Setup
 
 ### install php
 
@@ -74,12 +94,14 @@ cd serverBuild/server/ && composer require phpunit/phpunit
         verbose="true"
         stopOnFailure="false">
     <testsuites>
-        <testsuite name="Test suite">
-            <directory>tests</directory>
+        <testsuite name="Test Suite">
+            <directory suffix=".php">tests</directory>
         </testsuite>
     </testsuites>
     <coverage>
-        <include><directory suffix=".php">src</directory></include>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
         <exclude>
             <file>src/api/Server.php</file>
             <file>src/api/Login.php</file>
@@ -157,9 +179,3 @@ npm run test -- --testResultsProcessor=jest-sonar-reporter
 ## sonarCloud
 
 Follow instructions at https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
-
-**Calogero: source /etc/environment**
-
-```bash
-sonar-scanner
-```

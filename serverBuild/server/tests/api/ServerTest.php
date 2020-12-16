@@ -75,7 +75,7 @@ class ServerTest extends TestCase
         $this->client = null;
     }
 
-    public function testCallupdateBooking()
+    /* public function testCallupdateBooking()
     {
         $this->updateDates();
         $response = $this->client->request('PUT', '/server/updateBooking/2');
@@ -84,7 +84,7 @@ class ServerTest extends TestCase
         $this->assertEquals("application/json", $contentType);
         $this->assertEquals("1", (string) $response->getBody());
         $this->client = null;
-    }
+    } */
 
     protected function updateDates()
     {

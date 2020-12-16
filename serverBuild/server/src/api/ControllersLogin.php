@@ -5,13 +5,10 @@ use Server\api\GatewaysUserTable;
 
 class ControllersLogin extends Controllers
 {
-    private $requestMethod;
-    private $usersGateway;
-
     public function __construct($requestMethod, $db)
     {
         $this->requestMethod = $requestMethod;
-        $this->usersGateway = new GatewaysUserTable($db);
+        $this->gateway = new GatewaysUserTable($db);
     }
 
     public function processRequest()
@@ -25,13 +22,13 @@ class ControllersLogin extends Controllers
             }
             return $response['body'];
         } else {
-            throw new Exception("Request method not valid");
+            throw new \Exception("Request method not valid");
         }
     }
 
     public function checkLogin($username, $password)
     {
-        $result = $this->usersGateway->login($username, $password);
+        $result = $this->gateway->login($username, $password);
         $response['status_code_header'] = 'HTTP/1.1 200 OK';
         $response['body'] = json_encode($result);
         return $response;

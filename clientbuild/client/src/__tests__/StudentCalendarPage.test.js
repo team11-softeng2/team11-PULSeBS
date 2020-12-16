@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import StudentCalendarPage from '../StudentCalendarPage';
 
 test("StudentCalendarPage render", () => {
-    const {queryByText} = render(<StudentCalendarPage bookableLectures = {[]} bookings = {[]} fullLectures = {[]}/>);
+    const {queryByText} = render(<StudentCalendarPage bookableLectures = {[]} bookings = {[]} fullLectures = {[]} waitingBookings = {[]}/>);
     const header = queryByText("My lecture bookings:");
     const badge1 = queryByText("Bookable");
     const badge2 = queryByText("Booked");

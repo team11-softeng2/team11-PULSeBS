@@ -26,9 +26,9 @@ COPY ./server /var/www/html/server
 # update composer packages
 RUN cd ./server ; composer update
 RUN chmod o+w /var/www/html/server/src
-RUN chown www-data:  /var/www/html/server/src/db.db
+RUN chown www-data:  /var/www/html/server/src/*.db
 RUN chmod o+w /var/www/html/server/tests
-RUN chown www-data:  /var/www/html/server/tests/dbForTesting2.db
+RUN chown www-data:  /var/www/html/server/tests/*.db
 
 # Make port 80 available to the world outside this container
 EXPOSE 80

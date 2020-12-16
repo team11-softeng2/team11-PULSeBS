@@ -5,17 +5,12 @@ use Server\api\GatewaysTeacherBooking;
 
 class ControllersTeacherBooking extends Controllers
 {
-
-    private $requestMethod;
-    private $teacherGatewayBooking;
-    private $id;
-    private $value;
     private $gatewayNotification;
 
     public function __construct($requestMethod, $db, $value, $id = -1)
     {
         $this->requestMethod = $requestMethod;
-        $this->teacherGatewayBooking = new GatewaysTeacherBooking($db);
+        $this->gateway = new GatewaysTeacherBooking($db);
         $this->gatewayNotification = new GatewaysNotification($db);
         $this->value = $value;
         $this->id = $id;
@@ -46,26 +41,26 @@ class ControllersTeacherBooking extends Controllers
 
     public function findBookedStudentsForLecture($id)
     {
-        $bookedStudentsForLecture = $this->teacherGatewayBooking->findBookedStudentsForLecture($id);
+        $bookedStudentsForLecture = $this->gateway->findBookedStudentsForLecture($id);
         return json_encode($bookedStudentsForLecture);
     }
 
     public function findScheduledLecturesForTeacher($id)
     {
-        $scheduledLecturesForTeacher = $this->teacherGatewayBooking->findScheduledLecturesForTeacher($id);
+        $scheduledLecturesForTeacher = $this->gateway->findScheduledLecturesForTeacher($id);
         return json_encode($scheduledLecturesForTeacher);
     }
 
     public function updateToNotActiveLecture($idLecture)
     {
-        $result = $this->teacherGatewayBooking->updateToNotActiveLecture($idLecture);
-        $this->gatewayNotification->sendEmail('lectureCancelled', $idLecture);
+        $result = $this->gateway->updateToNotActiveLecture($idLecture);
+        //$this->gatewayNotification->sendEmail('lectureCancelled', $idLecture);
         return json_encode($result);
     }
 
     public function changeToOnlineLecture($idLecture)
     {
-        $result = $this->teacherGatewayBooking->changeToOnlineLecture($idLecture);
+        $result = $this->gateway->changeToOnlineLecture($idLecture);
         return json_encode($result);
     }
 }

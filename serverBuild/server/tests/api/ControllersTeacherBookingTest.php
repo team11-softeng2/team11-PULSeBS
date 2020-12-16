@@ -175,7 +175,7 @@ class ControllersTeacherBookingTest extends TestCase
         $this->controller = new Server\api\ControllersTeacherBooking("POOOOST", $this->db, "bookedStudentsForLecture", $this->id);
         $result = $this->controller->processRequest();
         $this->assertIsString($result);
-        $this->assertEquals($result, "Invalid request method.");
+        $this->assertEquals("Invalid request method.", $result);
     }
 
     public function testUseWrongEndpointWithGET()
@@ -184,7 +184,7 @@ class ControllersTeacherBookingTest extends TestCase
         $this->controller = new Server\api\ControllersTeacherBooking("GET", $this->db, "wrongEndPoint", $this->id);
         $result = $this->controller->processRequest();
         $this->assertIsString($result);
-        $this->assertEquals($result, "Invalid endpoint.");
+        $this->assertEquals("Invalid endpoint.", $result);
     }
 
     public function testUseWrongEndpointWithPUT()
@@ -193,7 +193,7 @@ class ControllersTeacherBookingTest extends TestCase
         $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "wrongEndPointAgain", $this->id);
         $result = $this->controller->processRequest();
         $this->assertIsString($result);
-        $this->assertEquals($result, "Invalid endpoint.");
+        $this->assertEquals("Invalid endpoint.", $result);
     }
 
     // function useful for testing they modify db in order to make tests

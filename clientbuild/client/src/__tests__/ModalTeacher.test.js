@@ -52,6 +52,25 @@ test("Modal content render", () => {
     expect(deleteLectureButton).toBeInTheDocument();
 });
 
+test("Modal content render", () => {
+    const {queryByText} = render(<ModalTeacher 
+        show={true} 
+        lectureTitle = {"test"}
+        lectureDate = {"2020-10-10"}
+        lectureBeginTime = {"10:00:00"}
+        lectureEndTime = {"12:00:00"}
+        lectureColor = {"green"}
+        elementId = {1}
+        studentList = {[]}
+        dateStart = {new Date("2021-05-05T10:00:00")}/>);
+    const title = queryByText("Lecture information");
+    const onlineLectureButton = queryByText("Change to online");
+    const deleteLectureButton = queryByText("Delete lecture");
+    expect(title).toBeInTheDocument();
+    expect(onlineLectureButton).not.toBeInTheDocument();
+    expect(deleteLectureButton).toBeInTheDocument();
+});
+
 test("Render student list", () => {
     const {queryByTestId} = render(<ModalTeacher 
         show={true} 

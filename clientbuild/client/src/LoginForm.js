@@ -50,6 +50,8 @@ class LoginForm extends React.Component {
             return <Redirect to='/teacher'/>;
         } else if (this.state.loginSuccess === true && this.state.userRole === "booking-manager") { 
             return <Redirect to='/booking-manager'/>;
+        } else if(this.state.loginSuccess === true && this.state.userRole === "support-officer") {
+            return <Redirect to='/support-officer'/>;
         } else {
             return <div>
                 <form className='form' method={'POST'} data-testid="login-form"

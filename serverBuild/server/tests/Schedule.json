@@ -1,0 +1,226 @@
+[
+  {
+    "Code": "XY1211",
+    "Room": 1,
+    "Day": "Mon",
+    "Seats": 120,
+    "Time": "8:30-11:30"
+  },
+  {
+    "Code": "XY4911",
+    "Room": 1,
+    "Day": "Mon",
+    "Seats": 120,
+    "Time": "11:30-13:00"
+  },
+  {
+    "Code": "XY1211",
+    "Room": 2,
+    "Day": "Tue",
+    "Seats": 120,
+    "Time": "16:00-17:30"
+  },
+  {
+    "Code": "XY4911",
+    "Room": 2,
+    "Day": "Tue",
+    "Seats": 120,
+    "Time": "13:00-16:00"
+  },
+  {
+    "Code": "XY7121",
+    "Room": 3,
+    "Day": "Mon",
+    "Seats": 80,
+    "Time": "10:00-11:30"
+  },
+  {
+    "Code": "XY0821",
+    "Room": 4,
+    "Day": "Mon",
+    "Seats": 80,
+    "Time": "8:30-10:00"
+  },
+  {
+    "Code": "XY4521",
+    "Room": 3,
+    "Day": "Mon",
+    "Seats": 80,
+    "Time": "8:30-11:30"
+  },
+  {
+    "Code": "XY8221",
+    "Room": 4,
+    "Day": "Mon",
+    "Seats": 80,
+    "Time": "10:00-11:30"
+  },
+  {
+    "Code": "XY1921",
+    "Room": 3,
+    "Day": "Mon",
+    "Seats": 80,
+    "Time": "13:00-14:30"
+  },
+  {
+    "Code": "XY5621",
+    "Room": 4,
+    "Day": "Mon",
+    "Seats": 80,
+    "Time": "14:30-16:00"
+  },
+  {
+    "Code": "XY9321",
+    "Room": 3,
+    "Day": "Mon",
+    "Seats": 80,
+    "Time": "14:30-16:00"
+  },
+  {
+    "Code": "XY3021",
+    "Room": 4,
+    "Day": "Mon",
+    "Seats": 80,
+    "Time": "13:00-14:30"
+  },
+  {
+    "Code": "XY3731",
+    "Room": 5,
+    "Day": "Wed",
+    "Seats": 70,
+    "Time": "10:00-11:30"
+  },
+  {
+    "Code": "XY7431",
+    "Room": 6,
+    "Day": "Wed",
+    "Seats": 70,
+    "Time": "14:30-16:00"
+  },
+  {
+    "Code": "XY1131",
+    "Room": 5,
+    "Day": "Wed",
+    "Seats": 70,
+    "Time": "8:30-10:00"
+  },
+  {
+    "Code": "XY4831",
+    "Room": 5,
+    "Day": "Wed",
+    "Seats": 70,
+    "Time": "11:30-13:00"
+  },
+  {
+    "Code": "XY8531",
+    "Room": 5,
+    "Day": "Wed",
+    "Seats": 70,
+    "Time": "14:30-16:00"
+  },
+  {
+    "Code": "XY2231",
+    "Room": 6,
+    "Day": "Wed",
+    "Seats": 70,
+    "Time": "8:30-10:00"
+  },
+  {
+    "Code": "XY5931",
+    "Room": 6,
+    "Day": "Wed",
+    "Seats": 70,
+    "Time": "10:00-11:30"
+  },
+  {
+    "Code": "XY9631",
+    "Room": 6,
+    "Day": "Wed",
+    "Seats": 70,
+    "Time": "13:00-14:30"
+  },
+  {
+    "Code": "XY8141",
+    "Room": 5,
+    "Day": "Thu",
+    "Seats": 70,
+    "Time": "8:30-10:00"
+  },
+  {
+    "Code": "XY1841",
+    "Room": 6,
+    "Day": "Thu",
+    "Seats": 70,
+    "Time": "10:00-11:30"
+  },
+  {
+    "Code": "XY5541",
+    "Room": 5,
+    "Day": "Thu",
+    "Seats": 70,
+    "Time": "10:00-13:00"
+  },
+  {
+    "Code": "XY9241",
+    "Room": 6,
+    "Day": "Thu",
+    "Seats": 70,
+    "Time": "13:00-16:00"
+  },
+  {
+    "Code": "XY2941",
+    "Room": 5,
+    "Day": "Thu",
+    "Seats": 70,
+    "Time": "10:00-11:30"
+  },
+  {
+    "Code": "XY6641",
+    "Room": 6,
+    "Day": "Thu",
+    "Seats": 70,
+    "Time": "16:00-17:30"
+  },
+  {
+    "Code": "XY9951",
+    "Room": 7,
+    "Day": "Fri",
+    "Seats": 50,
+    "Time": "8:30-10:00"
+  },
+  {
+    "Code": "XY3651",
+    "Room": 8,
+    "Day": "Fri",
+    "Seats": 50,
+    "Time": "10:00-11:30"
+  },
+  {
+    "Code": "XY7351",
+    "Room": 7,
+    "Day": "Fri",
+    "Seats": 50,
+    "Time": "10:00-13:00"
+  },
+  {
+    "Code": "XY1051",
+    "Room": 8,
+    "Day": "Fri",
+    "Seats": 50,
+    "Time": "13:00-16:00"
+  },
+  {
+    "Code": "XY4751",
+    "Room": 7,
+    "Day": "Fri",
+    "Seats": 50,
+    "Time": "14:30-16:00"
+  },
+  {
+    "Code": "XY8451",
+    "Room": 8,
+    "Day": "Fri",
+    "Seats": 50,
+    "Time": "8:30-10:00"
+  }
+]

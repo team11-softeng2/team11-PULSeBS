@@ -2,11 +2,19 @@
 
 exports[`renders learn react link 1`] = `
 Array [
+  " ",
   <nav
     className="navbar navbar-expand navbar-dark bg-dark"
   >
     <span
       className="navbar-brand"
+      data-testid="home-link"
+      onClick={[Function]}
+      style={
+        Object {
+          "cursor": "pointer",
+        }
+      }
     >
       PULSeBS
     </span>
