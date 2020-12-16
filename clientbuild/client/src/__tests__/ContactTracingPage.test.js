@@ -44,12 +44,12 @@ test("createStudentTableRow", () => {
 });
 
 test("handleStudentButtonClick", () => {
-  API.getAllStudents = jest.fn(() => Promise.resolve([{name: "test1", idStudent: 1}, {name: "test2", idStudent: 2}, {name: "student3", idStudent: 3}]));
+  API.getStudentContacts = jest.fn(() => Promise.resolve([{name: "test1", idStudent: 1}, {name: "test2", idStudent: 2}, {name: "student3", idStudent: 3}]));
   jsPDF.save = jest.fn();
   const component = shallow(<ContactTracingPage/>);
   const instance = component.instance();
   instance.handleStudentButtonClick({name: "testName", email: "testEmail", idStudent: "testID"});
-  expect();
+  expect(API.getStudentContacts).toHaveBeenCalledTimes(1);
 });
 
 test("different legth of search result", async () => {
