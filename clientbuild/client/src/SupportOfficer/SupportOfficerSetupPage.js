@@ -13,7 +13,7 @@ class SupportOfficerSetupPage extends React.Component {
             files: [],
             activeStep: 0,
             steps: [
-                'Students', 'Teachers', 'Courses', 'Lectures', 'Classes', 'Submit'
+                'Students', 'Professors', 'Courses', 'Schedule', 'Enrollemnt', 'Submit'
             ],
             showResultModal: false,
             setupResult: undefined
@@ -212,13 +212,13 @@ class SupportOfficerSetupPage extends React.Component {
             case 0:
                 return `upload the students csv file.`;
             case 1:
-                return `upload the teachers csv file.`;
+                return `upload the professors csv file.`;
             case 2:
                 return `upload the courses csv file.`;
             case 3:
-                return `upload the lectures csv file.`;
+                return `upload the schedule csv file.`;
             case 4:
-                return `upload the classes csv file.`;
+                return `upload the enrollment csv file.`;
             case 5:
                 return `check the files and submit.`;
             default:

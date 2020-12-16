@@ -1,0 +1,62 @@
+Code,Year,Semester,Course,Teacher
+XY1211,1,1,Metodi di finanziamento delle imprese,d9000
+XY4911,1,1,Chimica,d9001
+XY8612,1,2,Informatica,d9002
+XY2312,1,2,Fisica I,d9003
+XY6012,1,2,Algebra lineare e geometria,d9004
+XY9712,1,2,Economia e organizzazione aziendale,d9005
+XY3412,1,2,Economia e organizzazione aziendale,d9006
+XY7121,2,1,Analisi matematica II,d9007
+XY0821,2,1,Analisi matematica II,d9008
+XY4521,2,1,Basi di dati,d9009
+XY8221,2,1,Basi di dati,d9010
+XY1921,2,1,Fisica II,d9011
+XY5621,2,1,Fisica II,d9012
+XY9321,2,1,Statistica,d9013
+XY3021,2,1,Statistica,d9014
+XY6722,2,2,Economia e organizzazione aziendale,d9015
+XY0422,2,2,Economia e organizzazione aziendale,d9016
+XY4122,2,2,Ricerca operativa,d9017
+XY7822,2,2,Ricerca operativa,d9018
+XY1522,2,2,Sistemi di produzione,d9019
+XY5222,2,2,Sistemi di produzione,d9020
+XY8922,2,2,Sistemi elettrici industriali,d9021
+XY2622,2,2,Sistemi elettrici industriali,d9022
+XY6322,2,2,Imprenditorialitˆ e innovazione,d9023
+XY0022,2,2,Strumenti dell'ingegneria per l'Industria 4.0,d9024
+XY3731,3,1,Elementi di diritto privato,d9025
+XY7431,3,1,Elementi di diritto privato,d9026
+XY1131,3,1,Sistemi telematici,d9027
+XY4831,3,1,Programmazione e gestione della produzione,d9028
+XY8531,3,1,Programmazione a oggetti,d9029
+XY2231,3,1,Impianti industriali,d9030
+XY5931,3,1,Programmazione e controllo della produzione,d9031
+XY9631,3,1,Tecnologia dei materiali,d9032
+XY3332,3,2,Logistica di distribuzione,d9033
+XY7032,3,2,Sistemi energetici industriali,d9034
+XY0732,3,2,Progettazione di servizi web e reti di calcolatori,d9035
+XY4432,3,2,Tecniche di programmazione,d9036
+XY8141,4,1,Analisi dei sistemi economici,d9045
+XY1841,4,1,Analisi dei sistemi economici,d9046
+XY5541,4,1,Economia aziendale,d9047
+XY9241,4,1,Economia aziendale,d9048
+XY2941,4,1,Sistemi informativi aziendali,d9029
+XY6641,4,1,Sistemi informativi aziendali,d9029
+XY0342,4,2,Analisi e gestione dei sistemi produttivi,d9031
+XY4042,4,2,Analisi e gestione dei sistemi produttivi,d9024
+XY7742,4,2,Economia dei sistemi industriali,d9056
+XY1442,4,2,Economia dei sistemi industriali,d9057
+XY5142,4,2,Strategia e organizzazione,d9058
+XY8842,4,2,Strategia e organizzazione,d9059
+XY2542,4,2,Diritto commerciale,d9060
+XY6242,4,2,Diritto commerciale,d9061
+XY9951,5,1,Economia e finanza d'impresa,d9062
+XY3651,5,1,Economia e finanza d'impresa,d9000
+XY7351,5,1,Gestione dei progetti,d9068
+XY1051,5,1,Gestione dei progetti,d9069
+XY4751,5,1,Ingegneria della qualitˆ,d9070
+XY8451,5,1,Ingegneria della qualitˆ,d9071
+XY2152,5,2,Gestione dell'innovazione e sviluppo prodotto ICT,d9082
+XY5852,5,2,Business intelligence per Big Data,d9083
+XY9552,5,2,"Mercati, rischi e strumenti finanziari",d9084
+XY3252,5,2,Metodi di finanziamento delle imprese,d9085
