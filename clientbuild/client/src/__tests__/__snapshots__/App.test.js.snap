@@ -8,6 +8,7 @@ Array [
   >
     <span
       className="navbar-brand"
+      data-testid="home-link"
       onClick={[Function]}
       style={
         Object {
