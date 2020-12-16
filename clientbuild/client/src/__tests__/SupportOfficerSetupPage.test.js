@@ -103,6 +103,26 @@ test("handleFinish", async () => {
     expect(instance.convertAndSendTeachers).toHaveBeenCalledTimes(1);
     expect(instance.convertAndSendCourses).toHaveBeenCalledTimes(1);
     expect(instance.convertAndSendLectures).toHaveBeenCalledTimes(1);
+    expect(instance.state.showResultModal).toBe(true);
+    expect(instance.state.setupResult).toBe(true);
+});
+
+test("handleFinish error", async () => {
+    const component = await shallow(<SupportOfficerSetupPage/>);
+    const instance = await component.instance();
+    //API.setUpProfessors = jest.fn(() => Promise.reject([]));
+    instance.convertAndSendClasses = jest.fn(() => Promise.reject([]));
+    instance.convertAndSendStudents = jest.fn();
+    instance.convertAndSendTeachers = jest.fn();
+    instance.convertAndSendLectures = jest.fn();
+    instance.convertAndSendCourses = jest.fn();
+    await instance.handleFinish();
+    expect(instance.state.showResultModal).toBe(true);
+    expect(instance.state.setupResult).toBe(false);
+    expect(instance.convertAndSendStudents).toHaveBeenCalledTimes(1);
+    expect(instance.convertAndSendTeachers).toHaveBeenCalledTimes(1);
+    expect(instance.convertAndSendCourses).toHaveBeenCalledTimes(1);
+    expect(instance.convertAndSendLectures).toHaveBeenCalledTimes(1);
 });
 
 test("convertAndSendTeachers", async () => {
