@@ -163,7 +163,8 @@ class GatewaysSupportOfficer extends Gateways
                     foreach ($lecturesToBeAdded as $lecture) {
                         //insert on lessons table
                         //insertLecture
-                        $time = explode("-", $lecture['Time']);
+                        $arrayTime = preg_split("/[:-]/", $lecture['Time']);
+                        $time = array($arrayTime[0].':'.$arrayTime[1], $arrayTime[2].':'.$arrayTime[3]);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if ($j == 0) {
@@ -183,7 +184,8 @@ class GatewaysSupportOfficer extends Gateways
                         //insert on lessons table
 
                         //insertLecture
-                        $time = explode("-", $lecture['Time']);
+                        $arrayTime = preg_split("/[:-]/", $lecture['Time']);
+                        $time = array($arrayTime[0].':'.$arrayTime[1], $arrayTime[2].':'.$arrayTime[3]);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if ($j == 0) {
@@ -203,7 +205,8 @@ class GatewaysSupportOfficer extends Gateways
                         //insert on lessons table
 
                         //insertLecture
-                        $time = explode("-", $lecture['Time']);
+                        $arrayTime = preg_split("/[:-]/", $lecture['Time']);
+                        $time = array($arrayTime[0].':'.$arrayTime[1], $arrayTime[2].':'.$arrayTime[3]);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if ($j == 0) {
@@ -223,7 +226,8 @@ class GatewaysSupportOfficer extends Gateways
                         //insert on lessons table
 
                         //insertLecture
-                        $time = explode("-", $lecture['Time']);
+                        $arrayTime = preg_split("/[:-]/", $lecture['Time']);
+                        $time = array($arrayTime[0].':'.$arrayTime[1], $arrayTime[2].':'.$arrayTime[3]);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if ($j == 0) {
@@ -243,7 +247,8 @@ class GatewaysSupportOfficer extends Gateways
                         //insert on lessons table
 
                         //insertLecture
-                        $time = explode("-", $lecture['Time']);
+                        $arrayTime = preg_split("/[:-]/", $lecture['Time']);
+                        $time = array($arrayTime[0].':'.$arrayTime[1], $arrayTime[2].':'.$arrayTime[3]);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if ($j == 0) {
