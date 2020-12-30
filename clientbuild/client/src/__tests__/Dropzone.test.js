@@ -22,7 +22,7 @@ test("render Dropzone with file", async () => {
 
 const onFileAddedMock = jest.fn();
 test("onDrop", async () => {
-    const component = await shallow(<Dropzone disabled={false} onFileAdded={jest.fn()}/>);
+    const component = await shallow(<Dropzone disabled={false} onFileAdded={jest.fn()} setError={setErrorMock}/>);
     const instance = await component.instance();
     await instance.onDrop({dataTransfer: {files: [{name: "test.csv", type: "text/csv"}, {type: "text/csv"}]}, preventDefault: jest.fn()});
     expect(instance.props.onFileAdded).toHaveBeenCalledTimes(1);
@@ -35,8 +35,9 @@ test("onDrop", async () => {
     expect(instance.state.highlight).toBe(false);
 });
 
+let setErrorMock = jest.fn();
 test("onDrop with undefined onFileAdded", async () => {
-    const component = await shallow(<Dropzone disabled={false} onFileAdded={undefined}/>);
+    const component = await shallow(<Dropzone disabled={false} onFileAdded={undefined} setError={setErrorMock}/>);
     const instance = await component.instance();
     await instance.onDrop({dataTransfer: {files: [{name: "test.csv", type: "text/csv"}, {type: "text/csv"}]}, preventDefault: jest.fn()});
     expect(instance.props.onFileAdded).toBe(undefined);

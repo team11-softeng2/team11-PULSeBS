@@ -31,7 +31,8 @@ class Dropzone extends Component {
             const file = event.target.files[0];
             if (this.props.onFileAdded) {
                 this.props.onFileAdded(file);
-                document.getElementById("uploadCaptureInputFile").value = "";
+                if(document.getElementById("uploadCaptureInputFile"))
+                    document.getElementById("uploadCaptureInputFile").value = "";
             }
         }
     }

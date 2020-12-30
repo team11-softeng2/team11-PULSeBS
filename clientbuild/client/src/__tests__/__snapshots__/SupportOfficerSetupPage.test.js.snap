@@ -443,6 +443,7 @@ exports[`renders SupportOfficerPage page 1`] = `
         <input
           accept=".csv"
           className="FileInput"
+          id="uploadCaptureInputFile"
           onChange={[Function]}
           type="file"
         />
@@ -478,7 +479,11 @@ exports[`renders SupportOfficerPage page 1`] = `
           "marginLeft": "32px",
         }
       }
-    />
+    >
+      <h5>
+        File ulpaded
+      </h5>
+    </div>
   </div>
 </div>
 `;

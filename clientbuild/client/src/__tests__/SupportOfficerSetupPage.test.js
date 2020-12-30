@@ -47,6 +47,14 @@ test("handleBack and handleReset", async () => {
     expect(instance.state.activeStep).toBe(0);
 });
 
+test("serError", async () => {
+    const component = await shallow(<SupportOfficerSetupPage/>);
+    const instance = await component.instance();
+    expect(instance.state.error).toBe("");
+    await instance.setError("test");
+    expect(instance.state.error).toBe("test");
+});
+
 test("getStepContent", async () => {
     const component = await shallow(<SupportOfficerSetupPage/>);
     const instance = await component.instance();
