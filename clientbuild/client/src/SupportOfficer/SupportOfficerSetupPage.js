@@ -16,14 +16,15 @@ class SupportOfficerSetupPage extends React.Component {
                 'Students', 'Professors', 'Courses', 'Schedule', 'Enrollemnt', 'Submit'
             ],
             showResultModal: false,
-            setupResult: undefined
+            setupResult: undefined,
+            error: "",
         };
 
         this.handleNext = this.handleNext.bind(this);
         this.handleBack = this.handleBack.bind(this);
         this.handleReset = this.handleReset.bind(this);
 
-        this.onFileAdded = this.onFileAdded.bind(this);
+        //this.onFileAdded = this.onFileAdded.bind(this);
     }
 
     componentDidMount = () => {
@@ -39,6 +40,7 @@ class SupportOfficerSetupPage extends React.Component {
               this.handleFinish();
             }
         });
+        this.setState({error: ""});
     };
 
     handleFinish = async() => {
@@ -199,6 +201,7 @@ class SupportOfficerSetupPage extends React.Component {
         this.setState(prevState => ({
             activeStep: prevState.activeStep - 1
         }));
+        this.setState({error: ""});
     };
 
     handleReset() {
@@ -226,18 +229,23 @@ class SupportOfficerSetupPage extends React.Component {
         }
     }
 
-    onFileAdded(file) {
+    onFileAdded = async (file) => {
         const activeStep = this.state.activeStep;
         /* replace or add the file */
-        this.setState(prevState=> {
-            for(let f of prevState.files) {
-                /* check the new file is not present in files */
-                if(f !== undefined && file.name === f.name) return ({});
-            }
-            prevState.files[activeStep] = file;
-            return ({ files: prevState.files });
-        })
+        let actual = await this.state.files;
+        let res = actual.find((f) => f.name === file.name);
+        if(res !== undefined) {
+            await this.setState({error: "Error: file already uploaded!"});
+        } else {
+            actual[activeStep] = file;
+            await this.setState({error: ""});
+            this.setState({files: actual});
+        }
     }
+
+    setError = (error) => {
+        this.setState({error: error});
+    };
 
     render() {
         return <>
@@ -276,16 +284,19 @@ class SupportOfficerSetupPage extends React.Component {
                 <div className="w-100 d-flex align-items-center h-100" style={{ marginLeft:"128px", marginRigth:"64px" }}>
                     <div>
                         <Dropzone
+                            error={this.state.error}
+                            setError={this.setError}
                             onFileAdded={this.onFileAdded}
                             disabled={this.state.activeStep === this.state.steps.length-1}
                             file={this.state.files[this.state.activeStep]}
                         />
                     </div>
                     <div style={{ marginLeft:"32px" }}>
+                        <h5>File ulpaded</h5>
                         {this.state.files.map(file => {
                             return (
-                                <div key={file.name} style={{ height: "50px", padding: "8px", overflow: "hidden" }}>
-                                    <span style={{ marginBottom: "8px", fontSize: "16px", color: "#555", textOverflow: "ellipsis", overflow: "hidden" }}>{file.name}</span>
+                                <div key={file.name} style={{ height: "30px", padding: "5px", overflow: "hidden" }}>
+                                    <span style={{ marginBottom: "5px", fontSize: "16px", color: "#555", textOverflow: "ellipsis", overflow: "hidden" }}>{this.state.steps[this.state.files.indexOf(file)]}: {file.name}</span>
                                 </div>
                             );
                         })}
