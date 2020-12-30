@@ -1,6 +1,12 @@
 import React from 'react';
+import TestRenderer from 'react-test-renderer';
 import { render, fireEvent } from '@testing-library/react';
 import ModalTeacher from '../ModalTeacher';
+import { shallow } from 'enzyme';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 
 describe("Modal render", () => {
     test("Render with show true", () => {

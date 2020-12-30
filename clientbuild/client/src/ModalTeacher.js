@@ -11,12 +11,6 @@ import Form from 'react-bootstrap/Form'
 
 class ModalTeacher extends React.Component{
 
-    updateAttendance = (idUser, checked) => {
-        if(checked === true) {
-            this.props.setAttendance(idUser, )
-        }
-    }
-
     render(){
         if(this.props.show === true) {
             return <>
