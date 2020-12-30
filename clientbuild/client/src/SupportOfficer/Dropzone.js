@@ -89,7 +89,7 @@ class Dropzone extends Component {
                 }
                 <span className="Filename">{this.props.file !== undefined ? this.props.file.name : "Choose a file"}</span>
             </div>
-            { this.props.error !== "" ? <Alert variant={"danger"}>{this.props.error ? this.props.error : this.state.error}</Alert> : null }
+            { this.props.error !== "" ? <Alert variant={"danger"} style={{ marginTop: 10 }}>{this.props.error ? this.props.error : this.state.error}</Alert> : null }
         </>
     }
 }
