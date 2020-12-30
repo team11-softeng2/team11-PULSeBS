@@ -6,8 +6,16 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Table from 'react-bootstrap/Table'
+import Form from 'react-bootstrap/Form'
 
 class ModalTeacher extends React.Component{
+
+    updateAttendance = (idUser, checked) => {
+        if(checked === true) {
+            this.props.setAttendance(idUser, )
+        }
+    }
 
     render(){
         if(this.props.show === true) {
@@ -98,7 +106,20 @@ class ModalTeacher extends React.Component{
                                     </svg>
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey={this.props.elementId}>
-                                    <Card.Body>{this.props.studentList.map((s) => <StudentRow key={s.idUser} name={s.name}/>)  }</Card.Body>
+                                    <Card.Body style={{ padding:0 }}>
+                                        <Table striped bordered hover>
+                                        <thead>
+                                            <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Attendance</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.props.studentList.map((s) => <StudentRow key={s.idUser} name={s.name} idUser={s.idUser} updateAttendance={this.props.updateAttendance}/>)  }
+                                        </tbody>
+                                        </Table>
+                                    </Card.Body>
                                     </Accordion.Collapse>
                                 </Card></div>
                             </Accordion>
@@ -124,7 +145,10 @@ class ModalTeacher extends React.Component{
 }
 
 function StudentRow(props) {
-    return <div>{props.name}</div>
+    return <tr>
+        <td>{props.idUser}</td>
+        <td>{props.name}</td>
+        <td style={{textAlign: 'center'}}><Form.Check type="checkbox" /*checked={props.attendance === 1 ? true : false}*/ onChange = {(ev) => props.updateAttendance(props.idUser, ev.target.checked)}/></td>
+    </tr>
 }
-
 export default ModalTeacher;

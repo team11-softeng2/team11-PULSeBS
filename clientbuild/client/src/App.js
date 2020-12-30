@@ -132,6 +132,15 @@ class App extends React.Component {
     });
   }
 
+  updateAttendance = (idUser, attendance) => {
+    console.log("Attendance: " + idUser + " - " + attendance);
+    /*
+    API.updateAttendance(userId, attendance).then(() => {
+      //
+    });
+    */
+  }
+
   render(props) {
     return (
       <Router className="h-100"> { /* full height pages */}
@@ -211,6 +220,7 @@ class App extends React.Component {
                 })}
                 deleteLecture = {this.deleteLecture}
                 changeToOnline = {this.changeToOnline}
+                updateAttendance = {this.updateAttendance}
                 ></TeacherCalendarPage>
                 :
                 <Redirect to="/"></Redirect>

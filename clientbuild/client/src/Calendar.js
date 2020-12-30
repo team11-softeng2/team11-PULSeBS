@@ -79,6 +79,7 @@ class Calendar extends React.Component{
                 changeToOnline = {this.props.changeToOnline}
                 lectureColor = {this.state.lectureColor}
                 dateStart = {new Date(this.state.lectureDate + "T" + this.state.lectureBeginTime)}
+                updateAttendance = {this.props.updateAttendance}
                 />
             }
             

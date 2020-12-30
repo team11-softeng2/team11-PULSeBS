@@ -620,9 +620,32 @@ async function getStudentContacts(studentId) {
     }
 }
 
+async function updateAttendance(idUser, attendance) {
+    const url = "http://localhost/server/updateAttendance?idUser=" + idUser + "&attendance=" + attendance;       //Da definire
+    return new Promise((resolve, reject) => {
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                //'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                idUser: idUser,
+                attendance: attendance,
+            }),
+        }).then((response) => {
+            if (response.ok) {
+                resolve(0);
+            } else {
+                reject({ errore: "Error in updating student attendance" });
+            }
+        }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) });
+    });
+}
+
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses,
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER,
-    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses, getAllStudents, getWaitingBookings, getStudentContacts
+    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses, getAllStudents, getWaitingBookings, getStudentContacts, updateAttendance
 };
 export default API;
