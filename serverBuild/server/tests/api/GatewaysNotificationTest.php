@@ -72,6 +72,20 @@ class GatewaysNotificationTest extends TestCase
         $this->assertEquals(0, $result);
     }
 
+    public function testLectureScheduleChange()
+    {
+        $result = $this->gatewayNotification->sendEmail('lectureScheduleChange', '4');
+        $this->assertIsInt($result);
+        $this->assertEquals(1, $result);
+    }
+
+    public function testLectureScheduleChangeNotFound()
+    {
+        $result = $this->gatewayNotification->sendEmail('lectureScheduleChange', '0');
+        $this->assertIsInt($result);
+        $this->assertEquals(0, $result);
+    }
+
     public function testWrongEmail()
     {
         $result = $this->gatewayNotification->sendEmail('nonExistentEmailType', '99');
@@ -94,6 +108,13 @@ class GatewaysNotificationTest extends TestCase
         $this->assertIsString($result);
         $this->assertEquals("Invalid Address.", $result);
     }
+
+    // public function testBreak()
+    // {
+    //     $result = $this->gatewayNotification->returnData('NULL', 'NULL');
+    //     $this->assertIsArray($result);
+    //     $this->assertEmpty($result);
+    // }
 
     // public function testDispatchWithTimeoutException()
     // {

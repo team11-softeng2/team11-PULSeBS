@@ -92,7 +92,7 @@ class GatewaysTeacherBookingTest extends TestCase
     }
 //------------------------------------------------------------------------------------------------------------------------------
 
-//test ChangeToOnlineLectureFound-----------------------------------------------------------------------------------------------
+//test ChangeToOnlineLecture-----------------------------------------------------------------------------------------------
     public function testchangeToOnlineLectureFound()
     {
         $this->db = new SQLite3("./tests/dbForTesting2.db");
@@ -128,6 +128,28 @@ class GatewaysTeacherBookingTest extends TestCase
 
         $result = $mockGatewayTeacherBooking->changeToOnlineLecture($this->id);
         $this->assertEquals(0, $result);
+    }
+//---------------------------------------------------------------------------------------------------------------------------------
+
+//test ChangeToOnlineLectureByYear-----------------------------------------------------------------------------------------------
+    public function testchangeToOnlineLectureByYearFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 1;
+        $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+        $result = $this->gatewayTeacherBooking->changeToOnlineLectureByYear($this->id);
+        $this->assertGreaterThan(0, $result);
+        $this->restoreModificationUpdateToOnlineByYear();
+    }
+
+    public function testchangeToOnlineLectureByYearNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 10;
+        $this->gatewayTeacherBooking = new Server\api\GatewaysTeacherBooking($this->db);
+        $result = $this->gatewayTeacherBooking->changeToOnlineLectureByYear($this->id);
+        $this->assertEquals(0, $result);
+        $this->restoreModificationUpdateToOnlineByYear();
     }
 //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -217,7 +239,11 @@ class GatewaysTeacherBookingTest extends TestCase
         $sqlUpdateBookingTable = "update booking set active=1, isWaiting=0 where idLesson=" . $idLecture . "";
         $this->db->exec($sqlUpdateLessonTable);
         $this->db->exec($sqlUpdateBookingTable);
-
+    }
+    protected function restoreModificationUpdateToOnlineByYear()
+    {
+        $sqlUpdateLessonTable = "update lessons set inPresence=1";
+        $this->db->exec($sqlUpdateLessonTable);
     }
 //---------------------------------------------------------------------------------------------------------------------------------------
 

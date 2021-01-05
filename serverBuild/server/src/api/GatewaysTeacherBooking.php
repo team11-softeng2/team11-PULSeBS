@@ -19,7 +19,7 @@ class GatewaysTeacherBooking extends Gateways
             $subArray = array(
                 "idUser" => $row['idUser'],
                 "name" => $row['name'],
-                "idBooking" => $row['idBooking']
+                "idBooking" => $row['idBooking'],
             );
             $data[] = $subArray;
         }

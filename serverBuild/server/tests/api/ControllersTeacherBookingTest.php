@@ -167,6 +167,47 @@ class ControllersTeacherBookingTest extends TestCase
         $this->assertEquals(-1, $this->controller->processRequest());
     }
 
+    //test changeToOnlineByYear--------------------------------------------------------------------------------------
+
+    public function testchangeToOnlineByYearFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 1;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToOnlineByYear", $this->id);
+        $result = $this->controller->changeToOnlineLectureByYear($this->id);
+        $this->assertTrue((json_decode($result, true) == null) ? false : true);
+        $this->restoreModificationUpdateToOnlineByYear();
+    }
+
+    public function testchangeToOnlineByYearNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 10;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToOnlineByYear", $this->id);
+        $this->assertEquals(0, $this->controller->changeToOnlineLectureByYear($this->id));
+        $this->restoreModificationUpdateToOnlineByYear();
+    }
+
+    public function testProcessRequestchangeToOnlineByYearFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 1;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToOnlineByYear", $this->id);
+        $output = $this->controller->processRequest();
+        $this->assertNotEquals(0, $output);
+        $this->assertFalse(empty($output));
+        $this->restoreModificationUpdateToOnlineByYear();
+    }
+
+    public function testProcessRequestchangeToOnlineByYearNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 10;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToOnlineByYear", $this->id);
+        $this->assertEquals(0, $this->controller->processRequest());
+        $this->restoreModificationUpdateToOnlineByYear();
+    }
+
     //---------------------------------------------------------------------------------------------------------
 
     public function testUseWrongMethod()
@@ -224,6 +265,12 @@ class ControllersTeacherBookingTest extends TestCase
         $sqlUpdateBookingTable = "update booking set active=1, isWaiting=0 where idLesson=" . $idLecture . "";
         $this->db->exec($sqlUpdateLessonTable);
         $this->db->exec($sqlUpdateBookingTable);
+    }
+
+    protected function restoreModificationUpdateToOnlineByYear()
+    {
+        $sqlUpdateLessonTable = "update lessons set inPresence=1";
+        $this->db->exec($sqlUpdateLessonTable);
     }
     //---------------------------------------------------------------------------------------------------------
 }
