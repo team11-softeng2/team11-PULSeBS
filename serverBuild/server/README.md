@@ -70,12 +70,17 @@ Each endpoint is preceded by /server/src/api/
 - PUT `/deleteLecture/:lectureId`
 
   - Params: lectureId
-  - Response: number of rows changed inside lesson table(should be always one)
+  - Response: number of rows changed inside lesson table (should be always one)
 
 - PUT `/changeToOnline/:lectureId`
 
   - Params: lectureId
-  - Response: number of rows changed inside lesson table(should be always one)
+  - Response: number of rows changed inside lesson table (should be always one)
+
+- PUT `/changeToOnlineByYear/:year`
+
+  - Params: year
+  - Response: number of rows changed inside lesson table
 
   ## Statistics
 
