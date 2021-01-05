@@ -4,6 +4,7 @@ import Dropzone from "./Dropzone"
 import Papa from 'papaparse';
 import API from '../API';
 import SetupResultModal from './SetupResultModal.js'
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 class SupportOfficerSetupPage extends React.Component {
 
@@ -18,6 +19,7 @@ class SupportOfficerSetupPage extends React.Component {
             showResultModal: false,
             setupResult: undefined,
             error: "",
+            loading: undefined,
         };
 
         this.handleNext = this.handleNext.bind(this);
@@ -46,11 +48,17 @@ class SupportOfficerSetupPage extends React.Component {
     handleFinish = async() => {
       try{
         //they have to be called one after the other otherwise the db has concurrency problems
+        this.setState({loading: 0});
         await this.convertAndSendStudents(this.state.files[0]);
+        this.setState({loading: 20});
         await this.convertAndSendTeachers(this.state.files[1]);
+        this.setState({loading: 40});
         await this.convertAndSendCourses(this.state.files[2]);
+        this.setState({loading: 60});
         await this.convertAndSendLectures(this.state.files[3]);
+        this.setState({loading: 80});
         await this.convertAndSendClasses(this.state.files[4]);
+        this.setState({loading: undefined});
 
         console.log('finished all api calls for the setup');
         this.setState({ showResultModal: true, setupResult: true });
@@ -292,7 +300,7 @@ class SupportOfficerSetupPage extends React.Component {
                         />
                     </div>
                     <div style={{ marginLeft:"32px" }}>
-                        <h5>File ulpaded</h5>
+                        <h5>File uploaded</h5>
                         {this.state.files.map(file => {
                             return (
                                 <div key={file.name} style={{ height: "30px", padding: "5px", overflow: "hidden" }}>
@@ -300,6 +308,12 @@ class SupportOfficerSetupPage extends React.Component {
                                 </div>
                             );
                         })}
+                        {this.state.loading === undefined ? null : 
+                        <>
+                        Loading:
+                        <ProgressBar animated now={this.state.loading} />
+                        </>
+                        }
                     </div>
 
                 </div>
