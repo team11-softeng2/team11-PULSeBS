@@ -89,6 +89,22 @@ class GatewaysTeacherBooking extends Gateways
         }
     }
 
+    public function changeToOnlineLectureByYear($year)
+    {
+        $sqlUpdateLessonTable = "UPDATE lessons
+                                SET inPresence=0
+                                WHERE idCourse IN   (SELECT c.idCourse
+                                                    FROM lessons as l, courses as c
+                                                    WHERE l.idCourse=c.idCourse AND c.year=$year)";
+        $this->db->exec($sqlUpdateLessonTable);
+        $changesLessonTable = $this->db->changes();
+        if ($changesLessonTable > 0) {
+            return $changesLessonTable;
+        } else {
+            return 0;
+        }
+    }
+
     public function validateDateBeforeUpdate($idLecture)
     {
         $sql = "select * from lessons where idLesson = " . $idLecture . "";
