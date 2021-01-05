@@ -10,7 +10,7 @@ class SupportOfficerPage extends React.Component {
         this.state = {
             options: [
                 { id: 0, name: "Setup", path: "/setup" },
-                { id: 1, name: "Other operations...", path: "/todo" },
+                { id: 1, name: "Update schedule of courses", path: "/updateSchedule" },
                 /*{ code: 3, name: "Other"},
                 { code: 4, name: "Other" },
                 { code: 5, name: "Other" },

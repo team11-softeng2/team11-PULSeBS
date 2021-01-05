@@ -14,6 +14,7 @@ import BookingManagerPage from './BookingManagerPage';
 import ContactTracingPage from './ContactTracingPage';
 import SupportOfficerPage from './SupportOfficer/SupportOfficerPage';
 import SupportOfficerSetupPage from './SupportOfficer/SupportOfficerSetupPage';
+import SupportOfficerSchedulePage from './SupportOfficer/SupportOfficerSchedulePage';
 //import { buildEventApis, getRectCenter } from '@fullcalendar/react';
 
 class App extends React.Component {
@@ -157,7 +158,7 @@ class App extends React.Component {
                   end: new Date(l.date + "T" + l.endTime),
                   type:"bookableLecture",
                   classroom: l.idClassroom,
-                }})} 
+                }})}
                 bookASeat = {this.bookASeat}
                 deleteBooking = {this.deleteBooking}
                 fullLectures = {this.state.fullLectures.map((l) => {
@@ -206,7 +207,7 @@ class App extends React.Component {
           </Route>
 
           <Route path="/teacher">
-            {(this.state.loggedin === true && this.state.userRole === "teacher") ? 
+            {(this.state.loggedin === true && this.state.userRole === "teacher") ?
                 <TeacherCalendarPage lectures={this.state.teacherLectures.map((l) => {
                   return {
                     id: l.idLesson,
@@ -228,7 +229,7 @@ class App extends React.Component {
           </Route>
 
           <Route path="/booking-manager/contact-tracing">
-            {(this.state.loggedin === true && this.state.userRole === "booking-manager") ? 
+            {(this.state.loggedin === true && this.state.userRole === "booking-manager") ?
               <ContactTracingPage/>
                 :
               <Redirect to="/"></Redirect>
@@ -250,7 +251,15 @@ class App extends React.Component {
               <Redirect to="/"></Redirect>
             }
           </Route>
-          
+
+          <Route path="/support-officer/updateSchedule">
+            {(this.state.loggedin === true && this.state.userRole === "support-officer") ?
+              <SupportOfficerSchedulePage />
+              :
+              <Redirect to="/"></Redirect>
+            }
+          </Route>
+
           <Route path="/support-officer">
             {(this.state.loggedin === true && this.state.userRole === "support-officer") ?
               <SupportOfficerPage />
@@ -258,7 +267,7 @@ class App extends React.Component {
               <Redirect to="/"></Redirect>
             }
           </Route>
-          
+
           <Route path="/">
             <Row className="height-100">
               <Col sm={4}></Col>
@@ -275,4 +284,3 @@ class App extends React.Component {
 }
 
 export default App;
-
