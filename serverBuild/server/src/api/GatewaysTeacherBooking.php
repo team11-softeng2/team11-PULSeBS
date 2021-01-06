@@ -12,7 +12,13 @@ class GatewaysTeacherBooking extends Gateways
 
     public function findBookedStudentsForLecture($id)
     {
-        $sql = "select U.idUser, U.name, B.idBooking from booking B join users U where B.idUser=U.idUser and B.idLesson=" . $id . " and U.role='student' and B.active=1 and B.isWaiting=0;";
+        $sql = "SELECT U.idUser, U.name, B.idBooking, B.present
+                FROM booking B JOIN users U
+                WHERE   B.idUser=U.idUser AND
+                        B.idLesson=$id AND
+                        U.role='student' AND
+                        B.active=1 AND
+                        B.isWaiting=0;";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -20,10 +26,10 @@ class GatewaysTeacherBooking extends Gateways
                 "idUser" => $row['idUser'],
                 "name" => $row['name'],
                 "idBooking" => $row['idBooking'],
+                "isPresent" => $row['present'],
             );
             $data[] = $subArray;
         }
-
         return $this->returnArray($data);
     }
 
@@ -53,14 +59,13 @@ class GatewaysTeacherBooking extends Gateways
             );
             $data[] = $subArray;
         }
-
         return $this->returnArray($data);
     }
 
     public function updateToNotActiveLecture($idLecture)
     {
         if ($this->validateDateBeforeUpdate($idLecture)) {
-            $sqlUpdateLessonTable = "update lessons set active=0 where idLesson=" . $idLecture . "";
+            $sqlUpdateLessonTable = "UPDATE lessons SET active=0 WHERE idLesson=" . $idLecture . "";
             $this->db->exec($sqlUpdateLessonTable);
             $changesLessonTable = $this->db->changes();
             if ($changesLessonTable > 0) {
@@ -76,7 +81,7 @@ class GatewaysTeacherBooking extends Gateways
     public function changeToOnlineLecture($idLecture)
     {
         if ($this->validateDateBeforeUpdateToOnline($idLecture)) {
-            $sqlUpdateLessonTable = "update lessons set inPresence=0 where idLesson=" . $idLecture . "";
+            $sqlUpdateLessonTable = "UPDATE lessons SET inPresence=0 WHERE idLesson=" . $idLecture . "";
             $this->db->exec($sqlUpdateLessonTable);
             $changesLessonTable = $this->db->changes();
             if ($changesLessonTable > 0) {
