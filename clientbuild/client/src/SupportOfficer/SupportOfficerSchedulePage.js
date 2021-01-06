@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Row, Col, Button, Table, Form } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import API from '../API';
 
 class SupportOfficerSchedulePage extends React.Component {
@@ -11,7 +12,6 @@ class SupportOfficerSchedulePage extends React.Component {
   }
 
   render(){
-    console.log(this.state.allCourses);
     return <>
       <Container fluid>
         <Row>
@@ -62,7 +62,11 @@ class SupportOfficerSchedulePage extends React.Component {
           <td>{c.idCourse}</td>
           <td>{c.teacherName}</td>
           <td>
-              <Button className='mt-1' variant='danger' onClick={() => {this.handleButtonClick(c);}}>Change schedule</Button>
+              <Link to={"/support-officer/updateSchedule/" + c.idCourse}>
+                <Button className='mt-1' variant='danger' onClick={() => {this.handleButtonClick(c);}}>
+                  Change schedule
+                </Button>
+              </Link>
           </td>
       </tr>
   }
@@ -115,7 +119,7 @@ class SupportOfficerSchedulePage extends React.Component {
       var wordsInInput = currentTextInput.split(' ').filter(w => w !== '');
 
       var filteredCourses = this.state.allCourses.filter(
-        c => (this.courseMatchesInputName(c, wordsInInput) || this.courseMatchesInputTeacher(c, wordsInInput) || this.courseMatchesInputId(c, wordsInInput)) 
+        c => (this.courseMatchesInputName(c, wordsInInput) || this.courseMatchesInputTeacher(c, wordsInInput) || this.courseMatchesInputId(c, wordsInInput))
       );
       this.setState({ filteredCourses: filteredCourses });
   }
