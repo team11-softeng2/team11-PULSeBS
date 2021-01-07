@@ -8,6 +8,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form'
+import API from './API';
 
 class ModalTeacher extends React.Component{
 
@@ -110,7 +111,7 @@ class ModalTeacher extends React.Component{
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {this.props.studentList.map((s) => <StudentRow key={s.idUser} name={s.name} idUser={s.idUser} updateAttendance={this.props.updateAttendance}/>)  }
+                                            {this.props.studentList.map((s) => <StudentRow key={s.idUser} name={s.name} idUser={s.idUser} isPresent={s.isPresent} idBooking={s.idBooking} elementId={this.props.elementId} updateAttendance={this.props.updateAttendance}/>)  }
                                         </tbody>
                                         </Table>
                                     </Card.Body>
@@ -142,7 +143,7 @@ function StudentRow(props) {
     return <tr>
         <td>{props.idUser}</td>
         <td>{props.name}</td>
-        <td style={{textAlign: 'center'}}><Form.Check type="checkbox" /*checked={props.attendance === 1 ? true : false}*/ onChange = {(ev) => props.updateAttendance(props.idUser, ev.target.checked)}/></td>
+        <td style={{textAlign: 'center'}}><Form.Check type="checkbox" checked={props.isPresent === 1 ? true : false} onChange = {(ev) => props.updateAttendance(props.idBooking, props.elementId)}/></td>
     </tr>
 }
 export default ModalTeacher;

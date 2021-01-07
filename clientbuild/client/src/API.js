@@ -620,8 +620,8 @@ async function getStudentContacts(studentId) {
     }
 }
 
-async function updateAttendance(idUser, attendance) {
-    const url = "http://localhost/server/updateAttendance?idUser=" + idUser + "&attendance=" + attendance;       //Da definire
+async function updateAttendance(idBooking) {
+    const url = "http://localhost/server/recordStudentPresence/" + idBooking;
     return new Promise((resolve, reject) => {
         fetch(url, {
             method: 'PUT',
@@ -630,8 +630,7 @@ async function updateAttendance(idUser, attendance) {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             },
             body: JSON.stringify({
-                idUser: idUser,
-                attendance: attendance,
+                ididBooking: idBooking,
             }),
         }).then((response) => {
             if (response.ok) {

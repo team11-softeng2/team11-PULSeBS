@@ -134,13 +134,8 @@ class App extends React.Component {
     });
   }
 
-  updateAttendance = (idUser, attendance) => {
-    console.log("Attendance: " + idUser + " - " + attendance);
-    /*
-    API.updateAttendance(userId, attendance).then(() => {
-      //
-    });
-    */
+  updateAttendance = (idBooking) => {
+    API.updateAttendance(idBooking);
   }
 
   render(props) {
