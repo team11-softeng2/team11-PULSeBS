@@ -9,7 +9,7 @@ class ControllersHistoricalData extends Controllers
     private $filterTime;
     private $filterCourse;
 
-    public function __construct($requestMethod, $db, $value, $filterTime, $filterCourse, $isActive = -1, $id = -1)
+    public function __construct($requestMethod, $db, $value, $filterTime, $filterCourse, $isActive = -1, $id = -1, $isAttendanceStats = 0)
     {
         $this->requestMethod = $requestMethod;
         $this->gateway = new GatewaysHistoricalData($db);
@@ -18,6 +18,7 @@ class ControllersHistoricalData extends Controllers
         $this->idTeacher = $id;
         $this->filterTime = $filterTime;
         $this->filterCourse = $filterCourse;
+        $this->isAttendanceStats = $isAttendanceStats;
     }
 
     public function processRequest()
@@ -37,13 +38,13 @@ class ControllersHistoricalData extends Controllers
 
     public function findBookingsStats($filterTime, $filterCourse)
     {
-        $bookingStats = $this->gateway->getHistoricalDataBookings($filterTime, $filterCourse, $this->isActive);
+        $bookingStats = $this->gateway->getHistoricalDataBookings($filterTime, $filterCourse, $this->isActive, $this->isAttendanceStats);
         return json_encode($bookingStats);
     }
 
     public function findTeacherStats($filterTime, $filterCourse)
     {
-        $teacherStats = $this->gateway->getHistoricalDataBookingsForTeacher($filterTime, $filterCourse, $this->isActive, $this->idTeacher);
+        $teacherStats = $this->gateway->getHistoricalDataBookingsForTeacher($filterTime, $filterCourse, $this->isActive, $this->idTeacher, $this->isAttendanceStats);
         return json_encode($teacherStats);
     }
 

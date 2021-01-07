@@ -84,7 +84,7 @@ Each endpoint is preceded by /server/src/api/
 
   ## Statistics
 
-- GET `/bookingStatistics?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}
+- GET `/bookingStatistics?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}`&isAttendance=`{_value_}
 
   - Params:
 
@@ -101,15 +101,18 @@ Each endpoint is preceded by /server/src/api/
       Example: filterCourse=1,2,5
     - {_value_} for type key is an optional parameter.
       If you want cancellation stats you need to set it to 0, otherwise defaults to 1 (ie. stats will be about active lectures).
+    - {_value_} for isAttendance is optional parameter.
+      If you want attendance stats you need to set it to 1, otherwise default to 0 (do not set type in the url)
 
   - Example urls:
 
     - bookings: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
     - cancellation: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5&type=0`
+    - attendance: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=L.idCourse&isAttendance=1`
 
   - Response: statistics list of bookings filtered by filterTime and filterCourse
 
-- GET `/teacherStatistics/:teacherId?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}
+- GET `/teacherStatistics/:teacherId?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}`&isAttendance=`{_value_}
 
   - Params:
 
@@ -127,11 +130,14 @@ Each endpoint is preceded by /server/src/api/
       Example: filterCourse=1,2,5
     - {_value_} for type key is an optional parameter.
       If you want cancellation stats you need to set it to 0, otherwise defaults to 1 (ie. stats will be about active lectures).
+      - {_value_} for isAttendance is optional parameter.
+      If you want attendance stats you need to set it to 1, otherwise default to 0 (do not set type in the url)
 
   - Example urls:
 
     - bookings: `/teacherStatistics/2?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
     - cancellation: `/teacherStatistics/:teacherId?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5&type=0`
+    - attendance: `/teacherStatistics/d9001?filterTime=year,monthOfYear&filterCourse=L.idCourse&isAttendance=1`
 
   - Response: statistics list of bookings for the given teacher, filtered by filterTime and filterCourse
 

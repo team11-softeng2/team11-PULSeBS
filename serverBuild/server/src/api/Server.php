@@ -116,7 +116,8 @@ if (isset($_GET['url'])) {
             $filterCourse = $_GET['filterCourse'];
             $filterTime = $_GET['filterTime'] == "" ? "L.idLesson" : $_GET['filterTime'];
             $active = !(isset($_GET['type'])) || $_GET['type'] == "" ? "1" : $_GET['type'];
-            $controller = new Server\api\ControllersHistoricalData($_SERVER['REQUEST_METHOD'], $dbConn, $value, $filterTime, $filterCourse, $active);
+            $isAttendanceStats = !(isset($_GET['isAttendance'])) || $_GET['isAttendance'] == "" ? "0" : $_GET['isAttendance'];
+            $controller = new Server\api\ControllersHistoricalData($_SERVER['REQUEST_METHOD'], $dbConn, $value, $filterTime, $filterCourse, $active, -1, $isAttendanceStats);
             echo $controller->processRequest();
             break;
         case "teacherStatistics/$number":
@@ -125,7 +126,8 @@ if (isset($_GET['url'])) {
             $filterCourse = $_GET['filterCourse'];
             $filterTime = $_GET['filterTime'] == "" ? "L.idLesson" : $_GET['filterTime'];
             $active = !(isset($_GET['type'])) || $_GET['type'] == "" ? "1" : $_GET['type'];
-            $controller = new Server\api\ControllersHistoricalData($_SERVER['REQUEST_METHOD'], $dbConn, $value, $filterTime, $filterCourse, $active, $idTeacher);
+            $isAttendanceStats = !(isset($_GET['isAttendance'])) || $_GET['isAttendance'] == "" ? "0" : $_GET['isAttendance'];
+            $controller = new Server\api\ControllersHistoricalData($_SERVER['REQUEST_METHOD'], $dbConn, $value, $filterTime, $filterCourse, $active, $idTeacher, $isAttendanceStats);
             echo $controller->processRequest();
             break;
         case "setUpCourses":

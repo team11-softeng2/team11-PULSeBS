@@ -1,4 +1,5 @@
 <?php
+
 namespace Server\api;
 
 class GatewaysHistoricalData extends Gateways
@@ -8,7 +9,7 @@ class GatewaysHistoricalData extends Gateways
         $this->db = $db;
     }
 
-    public function getHistoricalDataBookings($filterTime, $filterCourse, $active)
+    public function getHistoricalDataBookings($filterTime, $filterCourse, $active, $isAttendanceStats)
     {
         $nwfilterCourse = explode(',', $filterCourse);
         $nwfilterCourse = array_map(function ($course) {
@@ -16,7 +17,7 @@ class GatewaysHistoricalData extends Gateways
         }, $nwfilterCourse);
         $nwfilterCourse = implode(',', $nwfilterCourse);
         $filterCourse = $filterCourse == 'L.idCourse' ? 'L.idCourse' : $nwfilterCourse;
-
+        $present = ($isAttendanceStats == 0 ? 'present' : 1);
         $sql = "
         SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
                 COUNT(DISTINCT L.idLesson) as numberLectures,
@@ -30,7 +31,7 @@ class GatewaysHistoricalData extends Gateways
                 L.idCourse as courseID
         FROM    lessons L
                     Left join
-                (SELECT * FROM booking WHERE active=" . $active . ") B
+                (SELECT * FROM booking WHERE active=" . $active . " AND present=".$present.") B
                     ON
                 L.idLesson=B.idLesson
         WHERE   L.idClassRoom<>0 AND
@@ -41,7 +42,7 @@ class GatewaysHistoricalData extends Gateways
         return $this->returnData($filterTime, $sql);
     }
 
-    public function getHistoricalDataBookingsForTeacher($filterTime, $filterCourse, $active, $id)
+    public function getHistoricalDataBookingsForTeacher($filterTime, $filterCourse, $active, $id, $isAttendanceStats)
     {
         $nwfilterCourse = explode(',', $filterCourse);
         $nwfilterCourse = array_map(function ($course) {
@@ -49,7 +50,7 @@ class GatewaysHistoricalData extends Gateways
         }, $nwfilterCourse);
         $nwfilterCourse = implode(',', $nwfilterCourse);
         $filterCourse = $filterCourse == 'L.idCourse' ? 'L.idCourse' : $nwfilterCourse;
-
+        $present = ($isAttendanceStats == 0 ? 'present' : 1);
         $sql = "
         SELECT  COUNT(DISTINCT B.idBooking) as numberBookings,
                 COUNT(DISTINCT L.idLesson) as numberLectures,
@@ -69,6 +70,7 @@ class GatewaysHistoricalData extends Gateways
 				        l.idCourse=c.idCourse AND
 				        c.idTeacher=u.idUser AND
 				        b.active=" . $active . " AND
+                        b.present=". $present ." AND
 				        u.idUser='" . $id . "') B
                     ON
                 L.idLesson=B.idLesson
