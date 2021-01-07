@@ -82,6 +82,12 @@ Each endpoint is preceded by /server/src/api/
   - Params: year
   - Response: number of rows changed inside lesson table
 
+- PUT `/recordStudentPresence/:idBooking`
+
+  - Params: bookingId
+  - Response: number of rows changed inside booking table
+  - Result: flips (0 to 1 and viceversa) the `present` flag of the given bookingId
+
   ## Statistics
 
 - GET `/bookingStatistics?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}

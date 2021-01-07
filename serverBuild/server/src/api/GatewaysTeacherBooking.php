@@ -110,6 +110,21 @@ class GatewaysTeacherBooking extends Gateways
         }
     }
 
+    public function recordStudentPresence($idBooking)
+    {
+        $sqlUpdateLessonTable = "UPDATE booking
+                                SET present=(SELECT ifnull(nullif(1, present), 0)
+                                            WHERE idBooking=$idBooking)
+                                WHERE idBooking=$idBooking";
+        $this->db->exec($sqlUpdateLessonTable);
+        $changesLessonTable = $this->db->changes();
+        if ($changesLessonTable > 0) {
+            return $changesLessonTable;
+        } else {
+            return 0;
+        }
+    }
+
     public function validateDateBeforeUpdate($idLecture)
     {
         $sql = "select * from lessons where idLesson = " . $idLecture . "";

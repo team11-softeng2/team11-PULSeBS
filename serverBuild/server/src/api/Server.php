@@ -159,6 +159,12 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersReportTracing($_SERVER['REQUEST_METHOD'], $dbConn, $value, $idStudent);
             echo $controller->processRequest();
             break;
+        case "recordStudentPresence/$number":
+            $value = "recordStudentPresence";
+            $idBooking = $number;
+            $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $idBooking);
+            echo $controller->processRequest();
+            break;
         default:
             echo $msg;
     }

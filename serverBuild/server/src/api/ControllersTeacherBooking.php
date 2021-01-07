@@ -33,6 +33,8 @@ class ControllersTeacherBooking extends Controllers
                 return $this->changeToOnlineLecture($this->id);
             } elseif ($this->value == "changeToOnlineByYear") {
                 return $this->changeToOnlineLectureByYear($this->id);
+            } elseif ($this->value == "recordStudentPresence") {
+                return $this->recordStudentPresence($this->id);
             } else {
                 return $this->invalidEndpoint;
             }
@@ -69,6 +71,12 @@ class ControllersTeacherBooking extends Controllers
     public function changeToOnlineLectureByYear($year)
     {
         $result = $this->gateway->changeToOnlineLectureByYear($year);
+        return json_encode($result);
+    }
+
+    public function recordStudentPresence($idBooking)
+    {
+        $result = $this->gateway->recordStudentPresence($idBooking);
         return json_encode($result);
     }
 }
