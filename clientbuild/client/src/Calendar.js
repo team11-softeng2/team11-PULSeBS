@@ -26,7 +26,7 @@ class Calendar extends React.Component{
         this.setState({showModal: false});
     }
 
-    updateAttendance = (idBooking, elementId) => {
+    updateAttendance = (idBooking) => {
       this.props.updateAttendance(idBooking);
       let current = this.state.studentList;
       let element = current.find((student) => student.idBooking === idBooking);
