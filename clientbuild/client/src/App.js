@@ -16,6 +16,7 @@ import SupportOfficerPage from './SupportOfficer/SupportOfficerPage';
 import SupportOfficerSetupPage from './SupportOfficer/SupportOfficerSetupPage';
 import SupportOfficerSchedulePage from './SupportOfficer/SupportOfficerSchedulePage';
 import CourseUpdateSchedulePage from './SupportOfficer/CourseUpdateSchedulePage';
+import BookableLecturesPage from './SupportOfficer/BookableLecturesPage';
 //import { buildEventApis, getRectCenter } from '@fullcalendar/react';
 
 class App extends React.Component {
@@ -258,6 +259,14 @@ class App extends React.Component {
           <Route path="/support-officer/updateSchedule">
             {(this.state.loggedin === true && this.state.userRole === "support-officer") ?
               <SupportOfficerSchedulePage />
+              :
+              <Redirect to="/"></Redirect>
+            }
+          </Route>
+
+          <Route path="/support-officer/updateBookable">
+            {(this.state.loggedin === true && this.state.userRole === "support-officer") ?
+              <BookableLecturesPage />
               :
               <Redirect to="/"></Redirect>
             }
