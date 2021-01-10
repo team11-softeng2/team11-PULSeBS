@@ -481,7 +481,7 @@ exports[`renders SupportOfficerPage page 1`] = `
       }
     >
       <h5>
-        File ulpaded
+        File uploaded
       </h5>
     </div>
   </div>

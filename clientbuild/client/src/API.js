@@ -222,6 +222,26 @@ async function changeToOnline(lectureId) {
     }
 }
 
+async function changeToOnlineByYear(year) {
+    const url = "http://localhost/server/changeToOnlineByYear/" + year;
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: JSON.stringify({
+        }),
+    });
+    const result = await response.json();
+    if (response.ok) {
+        return 1;
+    } else {
+        let err = { status: response.status, errorObj: result };
+        throw err;
+    }
+}
+
 async function getAllCourses() {
     const url = "http://localhost/server/courses";
 
@@ -620,8 +640,8 @@ async function getStudentContacts(studentId) {
     }
 }
 
-async function updateAttendance(idUser, attendance) {
-    const url = "http://localhost/server/updateAttendance?idUser=" + idUser + "&attendance=" + attendance;       //Da definire
+async function updateAttendance(idBooking) {
+    const url = "http://localhost/server/recordStudentPresence/" + idBooking;
     return new Promise((resolve, reject) => {
         fetch(url, {
             method: 'PUT',
@@ -630,8 +650,7 @@ async function updateAttendance(idUser, attendance) {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
             },
             body: JSON.stringify({
-                idUser: idUser,
-                attendance: attendance,
+                ididBooking: idBooking,
             }),
         }).then((response) => {
             if (response.ok) {
@@ -646,6 +665,7 @@ async function updateAttendance(idUser, attendance) {
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses,
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER,
-    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses, getAllStudents, getWaitingBookings, getStudentContacts, updateAttendance
+    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses, getAllStudents, getWaitingBookings, getStudentContacts, updateAttendance,
+    changeToOnlineByYear
 };
 export default API;

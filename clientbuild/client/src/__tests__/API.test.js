@@ -1277,7 +1277,7 @@ test("updateAttendance", async () => {
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
     await API.updateAttendance(1);
     expect(global.fetch).toHaveBeenCalledTimes(1);
-    //expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/updateBooking/1');
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/recordStudentPresence/1');
     global.fetch.mockClear();
 
     const mockSuccessResponse2 = 0;
