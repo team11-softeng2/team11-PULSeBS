@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import {Container, Row, Col, Modal, Button} from 'react-bootstrap';
 import moment from 'moment';
+import ModalNewSchedule from './ModalNewSchedule.js';
 
 class CourseUpdateSchedulePage extends React.Component {
   constructor(props){
@@ -12,7 +13,8 @@ class CourseUpdateSchedulePage extends React.Component {
       idCourse: props.match.params.idCourse,
       currentSchedule: undefined,
       clickedLectureData: {},
-      showDecisionModal: false
+      showDecisionModal: false,
+      showNewScheduleModal: false
     };
   }
 
@@ -85,6 +87,12 @@ class CourseUpdateSchedulePage extends React.Component {
               </Modal.Footer>
             </Modal>
 
+            <ModalNewSchedule
+              show={this.state.showNewScheduleModal}
+              hide={() => { this.setState({ showNewScheduleModal: false }) }}
+              subject={this.state.clickedLectureData.courseName}
+            />
+
           </Container>
         </>
       }
@@ -95,16 +103,16 @@ class CourseUpdateSchedulePage extends React.Component {
     this.setState({ currentSchedule: [
       {
         classroom: "5",
-        start: new Date('2021-01-06' + "T" + '08:30'),
-        end: new Date('2021-01-06' + "T" + '11:30'),
+        start: new Date('2021-01-11' + "T" + '08:30'),
+        end: new Date('2021-01-11' + "T" + '11:30'),
         id: 1271,
         title: 'Analisi dei sistemi economici',
         type: 'bookableLecture'
       },
       {
         classroom: "5",
-        start: new Date('2021-01-07' + "T" + '16:00'),
-        end: new Date('2021-01-07' + "T" + '17:30'),
+        start: new Date('2021-01-12' + "T" + '16:00'),
+        end: new Date('2021-01-12' + "T" + '17:30'),
         id: 1272,
         title: 'Analisi dei sistemi economici',
         type: 'bookableLecture'
@@ -142,6 +150,7 @@ class CourseUpdateSchedulePage extends React.Component {
     console.log(this.state.clickedLectureData)
 
     this.closeDecisionModal();
+    this.setState({ showNewScheduleModal: true });
 
   }
 
