@@ -71,6 +71,11 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersCourse($_SERVER['REQUEST_METHOD'], $dbConn, $value);
             echo $controller->processRequest();
             break;
+        case "classrooms":
+            $value = "classrooms";
+            $controller = new Server\api\ControllersCourse($_SERVER['REQUEST_METHOD'], $dbConn, $value);
+            echo $controller->processRequest();
+            break;
         case "studentCourses/$number":
             $value = "studentCourses";
             $id = $number;
