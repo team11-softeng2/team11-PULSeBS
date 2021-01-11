@@ -14,7 +14,8 @@ class CourseUpdateSchedulePage extends React.Component {
       currentSchedule: undefined,
       clickedLectureData: {},
       showDecisionModal: false,
-      showNewScheduleModal: false
+      showNewScheduleModal: false,
+      courseName: undefined
     };
   }
 
@@ -28,6 +29,11 @@ class CourseUpdateSchedulePage extends React.Component {
           <Container fluid>
             <Row>
               <Col> <h2>Schedule:</h2> </Col>
+              <Col>
+                <Button variant='success' className='float-right mt-2' onClick={this.onClickNewLecture}>
+                  New lecture
+                </Button>
+              </Col>
             </Row>
 
             <Row>
@@ -90,7 +96,8 @@ class CourseUpdateSchedulePage extends React.Component {
             <ModalNewSchedule
               show={this.state.showNewScheduleModal}
               hide={() => { this.setState({ showNewScheduleModal: false }) }}
-              subject={this.state.clickedLectureData.courseName}
+              subject={this.state.courseName}
+              clickedLecture={this.state.clickedLectureData}
             />
 
           </Container>
@@ -117,7 +124,14 @@ class CourseUpdateSchedulePage extends React.Component {
         title: 'Analisi dei sistemi economici',
         type: 'bookableLecture'
       }
-    ] });
+    ],
+    courseName: 'Analisi dei sistemi economici'
+  });
+
+  }
+
+  onClickNewLecture = () => {
+    this.setState({ clickedLectureData: {}, showNewScheduleModal: true });
 
   }
 

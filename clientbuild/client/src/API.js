@@ -662,10 +662,26 @@ async function updateAttendance(idBooking) {
     });
 }
 
+async function getAllClassrooms() {
+    const url = "http://localhost/server/classrooms";
+
+    const response = await fetch(url);
+    const classrooms = await response.json();
+    if (response.ok) {
+        if (classrooms === 0) {
+            return [];
+        }
+        return classrooms;
+    } else {
+        let err = { status: response.status, errorObj: classrooms };
+        throw err;
+    }
+}
+
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses,
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER,
     getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses, getAllStudents, getWaitingBookings, getStudentContacts, updateAttendance,
-    changeToOnlineByYear
+    changeToOnlineByYear, getAllClassrooms
 };
 export default API;
