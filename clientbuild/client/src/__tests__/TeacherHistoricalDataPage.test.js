@@ -31,25 +31,26 @@ test('updateCourses', async () => {
 test('getDataFromServerAndUpdate', async () => {
   const component = shallow(<TeacherHistoricalDataPage teacherId={2}/>);
   const instance = component.instance();
-  API.getTeacherStatistics = jest.fn(() => Promise.resolve([{numberOfBookings: 10, dataLecture: 1}, {numberOfBookings: 20, dataLecture: 2}]));
   instance.updateGraphData = jest.fn();
+  API.getTeacherStatistics = jest.fn(() => Promise.resolve([{numberOfBookings: 10, dataLecture: 1}, {numberOfBookings: 20, dataLecture: 2}]));
+  
   await instance.setState({currentCourse: "test"});
   await instance.setState({currentDetail: "Lecture"});
   await instance.setState({courses: [{courseName: "test", idCourse: 1}]});
   await instance.getDataFromServerAndUpdate();
-  expect(instance.updateGraphData).toHaveBeenCalledTimes(2);
+  expect(instance.updateGraphData).toHaveBeenCalledTimes(1);
   API.getTeacherStatistics = jest.fn(() => Promise.resolve([{average: 1, weekOfYear: 1, year: 1}, {average: 2, weekOfYear: 2, year: 2}]));
   await instance.setState({currentCourse: "test"});
   await instance.setState({currentDetail: "Week"});
   await instance.setState({courses: [{courseName: "test", idCourse: 1}]});
   await instance.getDataFromServerAndUpdate();
-  expect(instance.updateGraphData).toHaveBeenCalledTimes(3);
+  expect(instance.updateGraphData).toHaveBeenCalledTimes(2);
   API.getTeacherStatistics = jest.fn(() => Promise.resolve([{average: 1, monthOfYear: 1, year: 1}, {average: 2, monthOfYear: 2, year: 2}]));
   await instance.setState({currentCourse: "test"});
   await instance.setState({currentDetail: "Month"});
   await instance.setState({courses: [{courseName: "test", idCourse: 1}]});
   await instance.getDataFromServerAndUpdate();
-  expect(instance.updateGraphData).toHaveBeenCalledTimes(4);
+  expect(instance.updateGraphData).toHaveBeenCalledTimes(3);
 });
 
 test('getDataFromServerAndUpdate API error', async () => {
@@ -111,12 +112,18 @@ test('updateGraphData', async () => {
     data: [],
     name: "Bookings",
   }];
-  const xaxisMock = {"categories":[],"convertedCatToNumeric":false};
-  const yaxisMock = {"title":{"text":"Number of bookings"},"labels":{}};
-  const titleMock = {"text":"Number of bookings"};
-  const tooltipMock = {"y":{}};
-  await instance.updateGraphData(seriesMock, xaxisMock, yaxisMock, titleMock, tooltipMock);
-  expect(instance.state.series).toBe(seriesMock);
+  const expectedRes = [
+    {
+      name: 'Booking',
+      data: seriesMock,
+    },
+    {
+      name: 'Attendance',
+      data: seriesMock,
+  }
+  ];
+  await instance.updateGraphData(seriesMock, seriesMock, ["test"], "test", "test", "test");
+  expect(instance.state.series).toStrictEqual(expectedRes);
 });
 
 test('updateCourses catch error', async () => {

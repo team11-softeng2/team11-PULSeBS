@@ -74,7 +74,7 @@ class TeacherHistoricalDataPage extends React.Component {
                 .then((results) => {
                     var numberOfBookingsArray = results[0].map(d => d.numberBookings)
                     var numberOfAttendancesArray = results[1].map(d => d.numberBookings);
-                    var lectureDatesArray = results[0].map(d => d.dateLecture)
+                    var lectureDatesArray = results[0].map(d => d.dateLecture);
 
                     this.updateGraphData(
                         numberOfBookingsArray,

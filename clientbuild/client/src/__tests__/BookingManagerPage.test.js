@@ -52,7 +52,7 @@ test('handleSelectionChange', async () => {
   API.getBookingStatisticsByMonth = jest.fn(() => Promise.resolve([{average: 10, monthOfYear: 10, year: 10}, {average: 20, monthOfYear: 20, year: 20}]));
   API.getCancellationsStatisticsByMonth = jest.fn(() => Promise.resolve([{average: 10, monthOfYear: 10, year: 10}, {average: 20, monthOfYear: 20, year: 20}]));
   await instance.handleSelectionChange(3);
-  expect(API.getBookingStatisticsByMonth).toHaveBeenCalledTimes(1);
+  expect(API.getBookingStatisticsByMonth).toHaveBeenCalledTimes(2);
   expect(API.getCancellationsStatisticsByMonth).toHaveBeenCalledTimes(1);
 });
 
