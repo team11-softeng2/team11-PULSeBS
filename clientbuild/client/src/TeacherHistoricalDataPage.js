@@ -68,20 +68,17 @@ class TeacherHistoricalDataPage extends React.Component {
             var currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
 
             Promise.all([
-                API.getTeacherStatistics(this.props.teacherId, 'L.idLesson', currentCourseId),
-                /* TODO promise1 */
+                API.getTeacherStatistics(this.props.teacherId, 'L.idLesson', currentCourseId, false),
+                API.getTeacherStatistics(this.props.teacherId, 'L.idLesson', currentCourseId, true), // attendance
             ])
                 .then((results) => {
-                    // valArray[0] is result of promise0
-                    // valArray[1] is result of promise1
-                    // valArray[2] is result of promise2
-
                     var numberOfBookingsArray = results[0].map(d => d.numberBookings)
+                    var numberOfAttendancesArray = results[1].map(d => d.numberBookings);
                     var lectureDatesArray = results[0].map(d => d.dateLecture)
 
                     this.updateGraphData(
                         numberOfBookingsArray,
-                        numberOfBookingsArray, // tmp (attendance)
+                        numberOfAttendancesArray,
                         lectureDatesArray,
                         'Number of bookings',
                         'Bookings',
@@ -92,46 +89,22 @@ class TeacherHistoricalDataPage extends React.Component {
                     console.log('error in getting statistics by lesson from server');
                     console.log(errors[0]);
                 });
-
-            /* API.getTeacherStatistics(this.props.teacherId, 'L.idLesson', currentCourseId)
-                .then((res) => {
-                    //console.log(res)
-                    var numberOfBookingsArray = res.map(d => d.numberBookings)
-                    var lectureDatesArray = res.map(d => d.dateLecture)
-
-                    this.updateGraphData(
-                        numberOfBookingsArray,
-                        numberOfBookingsArray, // tmp (attendance)
-                        lectureDatesArray,
-                        'Number of bookings',
-                        'Bookings',
-                        'Number of bookings per single lecture'
-                    );
-                })
-                .catch((err) => {
-                    console.log('error in getting statistics by lesson from server');
-                    console.log(err);
-                }); */
         }
         else if (this.state.currentDetail === 'Week') {
             currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
 
             Promise.all([
-                API.getTeacherStatistics(this.props.teacherId, 'year_month_week', currentCourseId),
-                /* TODO promise1 */
+                API.getTeacherStatistics(this.props.teacherId, 'year_month_week', currentCourseId, false),
+                API.getTeacherStatistics(this.props.teacherId, 'year_month_week', currentCourseId, true), // attendance
             ])
                 .then((results) => {
-                    // valArray[0] is result of promise0
-                    // valArray[1] is result of promise1
-                    // valArray[2] is result of promise2
-
-                    //console.log(results[0])
-                    var avgNumberOfBookingsArray = results[0].map(d => d.average)
-                    var weekOfYear = results[0].map(d => moment().week(d.weekOfYear).year(d.year).format('YYYY-MM-DD'))
+                    var avgNumberOfBookingsArray = results[0].map(d => d.average);
+                    var avgNumberOfAttendancesArray = results[1].map(d => d.average);
+                    var weekOfYear = results[0].map(d => moment().week(d.weekOfYear).year(d.year).format('YYYY-MM-DD'));
 
                     this.updateGraphData(
                         avgNumberOfBookingsArray,
-                        avgNumberOfBookingsArray, // tmp (attendance)
+                        avgNumberOfAttendancesArray,
                         weekOfYear,
                         'Average number of bookings',
                         'Bookings (average)',
@@ -142,46 +115,22 @@ class TeacherHistoricalDataPage extends React.Component {
                     console.log('error in getting statistics by week from server');
                     console.log(errors[0]);
                 });
-
-            /*API.getTeacherStatistics(this.props.teacherId, 'year_month_week', currentCourseId)
-                .then((res) => {
-                    //console.log(res)
-                    var avgNumberOfBookingsArray = res.map(d => d.average)
-                    var weekOfYear = res.map(d => moment().week(d.weekOfYear).year(d.year).format('YYYY-MM-DD'))
-
-                    this.updateGraphData(
-                        avgNumberOfBookingsArray,
-                        avgNumberOfBookingsArray, // tmp (attendance)
-                        weekOfYear,
-                        'Average number of bookings',
-                        'Bookings (average)',
-                        'Average number of bookings per week'
-                    );
-                })
-                .catch((err) => {
-                    console.log('error in getting statistics by week from server');
-                    console.log(err);
-                });*/
         }
         else if (this.state.currentDetail === 'Month') {
             currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
 
             Promise.all([
-                API.getTeacherStatistics(this.props.teacherId, 'year,monthOfYear', currentCourseId),
-                /* TODO promise1 */
+                API.getTeacherStatistics(this.props.teacherId, 'year,monthOfYear', currentCourseId, false),
+                API.getTeacherStatistics(this.props.teacherId, 'year,monthOfYear', currentCourseId, true), // attendance
             ])
                 .then((results) => {
-                    // valArray[0] is result of promise0
-                    // valArray[1] is result of promise1
-                    // valArray[2] is result of promise2
-
-                    //console.log(results[0])
-                    var avgNumberOfBookingsArray = results[0].map(d => d.average.toFixed(2))
+                    var avgNumberOfBookingsArray = results[0].map(d => d.average.toFixed(2));
+                    var avgNumberOfAttendancesArray = results[1].map(d => d.average.toFixed(2));
                     var monthOfYear = results[0].map(d => moment().week(d.monthOfYear).year(d.year).format('YYYY-MM'))
 
                     this.updateGraphData(
                         avgNumberOfBookingsArray,
-                        avgNumberOfBookingsArray, // tmp (attendance)
+                        avgNumberOfAttendancesArray,
                         monthOfYear,
                         'Average number of bookings',
                         'Bookings (average)',
@@ -192,26 +141,6 @@ class TeacherHistoricalDataPage extends React.Component {
                     console.log('error in getting statistics by month from server');
                     console.log(errors[0]);
                 });
-                
-            /*API.getTeacherStatistics(this.props.teacherId, 'year,monthOfYear', currentCourseId)
-                .then((res) => {
-                    //console.log(res)
-                    var avgNumberOfBookingsArray = res.map(d => d.average.toFixed(2))
-                    var monthOfYear = res.map(d => moment().week(d.monthOfYear).year(d.year).format('YYYY-MM'))
-
-                    this.updateGraphData(
-                        avgNumberOfBookingsArray,
-                        avgNumberOfBookingsArray, // tmp (attendance)
-                        monthOfYear,
-                        'Average number of bookings',
-                        'Bookings (average)',
-                        'Average number of bookings per month'
-                    );
-                })
-                .catch((err) => {
-                    console.log('error in getting statistics by month from server');
-                    console.log(err);
-                });*/
         }
     }
 

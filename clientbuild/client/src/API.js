@@ -382,9 +382,8 @@ async function getFullLectures(studentId) {
     }
 }
 
-async function getTeacherStatistics(teacherId, filterTime, courseIds) {
-    const url = "http://localhost/server/teacherStatistics/" + teacherId + "?filterTime=" + filterTime + `&filterCourse=${courseIds.toString()}`;
-
+async function getTeacherStatistics(teacherId, filterTime, courseIds, isAttendance) {
+    const url = "http://localhost/server/teacherStatistics/" + teacherId + "?filterTime=" + filterTime + `&filterCourse=${courseIds.toString()}` + (isAttendance ? '&isAttendance=1' : '');
     const response = await fetch(url);
 
     /* //if the backend returns an error, this prints the message (instead .json() just fails)
