@@ -259,8 +259,8 @@ async function getAllCourses() {
 }
 
 const ALL_COURSES_FILTER = "L.idCourse";
-async function getBookingStatisticsByMonth(courseIds) {
-    const url = `http://localhost/server/bookingStatistics/?filterTime=year,monthOfYear&filterCourse=${courseIds.toString()}`;
+async function getBookingStatisticsByMonth(courseIds, isAttendance) {
+    const url = `http://localhost/server/bookingStatistics/?filterTime=year,monthOfYear&filterCourse=${courseIds.toString()}${isAttendance ? '&isAttendance=1' : ''}`;
 
     const response = await fetch(url);
     const stats = await response.json();
@@ -274,8 +274,8 @@ async function getBookingStatisticsByMonth(courseIds) {
         throw err;
     }
 }
-async function getBookingStatisticsByWeek(courseIds) {
-    const url = `http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=${courseIds.toString()}`;
+async function getBookingStatisticsByWeek(courseIds, isAttendance) {
+    const url = `http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=${courseIds.toString()}${isAttendance ? '&isAttendance=1' : ''}`;
 
     const response = await fetch(url);
     const stats = await response.json();
@@ -289,8 +289,8 @@ async function getBookingStatisticsByWeek(courseIds) {
         throw err;
     }
 }
-async function getBookingStatisticsByLesson(courseIds) {
-    const url = `http://localhost/server/bookingStatistics/?filterTime=L.idLesson&filterCourse=${courseIds.toString()}`;
+async function getBookingStatisticsByLesson(courseIds, isAttendance) {
+    const url = `http://localhost/server/bookingStatistics/?filterTime=L.idLesson&filterCourse=${courseIds.toString()}${isAttendance ? '&isAttendance=1' : ''}`;
 
     const response = await fetch(url);
     const stats = await response.json();
@@ -382,9 +382,8 @@ async function getFullLectures(studentId) {
     }
 }
 
-async function getTeacherStatistics(teacherId, filterTime, courseIds) {
-    const url = "http://localhost/server/teacherStatistics/" + teacherId + "?filterTime=" + filterTime + `&filterCourse=${courseIds.toString()}`;
-
+async function getTeacherStatistics(teacherId, filterTime, courseIds, isAttendance) {
+    const url = "http://localhost/server/teacherStatistics/" + teacherId + "?filterTime=" + filterTime + `&filterCourse=${courseIds.toString()}` + (isAttendance ? '&isAttendance=1' : '');
     const response = await fetch(url);
 
     /* //if the backend returns an error, this prints the message (instead .json() just fails)
@@ -623,7 +622,7 @@ async function getAllStudents() {
     }
 }
 
-   //  list of people in contact with a student
+//  list of people in contact with a student
 async function getStudentContacts(studentId) {
     const url = "http://localhost/server/findStudentContacts/" + studentId;
 
