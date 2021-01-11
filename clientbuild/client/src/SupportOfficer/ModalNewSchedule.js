@@ -20,7 +20,7 @@ class ModalNewSchedule extends React.Component {
 
   render(){
     return <>
-      <Modal show={this.props.show} onHide={ () => this.clearAndClose() } >
+      <Modal show={this.props.show} onHide={ () => this.clearAndClose() } data-testid="modal-test">
         <Modal.Header closeButton>
           <Modal.Title>Define new lecture</Modal.Title>
         </Modal.Header>

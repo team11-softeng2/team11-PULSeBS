@@ -33,7 +33,6 @@ test('getDataFromServerAndUpdate', async () => {
   const instance = component.instance();
   instance.updateGraphData = jest.fn();
   API.getTeacherStatistics = jest.fn(() => Promise.resolve([{numberOfBookings: 10, dataLecture: 1}, {numberOfBookings: 20, dataLecture: 2}]));
-  
   await instance.setState({currentCourse: "test"});
   await instance.setState({currentDetail: "Lecture"});
   await instance.setState({courses: [{courseName: "test", idCourse: 1}]});

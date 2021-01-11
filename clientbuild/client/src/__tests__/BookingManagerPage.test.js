@@ -10,7 +10,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-test('renders learn react link', () => {
+test('renders BookingManagerPage', () => {
     const tree = TestRenderer.create(<BookingManagerPage/>).toJSON();
     expect(tree).toMatchSnapshot();
   });
