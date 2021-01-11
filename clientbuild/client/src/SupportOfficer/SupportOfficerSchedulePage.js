@@ -63,7 +63,7 @@ class SupportOfficerSchedulePage extends React.Component {
           <td>{c.teacherName}</td>
           <td>
               <Link to={"/support-officer/updateSchedule/" + c.idCourse}>
-                <Button className='mt-1' variant='danger' onClick={() => {this.handleButtonClick(c);}}>
+                <Button className='mt-1' variant='danger' id={"testButton"+c.idCourse} onClick={() => {this.handleButtonClick(c);}}>
                   Change schedule
                 </Button>
               </Link>
