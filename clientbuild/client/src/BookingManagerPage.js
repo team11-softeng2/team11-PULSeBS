@@ -27,7 +27,29 @@ class BookingManagerPage extends React.Component {
             cancellationSeries: undefined,
         });
 
-        API.getBookingStatisticsByMonth(this.state.selectedCourse).then((stats) => {
+        Promise.all([
+            API.getBookingStatisticsByMonth(this.state.selectedCourse),
+            /* TODO promise1 */
+        ])
+            .then((stats) => {
+                // valArray[0] is result of promise0
+                // valArray[1] is result of promise1
+                // valArray[2] is result of promise2
+
+                let data = []; let labels = [];
+                stats[0].forEach(stat => {
+                    data.push(stat.average);
+                    labels.push(`${stat.monthOfYear}-${stat.year}`);
+                });
+                this.updateBookingGraphData(
+                    'Average number of booking per month',
+                    data,
+                    data, // tmp (attendance)
+                    labels
+                )
+            })
+
+        /*API.getBookingStatisticsByMonth(this.state.selectedCourse).then((stats) => {
             let data = []; let labels = [];
             stats.forEach(stat => {
                 data.push(stat.average);
@@ -39,7 +61,7 @@ class BookingManagerPage extends React.Component {
                 data, // tmp (attendance)
                 labels
             )
-        });
+        });*/
 
         API.getCancellationsStatisticsByMonth(this.state.selectedCourse).then((stats) => {
             let data = []; let labels = [];
@@ -135,7 +157,29 @@ class BookingManagerPage extends React.Component {
     handleBookingFilterChange = (event) => {
         if (event === 'Month') {
             this.setState({ currentBookingFilter: 1 });
-            API.getBookingStatisticsByMonth(this.state.selectedCourse).then((stats) => {
+            Promise.all([
+                API.getBookingStatisticsByMonth(this.state.selectedCourse),
+                /* TODO promise1 */
+            ])
+                .then((stats) => {
+                    // valArray[0] is result of promise0
+                    // valArray[1] is result of promise1
+                    // valArray[2] is result of promise2
+
+                    let data = []; let labels = [];
+                    stats[0].forEach(stat => {
+                        data.push(stat.average);
+                        labels.push(`${stat.monthOfYear}-${stat.year}`);
+                    });
+                    this.updateBookingGraphData(
+                        'Average number of booking per month',
+                        data,
+                        data, // tmp (attendance)
+                        labels
+                    )
+                })
+
+            /* API.getBookingStatisticsByMonth(this.state.selectedCourse).then((stats) => {
                 let data = []; let labels = [];
                 stats.forEach(stat => {
                     data.push(stat.average);
@@ -147,11 +191,30 @@ class BookingManagerPage extends React.Component {
                     data, // tmp (attendance)
                     labels
                 )
-            });
+            }); */
         }
         else if (event === 'Week') {
             this.setState({ currentBookingFilter: 2 });
-            API.getBookingStatisticsByWeek(this.state.selectedCourse).then((stats) => {
+            Promise.all([
+                API.getBookingStatisticsByWeek(this.state.selectedCourse),
+                /* TODO promise1 */
+            ])
+                .then((stats) => {
+
+                    let data = []; let labels = [];
+                    stats[0].forEach(stat => {
+                        data.push(stat.average);
+                        labels.push(`${stat.weekOfYear} (${stat.monthOfYear}-${stat.year})`);
+                    });
+                    this.updateBookingGraphData(
+                        'Average number of booking per week',
+                        data,
+                        data, // tmp (attendance)
+                        labels
+                    )
+                })
+
+            /* API.getBookingStatisticsByWeek(this.state.selectedCourse).then((stats) => {
                 let data = []; let labels = [];
                 stats.forEach(stat => {
                     data.push(stat.average);
@@ -163,11 +226,29 @@ class BookingManagerPage extends React.Component {
                     data, // tmp (attendance)
                     labels
                 )
-            });
+            }); */
         }
         else if (event === 'Lecture') {
             this.setState({ currentBookingFilter: 3 });
-            API.getBookingStatisticsByLesson(this.state.selectedCourse).then((stats) => {
+            Promise.all([
+                API.getBookingStatisticsByLesson(this.state.selectedCourse),
+                /* TODO promise1 */
+            ])
+                .then((stats) => {
+                    let data = []; let labels = [];
+                    stats[0].forEach(stat => {
+                        data.push(stat.numberBookings);
+                        labels.push(`${stat.dateLecture}`);
+                    });
+                    this.updateBookingGraphData(
+                        'Number of booking per lecture',
+                        data,
+                        data, // tmp (attendance)
+                        labels
+                    )
+                })
+
+            /* API.getBookingStatisticsByLesson(this.state.selectedCourse).then((stats) => {
                 let data = []; let labels = [];
                 stats.forEach(stat => {
                     data.push(stat.numberBookings);
@@ -179,7 +260,7 @@ class BookingManagerPage extends React.Component {
                     data, // tmp (attendance)
                     labels
                 )
-            });
+            }); */
         }
     }
 
@@ -238,9 +319,26 @@ class BookingManagerPage extends React.Component {
                 currentBookingFilter: 1,
                 currentCancellationFilter: 4,
             },
-            function() {
+            function () {
                 // after state update
-                API.getBookingStatisticsByMonth(this.state.selectedCourse).then((stats) => {
+                Promise.all([
+                    API.getBookingStatisticsByMonth(this.state.selectedCourse),
+                    /* TODO promise1 */
+                ])
+                    .then((stats) => {
+                        let data = []; let labels = [];
+                        stats[0].forEach(stat => {
+                            data.push(stat.average);
+                            labels.push(`${stat.monthOfYear}-${stat.year}`);
+                        });
+                        this.updateBookingGraphData(
+                            'Average number of booking per month',
+                            data,
+                            data, // tmp (attendance)
+                            labels
+                        )
+                    })
+                /* API.getBookingStatisticsByMonth(this.state.selectedCourse).then((stats) => {
                     let data = []; let labels = [];
                     stats.forEach(stat => {
                         data.push(stat.average);
@@ -252,7 +350,7 @@ class BookingManagerPage extends React.Component {
                         data, // tmp (attendance)
                         labels
                     )
-                });
+                }); */
 
                 API.getCancellationsStatisticsByMonth(this.state.selectedCourse).then((stats) => {
                     let data = []; let labels = [];
