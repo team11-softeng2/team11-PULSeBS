@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button, Table } from 'react-bootstrap';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 import { Link } from "react-router-dom";
 import API from '../API';
 
@@ -8,17 +9,34 @@ class BookableLecturesPage extends React.Component {
     constructor(props){
       super(props);
   
-      this.state = { year: '1'};
-  
+      this.state = { year: '1', success: undefined };
     }
 
     onChangeValue(e){
         this.setState({year: e.target.value});
     }
     
-    buttonClick(){
+    buttonClickOnline(){
         console.log(this.state.year);
-        API.changeToOnlineByYear(this.state.year);
+        API.changeToOnlineByYear(this.state.year).then(
+            () => {
+                this.setState({success: true});
+            }
+        ).catch(() => {
+            console.log('error');
+            this.setState({success: false});
+          });
+    }
+    buttonClickPresence(){
+        console.log(this.state.year);
+        API.changeToOnlineByYear(this.state.year).then(
+            () => {
+                this.setState({success: true});
+            }
+        ).catch(() => {
+            console.log('error');
+            this.setState({success: false});
+          });
     }
 
     render(){
@@ -38,7 +56,18 @@ class BookableLecturesPage extends React.Component {
                         <option value='5'>Fifth</option>
                         </Form.Control>
                     </Form.Group>
-                    <Button className="mt-3" variant="success" onClick={this.buttonClick.bind(this)}>Change to Online</Button>
+                    <Button className="mt-3 mr-1" variant="primary" onClick={this.buttonClickOnline.bind(this)}>Change to Online</Button>
+                    <Button className="mt-3 ml-1" variant="success" onClick={this.buttonClickPresence.bind(this)}>Change to In Presence</Button>
+                    { (this.state.success===true) ?
+                        <Alert variant='success' className='mt-2'>Courses correctly updated</Alert>
+                        :
+                        <></>
+                    }
+                    { (this.state.success===false) ?
+                        <Alert variant='danger' className='mt-2'>Error</Alert>
+                        :
+                        <></>
+                    }
                     </Form>
                 </Row>
             </Container>
