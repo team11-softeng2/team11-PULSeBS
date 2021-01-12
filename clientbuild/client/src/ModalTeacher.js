@@ -143,7 +143,7 @@ function StudentRow(props) {
     return <tr>
         <td>{props.idUser}</td>
         <td>{props.name}</td>
-        <td style={{textAlign: 'center'}}><Form.Check type="checkbox" checked={props.isPresent === 1 ? true : false} onChange = {(ev) => props.updateAttendance(props.idBooking, props.elementId)}/></td>
+        <td style={{textAlign: 'center'}}><Form.Check type="checkbox" checked={props.isPresent === 1 ? true : false} id={"testCheck"+props.idUser} onChange = {(ev) => props.updateAttendance(props.idBooking, props.elementId)}/></td>
     </tr>
 }
 export default ModalTeacher;

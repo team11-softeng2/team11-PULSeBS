@@ -86,7 +86,7 @@ test("Render student list", () => {
         lectureEndTime = {"12:00:00"}
         lectureColor = {""}
         elementId = {1}
-        studentList = {[{idUser:1, name: "Test1"}, {idUser:2, name: "Test2"}]}
+        studentList = {[{idUser:1, name: "Test1", isPresent: 1}, {idUser:2, name: "Test2", isPresent: 1}]}
         closeModal = {closeModalMock}
         dateStart = {new Date("2021-05-05T10:00:00")}
         />);

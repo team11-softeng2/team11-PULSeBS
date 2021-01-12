@@ -42,11 +42,28 @@ test('courseMatchesInputTeacher', async () => {
     let res2 = instance.courseMatchesInputTeacher({teacherName: "test"}, "te");
     expect(res2).toBe(true);
 });
-/*
+
 test('handleOnChangeText', async () => {
     const component = await shallow(<SupportOfficerSchedulePage/>);
     const instance = await component.instance();
+    instance.setState({allCourses: [{"idCourse":"XY1211","courseName":"test","teacherName":"test"}]})
+    instance.courseMatchesInputName = jest.fn(() => true);
+    instance.courseMatchesInputTeacher = jest.fn(() => true);
+    instance.courseMatchesInputId = jest.fn(() => true);
     await instance.handleOnChangeText({target: {value: "test sample"}});
-    expect(instance.state.filteredCourses).toBe(false);
+    expect(instance.state.filteredCourses).toStrictEqual([{"idCourse":"XY1211","courseName":"test","teacherName":"test"}]);
+    instance.courseMatchesInputName = jest.fn(() => false);
+    instance.courseMatchesInputTeacher = jest.fn(() => false);
+    instance.courseMatchesInputId = jest.fn(() => false);
+    await instance.handleOnChangeText({target: {value: "test sample"}});
+    expect(instance.state.filteredCourses).toStrictEqual([]);
 });
-*/
+
+test("handle button click", async () => {
+    const component = await shallow(<SupportOfficerSchedulePage/>);
+    const instance = await component.instance();
+    instance.handleButtonClick = jest.fn();
+    let button = component.find("#testButton1");
+    button.simulate("click");
+    expect(instance.handleButtonClick).toHaveBeenCalledTimes(1);
+});

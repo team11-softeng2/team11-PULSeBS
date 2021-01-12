@@ -10,7 +10,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-test('renders learn react link', () => {
+test('renders BookingManagerPage', () => {
     const tree = TestRenderer.create(<BookingManagerPage/>).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -52,7 +52,7 @@ test('handleSelectionChange', async () => {
   API.getBookingStatisticsByMonth = jest.fn(() => Promise.resolve([{average: 10, monthOfYear: 10, year: 10}, {average: 20, monthOfYear: 20, year: 20}]));
   API.getCancellationsStatisticsByMonth = jest.fn(() => Promise.resolve([{average: 10, monthOfYear: 10, year: 10}, {average: 20, monthOfYear: 20, year: 20}]));
   await instance.handleSelectionChange(3);
-  expect(API.getBookingStatisticsByMonth).toHaveBeenCalledTimes(1);
+  expect(API.getBookingStatisticsByMonth).toHaveBeenCalledTimes(2);
   expect(API.getCancellationsStatisticsByMonth).toHaveBeenCalledTimes(1);
 });
 

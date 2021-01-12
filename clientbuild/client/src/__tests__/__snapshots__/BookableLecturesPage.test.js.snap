@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders BookableLecturesPage 1`] = `
+<div
+  className="text-center mt-5 p-5 mb-5"
+>
+  <div
+    className="container-fluid"
+  >
+    <div
+      className="justify-content-center row"
+    >
+      <form
+        className=""
+      >
+        <div
+          className="form-group"
+        >
+          <label
+            className="form-label"
+            htmlFor="exampleForm.ControlSelect1"
+          >
+            Select an academic year:
+          </label>
+          <select
+            className="form-control"
+            id="exampleForm.ControlSelect1"
+            onChange={[Function]}
+          >
+            <option
+              value="1"
+            >
+              First
+            </option>
+            <option
+              value="2"
+            >
+              Second
+            </option>
+            <option
+              value="3"
+            >
+              Third
+            </option>
+            <option
+              value="4"
+            >
+              Fourth
+            </option>
+            <option
+              value="5"
+            >
+              Fifth
+            </option>
+          </select>
+        </div>
+        <button
+          className="mt-3 btn btn-success"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Change to Online
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+`;
