@@ -8,7 +8,6 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Table from 'react-bootstrap/Table'
 import Form from 'react-bootstrap/Form'
-import API from './API';
 
 class ModalTeacher extends React.Component{
 
