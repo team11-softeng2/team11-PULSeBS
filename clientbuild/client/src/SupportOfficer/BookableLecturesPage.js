@@ -1,8 +1,7 @@
 import React from "react";
-import { Container, Row, Col, Button, Table } from 'react-bootstrap';
+import { Container, Row, Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
-import { Link } from "react-router-dom";
 import API from '../API';
 
 class BookableLecturesPage extends React.Component {
@@ -29,7 +28,7 @@ class BookableLecturesPage extends React.Component {
     }
     buttonClickPresence(){
         console.log(this.state.year);
-        API.changeToOnlineByYear(this.state.year).then(
+        API.changeToPresenceByYear(this.state.year).then(
             () => {
                 this.setState({success: true});
             }

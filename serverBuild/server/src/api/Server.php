@@ -183,6 +183,12 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $idBooking);
             echo $controller->processRequest();
             break;
+        case "findGeneralSchedule/$number":
+            $value = 'findGeneralSchedule';
+            $idCourse = $number;
+            $controller = new Server\api\ControllersSupportOfficer($_SERVER['REQUEST_METHOD'], $dbConn, $value, $idCourse);
+            echo $controller->processRequest();
+            break;
         default:
             echo $msg;
     }

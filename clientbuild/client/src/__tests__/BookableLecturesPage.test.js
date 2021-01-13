@@ -21,10 +21,34 @@ test("onChangeValue", async () => {
   expect(instance.state.year).toBe("test");
 });
 
-test("buttonClick", async () => {
+test("buttonClickOnline", async () => {
     const component = shallow(<BookableLecturesPage/>);
     const instance = component.instance();
     API.changeToOnlineByYear = jest.fn(() => Promise.resolve([]));
-    await instance.buttonClick();
+    await instance.buttonClickOnline();
     expect(API.changeToOnlineByYear).toHaveBeenCalledTimes(1);
+    expect(instance.state.success).toBe(true);
+    API.changeToOnlineByYear = jest.fn(() => Promise.reject([]));
+    try {
+      await instance.buttonClickOnline();
+      expect(true).toBe(false);
+    } catch(e) {
+        expect(true).toBe(true);
+    }
+});
+
+test("buttonClickPresence", async () => {
+  const component = shallow(<BookableLecturesPage/>);
+  const instance = component.instance();
+  API.changeToOnlineByYear = jest.fn(() => Promise.resolve([]));
+  await instance.buttonClickPresence();
+  expect(API.changeToOnlineByYear).toHaveBeenCalledTimes(1);
+  expect(instance.state.success).toBe(true);
+  API.changeToOnlineByYear = jest.fn(() => Promise.reject([]));
+  try {
+    await instance.buttonClickPresence();
+    expect(true).toBe(false);
+  } catch(e) {
+      expect(true).toBe(true);
+  }
 });

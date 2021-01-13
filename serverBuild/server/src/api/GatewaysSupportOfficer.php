@@ -164,7 +164,7 @@ class GatewaysSupportOfficer extends Gateways
                         //insert on lessons table
                         //insertLecture
                         $arrayTime = preg_split("/[:-]/", $lecture['Time']);
-                        $time = array($arrayTime[0].':'.$arrayTime[1], $arrayTime[2].':'.$arrayTime[3]);
+                        $time = array($arrayTime[0] . ':' . $arrayTime[1], $arrayTime[2] . ':' . $arrayTime[3]);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if ($j == 0) {
@@ -185,7 +185,7 @@ class GatewaysSupportOfficer extends Gateways
 
                         //insertLecture
                         $arrayTime = preg_split("/[:-]/", $lecture['Time']);
-                        $time = array($arrayTime[0].':'.$arrayTime[1], $arrayTime[2].':'.$arrayTime[3]);
+                        $time = array($arrayTime[0] . ':' . $arrayTime[1], $arrayTime[2] . ':' . $arrayTime[3]);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if ($j == 0) {
@@ -206,7 +206,7 @@ class GatewaysSupportOfficer extends Gateways
 
                         //insertLecture
                         $arrayTime = preg_split("/[:-]/", $lecture['Time']);
-                        $time = array($arrayTime[0].':'.$arrayTime[1], $arrayTime[2].':'.$arrayTime[3]);
+                        $time = array($arrayTime[0] . ':' . $arrayTime[1], $arrayTime[2] . ':' . $arrayTime[3]);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if ($j == 0) {
@@ -227,7 +227,7 @@ class GatewaysSupportOfficer extends Gateways
 
                         //insertLecture
                         $arrayTime = preg_split("/[:-]/", $lecture['Time']);
-                        $time = array($arrayTime[0].':'.$arrayTime[1], $arrayTime[2].':'.$arrayTime[3]);
+                        $time = array($arrayTime[0] . ':' . $arrayTime[1], $arrayTime[2] . ':' . $arrayTime[3]);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if ($j == 0) {
@@ -248,7 +248,7 @@ class GatewaysSupportOfficer extends Gateways
 
                         //insertLecture
                         $arrayTime = preg_split("/[:-]/", $lecture['Time']);
-                        $time = array($arrayTime[0].':'.$arrayTime[1], $arrayTime[2].':'.$arrayTime[3]);
+                        $time = array($arrayTime[0] . ':' . $arrayTime[1], $arrayTime[2] . ':' . $arrayTime[3]);
                         $time[0] = strftime('%H:%M', strtotime($time[0]));
                         $time[1] = strftime('%H:%M', strtotime($time[1]));
                         if ($j == 0) {
@@ -344,5 +344,29 @@ class GatewaysSupportOfficer extends Gateways
     {
         $sql = 'DELETE FROM Courses';
         return $this->db->exec($sql);
+    }
+
+    public function findGeneralSchedule($idCourse)
+    {
+        $sql = "SELECT * FROM lessons where idCourse = '" . $idCourse . "'
+        and strftime('%W',date) = strftime('%W','now')";
+        $result = $this->db->query($sql);
+        $data = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            $subArray = array(
+                "idLesson" => $row['idLesson'],
+                "idCourse" => $row['idCourse'],
+                "idTeacher" => $row['idTeacher'],
+                "idClassRoom" => $row['idClassRoom'],
+                "date" => $row['date'],
+                "beginTime" => $row['beginTime'],
+                "endTime" => $row['endTime'],
+                "inPresence" => $row['inPresence'],
+                "active" => $row['active'],
+
+            );
+            $data[] = $subArray;
+        }
+        return $this->returnArray($data);
     }
 }

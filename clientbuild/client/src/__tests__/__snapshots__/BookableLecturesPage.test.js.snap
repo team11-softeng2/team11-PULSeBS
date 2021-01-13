@@ -55,12 +55,20 @@ exports[`renders BookableLecturesPage 1`] = `
           </select>
         </div>
         <button
-          className="mt-3 btn btn-success"
+          className="mt-3 mr-1 btn btn-primary"
           disabled={false}
           onClick={[Function]}
           type="button"
         >
           Change to Online
+        </button>
+        <button
+          className="mt-3 ml-1 btn btn-success"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Change to In Presence
         </button>
       </form>
     </div>

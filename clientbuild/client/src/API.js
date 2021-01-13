@@ -242,6 +242,26 @@ async function changeToOnlineByYear(year) {
     }
 }
 
+async function changeToPresenceByYear(year) {
+    const url = "http://localhost/server/changeToPresenceByYear/" + year;
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: JSON.stringify({
+        }),
+    });
+    const result = await response.json();
+    if (response.ok) {
+        return 1;
+    } else {
+        let err = { status: response.status, errorObj: result };
+        throw err;
+    }
+}
+
 async function getAllCourses() {
     const url = "http://localhost/server/courses";
 
@@ -681,6 +701,6 @@ const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses,
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER,
     getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses, getAllStudents, getWaitingBookings, getStudentContacts, updateAttendance,
-    changeToOnlineByYear, getAllClassrooms
+    changeToOnlineByYear, getAllClassrooms, changeToPresenceByYear
 };
 export default API;
