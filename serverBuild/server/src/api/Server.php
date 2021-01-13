@@ -116,6 +116,12 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
             echo $controller->processRequest();
             break;
+        case "changeToPresenceByYear/$number":
+            $value = "changeToPresenceByYear";
+            $id = $number;
+            $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
+            echo $controller->processRequest();
+            break;
         case "bookingStatistics":
             $value = "bookingStatistics";
             $filterCourse = $_GET['filterCourse'];

@@ -82,6 +82,11 @@ Each endpoint is preceded by /server/src/api/
   - Params: year
   - Response: number of rows changed inside lesson table
 
+- PUT `/changeToPresenceByYear/:year`
+
+  - Params: year
+  - Response: number of rows changed inside lesson table
+
 - PUT `/recordStudentPresence/:idBooking`
 
   - Params: bookingId
@@ -137,7 +142,7 @@ Each endpoint is preceded by /server/src/api/
     - {_value_} for type key is an optional parameter.
       If you want cancellation stats you need to set it to 0, otherwise defaults to 1 (ie. stats will be about active lectures).
       - {_value_} for isAttendance is optional parameter.
-      If you want attendance stats you need to set it to 1, otherwise default to 0 (do not set type in the url)
+        If you want attendance stats you need to set it to 1, otherwise default to 0 (do not set type in the url)
 
   - Example urls:
 

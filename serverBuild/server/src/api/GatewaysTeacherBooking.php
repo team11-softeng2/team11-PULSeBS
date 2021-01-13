@@ -110,6 +110,22 @@ class GatewaysTeacherBooking extends Gateways
         }
     }
 
+    public function changeToPresenceLectureByYear($year)
+    {
+        $sqlUpdateLessonTable = "UPDATE lessons
+                                SET inPresence=1
+                                WHERE idCourse IN   (SELECT c.idCourse
+                                                    FROM lessons as l, courses as c
+                                                    WHERE l.idCourse=c.idCourse AND c.year=$year)";
+        $this->db->exec($sqlUpdateLessonTable);
+        $changesLessonTable = $this->db->changes();
+        if ($changesLessonTable > 0) {
+            return $changesLessonTable;
+        } else {
+            return 0;
+        }
+    }
+
     public function recordStudentPresence($idBooking)
     {
         $sqlUpdateLessonTable = "UPDATE booking
