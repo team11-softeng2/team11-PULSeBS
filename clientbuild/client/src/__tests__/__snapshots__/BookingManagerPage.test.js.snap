@@ -12,6 +12,7 @@ exports[`renders BookingManagerPage 1`] = `
   </h1>
   <div
     className="col-4 mx-auto my-4 css-2b097c-container"
+    id="testSelect"
     onKeyDown={[Function]}
   >
     <div

@@ -73,6 +73,7 @@ class BookingManagerPage extends React.Component {
                     options={this.state.courses}
                     placeholder="Select a course..."
                     isClearable={true}
+                    id={"testSelect"}
                     styles={{
                         // Fixes the overlapping problem of the component
                         menu: provided => ({ ...provided, zIndex: 9999 })
