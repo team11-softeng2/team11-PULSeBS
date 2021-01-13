@@ -183,7 +183,9 @@ Each endpoint is preceded by /server/src/api/
   - Response: number of notifications sent
 
 ## Support Officer
-
+- GET `/findGeneralSchedule/:idCourse`
+  - Params: idCourse
+  - Response: List of lectures of the current week
 - POST `/setUpCourses`
   - Body: parsed CSV of Courses into JSON
   - Response: return 1 or 0 (errors)

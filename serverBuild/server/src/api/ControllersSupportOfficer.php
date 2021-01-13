@@ -40,6 +40,12 @@ class ControllersSupportOfficer extends Controllers
             } else {
                 $output = $this->invalidEndpoint;
             }
+        } else if ($this->requestMethod == "GET") {
+            if ($this->value == "findGeneralSchedule") {
+                $output = $this->findGeneralSchedule($this->id);
+            } else {
+                $output = $this->invalidEndpoint;
+            }
         } else {
             $output = $this->invalidMethod;
         }
@@ -70,5 +76,11 @@ class ControllersSupportOfficer extends Controllers
     {
         $response = $this->gateway->setUpProfessors($input);
         return $response ? 1 : 0;
+    }
+
+    public function findGeneralSchedule($id)
+    {
+        $response = $this->gateway->findGeneralSchedule($id);
+        return json_encode($response);
     }
 }
