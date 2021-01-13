@@ -29,7 +29,7 @@ class BookableLecturesPage extends React.Component {
     }
     buttonClickPresence(){
         console.log(this.state.year);
-        API.changeToOnlineByYear(this.state.year).then(
+        API.changeToPresenceByYear(this.state.year).then(
             () => {
                 this.setState({success: true});
             }
