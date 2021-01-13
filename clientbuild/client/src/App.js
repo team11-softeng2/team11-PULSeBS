@@ -249,9 +249,9 @@ class App extends React.Component {
             }
           </Route>
 
-          <Route path="/support-officer/updateSchedule/:idCourse" render={ (props) => 
+          <Route path="/support-officer/updateSchedule/:idCourse" render={ (p) => 
             (this.state.loggedin === true && this.state.userRole === "support-officer") ?
-            <CourseUpdateSchedulePage {...props} />
+            <CourseUpdateSchedulePage {...p} />
             :
             <Redirect to="/"></Redirect>
           } />
