@@ -4,6 +4,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import {Container, Row, Col, Modal, Button} from 'react-bootstrap';
 import moment from 'moment';
 import ModalNewSchedule from './ModalNewSchedule.js';
+import API from '../API';
 
 class CourseUpdateSchedulePage extends React.Component {
   constructor(props){
@@ -20,7 +21,7 @@ class CourseUpdateSchedulePage extends React.Component {
   }
 
   render(){
-    //console.log(this.state.idCourse)
+    //console.log(this.state.currentSchedule)
       if(this.state.currentSchedule === undefined){
         return <h1>Loading schedule...</h1>
       }
@@ -29,11 +30,6 @@ class CourseUpdateSchedulePage extends React.Component {
           <Container fluid>
             <Row>
               <Col> <h2>Schedule:</h2> </Col>
-              <Col>
-                <Button variant='success' className='float-right mt-2' onClick={this.onClickNewLecture}>
-                  New lecture
-                </Button>
-              </Col>
             </Row>
 
             <Row>
@@ -86,10 +82,6 @@ class CourseUpdateSchedulePage extends React.Component {
                 <Button variant='info' onClick={this.onClickModifyLecture}>
                   Modify this lecture
                 </Button>
-
-                <Button variant='danger' onClick={this.onClickDeleteLecture}>
-                  Delete this lecture
-                </Button>
               </Modal.Footer>
             </Modal>
 
@@ -98,6 +90,8 @@ class CourseUpdateSchedulePage extends React.Component {
               hide={() => { this.setState({ showNewScheduleModal: false }) }}
               subject={this.state.courseName}
               clickedLecture={this.state.clickedLectureData}
+              currentSchedule={this.state.currentSchedule}
+              changeSchedule={this.changeSchedule}
             />
 
           </Container>
@@ -105,33 +99,50 @@ class CourseUpdateSchedulePage extends React.Component {
       }
   }
 
-  componentDidMount = () => {
-    //this should be an API call
-    this.setState({ currentSchedule: [
-      {
-        classroom: "5",
-        start: new Date('2021-01-11' + "T" + '08:30'),
-        end: new Date('2021-01-11' + "T" + '11:30'),
-        id: 1271,
-        title: 'Analisi dei sistemi economici',
-        type: 'bookableLecture'
-      },
-      {
-        classroom: "5",
-        start: new Date('2021-01-12' + "T" + '16:00'),
-        end: new Date('2021-01-12' + "T" + '17:30'),
-        id: 1272,
-        title: 'Analisi dei sistemi economici',
-        type: 'bookableLecture'
-      }
-    ],
-    courseName: 'Analisi dei sistemi economici'
-  });
-
+  changeSchedule = (newSchedule) => {
+    this.setState({ currentSchedule: newSchedule });
   }
 
-  onClickNewLecture = () => {
-    this.setState({ clickedLectureData: {}, showNewScheduleModal: true });
+  updateSchedule = () => {
+    API.getGeneralSchedule(this.state.idCourse)
+    .then((newSchedule) => {
+      //console.log(newSchedule)
+      var i;
+      var schedule = [];
+
+      for(i = 0; i < newSchedule.length; i++){
+        schedule.splice(0, 0, {
+          classroom: newSchedule[i].idClassRoom,
+          start: new Date(newSchedule[i].date + "T" + newSchedule[i].beginTime),
+          end: new Date(newSchedule[i].date + "T" + newSchedule[i].endTime),
+          id: newSchedule[i].idLesson,
+          title: this.state.courseName
+        });
+      }
+
+      this.setState({ currentSchedule: schedule });
+    })
+    .catch((err) => {
+      console.log('error in getting schedule from server')
+    });
+  }
+
+  componentDidMount = () => {
+
+    API.getAllCourses()
+    .then((courses) => {
+      var i;
+      for(i = 0; i < courses.length; i++){
+        if(courses[i].idCourse === this.state.idCourse){
+          this.setState({ courseName: courses[i].courseName }, () => {
+            this.updateSchedule();
+          });
+        }
+      }
+    } )
+    .catch((err) => {
+      console.log('error in getting course name from server');
+    });
 
   }
 
@@ -160,8 +171,8 @@ class CourseUpdateSchedulePage extends React.Component {
   }
 
   onClickModifyLecture = () => {
-    console.log('clicked to modify')
-    console.log(this.state.clickedLectureData)
+    //console.log('clicked to modify')
+    //console.log(this.state.clickedLectureData)
 
     this.closeDecisionModal();
     this.setState({ showNewScheduleModal: true });

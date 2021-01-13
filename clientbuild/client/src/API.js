@@ -697,10 +697,74 @@ async function getAllClassrooms() {
     }
 }
 
+async function getGeneralSchedule(idCourse) {
+    const url = "http://localhost/server/findGeneralSchedule/" + idCourse;
+
+    const response = await fetch(url);
+    const schedule = await response.json();
+    if (response.ok) {
+        if (schedule === 0) {
+            return [];
+        }
+        return schedule;
+    } else {
+        let err = { status: response.status, errorObj: schedule };
+        throw err;
+    }
+}
+
+/*async function updateSchedule(lectureObj) {
+    const url = "http://localhost/server/updateSchedule";
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: JSON.stringify(lectureObj),
+    });
+    const result = await response.json();
+    if (response.ok) {
+        return result;
+    } else {
+        let err = { status: response.status, errorObj: result };
+        throw err;
+    }
+}*/
+
+async function updateSchedule(lectureObj) {
+    const url = "http://localhost/server/updateSchedule"
+
+    var bodyToSend = JSON.stringify(lectureObj);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /updateSchedule: " + e);
+        throw e;
+    }
+}
+
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses,
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER,
     getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses, getAllStudents, getWaitingBookings, getStudentContacts, updateAttendance,
-    changeToOnlineByYear, getAllClassrooms, changeToPresenceByYear
+    changeToOnlineByYear, getAllClassrooms, changeToPresenceByYear, getGeneralSchedule, updateSchedule
 };
 export default API;
