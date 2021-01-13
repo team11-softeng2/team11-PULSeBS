@@ -713,25 +713,6 @@ async function getGeneralSchedule(idCourse) {
     }
 }
 
-/*async function updateSchedule(lectureObj) {
-    const url = "http://localhost/server/updateSchedule";
-    const response = await fetch(url, {
-        method: 'PUT',
-        headers: {
-            //'Content-Type': 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        },
-        body: JSON.stringify(lectureObj),
-    });
-    const result = await response.json();
-    if (response.ok) {
-        return result;
-    } else {
-        let err = { status: response.status, errorObj: result };
-        throw err;
-    }
-}*/
-
 async function updateSchedule(lectureObj) {
     const url = "http://localhost/server/updateSchedule"
 

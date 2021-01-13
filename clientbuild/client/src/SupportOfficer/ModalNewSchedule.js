@@ -78,7 +78,7 @@ class ModalNewSchedule extends React.Component {
 
               <Col className='col-5'>
                 <TimePicker
-                  start='08:00'
+                  start={this.getEndStartTime()}
                   end='20:00'
                   step={30}
                   value={this.state.endTime}
@@ -123,6 +123,10 @@ class ModalNewSchedule extends React.Component {
     API.getAllClassrooms().then((classrooms) => {
         this.setState({ allClassrooms: classrooms });
     });
+  }
+
+  getEndStartTime = () => {
+    return Math.floor(this.state.beginTime/3600).toString().padStart(2, "0") + ":" + this.getMinutes(this.state.beginTime).toString().padStart(2, "0");
   }
 
   clearAndClose = () => {
