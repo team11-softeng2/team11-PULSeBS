@@ -303,6 +303,7 @@ class ControllersStudentBookingTest extends TestCase
             "active"	INTEGER,
             "date"	TEXT,
             "isWaiting"	INTEGER,
+            "present"	INTEGER,
             PRIMARY KEY("idBooking" AUTOINCREMENT)
         );
         DROP TABLE IF EXISTS "courses";
