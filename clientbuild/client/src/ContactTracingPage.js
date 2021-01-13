@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Container, Row, Col, Form, Alert, Button, Table } from 'react-bootstrap';
 import API from './API';
 import jsPDF from 'jspdf';
