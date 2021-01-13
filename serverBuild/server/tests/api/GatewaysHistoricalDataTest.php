@@ -17,7 +17,7 @@ class GatewaysHistoricalDataTest extends TestCase
         $filterCourse = "L.idCourse";
         $type = "1";
         $this->gatewayHistoricalData = new Server\api\GatewaysHistoricalData($this->db);
-        $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type);
+        $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type, 0);
         $this->assertIsArray($result);
         $this->assertCount(70, $result);
     }
@@ -28,7 +28,7 @@ class GatewaysHistoricalDataTest extends TestCase
         $filterCourse = "L.idCourse";
         $type = "1";
         $this->gatewayHistoricalData = new Server\api\GatewaysHistoricalData($this->db);
-        $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type);
+        $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type, 0);
         $this->assertIsArray($result);
         $this->assertCount(3, $result);
     }
@@ -39,7 +39,7 @@ class GatewaysHistoricalDataTest extends TestCase
         $filterCourse = "L.idCourse";
         $type = "1";
         $this->gatewayHistoricalData = new Server\api\GatewaysHistoricalData($this->db);
-        $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type);
+        $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type, 0);
         $this->assertIsArray($result);
         $this->assertCount(9, $result);
     }
@@ -51,7 +51,7 @@ class GatewaysHistoricalDataTest extends TestCase
         $filterCourse = "L.idCourse";
         $type = "1";
         $this->gatewayHistoricalData = new Server\api\GatewaysHistoricalData($this->db);
-        $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type);
+        $result = $this->gatewayHistoricalData->getHistoricalDataBookings($filterTime, $filterCourse, $type, 0);
         $this->assertEquals(0, $result);
     }
 
