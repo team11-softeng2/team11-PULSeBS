@@ -427,4 +427,12 @@ class GatewaysSupportOfficerTest extends TestCase
         $result = $this->gatewaySupportOfficer->setUpLessons($this->lessons);
         $this->assertFalse($result);
     }
+    public function testFindGeneralSchedule()
+    {
+        $this->db = new SQLite3("./tests/dbStatistics.db");
+        $this->gatewaySupportOfficer = new Server\api\GatewaysSupportOfficer($this->db);
+        $idCourse = '2';
+        $result = $this->gatewaySupportOfficer->findGeneralSchedule($idCourse);
+        $this->assertIsArray($result);
+    }
 }

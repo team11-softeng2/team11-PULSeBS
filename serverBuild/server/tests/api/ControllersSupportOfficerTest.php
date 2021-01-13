@@ -145,13 +145,13 @@ class ControllersSupportOfficerTest extends TestCase
         ]', true);
         //$this->db = new \SQLite3('./tests/db_V2_testing.db');
         $this->db = $this->getMockBuilder(\SQLite3::class)
-        ->setConstructorArgs(['./tests/db_V3_testing.db'])
-        ->setMethods(['exec'])
-        ->getMock();
+            ->setConstructorArgs(['./tests/db_V3_testing.db'])
+            ->setMethods(['exec'])
+            ->getMock();
         $this->db
-        ->expects($this->any())
-        ->method('exec')
-        ->willReturn(false);
+            ->expects($this->any())
+            ->method('exec')
+            ->willReturn(false);
         $this->requestMethod = 'POST';
         $this->value = 'setUpCourses';
         $this->id = -1;
@@ -213,13 +213,13 @@ class ControllersSupportOfficerTest extends TestCase
             ]
         ', true);
         $this->db = $this->getMockBuilder(\SQLite3::class)
-        ->setConstructorArgs(['./tests/db_V3_testing.db'])
-        ->setMethods(['exec'])
-        ->getMock();
+            ->setConstructorArgs(['./tests/db_V3_testing.db'])
+            ->setMethods(['exec'])
+            ->getMock();
         $this->db
-        ->expects($this->any())
-        ->method('exec')
-        ->willReturn(false);
+            ->expects($this->any())
+            ->method('exec')
+            ->willReturn(false);
         $this->requestMethod = 'POST';
         $this->value = 'setUpEnrollment';
         $this->id = -1;
@@ -268,7 +268,6 @@ class ControllersSupportOfficerTest extends TestCase
         $this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $result = $this->controller->setUpStudents($this->students);
         $this->assertEquals(1, $result);
-
     }
     public function testsetUpStudentsFalse()
     {
@@ -305,13 +304,13 @@ class ControllersSupportOfficerTest extends TestCase
         ', true);
 
         $this->db = $this->getMockBuilder(\SQLite3::class)
-        ->setConstructorArgs(['./tests/db_V3_testing.db'])
-        ->setMethods(['exec'])
-        ->getMock();
+            ->setConstructorArgs(['./tests/db_V3_testing.db'])
+            ->setMethods(['exec'])
+            ->getMock();
         $this->db
-        ->expects($this->any())
-        ->method('exec')
-        ->willReturn(false);
+            ->expects($this->any())
+            ->method('exec')
+            ->willReturn(false);
         $this->requestMethod = 'POST';
         $this->value = 'setUpStudents';
         $this->id = -1;
@@ -382,13 +381,13 @@ class ControllersSupportOfficerTest extends TestCase
             ]
         ', true);
         $this->db = $this->getMockBuilder(\SQLite3::class)
-        ->setConstructorArgs(['./tests/db_V3_testing.db'])
-        ->setMethods(['exec'])
-        ->getMock();
+            ->setConstructorArgs(['./tests/db_V3_testing.db'])
+            ->setMethods(['exec'])
+            ->getMock();
         $this->db
-        ->expects($this->any())
-        ->method('exec')
-        ->willReturn(false);
+            ->expects($this->any())
+            ->method('exec')
+            ->willReturn(false);
         $this->requestMethod = 'POST';
         $this->value = 'setUpProfessors';
         $this->id = -1;
@@ -413,13 +412,13 @@ class ControllersSupportOfficerTest extends TestCase
         $this->lessons = file_get_contents("./tests/Schedule.json");
         $this->lessons = json_decode($this->lessons, true);
         $this->db = $this->getMockBuilder(\SQLite3::class)
-        ->setConstructorArgs(['./tests/db_V3_testing.db'])
-        ->setMethods(['exec'])
-        ->getMock();
+            ->setConstructorArgs(['./tests/db_V3_testing.db'])
+            ->setMethods(['exec'])
+            ->getMock();
         $this->db
-        ->expects($this->any())
-        ->method('exec')
-        ->willReturn(false);
+            ->expects($this->any())
+            ->method('exec')
+            ->willReturn(false);
         $this->requestMethod = 'POST';
         $this->value = 'setUpLessons';
         $this->id = -1;
@@ -441,13 +440,13 @@ class ControllersSupportOfficerTest extends TestCase
         $this->id = -1;
         //$this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $this->controller = $this->getMockBuilder(Server\api\ControllersSupportOfficer::class)
-        ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
-        ->setMethods(array('setUpCourses'))
-        ->getMock();
+            ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
+            ->setMethods(array('setUpCourses'))
+            ->getMock();
         $this->controller
-        ->expects($this->any())
-        ->method('setUpCourses')
-        ->willReturn(1);
+            ->expects($this->any())
+            ->method('setUpCourses')
+            ->willReturn(1);
         $result = $this->controller->processRequest();
         $this->assertEquals(1, $result);
     }
@@ -517,13 +516,13 @@ class ControllersSupportOfficerTest extends TestCase
         $this->id = -1;
         //$this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $this->controller = $this->getMockBuilder(Server\api\ControllersSupportOfficer::class)
-        ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
-        ->setMethods(array('setUpCourses'))
-        ->getMock();
+            ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
+            ->setMethods(array('setUpCourses'))
+            ->getMock();
         $this->controller
-        ->expects($this->any())
-        ->method('setUpCourses')
-        ->willReturn(0);
+            ->expects($this->any())
+            ->method('setUpCourses')
+            ->willReturn(0);
         $result = $this->controller->processRequest();
         $this->assertEquals(0, $result);
     }
@@ -535,13 +534,13 @@ class ControllersSupportOfficerTest extends TestCase
         $this->id = -1;
         //$this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $this->controller = $this->getMockBuilder(Server\api\ControllersSupportOfficer::class)
-        ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
-        ->setMethods(array('setUpEnrollment'))
-        ->getMock();
+            ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
+            ->setMethods(array('setUpEnrollment'))
+            ->getMock();
         $this->controller
-        ->expects($this->any())
-        ->method('setUpEnrollment')
-        ->willReturn(1);
+            ->expects($this->any())
+            ->method('setUpEnrollment')
+            ->willReturn(1);
         $result = $this->controller->processRequest();
         $this->assertEquals(1, $result);
     }
@@ -553,13 +552,13 @@ class ControllersSupportOfficerTest extends TestCase
         $this->id = -1;
         //$this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $this->controller = $this->getMockBuilder(Server\api\ControllersSupportOfficer::class)
-        ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
-        ->setMethods(array('setUpEnrollment'))
-        ->getMock();
+            ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
+            ->setMethods(array('setUpEnrollment'))
+            ->getMock();
         $this->controller
-        ->expects($this->any())
-        ->method('setUpEnrollment')
-        ->willReturn(0);
+            ->expects($this->any())
+            ->method('setUpEnrollment')
+            ->willReturn(0);
         $result = $this->controller->processRequest();
         $this->assertEquals(0, $result);
     }
@@ -571,13 +570,13 @@ class ControllersSupportOfficerTest extends TestCase
         $this->id = -1;
         //$this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $this->controller = $this->getMockBuilder(Server\api\ControllersSupportOfficer::class)
-        ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
-        ->setMethods(array('setUpStudents'))
-        ->getMock();
+            ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
+            ->setMethods(array('setUpStudents'))
+            ->getMock();
         $this->controller
-        ->expects($this->any())
-        ->method('setUpStudents')
-        ->willReturn(1);
+            ->expects($this->any())
+            ->method('setUpStudents')
+            ->willReturn(1);
         $result = $this->controller->processRequest();
         $this->assertEquals(1, $result);
     }
@@ -589,13 +588,13 @@ class ControllersSupportOfficerTest extends TestCase
         $this->id = -1;
         //$this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $this->controller = $this->getMockBuilder(Server\api\ControllersSupportOfficer::class)
-        ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
-        ->setMethods(array('setUpStudents'))
-        ->getMock();
+            ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
+            ->setMethods(array('setUpStudents'))
+            ->getMock();
         $this->controller
-        ->expects($this->any())
-        ->method('setUpStudents')
-        ->willReturn(0);
+            ->expects($this->any())
+            ->method('setUpStudents')
+            ->willReturn(0);
         $result = $this->controller->processRequest();
         $this->assertEquals(0, $result);
     }
@@ -607,13 +606,13 @@ class ControllersSupportOfficerTest extends TestCase
         $this->id = -1;
         //$this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $this->controller = $this->getMockBuilder(Server\api\ControllersSupportOfficer::class)
-        ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
-        ->setMethods(array('setUpProfessors'))
-        ->getMock();
+            ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
+            ->setMethods(array('setUpProfessors'))
+            ->getMock();
         $this->controller
-        ->expects($this->any())
-        ->method('setUpProfessors')
-        ->willReturn(1);
+            ->expects($this->any())
+            ->method('setUpProfessors')
+            ->willReturn(1);
         $result = $this->controller->processRequest();
         $this->assertEquals(1, $result);
     }
@@ -625,13 +624,13 @@ class ControllersSupportOfficerTest extends TestCase
         $this->id = -1;
         //$this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $this->controller = $this->getMockBuilder(Server\api\ControllersSupportOfficer::class)
-        ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
-        ->setMethods(array('setUpProfessors'))
-        ->getMock();
+            ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
+            ->setMethods(array('setUpProfessors'))
+            ->getMock();
         $this->controller
-        ->expects($this->any())
-        ->method('setUpProfessors')
-        ->willReturn(0);
+            ->expects($this->any())
+            ->method('setUpProfessors')
+            ->willReturn(0);
         $result = $this->controller->processRequest();
         $this->assertEquals(0, $result);
     }
@@ -643,13 +642,13 @@ class ControllersSupportOfficerTest extends TestCase
         $this->id = -1;
         //$this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $this->controller = $this->getMockBuilder(Server\api\ControllersSupportOfficer::class)
-        ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
-        ->setMethods(array('setUpLessons'))
-        ->getMock();
+            ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
+            ->setMethods(array('setUpLessons'))
+            ->getMock();
         $this->controller
-        ->expects($this->any())
-        ->method('setUpLessons')
-        ->willReturn(1);
+            ->expects($this->any())
+            ->method('setUpLessons')
+            ->willReturn(1);
         $result = $this->controller->processRequest();
         $this->assertEquals(1, $result);
     }
@@ -661,14 +660,46 @@ class ControllersSupportOfficerTest extends TestCase
         $this->id = -1;
         //$this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
         $this->controller = $this->getMockBuilder(Server\api\ControllersSupportOfficer::class)
-        ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
-        ->setMethods(array('setUpLessons'))
-        ->getMock();
+            ->setConstructorArgs([$this->requestMethod, $this->db, $this->value, $this->id])
+            ->setMethods(array('setUpLessons'))
+            ->getMock();
         $this->controller
-        ->expects($this->any())
-        ->method('setUpLessons')
-        ->willReturn(0);
+            ->expects($this->any())
+            ->method('setUpLessons')
+            ->willReturn(0);
         $result = $this->controller->processRequest();
         $this->assertEquals(0, $result);
+    }
+    public function testFindGeneralSchedule()
+    {
+        $this->db = new SQLite3("./tests/dbStatistics.db");
+        $this->requestMethod = 'GET';
+        $this->value = 'findGeneralSchedule';
+        $this->id = '2';
+        $this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
+        $output = $this->controller->findGeneralSchedule($this->id);
+        $this->assertNotEquals(0, $output);
+        $this->assertFalse(empty($output));
+    }
+    public function testProcessRequest_findGeneralSchedule()
+    {
+        $this->db = new SQLite3("./tests/dbStatistics.db");
+        $this->requestMethod = 'GET';
+        $this->value = 'findGeneralSchedule';
+        $this->id = '2';
+        $this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
+        $output = $this->controller->processRequest();
+        $this->assertNotEquals(0, $output);
+        $this->assertFalse(empty($output));
+    }
+    public function testProcessRequest_findGeneralScheduleNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbForTesting.db");
+        $this->requestMethod = 'GET';
+        $this->value = 'findGeneralSchedule';
+        $this->id = '2';
+        $this->controller = new Server\api\ControllersSupportOfficer($this->requestMethod, $this->db, $this->value, $this->id);
+        $output = $this->controller->processRequest();
+        $this->assertTrue(empty($output));
     }
 }
