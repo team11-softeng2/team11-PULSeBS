@@ -158,7 +158,7 @@ class ModalNewSchedule extends React.Component {
     var obj = {
       idLesson: newLectureObj.id,
       idClassroom: newLectureObj.classroom,
-      date: newLectureObj.start.getDay(),
+      dow: newLectureObj.start.getDay(),
       beginTime: newLectureObj.start.getHours().toString().padStart(2, "0") + ":" + newLectureObj.start.getMinutes().toString().padStart(2, "0"),
       endTime: newLectureObj.end.getHours().toString().padStart(2, "0") + ":" + newLectureObj.end.getMinutes().toString().padStart(2, "0")
     };
