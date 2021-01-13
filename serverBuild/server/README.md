@@ -37,8 +37,19 @@ Each endpoint is preceded by /server/src/api/
 3. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Geometria","date":"2020-11-17","beginTime":"14:00:00","endTime":"16:00:00"},{"name":"Geometria","date":"2020-11-18","beginTime":"14:00:00","endTime":"16:00:00"}]
 
 - GET `/lecturesWithFullRoom/:studentId`
+
   - Params: studentId
   - Response: List of lectures of the student that have the classroom full
+
+- PUT `/updateSchedule`
+
+  - Body: { "idLesson", "idClassroom", "date", "beginTime", "endTime" }
+  - Response: returns the <b>idLesson</b> just modified on success, <b>0</b> if there was no lesson with the given id or on failure
+
+- Body Examples :
+
+1. {"idLesson":"0", "idClassroom":"5", "date":"2020-01-13", "beginTime":"08:30", "endTime":"20:30"}
+2. {"idLesson":"877", "idClassroom":"3", "date":"2020-01-13", "beginTime":"08:30", "endTime":"20:30"}
 
 ## Bookings
 
