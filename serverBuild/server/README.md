@@ -43,13 +43,13 @@ Each endpoint is preceded by /server/src/api/
 
 - PUT `/updateSchedule`
 
-  - Body: { "idLesson", "idClassroom", "date", "beginTime", "endTime" }
-  - Response: returns the <b>idLesson</b> just modified on success, <b>0</b> if there was no lesson with the given id or on failure
+  - Body: { "idLesson", "idClassroom", "dow", "beginTime", "endTime" }
+  - Response: returns the number of lessons' schedules modified
 
 - Body Examples :
 
-1. {"idLesson":"0", "idClassroom":"5", "date":"2020-01-13", "beginTime":"08:30", "endTime":"20:30"}
-2. {"idLesson":"877", "idClassroom":"3", "date":"2020-01-13", "beginTime":"08:30", "endTime":"20:30"}
+1. {"idLesson":"0", "idClassroom":"99", "dow":"4", "beginTime":"08:30", "endTime":"20:30"}
+2. {"idLesson":"889", "idClassroom":"3", "dow":"1", "beginTime":"10:30", "endTime":"12:00"}
 
 ## Bookings
 
@@ -194,6 +194,7 @@ Each endpoint is preceded by /server/src/api/
   - Response: number of notifications sent
 
 ## Support Officer
+
 - GET `/findGeneralSchedule/:idCourse`
   - Params: idCourse
   - Response: List of lectures of the current week

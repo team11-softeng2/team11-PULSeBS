@@ -152,3 +152,22 @@ test("onHide", () => {
     fireEvent.click(buttons[0]);
     expect();
 });
+
+
+test("dropDown on click", async () => {
+    const component = shallow(<ModalNewSchedule 
+        show={true} 
+        subject = {"test"}
+        hide = {jest.fn()}
+        />);
+    const instance = component.instance();
+    instance.setState({allClassrooms: [{idClassroom: 1}, {idClassroom: 2}]});
+    let itemClass = component.find("#dropAllClass1");
+    let itemDays = component.find("#dropDaysMonday");
+    instance.handleOnClickDropdownClass = jest.fn();
+    instance.handleOnClickDropdown = jest.fn();
+    itemClass.simulate("click")
+    itemDays.simulate("click")
+    expect(instance.handleOnClickDropdownClass).toHaveBeenCalledTimes(1);
+    expect(instance.handleOnClickDropdown).toHaveBeenCalledTimes(1);
+});

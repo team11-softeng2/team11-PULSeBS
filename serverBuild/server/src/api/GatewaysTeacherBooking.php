@@ -12,12 +12,60 @@ class GatewaysTeacherBooking extends Gateways
 
     public function updateSchedule($input)
     {
-        $sql = "UPDATE lessons SET idClassRoom='" . $input->idClassroom . "', date='" . $input->date . "', beginTime='" . $input->beginTime . "', endTime='" . $input->endTime . "' WHERE idLesson='" . $input->idLesson . "'";
-        if ($this->db->exec($sql)) {
-            return $input->idLesson;
-        } else {
-            return 0;
+        $count = 0;
+        $sql = "SELECT * FROM lessons WHERE idLesson='" . $input->idLesson . "'";
+        $result = $this->db->query($sql)->fetchArray(SQLITE3_ASSOC);
+        if ($result) {
+            $idCourse = $result['idCourse'];
+
+            $oldDate = $result['date'];
+            $oldBeginTime = $result['beginTime'];
+            $oldEndTime = $result['endTime'];
+            $oldDateObj = new \DateTime($oldDate);
+            $oldDow = $oldDateObj->format('w');
+
+            $newClassroom = $input->idClassroom;
+            $newBeginTime = $input->beginTime;
+            $newEndTime = $input->endTime;
+            $newDow = $input->dow;
+
+            $diff = $newDow - $oldDow; //in days (es. 1 , -2, ecc..)
+
+            //iterate over 52 weeks (ie. 1 year) and get the list of possible dates
+            $possibleDays = array($oldDate);
+            for ($i = 1; $i <= 52; $i++) {
+                $n = $i * 7;
+                \array_push($possibleDays, date('Y-m-d', \strtotime("+$n days", $oldDateObj->getTimestamp())));
+            }
+
+            //select all lessons of that course that might be eligible for update...
+            $sql = "SELECT *
+                    FROM lessons
+                    WHERE   idCourse='" . $idCourse . "' AND
+                            date >= '" . $oldDate . "' AND
+                            beginTime= '" . $oldBeginTime . "' AND
+                            endTime= '" . $oldEndTime . "'";
+            $result = $this->db->query($sql);
+
+            //for each row (ie. lesson)
+            while ($lesson = $result->fetchArray(SQLITE3_ASSOC)) {
+                $oldDate = $lesson['date'];
+                // check if should be updated (ie. (nth-week x N)+7 )
+                if (in_array($oldDate, $possibleDays)) {
+                    $idLesson = $lesson['idLesson'];
+                    $oldDateObj = new \DateTime($oldDate);
+                    $newDate = date('Y-m-d', \strtotime("$diff days", $oldDateObj->getTimestamp()));
+
+                    $sql = "UPDATE lessons
+                            SET idClassRoom='" . $newClassroom . "', date='" . $newDate . "', beginTime='" . $newBeginTime . "', endTime='" . $newEndTime . "'
+                            WHERE idLesson='" . $idLesson . "'";
+                    if ($this->db->exec($sql)) {
+                        $count++;
+                    }
+                }
+            }
         }
+        return $count;
     }
 
     public function findBookedStudentsForLecture($id)
