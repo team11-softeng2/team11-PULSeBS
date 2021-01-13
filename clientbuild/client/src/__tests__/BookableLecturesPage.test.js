@@ -40,11 +40,11 @@ test("buttonClickOnline", async () => {
 test("buttonClickPresence", async () => {
   const component = shallow(<BookableLecturesPage/>);
   const instance = component.instance();
-  API.changeToOnlineByYear = jest.fn(() => Promise.resolve([]));
+  API.changeToPresenceByYear = jest.fn(() => Promise.resolve([]));
   await instance.buttonClickPresence();
   expect(API.changeToOnlineByYear).toHaveBeenCalledTimes(1);
   expect(instance.state.success).toBe(true);
-  API.changeToOnlineByYear = jest.fn(() => Promise.reject([]));
+  API.changeToPresenceByYear = jest.fn(() => Promise.reject([]));
   try {
     await instance.buttonClickPresence();
     expect(true).toBe(false);

@@ -43,7 +43,7 @@ class SupportOfficerSetupPage extends React.Component {
             }
         });
         this.setState({error: ""});
-    };
+    }
 
     handleFinish = async() => {
       try{
@@ -79,7 +79,7 @@ class SupportOfficerSetupPage extends React.Component {
                 var jsonToSend = this.csvDataToJSON(res.data);
 
                 API.setUpClasses(jsonToSend)
-                .then((res) => {
+                .then((res2) => {
                     console.log('set up classes successful');
                     resolve(true);
                 })
@@ -102,7 +102,7 @@ class SupportOfficerSetupPage extends React.Component {
                 var jsonToSend = this.csvDataToJSON(res.data);
 
                 API.setUpStudents(jsonToSend)
-                .then((res) => {
+                .then((res2) => {
                     console.log('set up students successful');
                     resolve(true);
                 })
@@ -125,7 +125,7 @@ class SupportOfficerSetupPage extends React.Component {
                 var jsonToSend = this.csvDataToJSON(res.data);
 
                 API.setUpLectures(jsonToSend)
-                .then((res) => {
+                .then((res2) => {
                     console.log('set up lectures successful');
                     resolve(true);
                 })
@@ -147,7 +147,7 @@ class SupportOfficerSetupPage extends React.Component {
                 //console.log(res.data);
                 var jsonToSend = this.csvDataToJSON(res.data);
                 API.setUpCourses(jsonToSend)
-                .then((res) => {
+                .then((res2) => {
                     console.log('set up Courses successful');
                     resolve(true);
                 })
@@ -169,7 +169,7 @@ class SupportOfficerSetupPage extends React.Component {
                 //console.log(res.data);
                 var jsonToSend = this.csvDataToJSON(res.data);
                 API.setUpProfessors(jsonToSend)
-                .then((res) => {
+                .then((res2) => {
                     console.log('set up teachers successful');
                     resolve(true);
                 })
@@ -210,13 +210,13 @@ class SupportOfficerSetupPage extends React.Component {
             activeStep: prevState.activeStep - 1
         }));
         this.setState({error: ""});
-    };
+    }
 
     handleReset() {
         this.setState({
             activeStep: 0
         });
-    };
+    }
 
     getStepContent(stepIndex) {
         switch (stepIndex) {
@@ -240,7 +240,7 @@ class SupportOfficerSetupPage extends React.Component {
     onFileAdded = async (file) => {
         const activeStep = this.state.activeStep;
         /* replace or add the file */
-        let actual = await this.state.files;
+        let actual = this.state.files;
         let res = actual.find((f) => f.name === file.name);
         if(res !== undefined) {
             await this.setState({error: "Error: file already uploaded!"});

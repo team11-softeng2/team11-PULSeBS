@@ -47,7 +47,7 @@ class ModalNewSchedule extends React.Component {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    {this.state.days.map( (d) => <Dropdown.Item key={d} onClick={ (e) => this.handleOnClickDropdown(e) }>{d}</Dropdown.Item> )}
+                    {this.state.days.map( (d) => <Dropdown.Item key={d} id={"dropDays"+d} onClick={ (e) => this.handleOnClickDropdown(e) }>{d}</Dropdown.Item> )}
                   </Dropdown.Menu>
                 </Dropdown>
               </Col>
@@ -97,7 +97,7 @@ class ModalNewSchedule extends React.Component {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    {this.state.allClassrooms.map( (c) => <Dropdown.Item key={c.idClassroom} onClick={ (e) => this.handleOnClickDropdownClass(e) }>{c.roomNumber}</Dropdown.Item> )}
+                    {this.state.allClassrooms.map( (c) => <Dropdown.Item key={c.idClassroom} id={"dropAllClass"+c.idClassroom} onClick={ (e) => this.handleOnClickDropdownClass(e) }>{c.roomNumber}</Dropdown.Item> )}
                   </Dropdown.Menu>
                 </Dropdown>
               </Col>

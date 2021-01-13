@@ -116,3 +116,9 @@ test("openFileDialog disabled true", async () => {
     await instance.openFileDialog({target: {files: [{name: "test.csv", type: "text/csv"}]}, preventDefault: jest.fn()});
     expect(instance.fileInputRef.current.click).toHaveBeenCalledTimes(0);
 });
+
+test("Show error", async () => {
+    const component = await shallow(<Dropzone disabled={true} onFileAdded={true} error={"test"}/>);
+    const instance = await component.instance();
+    expect();
+})

@@ -65,3 +65,17 @@ test('updateBookingGraphData', async () => {
   await instance.updateBookingGraphData("test", xArray, yArray, "test");
   expect(instance.state.bookingSeries).not.toBe(undefined);
 });
+
+test('select input onChange event', async () => {
+  API.getAllCourses = jest.fn(() => Promise.resolve([]));
+  const component = shallow(<BookingManagerPage/>);
+  const instance = component.instance();
+  instance.handleSelectionChange = jest.fn();
+  let selectObj = component.find("#testSelect");
+  const event = {
+    preventDefault() {},
+    target: { value: 'test' }
+  };
+  selectObj.simulate('change', event);
+  expect(instance.handleSelectionChange).toHaveBeenCalledTimes(1);
+})

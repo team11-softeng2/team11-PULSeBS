@@ -58,6 +58,8 @@ const HomeLink = (props) => {
                     history.push(supportOfficerHome);
                 }
                 break;
+            case 'teacher':
+                break;
             default:
                 break;
         }

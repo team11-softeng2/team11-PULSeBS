@@ -84,7 +84,10 @@ let updateAttendanceMock = jest.fn();
 test("updateAttendace", async () => {
     const component = shallow(<Calendar view={"teacher"} updateAttendance={updateAttendanceMock}/>);
     const instance = component.instance();
-    instance.setState({studentList: [{idBooking: 1, isPresent: 0}]});
+    await instance.setState({studentList: [{idBooking: 1, isPresent: 0}]});
     await instance.updateAttendance(1);
     expect(instance.state.studentList[0].isPresent).toBe(1);
+    await instance.setState({studentList: [{idBooking: 1, isPresent: 1}]});
+    await instance.updateAttendance(1);
+    expect(instance.state.studentList[0].isPresent).toBe(0);
 });
