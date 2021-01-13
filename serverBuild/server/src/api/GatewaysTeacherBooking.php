@@ -10,6 +10,16 @@ class GatewaysTeacherBooking extends Gateways
         $this->db = $db;
     }
 
+    public function updateSchedule($input)
+    {
+        $sql = "UPDATE lessons SET idClassRoom='" . $input->idClassroom . "', date='" . $input->date . "', beginTime='" . $input->beginTime . "', endTime='" . $input->endTime . "' WHERE idLesson='" . $input->idLesson . "'";
+        if ($this->db->exec($sql)) {
+            return $input->idLesson;
+        } else {
+            return 0;
+        }
+    }
+
     public function findBookedStudentsForLecture($id)
     {
         $sql = "SELECT U.idUser, U.name, B.idBooking, B.present

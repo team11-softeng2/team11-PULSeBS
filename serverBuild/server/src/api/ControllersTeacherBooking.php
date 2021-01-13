@@ -18,7 +18,15 @@ class ControllersTeacherBooking extends Controllers
 
     public function processRequest()
     {
-        if ($this->requestMethod == "GET") {
+        if ($this->requestMethod == "POST") {
+            if ($this->value == "updateSchedule") {
+                $postBody = file_get_contents("php://input");
+                $input = (json_decode($postBody));
+                return $this->updateSchedule($input);
+            } else {
+                return $this->invalidEndpoint;
+            }
+        } else if ($this->requestMethod == "GET") {
             if ($this->value == "bookedStudentsForLecture") {
                 return $this->findBookedStudentsForLecture($this->id);
             } elseif ($this->value == "scheduledLecturesForTeacher") {
@@ -43,6 +51,12 @@ class ControllersTeacherBooking extends Controllers
         } else {
             return $this->invalidMethod;
         }
+    }
+
+    public function updateSchedule($input)
+    {
+        $lessonUpadted = $this->gateway->updateSchedule($input);
+        return $lessonUpadted;
     }
 
     public function findBookedStudentsForLecture($id)
