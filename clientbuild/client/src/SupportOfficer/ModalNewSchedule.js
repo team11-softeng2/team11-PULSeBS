@@ -169,7 +169,7 @@ class ModalNewSchedule extends React.Component {
 
     //console.log(obj)
 
-    API.updateSchedule(obj)
+    API.updateSchedule(obj, newLectureObj.id)
     .then((res) => {
       console.log(res);
     })

@@ -49,10 +49,15 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersStudentBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
             echo $controller->processRequest();
             break;
-        case "updateSchedule":
-            $value = "updateSchedule";
-            $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value);
-            echo $controller->processRequest();
+        case "updateSchedule/$number":
+            if ($_SERVER['REQUEST_METHOD'] != "OPTIONS") {
+                $value = "updateSchedule";
+                $id = $number;
+                $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
+                echo $controller->processRequest();
+                $gatewayNotification = new Server\api\GatewaysNotification($dbConn);
+                $gatewayNotification->sendEmail('updateSchedule', $number);
+            }
             break;
         case "bookedStudentsForLecture/$number":
             $value = "bookedStudentsForLecture";
