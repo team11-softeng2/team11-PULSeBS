@@ -10,9 +10,10 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-API.getAllCourses = jest.fn(() => Promise.resolve(["test"]));
+
 test('renders CourseUpdateSchedulePage page', () => {
-    let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
+    API.getAllCourses = jest.fn(() => Promise.resolve([{idCourse: 1, courseName: "test1"}, {idCourse: 2, courseName: "test2"}]));
+    let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":1}};
     /*
     const tree = TestRenderer.create(<CourseUpdateSchedulePage 
         match={matchMock}
@@ -23,10 +24,11 @@ test('renders CourseUpdateSchedulePage page', () => {
     match={matchMock}
     />);
     const instance = component.instance();
-    expect(instance.state.idCourse).toBe("XY1211");
+    expect(instance.state.idCourse).toBe(1);
   });
 
 test("handleEventClick", async () => {
+    API.getAllCourses = jest.fn(() => Promise.resolve([{idCourse: 1, courseName: "test1"}, {idCourse: 2, courseName: "test2"}]));
     let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
     const event = {event: {start: 50000, end: 55000, title: "test", id: 1, extendedProps: {classroom: "test"}}};
     const component = shallow(<CourseUpdateSchedulePage 
@@ -41,6 +43,7 @@ test("handleEventClick", async () => {
 
 
 test("closeDecisionModal", async () => {
+    API.getAllCourses = jest.fn(() => Promise.resolve([{idCourse: 1, courseName: "test1"}, {idCourse: 2, courseName: "test2"}]));
     let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
     const component = shallow(<CourseUpdateSchedulePage 
         match={matchMock}
@@ -51,6 +54,7 @@ test("closeDecisionModal", async () => {
 });
 
 test("onClickModifyLecture", async () => {
+    API.getAllCourses = jest.fn(() => Promise.resolve([{idCourse: 1, courseName: "test1"}, {idCourse: 2, courseName: "test2"}]));
     let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
     const component = shallow(<CourseUpdateSchedulePage 
         match={matchMock}
@@ -63,6 +67,7 @@ test("onClickModifyLecture", async () => {
 });
 
 test("onClickDeleteLecture", async () => {
+    API.getAllCourses = jest.fn(() => Promise.resolve([{idCourse: 1, courseName: "test1"}, {idCourse: 2, courseName: "test2"}]));
     let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
     const component = shallow(<CourseUpdateSchedulePage 
         match={matchMock}
@@ -72,4 +77,51 @@ test("onClickDeleteLecture", async () => {
     await instance.onClickDeleteLecture();
     expect(instance.closeDecisionModal).toHaveBeenCalledTimes(1);
     //expect(instance.state.showNewScheduleModal).toBe(true);
+});
+
+test("API getAllCourses error", async () => {
+    API.getAllCourses = jest.fn(() => Promise.reject(["test"]));
+    try {
+        let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
+        const event = {event: {start: 50000, end: 55000, title: "test", id: 1, extendedProps: {classroom: "test"}}};
+        const component = shallow(<CourseUpdateSchedulePage 
+            match={matchMock}
+            />);
+        const instance = component.instance();
+        expect(true).toBe(false);
+    } catch(e) {
+        expect(true).toBe(true);
+    }
+});
+
+test("updateSchedule", async () => {
+    API.getAllCourses = jest.fn(() => Promise.resolve([{idCourse: 1, courseName: "test1"}, {idCourse: 2, courseName: "test2"}]));
+    API.getGeneralSchedule = jest.fn(() => Promise.resolve([{idLesson: 1284, idCourse: "XY4911", idTeacher: "d9001", idClassRoom: "1", date: "2021-01-11", inPresence: 0, beginTime: "11:30", endTime: "13:00"}]));
+    let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
+    const component = shallow(<CourseUpdateSchedulePage 
+        match={matchMock}
+        />);
+    const instance = component.instance();
+    await instance.updateSchedule();
+    expect(instance.state.currentSchedule[0].classroom).toBe("1");
+    expect(instance.state.currentSchedule[0].id).toBe(1284);
+    API.getGeneralSchedule = jest.fn(() => Promise.reject());
+    try {
+        await instance.updateSchedule();
+        expect(false).toBe(true);
+    } catch(e) {
+        expect(true).toBe(true);
+    }
+});
+
+test("changeSchedule", async () => {
+    API.getAllCourses = jest.fn(() => Promise.resolve([{idCourse: 1, courseName: "test1"}, {idCourse: 2, courseName: "test2"}]));
+    API.getGeneralSchedule = jest.fn(() => Promise.resolve([{idLesson: 1284, idCourse: "XY4911", idTeacher: "d9001", idClassRoom: "1", date: "2021-01-11", inPresence: 0, beginTime: "11:30", endTime: "13:00"}]));
+    let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
+    const component = shallow(<CourseUpdateSchedulePage 
+        match={matchMock}
+        />);
+    const instance = component.instance();
+    await instance.changeSchedule("test");
+    expect(instance.state.currentSchedule).toBe("test");
 });

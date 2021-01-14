@@ -106,7 +106,6 @@ class CourseUpdateSchedulePage extends React.Component {
   updateSchedule = () => {
     API.getGeneralSchedule(this.state.idCourse)
     .then((newSchedule) => {
-      //console.log(newSchedule)
       var i;
       var schedule = [];
 
