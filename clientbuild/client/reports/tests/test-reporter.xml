@@ -1,273 +1,241 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <unitTest version="1">
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/ContactTracingPage.test.js">
-        <testCase name="renders learn react link" duration="135"/>
-        <testCase name="student name input box" duration="130"/>
-        <testCase name="studentMatchesInput" duration="29"/>
-        <testCase name="createStudentTableRow" duration="3"/>
-        <testCase name="handleStudentButtonClick" duration="61"/>
-        <testCase name="different legth of search result" duration="20"/>
-        <testCase name="click on generate report button" duration="12"/>
-    </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/BookableLecturesPage.test.js">
-        <testCase name="renders BookableLecturesPage" duration="6"/>
-        <testCase name="onChangeValue" duration="2"/>
-        <testCase name="buttonClickOnline" duration="70"/>
-        <testCase name="buttonClickPresence" duration="29"/>
-    </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/SupportOfficerSetupPage.test.js">
-        <testCase name="renders SupportOfficerPage page" duration="365"/>
-        <testCase name="handleNext" duration="60"/>
-        <testCase name="handleBack and handleReset" duration="103"/>
-        <testCase name="serError" duration="10"/>
-        <testCase name="getStepContent" duration="19"/>
-        <testCase name="onFileAdded" duration="57"/>
-        <testCase name="csvDataToJSON" duration="10"/>
-        <testCase name="handleFinish" duration="363"/>
-        <testCase name="handleFinish error" duration="51"/>
-        <testCase name="convertAndSendTeachers" duration="296"/>
-        <testCase name="convertAndSendCourses" duration="9"/>
-        <testCase name="convertAndSendLectures" duration="17"/>
-        <testCase name="convertAndSendStudents" duration="16"/>
-        <testCase name="convertAndSendClasses" duration="12"/>
-    </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/ModalStudent.test.js">
-        <testCase name="Modal render Render with show true" duration="311"/>
-        <testCase name="Modal render Render with show false" duration="7"/>
-        <testCase name="Modal content render booking" duration="49"/>
-        <testCase name="Modal content render delete booking" duration="83"/>
-        <testCase name="Modal content render full booking" duration="49"/>
-        <testCase name="Modal buttons Modal don&apos;t delete button" duration="35"/>
-        <testCase name="Modal buttons Modal delete button" duration="18"/>
-        <testCase name="Modal buttons Modal don&apos;t book button" duration="19"/>
-        <testCase name="Modal buttons Modal book button" duration="20"/>
-        <testCase name="Modal buttons onHide" duration="104"/>
-        <testCase name="Modal buttons onHide fullLecture" duration="75"/>
-        <testCase name="Modal buttons Modal don&apos;t wait button" duration="52"/>
-        <testCase name="Modal buttons Modal wait button" duration="46"/>
-        <testCase name="Modal buttons onHide waitingBooking" duration="72"/>
-        <testCase name="Modal buttons Modal don&apos;t leave button" duration="26"/>
-        <testCase name="Modal buttons Modal leave waiting list button" duration="124"/>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/CourseUpdateSchedulePage.test.js">
+        <testCase name="renders CourseUpdateSchedulePage page" duration="171"/>
+        <testCase name="handleEventClick" duration="4"/>
+        <testCase name="closeDecisionModal" duration="1"/>
+        <testCase name="onClickModifyLecture" duration="6"/>
+        <testCase name="onClickDeleteLecture" duration="45"/>
+        <testCase name="API getAllCourses error" duration="75"/>
+        <testCase name="updateSchedule" duration="37"/>
+        <testCase name="changeSchedule" duration="16"/>
     </file>
     <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/ModalNewSchedule.test.js">
-        <testCase name="Modal render Render with show true" duration="427"/>
-        <testCase name="Modal render Render with show false" duration="15"/>
-        <testCase name="handleChangeEndTime" duration="10"/>
-        <testCase name="handleChangeBeginTime" duration="14"/>
-        <testCase name="handleOnClickDropdown" duration="6"/>
-        <testCase name="getAvailableStartTime" duration="10">
-            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
-
-Expected: "08:30"
-Received: 30600
-    at Object.<anonymous> (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/ModalNewSchedule.test.js:75:17)
-    at Object.asyncJestTest (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:102:37)
-    at /Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/queueRunner.js:43:12
-    at new Promise (<anonymous>)
-    at mapper (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/queueRunner.js:26:19)
-    at /Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/queueRunner.js:73:41
-    at processTicksAndRejections (internal/process/task_queues.js:97:5)]]></failure>
-        </testCase>
-        <testCase name="handleOnClickDropdownClass" duration="40"/>
-        <testCase name="requiredDataIsInserted" duration="14"/>
-        <testCase name="clearAndClose" duration="5">
-            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
-
-Expected: "08:30"
-Received: 30600
-    at Object.<anonymous> (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/ModalNewSchedule.test.js:129:36)
-    at processTicksAndRejections (internal/process/task_queues.js:97:5)]]></failure>
-        </testCase>
-        <testCase name="handleSubmit" duration="24">
-            <failure message="TypeError: Cannot read property &apos;length&apos; of undefined"><![CDATA[TypeError: Cannot read property 'length' of undefined
-    at ModalNewSchedule.handleSubmit (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/SupportOfficer/ModalNewSchedule.js:189:47)
-    at Object.<anonymous> (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/ModalNewSchedule.test.js:141:20)
-    at Object.asyncJestTest (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:102:37)
-    at /Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/queueRunner.js:43:12
-    at new Promise (<anonymous>)
-    at mapper (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/queueRunner.js:26:19)
-    at /Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/queueRunner.js:73:41
-    at processTicksAndRejections (internal/process/task_queues.js:97:5)]]></failure>
-        </testCase>
-        <testCase name="onHide" duration="648"/>
-        <testCase name="dropDown on click" duration="46"/>
+        <testCase name="Modal render Render with show true" duration="495"/>
+        <testCase name="Modal render Render with show false" duration="17"/>
+        <testCase name="handleChangeEndTime" duration="24"/>
+        <testCase name="handleChangeBeginTime" duration="7"/>
+        <testCase name="handleOnClickDropdown" duration="7"/>
+        <testCase name="getAvailableStartTime" duration="7"/>
+        <testCase name="handleOnClickDropdownClass" duration="21"/>
+        <testCase name="requiredDataIsInserted" duration="41"/>
+        <testCase name="clearAndClose" duration="20"/>
+        <testCase name="onHide" duration="836"/>
+        <testCase name="dropDown on click" duration="109"/>
+        <testCase name="getMinutes" duration="4"/>
+        <testCase name="getDayOfWeek" duration="48"/>
+        <testCase name="getEndStartTime" duration="28"/>
     </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/Calendar.test.js">
-        <testCase name="Calendar render" duration="213"/>
-        <testCase name="closeModal function" duration="2"/>
-        <testCase name="handleEventClick teacher" duration="10"/>
-        <testCase name="handleEventClick student" duration="3"/>
-        <testCase name="fullLecture click" duration="2"/>
-        <testCase name="updateAttendace" duration="2"/>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/ContactTracingPage.test.js">
+        <testCase name="renders learn react link" duration="196"/>
+        <testCase name="student name input box" duration="29"/>
+        <testCase name="studentMatchesInput" duration="4"/>
+        <testCase name="createStudentTableRow" duration="2"/>
+        <testCase name="handleStudentButtonClick" duration="20"/>
+        <testCase name="different legth of search result" duration="22"/>
+        <testCase name="click on generate report button" duration="35"/>
     </file>
     <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/App.test.js">
-        <testCase name="renders learn react link" duration="29"/>
-        <testCase name="get functions getStudentBookings" duration="74"/>
-        <testCase name="get functions getBookableStudentLectures" duration="22"/>
-        <testCase name="get functions getTeacherLectures" duration="40"/>
-        <testCase name="get functions getFullLectures" duration="23"/>
-        <testCase name="get functions getWaitingBookings" duration="4"/>
-        <testCase name="get functions setLoggedIn student" duration="11"/>
-        <testCase name="get functions setLoggedIn teacher" duration="26"/>
-        <testCase name="get functions setLoggedIn booking-manager" duration="5"/>
-        <testCase name="get functions setLoggedIn support-officer" duration="5"/>
-        <testCase name="get functions logout" duration="114"/>
-        <testCase name="get functions bookASeat" duration="37"/>
-        <testCase name="get functions deleteBooking" duration="16"/>
-        <testCase name="get functions deleteLecture" duration="20"/>
-        <testCase name="get functions changeToOnline" duration="14"/>
-        <testCase name="get functions updateAttendance" duration="21"/>
+        <testCase name="renders learn react link" duration="101"/>
+        <testCase name="get functions getStudentBookings" duration="131"/>
+        <testCase name="get functions getBookableStudentLectures" duration="44"/>
+        <testCase name="get functions getTeacherLectures" duration="71"/>
+        <testCase name="get functions getFullLectures" duration="45"/>
+        <testCase name="get functions getWaitingBookings" duration="20"/>
+        <testCase name="get functions setLoggedIn student" duration="31"/>
+        <testCase name="get functions setLoggedIn teacher" duration="51"/>
+        <testCase name="get functions setLoggedIn booking-manager" duration="45"/>
+        <testCase name="get functions setLoggedIn support-officer" duration="9"/>
+        <testCase name="get functions logout" duration="287"/>
+        <testCase name="get functions bookASeat" duration="119"/>
+        <testCase name="get functions deleteBooking" duration="25"/>
+        <testCase name="get functions deleteLecture" duration="15"/>
+        <testCase name="get functions changeToOnline" duration="10"/>
+        <testCase name="get functions updateAttendance" duration="13"/>
     </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/Dropzone.test.js">
-        <testCase name="renders Dropzone page" duration="7"/>
-        <testCase name="render Dropzone with file" duration="18"/>
-        <testCase name="onDrop" duration="5"/>
-        <testCase name="onDrop with undefined onFileAdded" duration="2"/>
-        <testCase name="onDrop with disabled true" duration="35"/>
-        <testCase name="onDragLeave" duration="1"/>
-        <testCase name="onDragOver" duration="2"/>
-        <testCase name="onDragOver disabled true" duration="1"/>
-        <testCase name="onFileAdded" duration="3"/>
-        <testCase name="onFileAdded undefined onFileAdded" duration="1"/>
-        <testCase name="onFileAdded disabled" duration="1"/>
-        <testCase name="openFileDialog" duration="17"/>
-        <testCase name="openFileDialog disabled true" duration="1"/>
-        <testCase name="Show error" duration="0"/>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/ModalStudent.test.js">
+        <testCase name="Modal render Render with show true" duration="161"/>
+        <testCase name="Modal render Render with show false" duration="5"/>
+        <testCase name="Modal content render booking" duration="47"/>
+        <testCase name="Modal content render delete booking" duration="26"/>
+        <testCase name="Modal content render full booking" duration="68"/>
+        <testCase name="Modal buttons Modal don&apos;t delete button" duration="103"/>
+        <testCase name="Modal buttons Modal delete button" duration="31"/>
+        <testCase name="Modal buttons Modal don&apos;t book button" duration="49"/>
+        <testCase name="Modal buttons Modal book button" duration="63"/>
+        <testCase name="Modal buttons onHide" duration="174"/>
+        <testCase name="Modal buttons onHide fullLecture" duration="240"/>
+        <testCase name="Modal buttons Modal don&apos;t wait button" duration="118"/>
+        <testCase name="Modal buttons Modal wait button" duration="77"/>
+        <testCase name="Modal buttons onHide waitingBooking" duration="132"/>
+        <testCase name="Modal buttons Modal don&apos;t leave button" duration="81"/>
+        <testCase name="Modal buttons Modal leave waiting list button" duration="69"/>
     </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/SupportOfficerSchedulePage.test.js">
-        <testCase name="renders SupportOfficerSchedulePage page" duration="51"/>
-        <testCase name="courseMatchesInputId" duration="9"/>
-        <testCase name="courseMatchesInputName" duration="2"/>
-        <testCase name="courseMatchesInputTeacher" duration="3"/>
-        <testCase name="handleOnChangeText" duration="18"/>
-        <testCase name="handle button click" duration="9"/>
-    </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/TeacherHistoricalDataPage.test.js">
-        <testCase name="renders learn react link" duration="106"/>
-        <testCase name="list of filters starts with &quot;Lecture&quot; active" duration="26"/>
-        <testCase name="updateCourses" duration="10"/>
-        <testCase name="getDataFromServerAndUpdate" duration="9"/>
-        <testCase name="getDataFromServerAndUpdate API error" duration="55"/>
-        <testCase name="handleNewDetailClick and handleNewCourseClick" duration="2"/>
-        <testCase name="updateGraphData" duration="10"/>
-        <testCase name="updateCourses catch error" duration="9"/>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/SupportOfficerSetupPage.test.js">
+        <testCase name="renders SupportOfficerPage page" duration="412"/>
+        <testCase name="handleNext" duration="124"/>
+        <testCase name="handleBack and handleReset" duration="49"/>
+        <testCase name="serError" duration="7"/>
+        <testCase name="getStepContent" duration="14"/>
+        <testCase name="onFileAdded" duration="75"/>
+        <testCase name="csvDataToJSON" duration="5"/>
+        <testCase name="handleFinish" duration="74"/>
+        <testCase name="handleFinish error" duration="22"/>
+        <testCase name="convertAndSendTeachers" duration="56"/>
+        <testCase name="convertAndSendCourses" duration="21"/>
+        <testCase name="convertAndSendLectures" duration="17"/>
+        <testCase name="convertAndSendStudents" duration="20"/>
+        <testCase name="convertAndSendClasses" duration="23"/>
     </file>
     <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/BookingManagerPage.test.js">
-        <testCase name="renders BookingManagerPage" duration="283"/>
-        <testCase name="handleBookingFilterChange" duration="31"/>
-        <testCase name="handleCancellationFilterChangee" duration="20"/>
-        <testCase name="handleSelectionChange" duration="8"/>
-        <testCase name="updateBookingGraphData" duration="6"/>
-        <testCase name="select input onChange event" duration="20"/>
+        <testCase name="renders BookingManagerPage" duration="305"/>
+        <testCase name="handleBookingFilterChange" duration="97"/>
+        <testCase name="handleCancellationFilterChangee" duration="14"/>
+        <testCase name="handleSelectionChange" duration="5"/>
+        <testCase name="updateBookingGraphData" duration="7"/>
+        <testCase name="select input onChange event" duration="12"/>
+    </file>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/ModalTeacher.test.js">
+        <testCase name="Modal render Render with show true" duration="251"/>
+        <testCase name="Modal render Render with show false" duration="3"/>
+        <testCase name="Modal content render" duration="73"/>
+        <testCase name="Modal content render" duration="111"/>
+        <testCase name="Render student list" duration="151"/>
+        <testCase name="Modal close button" duration="85"/>
+        <testCase name="onHide" duration="375"/>
+        <testCase name="Modal delete and changeToOnline buttons" duration="29"/>
+        <testCase name="Modal delete and changeTo button disabled" duration="74"/>
+    </file>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/BookableLecturesPage.test.js">
+        <testCase name="renders BookableLecturesPage" duration="8"/>
+        <testCase name="onChangeValue" duration="2"/>
+        <testCase name="buttonClickOnline" duration="11"/>
+        <testCase name="buttonClickPresence" duration="8"/>
+    </file>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/Calendar.test.js">
+        <testCase name="Calendar render" duration="340"/>
+        <testCase name="closeModal function" duration="4"/>
+        <testCase name="handleEventClick teacher" duration="51"/>
+        <testCase name="handleEventClick student" duration="4"/>
+        <testCase name="fullLecture click" duration="3"/>
+        <testCase name="updateAttendace" duration="2"/>
+    </file>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/SupportOfficerSchedulePage.test.js">
+        <testCase name="renders SupportOfficerSchedulePage page" duration="71"/>
+        <testCase name="courseMatchesInputId" duration="3"/>
+        <testCase name="courseMatchesInputName" duration="57"/>
+        <testCase name="courseMatchesInputTeacher" duration="3"/>
+        <testCase name="handleOnChangeText" duration="6"/>
+        <testCase name="handle button click" duration="8"/>
     </file>
     <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/LoginForm.test.js">
-        <testCase name="LoginFrom renders correctly" duration="5"/>
-        <testCase name="Input value update on change username" duration="31"/>
-        <testCase name="Input value fail login" duration="49"/>
-        <testCase name="Input value empty input" duration="7"/>
-        <testCase name="Input value login bad credentials" duration="2"/>
-        <testCase name="Input value login error" duration="2"/>
-        <testCase name="Input value prevent default" duration="2"/>
-        <testCase name="Input value redirect to student home" duration="2"/>
-        <testCase name="Input value redirect to teacher home" duration="2"/>
-        <testCase name="Input value redirect to booking-manager home" duration="2"/>
-        <testCase name="Input value redirect to support-officer home" duration="2"/>
-        <testCase name="Input value correct login" duration="1"/>
+        <testCase name="LoginFrom renders correctly" duration="29"/>
+        <testCase name="Input value update on change username" duration="152"/>
+        <testCase name="Input value fail login" duration="24"/>
+        <testCase name="Input value empty input" duration="18"/>
+        <testCase name="Input value login bad credentials" duration="14"/>
+        <testCase name="Input value login error" duration="22"/>
+        <testCase name="Input value prevent default" duration="1"/>
+        <testCase name="Input value redirect to student home" duration="3"/>
+        <testCase name="Input value redirect to teacher home" duration="3"/>
+        <testCase name="Input value redirect to booking-manager home" duration="1"/>
+        <testCase name="Input value redirect to support-officer home" duration="12"/>
+        <testCase name="Input value correct login" duration="2"/>
     </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/CourseUpdateSchedulePage.test.js">
-        <testCase name="renders CourseUpdateSchedulePage page" duration="14"/>
-        <testCase name="onClickNewLecture" duration="3">
-            <failure message="TypeError: instance.onClickNewLecture is not a function"><![CDATA[TypeError: instance.onClickNewLecture is not a function
-    at Object.<anonymous> (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/CourseUpdateSchedulePage.test.js:34:14)
-    at Object.asyncJestTest (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:102:37)
-    at /Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/queueRunner.js:43:12
-    at new Promise (<anonymous>)
-    at mapper (/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/queueRunner.js:26:19)
-    at /Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/node_modules/jest-jasmine2/build/queueRunner.js:73:41
-    at processTicksAndRejections (internal/process/task_queues.js:97:5)]]></failure>
-        </testCase>
-        <testCase name="handleEventClick" duration="6"/>
-        <testCase name="closeDecisionModal" duration="3"/>
-        <testCase name="onClickModifyLecture" duration="19"/>
-        <testCase name="onClickDeleteLecture" duration="55"/>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/TeacherNavigationButton.test.js">
+        <testCase name="render button" duration="12"/>
+        <testCase name="handleClick" duration="3"/>
     </file>
     <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/SupportOfficerPage.test.js">
-        <testCase name="renders SupportOfficerPage page" duration="12"/>
-        <testCase name="switch default case" duration="38"/>
+        <testCase name="renders SupportOfficerPage page" duration="54"/>
+        <testCase name="switch default case" duration="61"/>
+    </file>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/TeacherCalendarPage.test.js">
+        <testCase name="TeacherCalendarPage render" duration="640"/>
     </file>
     <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/API.test.js">
         <testCase name="getTeacherStatistics" duration="3"/>
-        <testCase name="bookASeat" duration="9"/>
-        <testCase name="deleteBooking" duration="2"/>
-        <testCase name="deleteLecture" duration="11"/>
-        <testCase name="changeToOnline" duration="5"/>
-        <testCase name="getAllStudents" duration="1"/>
+        <testCase name="bookASeat" duration="11"/>
+        <testCase name="deleteBooking" duration="1"/>
+        <testCase name="deleteLecture" duration="8"/>
+        <testCase name="changeToOnline" duration="136"/>
+        <testCase name="getAllStudents" duration="2"/>
         <testCase name="getFullLectures" duration="2"/>
-        <testCase name="getCoursesOfTeacher" duration="2"/>
-        <testCase name="getCancellationsStatisticsByLesson" duration="1"/>
-        <testCase name="getCancellationsStatisticsByWeek" duration="1"/>
-        <testCase name="getCancellationsStatisticsByMonth" duration="12"/>
-        <testCase name="getBookingStatisticsByLesson" duration="14"/>
+        <testCase name="getCoursesOfTeacher" duration="3"/>
+        <testCase name="getCancellationsStatisticsByLesson" duration="2"/>
+        <testCase name="getCancellationsStatisticsByWeek" duration="9"/>
+        <testCase name="getCancellationsStatisticsByMonth" duration="2"/>
+        <testCase name="getBookingStatisticsByLesson" duration="2"/>
         <testCase name="getBookingStatisticsByMonth" duration="1"/>
         <testCase name="getBookingStatisticsByWeek" duration="1"/>
         <testCase name="getAllCourses" duration="2"/>
-        <testCase name="getTeacherLectures" duration="1"/>
+        <testCase name="getTeacherLectures" duration="4"/>
         <testCase name="getWaitingBookings" duration="2"/>
-        <testCase name="getStudentBookings" duration="1"/>
-        <testCase name="getBooking" duration="1"/>
-        <testCase name="getBookableStudentLectures" duration="3"/>
-        <testCase name="logout" duration="1"/>
+        <testCase name="getStudentBookings" duration="2"/>
+        <testCase name="getBooking" duration="2"/>
+        <testCase name="getBookableStudentLectures" duration="2"/>
+        <testCase name="logout" duration="2"/>
         <testCase name="userLogin" duration="1"/>
-        <testCase name="getStudentContacts" duration="1"/>
-        <testCase name="setUpClasses" duration="5"/>
-        <testCase name="setUpLectures" duration="7"/>
-        <testCase name="setUpCourses" duration="5"/>
-        <testCase name="setUpProfessors" duration="9"/>
-        <testCase name="setUpStudents" duration="5"/>
-        <testCase name="updateAttendance" duration="1"/>
-        <testCase name="getAllClassrooms" duration="24"/>
-        <testCase name="changeToOnlineByYear" duration="1"/>
-        <testCase name="changeToPresenceByYear" duration="1"/>
+        <testCase name="getStudentContacts" duration="2"/>
+        <testCase name="setUpClasses" duration="6"/>
+        <testCase name="setUpLectures" duration="58"/>
+        <testCase name="setUpCourses" duration="16"/>
+        <testCase name="setUpProfessors" duration="14"/>
+        <testCase name="setUpStudents" duration="7"/>
+        <testCase name="updateAttendance" duration="2"/>
+        <testCase name="getAllClassrooms" duration="26"/>
+        <testCase name="changeToOnlineByYear" duration="3"/>
+        <testCase name="changeToPresenceByYear" duration="2"/>
+        <testCase name="getGeneralSchedule" duration="15"/>
+        <testCase name="updateSchedule" duration="16"/>
     </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/TeacherNavigationButton.test.js">
-        <testCase name="render button" duration="5"/>
-        <testCase name="handleClick" duration="1"/>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/Dropzone.test.js">
+        <testCase name="renders Dropzone page" duration="11"/>
+        <testCase name="render Dropzone with file" duration="4"/>
+        <testCase name="onDrop" duration="30"/>
+        <testCase name="onDrop with undefined onFileAdded" duration="10"/>
+        <testCase name="onDrop with disabled true" duration="3"/>
+        <testCase name="onDragLeave" duration="1"/>
+        <testCase name="onDragOver" duration="16"/>
+        <testCase name="onDragOver disabled true" duration="2"/>
+        <testCase name="onFileAdded" duration="7"/>
+        <testCase name="onFileAdded undefined onFileAdded" duration="21"/>
+        <testCase name="onFileAdded disabled" duration="2"/>
+        <testCase name="openFileDialog" duration="1"/>
+        <testCase name="openFileDialog disabled true" duration="3"/>
+        <testCase name="Show error" duration="1"/>
     </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/ModalTeacher.test.js">
-        <testCase name="Modal render Render with show true" duration="228"/>
-        <testCase name="Modal render Render with show false" duration="3"/>
-        <testCase name="Modal content render" duration="70"/>
-        <testCase name="Modal content render" duration="46"/>
-        <testCase name="Render student list" duration="55"/>
-        <testCase name="Modal close button" duration="40"/>
-        <testCase name="onHide" duration="269"/>
-        <testCase name="Modal delete and changeToOnline buttons" duration="75"/>
-        <testCase name="Modal delete and changeTo button disabled" duration="40"/>
-    </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/TeacherCalendarPage.test.js">
-        <testCase name="TeacherCalendarPage render" duration="255"/>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/TeacherHistoricalDataPage.test.js">
+        <testCase name="renders learn react link" duration="141"/>
+        <testCase name="list of filters starts with &quot;Lecture&quot; active" duration="52"/>
+        <testCase name="updateCourses" duration="52"/>
+        <testCase name="getDataFromServerAndUpdate" duration="100"/>
+        <testCase name="getDataFromServerAndUpdate API error" duration="219"/>
+        <testCase name="handleNewDetailClick and handleNewCourseClick" duration="3"/>
+        <testCase name="updateGraphData" duration="22"/>
+        <testCase name="updateCourses catch error" duration="13"/>
     </file>
     <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/BookingManagerNavButton.test.js">
-        <testCase name="render button" duration="13"/>
-        <testCase name="handleClick" duration="2"/>
-    </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/StudentCalendarPage.test.js">
-        <testCase name="StudentCalendarPage render" duration="332"/>
-    </file>
-    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/TopBar.test.js">
-        <testCase name="TopBar renderer Whit User logged in" duration="25"/>
-        <testCase name="TopBar renderer Without user logged in" duration="2"/>
-        <testCase name="TopBar renderer Render as teacher" duration="5"/>
-        <testCase name="TopBar renderer Render as booking manager" duration="3"/>
-        <testCase name="TopBar renderer Render as support officer" duration="4"/>
-        <testCase name="Logout render Logout render with user logged" duration="11"/>
-        <testCase name="Logout render Logout render without user logged" duration="9"/>
-        <testCase name="Logout button" duration="10"/>
-        <testCase name="Home button for default" duration="7"/>
-        <testCase name="Home button for support-officer" duration="16"/>
+        <testCase name="render button" duration="9"/>
+        <testCase name="handleClick" duration="3"/>
     </file>
     <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/TeacherDataSelectionList.test.js">
-        <testCase name="renders correctly" duration="5"/>
-        <testCase name="item click" duration="5"/>
+        <testCase name="renders correctly" duration="197"/>
+        <testCase name="item click" duration="20"/>
+    </file>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/StudentCalendarPage.test.js">
+        <testCase name="StudentCalendarPage render" duration="965"/>
+    </file>
+    <file path="/Applications/XAMPP/xamppfiles/htdocs/team11-PULSeBS/clientbuild/client/src/__tests__/TopBar.test.js">
+        <testCase name="TopBar renderer Whit User logged in" duration="8"/>
+        <testCase name="TopBar renderer Without user logged in" duration="3"/>
+        <testCase name="TopBar renderer Render as teacher" duration="6"/>
+        <testCase name="TopBar renderer Render as booking manager" duration="4"/>
+        <testCase name="TopBar renderer Render as support officer" duration="4"/>
+        <testCase name="Logout render Logout render with user logged" duration="22"/>
+        <testCase name="Logout render Logout render without user logged" duration="10"/>
+        <testCase name="Logout button" duration="14"/>
+        <testCase name="Home button for default" duration="11"/>
+        <testCase name="Home button for support-officer" duration="16"/>
     </file>
 </unitTest>
