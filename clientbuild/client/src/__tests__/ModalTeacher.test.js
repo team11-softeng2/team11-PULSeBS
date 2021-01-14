@@ -1,6 +1,12 @@
 import React from 'react';
+import TestRenderer from 'react-test-renderer';
 import { render, fireEvent } from '@testing-library/react';
 import ModalTeacher from '../ModalTeacher';
+import { shallow } from 'enzyme';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 
 describe("Modal render", () => {
     test("Render with show true", () => {
@@ -80,7 +86,7 @@ test("Render student list", () => {
         lectureEndTime = {"12:00:00"}
         lectureColor = {""}
         elementId = {1}
-        studentList = {[{idUser:1, name: "Test1"}, {idUser:2, name: "Test2"}]}
+        studentList = {[{idUser:1, name: "Test1", isPresent: 0}, {idUser:2, name: "Test2", isPresent: 1}]}
         closeModal = {closeModalMock}
         dateStart = {new Date("2021-05-05T10:00:00")}
         />);

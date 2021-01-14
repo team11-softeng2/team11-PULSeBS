@@ -6,6 +6,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Table from 'react-bootstrap/Table'
+import Form from 'react-bootstrap/Form'
 
 class ModalTeacher extends React.Component{
 
@@ -93,12 +95,25 @@ class ModalTeacher extends React.Component{
                                 <Card>
                                     <Accordion.Toggle as={Card.Header} eventKey={this.props.elementId}>
                                     Booked students{" "}
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-caret-down-fill arrowIcon" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-caret-down-fill arrowIcon" fill="currentColor" xmlns="https://www.w3.org/2000/svg">
                                         <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                                     </svg>
                                     </Accordion.Toggle>
                                     <Accordion.Collapse eventKey={this.props.elementId}>
-                                    <Card.Body>{this.props.studentList.map((s) => <StudentRow key={s.idUser} name={s.name}/>)  }</Card.Body>
+                                    <Card.Body style={{ padding:0 }}>
+                                        <Table striped bordered hover>
+                                        <thead>
+                                            <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Attendance</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.props.studentList.map((s) => <StudentRow key={s.idUser} name={s.name} idUser={s.idUser} isPresent={s.isPresent} idBooking={s.idBooking} elementId={this.props.elementId} updateAttendance={this.props.updateAttendance}/>)  }
+                                        </tbody>
+                                        </Table>
+                                    </Card.Body>
                                     </Accordion.Collapse>
                                 </Card></div>
                             </Accordion>
@@ -124,7 +139,10 @@ class ModalTeacher extends React.Component{
 }
 
 function StudentRow(props) {
-    return <div>{props.name}</div>
+    return <tr>
+        <td>{props.idUser}</td>
+        <td>{props.name}</td>
+        <td style={{textAlign: 'center'}}><Form.Check type="checkbox" checked={props.isPresent === 1 ? true : false} id={"testCheck"+props.idUser} onChange = {(ev) => props.updateAttendance(props.idBooking, props.elementId)}/></td>
+    </tr>
 }
-
 export default ModalTeacher;

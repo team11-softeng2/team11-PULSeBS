@@ -222,6 +222,46 @@ async function changeToOnline(lectureId) {
     }
 }
 
+async function changeToOnlineByYear(year) {
+    const url = "http://localhost/server/changeToOnlineByYear/" + year;
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: JSON.stringify({
+        }),
+    });
+    const result = await response.json();
+    if (response.ok) {
+        return 1;
+    } else {
+        let err = { status: response.status, errorObj: result };
+        throw err;
+    }
+}
+
+async function changeToPresenceByYear(year) {
+    const url = "http://localhost/server/changeToPresenceByYear/" + year;
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: JSON.stringify({
+        }),
+    });
+    const result = await response.json();
+    if (response.ok) {
+        return 1;
+    } else {
+        let err = { status: response.status, errorObj: result };
+        throw err;
+    }
+}
+
 async function getAllCourses() {
     const url = "http://localhost/server/courses";
 
@@ -239,8 +279,8 @@ async function getAllCourses() {
 }
 
 const ALL_COURSES_FILTER = "L.idCourse";
-async function getBookingStatisticsByMonth(courseIds) {
-    const url = `http://localhost/server/bookingStatistics/?filterTime=year,monthOfYear&filterCourse=${courseIds.toString()}`;
+async function getBookingStatisticsByMonth(courseIds, isAttendance) {
+    const url = `http://localhost/server/bookingStatistics/?filterTime=year,monthOfYear&filterCourse=${courseIds.toString()}${isAttendance ? '&isAttendance=1' : ''}`;
 
     const response = await fetch(url);
     const stats = await response.json();
@@ -254,8 +294,8 @@ async function getBookingStatisticsByMonth(courseIds) {
         throw err;
     }
 }
-async function getBookingStatisticsByWeek(courseIds) {
-    const url = `http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=${courseIds.toString()}`;
+async function getBookingStatisticsByWeek(courseIds, isAttendance) {
+    const url = `http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=${courseIds.toString()}${isAttendance ? '&isAttendance=1' : ''}`;
 
     const response = await fetch(url);
     const stats = await response.json();
@@ -269,8 +309,8 @@ async function getBookingStatisticsByWeek(courseIds) {
         throw err;
     }
 }
-async function getBookingStatisticsByLesson(courseIds) {
-    const url = `http://localhost/server/bookingStatistics/?filterTime=L.idLesson&filterCourse=${courseIds.toString()}`;
+async function getBookingStatisticsByLesson(courseIds, isAttendance) {
+    const url = `http://localhost/server/bookingStatistics/?filterTime=L.idLesson&filterCourse=${courseIds.toString()}${isAttendance ? '&isAttendance=1' : ''}`;
 
     const response = await fetch(url);
     const stats = await response.json();
@@ -362,9 +402,8 @@ async function getFullLectures(studentId) {
     }
 }
 
-async function getTeacherStatistics(teacherId, filterTime, courseIds) {
-    const url = "http://localhost/server/teacherStatistics/" + teacherId + "?filterTime=" + filterTime + `&filterCourse=${courseIds.toString()}`;
-
+async function getTeacherStatistics(teacherId, filterTime, courseIds, isAttendance) {
+    const url = "http://localhost/server/teacherStatistics/" + teacherId + "?filterTime=" + filterTime + `&filterCourse=${courseIds.toString()}` + (isAttendance ? '&isAttendance=1' : '');
     const response = await fetch(url);
 
     /* //if the backend returns an error, this prints the message (instead .json() just fails)
@@ -603,7 +642,7 @@ async function getAllStudents() {
     }
 }
 
-   //  list of people in contact with a student
+//  list of people in contact with a student
 async function getStudentContacts(studentId) {
     const url = "http://localhost/server/findStudentContacts/" + studentId;
 
@@ -620,9 +659,93 @@ async function getStudentContacts(studentId) {
     }
 }
 
+async function updateAttendance(idBooking) {
+    const url = "http://localhost/server/recordStudentPresence/" + idBooking;
+    return new Promise((resolve, reject) => {
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                //'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                ididBooking: idBooking,
+            }),
+        }).then((response) => {
+            if (response.ok) {
+                resolve(0);
+            } else {
+                reject({ errore: "Error in updating student attendance" });
+            }
+        }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) });
+    });
+}
+
+async function getAllClassrooms() {
+    const url = "http://localhost/server/classrooms";
+
+    const response = await fetch(url);
+    const classrooms = await response.json();
+    if (response.ok) {
+        if (classrooms === 0) {
+            return [];
+        }
+        return classrooms;
+    } else {
+        let err = { status: response.status, errorObj: classrooms };
+        throw err;
+    }
+}
+
+async function getGeneralSchedule(idCourse) {
+    const url = "http://localhost/server/findGeneralSchedule/" + idCourse;
+
+    const response = await fetch(url);
+    const schedule = await response.json();
+    if (response.ok) {
+        if (schedule === 0) {
+            return [];
+        }
+        return schedule;
+    } else {
+        let err = { status: response.status, errorObj: schedule };
+        throw err;
+    }
+}
+
+async function updateSchedule(lectureObj, idLesson) {
+    const url = "http://localhost/server/updateSchedule/" + idLesson;
+
+    var bodyToSend = JSON.stringify(lectureObj);
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: bodyToSend,
+    });
+
+    try {
+        const resJ = await response.json();
+        if (response.ok) {
+            return resJ;
+        } else {
+            let err = { status: response.status, errorObj: resJ };
+            throw err;
+        }
+
+    }
+    catch (e) {
+        console.log("Error in POST /updateSchedule: " + e);
+        throw e;
+    }
+}
+
 const API = {
     userLogin, logout, getBookableStudentLectures, getBooking, getStudentBookings, bookASeat, deleteBooking, getTeacherLectures, deleteLecture, changeToOnline, getAllCourses,
     getBookingStatisticsByMonth, getBookingStatisticsByWeek, getBookingStatisticsByLesson, getCancellationsStatisticsByMonth, getCancellationsStatisticsByWeek, getCancellationsStatisticsByLesson, ALL_COURSES_FILTER,
-    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses, getAllStudents, getWaitingBookings, getStudentContacts
+    getCoursesOfTeacher, getFullLectures, getTeacherStatistics, setUpStudents, setUpProfessors, setUpCourses, setUpLectures, setUpClasses, getAllStudents, getWaitingBookings, getStudentContacts, updateAttendance,
+    changeToOnlineByYear, getAllClassrooms, changeToPresenceByYear, getGeneralSchedule, updateSchedule
 };
 export default API;

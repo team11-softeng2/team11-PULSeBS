@@ -10,7 +10,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-test('renders learn react link', () => {
+test('renders BookingManagerPage', () => {
     const tree = TestRenderer.create(<BookingManagerPage/>).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -52,7 +52,7 @@ test('handleSelectionChange', async () => {
   API.getBookingStatisticsByMonth = jest.fn(() => Promise.resolve([{average: 10, monthOfYear: 10, year: 10}, {average: 20, monthOfYear: 20, year: 20}]));
   API.getCancellationsStatisticsByMonth = jest.fn(() => Promise.resolve([{average: 10, monthOfYear: 10, year: 10}, {average: 20, monthOfYear: 20, year: 20}]));
   await instance.handleSelectionChange(3);
-  expect(API.getBookingStatisticsByMonth).toHaveBeenCalledTimes(1);
+  expect(API.getBookingStatisticsByMonth).toHaveBeenCalledTimes(2);
   expect(API.getCancellationsStatisticsByMonth).toHaveBeenCalledTimes(1);
 });
 
@@ -65,3 +65,17 @@ test('updateBookingGraphData', async () => {
   await instance.updateBookingGraphData("test", xArray, yArray, "test");
   expect(instance.state.bookingSeries).not.toBe(undefined);
 });
+
+test('select input onChange event', async () => {
+  API.getAllCourses = jest.fn(() => Promise.resolve([]));
+  const component = shallow(<BookingManagerPage/>);
+  const instance = component.instance();
+  instance.handleSelectionChange = jest.fn();
+  let selectObj = component.find("#testSelect");
+  const event = {
+    preventDefault() {},
+    target: { value: 'test' }
+  };
+  selectObj.simulate('change', event);
+  expect(instance.handleSelectionChange).toHaveBeenCalledTimes(1);
+})

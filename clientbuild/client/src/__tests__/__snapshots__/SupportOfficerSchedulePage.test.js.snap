@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders SupportOfficerSchedulePage page 1`] = `
+<div
+  className="container-fluid"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-3 col"
+    >
+      <form
+        className="mt-3"
+      >
+        <div
+          className="form-group"
+        >
+          <label
+            className="form-label"
+            htmlFor="formCourseName"
+          >
+            Filter courses by name or by teacher's name:
+          </label>
+          <input
+            className="form-control"
+            id="formCourseName"
+            onChange={[Function]}
+            placeholder="Software Engineering"
+            type="text"
+          />
+        </div>
+      </form>
+    </div>
+    <div
+      className="col-8 col"
+    >
+      <table
+        className="mt-3 table table-striped table-bordered table-hover"
+      >
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Id
+            </th>
+            <th>
+              Teacher
+            </th>
+            <th>
+              Action
+            </th>
+          </tr>
+        </thead>
+        <tbody />
+      </table>
+    </div>
+  </div>
+</div>
+`;

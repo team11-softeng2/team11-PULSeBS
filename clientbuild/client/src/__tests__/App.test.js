@@ -191,4 +191,16 @@ describe("get functions", () => {
     expect(instance.getTeacherLectures).toHaveBeenCalledTimes(1);
   });
 
+  test("updateAttendance", async () => {
+    const component = shallow(<App/>);
+    const instance = component.instance();
+    expect(instance.state.loggedin).toBe(false);
+    API.updateAttendance = jest.fn(() => Promise.resolve());
+    instance.setLoggedIn({role: "student", name:"Calogero", idUser: 1});
+    expect(instance.state.loggedin).toBe(true);
+    await instance.updateAttendance(9, true);
+    //expect(API.updateAttendance).toHaveBeenCalledTimes(1);
+    expect();
+  });
+
 })

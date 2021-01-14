@@ -10,9 +10,73 @@ class GatewaysTeacherBooking extends Gateways
         $this->db = $db;
     }
 
+    public function updateSchedule($input)
+    {
+        $count = 0;
+        $sql = "SELECT * FROM lessons WHERE idLesson='" . $input->idLesson . "'";
+        $result = $this->db->query($sql)->fetchArray(SQLITE3_ASSOC);
+        if ($result) {
+            $idCourse = $result['idCourse'];
+
+            $oldDate = $result['date'];
+            $oldBeginTime = $result['beginTime'];
+            $oldEndTime = $result['endTime'];
+            $oldDateObj = new \DateTime($oldDate);
+            $oldDow = $oldDateObj->format('w');
+
+            $newClassroom = $input->idClassroom;
+            $newBeginTime = $input->beginTime;
+            $newEndTime = $input->endTime;
+            $newDow = $input->dow;
+
+            $diff = $newDow - $oldDow; //in days (es. 1 , -2, ecc..)
+
+            //iterate over 52 weeks (ie. 1 year) and get the list of possible dates
+            $possibleDays = array($oldDate);
+            for ($i = 1; $i <= 52; $i++) {
+                $n = $i * 7;
+                \array_push($possibleDays, date('Y-m-d', \strtotime("+$n days", $oldDateObj->getTimestamp())));
+            }
+
+            //select all lessons of that course that might be eligible for update...
+            $sql = "SELECT *
+                    FROM lessons
+                    WHERE   idCourse='" . $idCourse . "' AND
+                            date >= '" . $oldDate . "' AND
+                            beginTime= '" . $oldBeginTime . "' AND
+                            endTime= '" . $oldEndTime . "'";
+            $result = $this->db->query($sql);
+
+            //for each row (ie. lesson)
+            while ($lesson = $result->fetchArray(SQLITE3_ASSOC)) {
+                $oldDate = $lesson['date'];
+                // check if should be updated (ie. (nth-week x N)+7 )
+                if (in_array($oldDate, $possibleDays)) {
+                    $idLesson = $lesson['idLesson'];
+                    $oldDateObj = new \DateTime($oldDate);
+                    $newDate = date('Y-m-d', \strtotime("$diff days", $oldDateObj->getTimestamp()));
+
+                    $sql = "UPDATE lessons
+                            SET idClassRoom='" . $newClassroom . "', date='" . $newDate . "', beginTime='" . $newBeginTime . "', endTime='" . $newEndTime . "'
+                            WHERE idLesson='" . $idLesson . "'";
+                    if ($this->db->exec($sql)) {
+                        $count++;
+                    }
+                }
+            }
+        }
+        return $count;
+    }
+
     public function findBookedStudentsForLecture($id)
     {
-        $sql = "select U.idUser, U.name, B.idBooking from booking B join users U where B.idUser=U.idUser and B.idLesson=" . $id . " and U.role='student' and B.active=1 and B.isWaiting=0;";
+        $sql = "SELECT U.idUser, U.name, B.idBooking, B.present
+                FROM booking B JOIN users U
+                WHERE   B.idUser=U.idUser AND
+                        B.idLesson=$id AND
+                        U.role='student' AND
+                        B.active=1 AND
+                        B.isWaiting=0;";
         $result = $this->db->query($sql);
         $data = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
@@ -20,10 +84,10 @@ class GatewaysTeacherBooking extends Gateways
                 "idUser" => $row['idUser'],
                 "name" => $row['name'],
                 "idBooking" => $row['idBooking'],
+                "isPresent" => $row['present'],
             );
             $data[] = $subArray;
         }
-
         return $this->returnArray($data);
     }
 
@@ -53,14 +117,13 @@ class GatewaysTeacherBooking extends Gateways
             );
             $data[] = $subArray;
         }
-
         return $this->returnArray($data);
     }
 
     public function updateToNotActiveLecture($idLecture)
     {
         if ($this->validateDateBeforeUpdate($idLecture)) {
-            $sqlUpdateLessonTable = "update lessons set active=0 where idLesson=" . $idLecture . "";
+            $sqlUpdateLessonTable = "UPDATE lessons SET active=0 WHERE idLesson=" . $idLecture . "";
             $this->db->exec($sqlUpdateLessonTable);
             $changesLessonTable = $this->db->changes();
             if ($changesLessonTable > 0) {
@@ -76,7 +139,7 @@ class GatewaysTeacherBooking extends Gateways
     public function changeToOnlineLecture($idLecture)
     {
         if ($this->validateDateBeforeUpdateToOnline($idLecture)) {
-            $sqlUpdateLessonTable = "update lessons set inPresence=0 where idLesson=" . $idLecture . "";
+            $sqlUpdateLessonTable = "UPDATE lessons SET inPresence=0 WHERE idLesson=" . $idLecture . "";
             $this->db->exec($sqlUpdateLessonTable);
             $changesLessonTable = $this->db->changes();
             if ($changesLessonTable > 0) {
@@ -86,6 +149,53 @@ class GatewaysTeacherBooking extends Gateways
             }
         } else {
             return -1;
+        }
+    }
+
+    public function changeToOnlineLectureByYear($year)
+    {
+        $sqlUpdateLessonTable = "UPDATE lessons
+                                SET inPresence=0
+                                WHERE idCourse IN   (SELECT c.idCourse
+                                                    FROM lessons as l, courses as c
+                                                    WHERE l.idCourse=c.idCourse AND c.year=$year)";
+        $this->db->exec($sqlUpdateLessonTable);
+        $changesLessonTable = $this->db->changes();
+        if ($changesLessonTable > 0) {
+            return $changesLessonTable;
+        } else {
+            return 0;
+        }
+    }
+
+    public function changeToPresenceLectureByYear($year)
+    {
+        $sqlUpdateLessonTable = "UPDATE lessons
+                                SET inPresence=1
+                                WHERE idCourse IN   (SELECT c.idCourse
+                                                    FROM lessons as l, courses as c
+                                                    WHERE l.idCourse=c.idCourse AND c.year=$year)";
+        $this->db->exec($sqlUpdateLessonTable);
+        $changesLessonTable = $this->db->changes();
+        if ($changesLessonTable > 0) {
+            return $changesLessonTable;
+        } else {
+            return 0;
+        }
+    }
+
+    public function recordStudentPresence($idBooking)
+    {
+        $sqlUpdateLessonTable = "UPDATE booking
+                                SET present=(SELECT ifnull(nullif(1, present), 0)
+                                            WHERE idBooking=$idBooking)
+                                WHERE idBooking=$idBooking";
+        $this->db->exec($sqlUpdateLessonTable);
+        $changesLessonTable = $this->db->changes();
+        if ($changesLessonTable > 0) {
+            return $changesLessonTable;
+        } else {
+            return 0;
         }
     }
 

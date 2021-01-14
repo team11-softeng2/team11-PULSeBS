@@ -17,6 +17,8 @@ class ControllersCourse extends Controllers
         if ($this->requestMethod == "GET") {
             if ($this->value == "courses") {
                 return $this->findCourses();
+            } else if ($this->value == "classrooms") {
+                return $this->findClasses();
             } else {
                 return $this->invalidEndpoint;
             }
@@ -28,6 +30,12 @@ class ControllersCourse extends Controllers
     public function findCourses()
     {
         $courses = $this->gateway->findCourses();
+        return json_encode($courses);
+    }
+
+    public function findClasses()
+    {
+        $courses = $this->gateway->findClasses();
         return json_encode($courses);
     }
 }

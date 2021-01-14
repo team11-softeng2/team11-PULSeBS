@@ -4,6 +4,7 @@ import Dropzone from "./Dropzone"
 import Papa from 'papaparse';
 import API from '../API';
 import SetupResultModal from './SetupResultModal.js'
+import ProgressBar from 'react-bootstrap/ProgressBar'
 
 class SupportOfficerSetupPage extends React.Component {
 
@@ -16,14 +17,16 @@ class SupportOfficerSetupPage extends React.Component {
                 'Students', 'Professors', 'Courses', 'Schedule', 'Enrollemnt', 'Submit'
             ],
             showResultModal: false,
-            setupResult: undefined
+            setupResult: undefined,
+            error: "",
+            loading: undefined,
         };
 
         this.handleNext = this.handleNext.bind(this);
         this.handleBack = this.handleBack.bind(this);
         this.handleReset = this.handleReset.bind(this);
 
-        this.onFileAdded = this.onFileAdded.bind(this);
+        //this.onFileAdded = this.onFileAdded.bind(this);
     }
 
     componentDidMount = () => {
@@ -39,16 +42,23 @@ class SupportOfficerSetupPage extends React.Component {
               this.handleFinish();
             }
         });
-    };
+        this.setState({error: ""});
+    }
 
     handleFinish = async() => {
       try{
         //they have to be called one after the other otherwise the db has concurrency problems
+        this.setState({loading: 0});
         await this.convertAndSendStudents(this.state.files[0]);
+        this.setState({loading: 20});
         await this.convertAndSendTeachers(this.state.files[1]);
+        this.setState({loading: 40});
         await this.convertAndSendCourses(this.state.files[2]);
+        this.setState({loading: 60});
         await this.convertAndSendLectures(this.state.files[3]);
+        this.setState({loading: 80});
         await this.convertAndSendClasses(this.state.files[4]);
+        this.setState({loading: undefined});
 
         console.log('finished all api calls for the setup');
         this.setState({ showResultModal: true, setupResult: true });
@@ -69,7 +79,7 @@ class SupportOfficerSetupPage extends React.Component {
                 var jsonToSend = this.csvDataToJSON(res.data);
 
                 API.setUpClasses(jsonToSend)
-                .then((res) => {
+                .then((res2) => {
                     console.log('set up classes successful');
                     resolve(true);
                 })
@@ -92,7 +102,7 @@ class SupportOfficerSetupPage extends React.Component {
                 var jsonToSend = this.csvDataToJSON(res.data);
 
                 API.setUpStudents(jsonToSend)
-                .then((res) => {
+                .then((res2) => {
                     console.log('set up students successful');
                     resolve(true);
                 })
@@ -115,7 +125,7 @@ class SupportOfficerSetupPage extends React.Component {
                 var jsonToSend = this.csvDataToJSON(res.data);
 
                 API.setUpLectures(jsonToSend)
-                .then((res) => {
+                .then((res2) => {
                     console.log('set up lectures successful');
                     resolve(true);
                 })
@@ -137,7 +147,7 @@ class SupportOfficerSetupPage extends React.Component {
                 //console.log(res.data);
                 var jsonToSend = this.csvDataToJSON(res.data);
                 API.setUpCourses(jsonToSend)
-                .then((res) => {
+                .then((res2) => {
                     console.log('set up Courses successful');
                     resolve(true);
                 })
@@ -159,7 +169,7 @@ class SupportOfficerSetupPage extends React.Component {
                 //console.log(res.data);
                 var jsonToSend = this.csvDataToJSON(res.data);
                 API.setUpProfessors(jsonToSend)
-                .then((res) => {
+                .then((res2) => {
                     console.log('set up teachers successful');
                     resolve(true);
                 })
@@ -199,13 +209,14 @@ class SupportOfficerSetupPage extends React.Component {
         this.setState(prevState => ({
             activeStep: prevState.activeStep - 1
         }));
-    };
+        this.setState({error: ""});
+    }
 
     handleReset() {
         this.setState({
             activeStep: 0
         });
-    };
+    }
 
     getStepContent(stepIndex) {
         switch (stepIndex) {
@@ -226,18 +237,23 @@ class SupportOfficerSetupPage extends React.Component {
         }
     }
 
-    onFileAdded(file) {
+    onFileAdded = async (file) => {
         const activeStep = this.state.activeStep;
         /* replace or add the file */
-        this.setState(prevState=> {
-            for(let f of prevState.files) {
-                /* check the new file is not present in files */
-                if(f !== undefined && file.name === f.name) return ({});
-            }
-            prevState.files[activeStep] = file;
-            return ({ files: prevState.files });
-        })
+        let actual = this.state.files;
+        let res = actual.find((f) => f.name === file.name);
+        if(res !== undefined) {
+            await this.setState({error: "Error: file already uploaded!"});
+        } else {
+            actual[activeStep] = file;
+            await this.setState({error: ""});
+            this.setState({files: actual});
+        }
     }
+
+    setError = (error) => {
+        this.setState({error: error});
+    };
 
     render() {
         return <>
@@ -276,19 +292,28 @@ class SupportOfficerSetupPage extends React.Component {
                 <div className="w-100 d-flex align-items-center h-100" style={{ marginLeft:"128px", marginRigth:"64px" }}>
                     <div>
                         <Dropzone
+                            error={this.state.error}
+                            setError={this.setError}
                             onFileAdded={this.onFileAdded}
                             disabled={this.state.activeStep === this.state.steps.length-1}
                             file={this.state.files[this.state.activeStep]}
                         />
                     </div>
                     <div style={{ marginLeft:"32px" }}>
+                        <h5>File uploaded</h5>
                         {this.state.files.map(file => {
                             return (
-                                <div key={file.name} style={{ height: "50px", padding: "8px", overflow: "hidden" }}>
-                                    <span style={{ marginBottom: "8px", fontSize: "16px", color: "#555", textOverflow: "ellipsis", overflow: "hidden" }}>{file.name}</span>
+                                <div key={file.name} style={{ height: "30px", padding: "5px", overflow: "hidden" }}>
+                                    <span style={{ marginBottom: "5px", fontSize: "16px", color: "#555", textOverflow: "ellipsis", overflow: "hidden" }}>{this.state.steps[this.state.files.indexOf(file)]}: {file.name}</span>
                                 </div>
                             );
                         })}
+                        {this.state.loading === undefined ? null : 
+                        <>
+                        Loading:
+                        <ProgressBar animated now={this.state.loading} />
+                        </>
+                        }
                     </div>
 
                 </div>

@@ -31,7 +31,8 @@ class TeacherHistoricalDataPage extends React.Component {
                     </Col>
 
                     <Col className='col-8 mt-3'>
-                        {this.state.series !== undefined && <ApexChart options={this.state.options} series={this.state.series} type="bar" height={700} />}
+                        {this.state.series !== undefined &&
+                            <ApexChart options={this.state.options} series={this.state.series} type="area" height={700} />}
                     </Col>
 
                     <Col className='col-2 mt-3'>
@@ -66,76 +67,79 @@ class TeacherHistoricalDataPage extends React.Component {
         if (this.state.currentDetail === 'Lecture') {
             var currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
 
-            API.getTeacherStatistics(this.props.teacherId, 'L.idLesson', currentCourseId)
-                .then((res) => {
-                    //console.log(res)
-                    var numberOfBookingsArray = res.map(d => d.numberBookings)
-                    var lectureDatesArray = res.map(d => d.dateLecture)
+            Promise.all([
+                API.getTeacherStatistics(this.props.teacherId, 'L.idLesson', currentCourseId, false),
+                API.getTeacherStatistics(this.props.teacherId, 'L.idLesson', currentCourseId, true), // attendance
+            ])
+                .then((results) => {
+                    var numberOfBookingsArray = results[0].map(d => d.numberBookings)
+                    var numberOfAttendancesArray = results[1].map(d => d.numberBookings);
+                    var lectureDatesArray = results[0].map(d => d.dateLecture);
 
                     this.updateGraphData(
-                        [{
-                            name: 'Bookings',
-                            data: numberOfBookingsArray
-                        }],
+                        numberOfBookingsArray,
+                        numberOfAttendancesArray,
                         lectureDatesArray,
                         'Number of bookings',
                         'Bookings',
                         'Number of bookings per single lecture'
                     );
                 })
-                .catch((err) => {
+                .catch((errors) => {
                     console.log('error in getting statistics by lesson from server');
-                    console.log(err);
+                    console.log(errors[0]);
                 });
         }
         else if (this.state.currentDetail === 'Week') {
             currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
 
-            API.getTeacherStatistics(this.props.teacherId, 'year_month_week', currentCourseId)
-                .then((res) => {
-                    //console.log(res)
-                    var avgNumberOfBookingsArray = res.map(d => d.average)
-                    var weekOfYear = res.map(d => moment().week(d.weekOfYear).year(d.year).format('YYYY-MM-DD'))
+            Promise.all([
+                API.getTeacherStatistics(this.props.teacherId, 'year_month_week', currentCourseId, false),
+                API.getTeacherStatistics(this.props.teacherId, 'year_month_week', currentCourseId, true), // attendance
+            ])
+                .then((results) => {
+                    var avgNumberOfBookingsArray = results[0].map(d => d.average);
+                    var avgNumberOfAttendancesArray = results[1].map(d => d.average);
+                    var weekOfYear = results[0].map(d => moment().week(d.weekOfYear).year(d.year).format('YYYY-MM-DD'));
 
                     this.updateGraphData(
-                        [{
-                            name: 'Bookings',
-                            data: avgNumberOfBookingsArray
-                        }],
+                        avgNumberOfBookingsArray,
+                        avgNumberOfAttendancesArray,
                         weekOfYear,
                         'Average number of bookings',
                         'Bookings (average)',
                         'Average number of bookings per week'
                     );
                 })
-                .catch((err) => {
+                .catch((errors) => {
                     console.log('error in getting statistics by week from server');
-                    console.log(err);
+                    console.log(errors[0]);
                 });
         }
         else if (this.state.currentDetail === 'Month') {
             currentCourseId = this.state.courses.filter(c => c.courseName === this.state.currentCourse)[0].idCourse;
 
-            API.getTeacherStatistics(this.props.teacherId, 'year,monthOfYear', currentCourseId)
-                .then((res) => {
-                    //console.log(res)
-                    var avgNumberOfBookingsArray = res.map(d => d.average.toFixed(2))
-                    var monthOfYear = res.map(d => moment().week(d.monthOfYear).year(d.year).format('YYYY-MM'))
+            Promise.all([
+                API.getTeacherStatistics(this.props.teacherId, 'year,monthOfYear', currentCourseId, false),
+                API.getTeacherStatistics(this.props.teacherId, 'year,monthOfYear', currentCourseId, true), // attendance
+            ])
+                .then((results) => {
+                    var avgNumberOfBookingsArray = results[0].map(d => d.average.toFixed(2));
+                    var avgNumberOfAttendancesArray = results[1].map(d => d.average.toFixed(2));
+                    var monthOfYear = results[0].map(d => moment().week(d.monthOfYear).year(d.year).format('YYYY-MM'))
 
                     this.updateGraphData(
-                        [{
-                            name: 'Bookings',
-                            data: avgNumberOfBookingsArray
-                        }],
+                        avgNumberOfBookingsArray,
+                        avgNumberOfAttendancesArray,
                         monthOfYear,
                         'Average number of bookings',
                         'Bookings (average)',
                         'Average number of bookings per month'
                     );
                 })
-                .catch((err) => {
+                .catch((errors) => {
                     console.log('error in getting statistics by month from server');
-                    console.log(err);
+                    console.log(errors[0]);
                 });
         }
     }
@@ -152,9 +156,18 @@ class TeacherHistoricalDataPage extends React.Component {
         });
     }
 
-    updateGraphData = (series, xlabel, ytitle, tooltip, title) => {
+    updateGraphData = (bookingSeries, attendanceSeries, xlabel, ytitle, tooltip, title) => {
         this.setState({
-            series: series,
+            series: [
+                {
+                    name: 'Booking',
+                    data: bookingSeries
+                },
+                {
+                    name: 'Attendance',
+                    data: attendanceSeries
+                }
+            ],
             options: {
                 plotOptions: {
                     bar: {

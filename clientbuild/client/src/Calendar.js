@@ -26,6 +26,14 @@ class Calendar extends React.Component{
         this.setState({showModal: false});
     }
 
+    updateAttendance = (idBooking) => {
+      this.props.updateAttendance(idBooking);
+      let current = this.state.studentList;
+      let element = current.find((student) => student.idBooking === idBooking);
+      current[current.indexOf(element)].isPresent = current[current.indexOf(element)].isPresent === 0 ? 1 : 0;
+      this.setState({studentList: current});
+    }
+
     render(){
         return <>
             <FullCalendar
@@ -79,6 +87,7 @@ class Calendar extends React.Component{
                 changeToOnline = {this.props.changeToOnline}
                 lectureColor = {this.state.lectureColor}
                 dateStart = {new Date(this.state.lectureDate + "T" + this.state.lectureBeginTime)}
+                updateAttendance = {this.updateAttendance}
                 />
             }
             

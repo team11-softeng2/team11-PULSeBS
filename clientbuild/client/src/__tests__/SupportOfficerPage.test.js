@@ -14,3 +14,16 @@ test('renders SupportOfficerPage page', () => {
     const tree = TestRenderer.create(<SupportOfficerPage/>).toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+test("switch default case", async () => {
+    const component = shallow(<SupportOfficerPage/>);
+    const instance = component.instance();
+    instance.setState({options:  [
+      { id: 0, name: "Setup", path: "/setup" },
+      { id: 1, name: "Update schedule of courses", path: "/updateSchedule" },
+      { id: 2, name: "Update bookable lectures", path: "/updateBookable" },
+      { id: 3, name: "Test", path: "/test" }
+  ]});
+    component.render();
+    expect(instance.state.options[3].id).toBe(3);
+});

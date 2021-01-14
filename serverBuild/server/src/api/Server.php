@@ -49,6 +49,16 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersStudentBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
             echo $controller->processRequest();
             break;
+        case "updateSchedule/$number":
+            if ($_SERVER['REQUEST_METHOD'] != "OPTIONS") {
+                $value = "updateSchedule";
+                $id = $number;
+                $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value);
+                echo $controller->processRequest();
+                $gatewayNotification = new Server\api\GatewaysNotification($dbConn);
+                $gatewayNotification->sendEmail('lectureScheduleChange', $id);
+            }
+            break;
         case "bookedStudentsForLecture/$number":
             $value = "bookedStudentsForLecture";
             $id = $number;
@@ -68,6 +78,11 @@ if (isset($_GET['url'])) {
             break;
         case "courses":
             $value = "courses";
+            $controller = new Server\api\ControllersCourse($_SERVER['REQUEST_METHOD'], $dbConn, $value);
+            echo $controller->processRequest();
+            break;
+        case "classrooms":
+            $value = "classrooms";
             $controller = new Server\api\ControllersCourse($_SERVER['REQUEST_METHOD'], $dbConn, $value);
             echo $controller->processRequest();
             break;
@@ -105,12 +120,25 @@ if (isset($_GET['url'])) {
             $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
             echo $controller->processRequest();
             break;
+        case "changeToOnlineByYear/$number":
+            $value = "changeToOnlineByYear";
+            $id = $number;
+            $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
+            echo $controller->processRequest();
+            break;
+        case "changeToPresenceByYear/$number":
+            $value = "changeToPresenceByYear";
+            $id = $number;
+            $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
+            echo $controller->processRequest();
+            break;
         case "bookingStatistics":
             $value = "bookingStatistics";
             $filterCourse = $_GET['filterCourse'];
             $filterTime = $_GET['filterTime'] == "" ? "L.idLesson" : $_GET['filterTime'];
             $active = !(isset($_GET['type'])) || $_GET['type'] == "" ? "1" : $_GET['type'];
-            $controller = new Server\api\ControllersHistoricalData($_SERVER['REQUEST_METHOD'], $dbConn, $value, $filterTime, $filterCourse, $active);
+            $isAttendanceStats = !(isset($_GET['isAttendance'])) || $_GET['isAttendance'] == "" ? "0" : $_GET['isAttendance'];
+            $controller = new Server\api\ControllersHistoricalData($_SERVER['REQUEST_METHOD'], $dbConn, $value, $filterTime, $filterCourse, $active, -1, $isAttendanceStats);
             echo $controller->processRequest();
             break;
         case "teacherStatistics/$number":
@@ -119,7 +147,8 @@ if (isset($_GET['url'])) {
             $filterCourse = $_GET['filterCourse'];
             $filterTime = $_GET['filterTime'] == "" ? "L.idLesson" : $_GET['filterTime'];
             $active = !(isset($_GET['type'])) || $_GET['type'] == "" ? "1" : $_GET['type'];
-            $controller = new Server\api\ControllersHistoricalData($_SERVER['REQUEST_METHOD'], $dbConn, $value, $filterTime, $filterCourse, $active, $idTeacher);
+            $isAttendanceStats = !(isset($_GET['isAttendance'])) || $_GET['isAttendance'] == "" ? "0" : $_GET['isAttendance'];
+            $controller = new Server\api\ControllersHistoricalData($_SERVER['REQUEST_METHOD'], $dbConn, $value, $filterTime, $filterCourse, $active, $idTeacher, $isAttendanceStats);
             echo $controller->processRequest();
             break;
         case "setUpCourses":
@@ -151,6 +180,18 @@ if (isset($_GET['url'])) {
             $value = "findStudentContacts";
             $idStudent = $number;
             $controller = new Server\api\ControllersReportTracing($_SERVER['REQUEST_METHOD'], $dbConn, $value, $idStudent);
+            echo $controller->processRequest();
+            break;
+        case "recordStudentPresence/$number":
+            $value = "recordStudentPresence";
+            $idBooking = $number;
+            $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $idBooking);
+            echo $controller->processRequest();
+            break;
+        case "findGeneralSchedule/$number":
+            $value = 'findGeneralSchedule';
+            $idCourse = $number;
+            $controller = new Server\api\ControllersSupportOfficer($_SERVER['REQUEST_METHOD'], $dbConn, $value, $idCourse);
             echo $controller->processRequest();
             break;
         default:

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders learn react link 1`] = `
+exports[`renders BookingManagerPage 1`] = `
 <div
   className="container-fluid"
 >
@@ -12,6 +12,7 @@ exports[`renders learn react link 1`] = `
   </h1>
   <div
     className="col-4 mx-auto my-4 css-2b097c-container"
+    id="testSelect"
     onKeyDown={[Function]}
   >
     <div

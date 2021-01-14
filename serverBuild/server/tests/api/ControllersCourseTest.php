@@ -11,7 +11,6 @@ class ControllersCourseTest extends TestCase
         $this->db = new SQLite3("./tests/dbCourses.db");
     }
 
-    //get courses ok
     public function testGetAListOfValidCoures()
     {
         $this->restoreDB();
@@ -28,6 +27,26 @@ class ControllersCourseTest extends TestCase
         $result = $this->controller->processRequest();
         $this->assertEquals(0, $result);
         $this->restoreDB();
+    }
+
+    public function testGetAListOfValidClasses()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->restoreDBclassroom();
+        $this->controller = new Server\api\ControllersCourse("GET", $this->db, "classrooms");
+        $result = $this->controller->processRequest();
+        $this->assertIsArray(json_decode($result));
+        $this->assertCount(8, json_decode($result));
+    }
+
+    public function testGetAEmptyListOfClasses()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->emptyDBclassroom();
+        $this->controller = new Server\api\ControllersCourse("GET", $this->db, "classrooms");
+        $result = $this->controller->processRequest();
+        $this->assertEquals(0, $result);
+        $this->restoreDBclassroom();
     }
 
     public function testUseWrongMethod()
@@ -63,6 +82,27 @@ class ControllersCourseTest extends TestCase
                 ('5', '12', 'Computer Science'),
                 ('6', '13', 'Operating Systems'),
                 ('7', '13', 'Human computer interaction');";
+        $this->db->exec($sql);
+    }
+
+    protected function emptyDBclassroom()
+    {
+        $sql = "DELETE FROM ClassRoom";
+        $this->db->exec($sql);
+    }
+
+    protected function restoreDBclassroom()
+    {
+        $sql = "DELETE FROM ClassRoom;
+                INSERT INTO ClassRoom (idClassRoom, totalSeats, room) VALUES
+                ('1', '120', '1'),
+                ('2', '120', '2'),
+                ('3', '80', '3'),
+                ('4', '80', '4'),
+                ('5', '70', '5'),
+                ('6', '70', '6'),
+                ('7', '50', '7'),
+                ('8', '1', '8');";
         $this->db->exec($sql);
     }
 }

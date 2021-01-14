@@ -37,8 +37,19 @@ Each endpoint is preceded by /server/src/api/
 3. [{"name":"Algebra","date":"2020-11-15","beginTime":"11:00:00","endTime":"13:00:00"},{"name":"Geometria","date":"2020-11-17","beginTime":"14:00:00","endTime":"16:00:00"},{"name":"Geometria","date":"2020-11-18","beginTime":"14:00:00","endTime":"16:00:00"}]
 
 - GET `/lecturesWithFullRoom/:studentId`
+
   - Params: studentId
   - Response: List of lectures of the student that have the classroom full
+
+- POST `/updateSchedule`
+
+  - Body: { "idLesson", "idClassroom", "dow", "beginTime", "endTime" }
+  - Response: returns the number of lessons' schedules modified
+
+- Body Examples :
+
+1. {"idLesson":"0", "idClassroom":"99", "dow":"4", "beginTime":"08:30", "endTime":"20:30"}
+2. {"idLesson":"889", "idClassroom":"3", "dow":"1", "beginTime":"10:30", "endTime":"12:00"}
 
 ## Bookings
 
@@ -70,16 +81,32 @@ Each endpoint is preceded by /server/src/api/
 - PUT `/deleteLecture/:lectureId`
 
   - Params: lectureId
-  - Response: number of rows changed inside lesson table(should be always one)
+  - Response: number of rows changed inside lesson table (should be always one)
 
 - PUT `/changeToOnline/:lectureId`
 
   - Params: lectureId
-  - Response: number of rows changed inside lesson table(should be always one)
+  - Response: number of rows changed inside lesson table (should be always one)
+
+- PUT `/changeToOnlineByYear/:year`
+
+  - Params: year
+  - Response: number of rows changed inside lesson table
+
+- PUT `/changeToPresenceByYear/:year`
+
+  - Params: year
+  - Response: number of rows changed inside lesson table
+
+- PUT `/recordStudentPresence/:idBooking`
+
+  - Params: bookingId
+  - Response: number of rows changed inside booking table
+  - Result: flips (0 to 1 and viceversa) the `present` flag of the given bookingId
 
   ## Statistics
 
-- GET `/bookingStatistics?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}
+- GET `/bookingStatistics?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}`&isAttendance=`{_value_}
 
   - Params:
 
@@ -96,15 +123,18 @@ Each endpoint is preceded by /server/src/api/
       Example: filterCourse=1,2,5
     - {_value_} for type key is an optional parameter.
       If you want cancellation stats you need to set it to 0, otherwise defaults to 1 (ie. stats will be about active lectures).
+    - {_value_} for isAttendance is optional parameter.
+      If you want attendance stats you need to set it to 1, otherwise default to 0 (do not set type in the url)
 
   - Example urls:
 
     - bookings: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
     - cancellation: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5&type=0`
+    - attendance: `/bookingStatistics?filterTime=year,monthOfYear&filterCourse=L.idCourse&isAttendance=1`
 
   - Response: statistics list of bookings filtered by filterTime and filterCourse
 
-- GET `/teacherStatistics/:teacherId?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}
+- GET `/teacherStatistics/:teacherId?filterTime=`{_value_}`&filterCourse=`{_value_}`&type=`{_value_}`&isAttendance=`{_value_}
 
   - Params:
 
@@ -122,11 +152,14 @@ Each endpoint is preceded by /server/src/api/
       Example: filterCourse=1,2,5
     - {_value_} for type key is an optional parameter.
       If you want cancellation stats you need to set it to 0, otherwise defaults to 1 (ie. stats will be about active lectures).
+      - {_value_} for isAttendance is optional parameter.
+        If you want attendance stats you need to set it to 1, otherwise default to 0 (do not set type in the url)
 
   - Example urls:
 
     - bookings: `/teacherStatistics/2?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5`
     - cancellation: `/teacherStatistics/:teacherId?filterTime=year,monthOfYear&filterCourse=1,2,3,4,5&type=0`
+    - attendance: `/teacherStatistics/d9001?filterTime=year,monthOfYear&filterCourse=L.idCourse&isAttendance=1`
 
   - Response: statistics list of bookings for the given teacher, filtered by filterTime and filterCourse
 
@@ -162,6 +195,9 @@ Each endpoint is preceded by /server/src/api/
 
 ## Support Officer
 
+- GET `/findGeneralSchedule/:idCourse`
+  - Params: idCourse
+  - Response: List of lectures of the current week
 - POST `/setUpCourses`
   - Body: parsed CSV of Courses into JSON
   - Response: return 1 or 0 (errors)

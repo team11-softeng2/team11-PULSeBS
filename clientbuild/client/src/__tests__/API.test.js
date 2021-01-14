@@ -9,10 +9,10 @@ test("getTeacherStatistics", async () => {
       json: () => mockJsonPromise,
     });
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
-    let data = await API.getTeacherStatistics(2, 'L.idLesson', 2);
+    let data = await API.getTeacherStatistics(2, 'L.idLesson', 2, 1);
     expect(data.length).toBeGreaterThanOrEqual(0);
     expect(global.fetch).toHaveBeenCalledTimes(1);
-
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/teacherStatistics/2?filterTime=L.idLesson&filterCourse=2&isAttendance=1');
     //Return array result
     const mockSuccessResponse2 = [];
     const mockJsonPromise2 = Promise.resolve(mockSuccessResponse2);
@@ -25,7 +25,6 @@ test("getTeacherStatistics", async () => {
     expect(data.length).toBeGreaterThanOrEqual(0);
     expect(global.fetch).toHaveBeenCalledTimes(2);
     global.fetch.mockClear();
-
     const mockSuccessResponse3 = [];
     const mockJsonPromise3 = Promise.resolve(mockSuccessResponse3);
     const mockFetchPromise3 = Promise.resolve({
@@ -482,9 +481,9 @@ test("getBookingStatisticsByLesson", async () => {
       json: () => mockJsonPromise,
     });
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
-    let data = await API.getBookingStatisticsByLesson(1);
+    let data = await API.getBookingStatisticsByLesson(1,1);
     expect(global.fetch).toHaveBeenCalledTimes(1);
-    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/bookingStatistics/?filterTime=L.idLesson&filterCourse=1');
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/bookingStatistics/?filterTime=L.idLesson&filterCourse=1&isAttendance=1');
     expect(data.length).toBe(2);
     global.fetch.mockClear();
 
@@ -574,9 +573,9 @@ test("getBookingStatisticsByWeek", async () => {
       json: () => mockJsonPromise,
     });
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
-    let data = await API.getBookingStatisticsByWeek(1);
+    let data = await API.getBookingStatisticsByWeek(1, 1);
     expect(global.fetch).toHaveBeenCalledTimes(1);
-    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=1');
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/bookingStatistics/?filterTime=year_month_week&filterCourse=1&isAttendance=1');
     expect(data.length).toBe(2);
     global.fetch.mockClear();
 
@@ -1260,6 +1259,253 @@ test("setUpStudents", async () => {
     jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise3);
     try {
         await API.setUpStudents({test: "test"});
+        expect(true).toBe(false);
+    } catch(e) {
+        global.fetch.mockClear();
+        expect(true).toBe(true);
+    }
+});
+
+test("updateAttendance", async () => {
+    const mockSuccessResponse = 1;
+    const mockJsonPromise = Promise.resolve(mockSuccessResponse);
+    const mockFetchPromise = Promise.resolve({
+        ok: true,
+      json: () => mockJsonPromise,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    await API.updateAttendance(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/recordStudentPresence/1');
+    global.fetch.mockClear();
+
+    const mockSuccessResponse2 = 0;
+    const mockJsonPromise2 = Promise.resolve(mockSuccessResponse2);
+    const mockFetchPromise2 = Promise.resolve({
+        ok: false,
+      json: () => mockJsonPromise2,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise2);
+    try {
+        await API.updateAttendance(1);
+        expect(true).toBe(false);
+    } catch(e) {
+        global.fetch.mockClear();
+        expect(true).toBe(true);
+    }
+
+    const mockSuccessResponse3 = 0;
+    const mockJsonPromise3 = Promise.resolve(mockSuccessResponse3);
+    const mockFetchPromise3 = Promise.reject({
+        ok: false,
+      json: () => mockJsonPromise3,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise3);
+    try {
+        await API.updateAttendance(1);
+        expect(true).toBe(false);
+    } catch(e) {
+        global.fetch.mockClear();
+        expect(true).toBe(true);
+    }
+});
+
+test("getAllClassrooms", async () => {
+    //Return array
+    const mockSuccessResponse = ["test1", "test2"];
+    const mockJsonPromise = Promise.resolve(mockSuccessResponse);
+    const mockFetchPromise = Promise.resolve({
+        ok: true,
+      json: () => mockJsonPromise,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    let data = await API.getAllClassrooms();
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/classrooms');
+    expect(data.length).toBe(2);
+    global.fetch.mockClear();
+
+    //API error
+    const mockSuccessResponse2 = 0;
+    const mockJsonPromise2 = Promise.resolve(mockSuccessResponse2);
+    const mockFetchPromise2 = Promise.resolve({
+        ok: false,
+      json: () => mockJsonPromise2,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise2);
+    try {
+        await API.getAllClassrooms();
+        expect(true).toBe(false);
+    } catch(e) {
+        global.fetch.mockClear();
+        expect(true).toBe(true);
+    }
+    
+    //Return 0
+    const mockSuccessResponse3 = 0;
+    const mockJsonPromise3 = Promise.resolve(mockSuccessResponse3);
+    const mockFetchPromise3 = Promise.resolve({
+        ok: true,
+        json: () => mockJsonPromise3,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise3);
+    let data2 = await API.getAllClassrooms();
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/classrooms');
+    expect(data2).toStrictEqual([]);
+    global.fetch.mockClear();
+});
+
+test("changeToOnlineByYear", async () => {
+    const mockSuccessResponse = 1;
+    const mockJsonPromise = Promise.resolve(mockSuccessResponse);
+    const mockFetchPromise = Promise.resolve({
+        ok: true,
+      json: () => mockJsonPromise,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    await API.changeToOnlineByYear(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/changeToOnlineByYear/1');
+    global.fetch.mockClear();
+
+    const mockSuccessResponse2 = 0;
+    const mockJsonPromise2 = Promise.resolve(mockSuccessResponse2);
+    const mockFetchPromise2 = Promise.resolve({
+        ok: true,
+      json: () => mockJsonPromise2,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise2);
+    await API.changeToOnlineByYear(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/changeToOnlineByYear/1');
+    global.fetch.mockClear();
+
+    const mockSuccessResponse3 = 0;
+    const mockJsonPromise3 = Promise.resolve(mockSuccessResponse3);
+    const mockFetchPromise3 = Promise.resolve({
+        ok: false,
+      json: () => mockJsonPromise3,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise3);
+    try {
+        await API.changeToOnlineByYear(1);
+        expect(true).toBe(false);
+    } catch(e) {
+        global.fetch.mockClear();
+        expect(true).toBe(true);
+    }
+});
+
+test("changeToPresenceByYear", async () => {
+    const mockSuccessResponse = 1;
+    const mockJsonPromise = Promise.resolve(mockSuccessResponse);
+    const mockFetchPromise = Promise.resolve({
+        ok: true,
+      json: () => mockJsonPromise,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    await API.changeToPresenceByYear(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/changeToPresenceByYear/1');
+    global.fetch.mockClear();
+
+    const mockSuccessResponse2 = 0;
+    const mockJsonPromise2 = Promise.resolve(mockSuccessResponse2);
+    const mockFetchPromise2 = Promise.resolve({
+        ok: true,
+      json: () => mockJsonPromise2,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise2);
+    await API.changeToPresenceByYear(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/changeToPresenceByYear/1');
+    global.fetch.mockClear();
+
+    const mockSuccessResponse3 = 0;
+    const mockJsonPromise3 = Promise.resolve(mockSuccessResponse3);
+    const mockFetchPromise3 = Promise.resolve({
+        ok: false,
+      json: () => mockJsonPromise3,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise3);
+    try {
+        await API.changeToPresenceByYear(1);
+        expect(true).toBe(false);
+    } catch(e) {
+        global.fetch.mockClear();
+        expect(true).toBe(true);
+    }
+});
+
+test("getGeneralSchedule", async () => {
+    //Return array
+    const mockSuccessResponse = ["test1", "test2"];
+    const mockJsonPromise = Promise.resolve(mockSuccessResponse);
+    const mockFetchPromise = Promise.resolve({
+        ok: true,
+      json: () => mockJsonPromise,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    let data = await API.getGeneralSchedule(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/findGeneralSchedule/1');
+    expect(data.length).toBe(2);
+    global.fetch.mockClear();
+
+    //API error
+    const mockSuccessResponse2 = 0;
+    const mockJsonPromise2 = Promise.resolve(mockSuccessResponse2);
+    const mockFetchPromise2 = Promise.resolve({
+        ok: false,
+      json: () => mockJsonPromise2,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise2);
+    try {
+        await API.getGeneralSchedule(1);
+        expect(true).toBe(false);
+    } catch(e) {
+        global.fetch.mockClear();
+        expect(true).toBe(true);
+    }
+    
+    //Return 0
+    const mockSuccessResponse3 = 0;
+    const mockJsonPromise3 = Promise.resolve(mockSuccessResponse3);
+    const mockFetchPromise3 = Promise.resolve({
+        ok: true,
+        json: () => mockJsonPromise3,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise3);
+    let data2 = await API.getGeneralSchedule(1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/findGeneralSchedule/1');
+    expect(data2).toStrictEqual([]);
+    global.fetch.mockClear();
+});
+
+test("updateSchedule", async () => {
+    const mockSuccessResponse = 0;
+    const mockJsonPromise = Promise.resolve(mockSuccessResponse);
+    const mockFetchPromise = Promise.resolve({
+        ok: true,
+      json: () => mockJsonPromise,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise);
+    await API.updateSchedule({lectureId: 1},1);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch.mock.calls[0][0]).toBe('http://localhost/server/updateSchedule/1');
+    global.fetch.mockClear();
+
+    const mockSuccessResponse2 = 0;
+    const mockJsonPromise2 = Promise.resolve(mockSuccessResponse2);
+    const mockFetchPromise2 = Promise.resolve({
+        ok: false,
+      json: () => mockJsonPromise2,
+    });
+    jest.spyOn(global, 'fetch').mockImplementation(() => mockFetchPromise2);
+    try {
+        await API.updateSchedule({lectureId: 1});
         expect(true).toBe(false);
     } catch(e) {
         global.fetch.mockClear();

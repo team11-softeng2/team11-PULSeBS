@@ -10,7 +10,8 @@ class SupportOfficerPage extends React.Component {
         this.state = {
             options: [
                 { id: 0, name: "Setup", path: "/setup" },
-                { id: 1, name: "Other operations...", path: "/todo" },
+                { id: 1, name: "Update schedule of courses", path: "/updateSchedule" },
+                { id: 2, name: "Update bookable lectures", path: "/updateBookable" }
                 /*{ code: 3, name: "Other"},
                 { code: 4, name: "Other" },
                 { code: 5, name: "Other" },
@@ -52,6 +53,8 @@ const CardButton = (props) => {
             case 0:
                 return <FaTools size={32} className="mt-3 mb-4" />
             case 1:
+                return <FaEdit size={32} className="mt-3 mb-4" />
+            case 2:
                 return <FaEdit size={32} className="mt-3 mb-4" />
             default:
                 break;

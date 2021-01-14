@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Alert from 'react-bootstrap/Alert'
 import { FaFileUpload, FaFileAlt } from "react-icons/fa";
 import './Dropzone.css'
 
@@ -28,9 +29,10 @@ class Dropzone extends Component {
         if (this.props.disabled) return;
         if (event.target.files.length > 0) {
             const file = event.target.files[0];
-
             if (this.props.onFileAdded) {
                 this.props.onFileAdded(file);
+                if(document.getElementById("uploadCaptureInputFile"))
+                    document.getElementById("uploadCaptureInputFile").value = "";
             }
         }
     }
@@ -54,6 +56,9 @@ class Dropzone extends Component {
                 if (this.props.onFileAdded) {
                     this.props.onFileAdded(file);
                 }
+                this.props.setError("");
+            } else {
+                this.props.setError("Wrong file extension.");
             }
         }
         this.setState({ highlight: false });
@@ -70,6 +75,7 @@ class Dropzone extends Component {
                 style={{ cursor: this.props.disabled ? "default" : "pointer" }}
             >
                 <input
+                    id="uploadCaptureInputFile"
                     ref={this.fileInputRef}
                     className="FileInput"
                     type="file"
@@ -84,6 +90,7 @@ class Dropzone extends Component {
                 }
                 <span className="Filename">{this.props.file !== undefined ? this.props.file.name : "Choose a file"}</span>
             </div>
+            { this.props.error !== "" ? <Alert variant={"danger"} style={{ marginTop: 10 }}>{this.props.error ? this.props.error : this.state.error}</Alert> : null }
         </>
     }
 }

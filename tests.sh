@@ -47,14 +47,7 @@ else
     read answer
     if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then 
         cd $project_path
-        echo Are you Calogero?Y/N
-        read answer
-        if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then
-            source /etc/environment
-            sonar-scanner
-        else
-            sonar-scanner
-        fi
+        sonar-scanner
     fi
     exit 0
 fi

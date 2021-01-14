@@ -33,9 +33,10 @@ class GatewaysNotification extends Gateways
                 $queue = $this->takenFromWaitingList($id);
                 return $this->dispatch($queue);
                 break;
-            // case 'lectureScheduleChange':
-            //     return "To be implemented...";
-            //     break;
+            case 'lectureScheduleChange':
+                $queue = $this->lectureScheduleChange($id);
+                return $this->dispatch($queue);
+                break;
             default:
                 return 0;
                 break;
@@ -139,6 +140,18 @@ class GatewaysNotification extends Gateways
         return $this->returnData($sql, "Taken From Waiting List");
     }
 
+    private function lectureScheduleChange($id)
+    {
+        $sql = "SELECT u.email, u.name as userName, c.name as courseName, l.date, l.beginTime
+                FROM booking as b, users as u, courses as c, lessons as l
+                WHERE   b.idLesson=$id AND
+                        u.idUser=b.idUser AND
+                        c.idCourse=l.idCourse AND
+                        l.idLesson=b.idLesson AND
+                        b.isWaiting=0 AND b.active=1";
+        return $this->returnData($sql, "Lecture Schedule Change");
+    }
+
     private function returnData($sql, $subject)
     {
         $result = $this->db->query($sql);
@@ -157,6 +170,9 @@ class GatewaysNotification extends Gateways
                     break;
                 case 'Taken From Waiting List':
                     $body = "<p>Hi " . $row['userName'] . ",</p><p>someone cancelled his reservation for the lecture of " . $row['courseName'] . ", scheduled for " . $row['date'] . " at " . $row['beginTime'] . ".<p>Therefore, <b>you have been taken from the waiting list</b> and <b>your previous booking is now confirmed</b>.</p>" . $this->signature;
+                    break;
+                case 'Lecture Schedule Change':
+                    $body = "<p>Hi " . $row['userName'] . ",</p><p>the <b>schedule</b> for the lecture of " . $row['courseName'] . " has <b>changed</b>.</p><p>The lesson is now scheduled for " . $row['date'] . " at " . $row['beginTime'] . ".</p>" . $this->signature;
                     break;
                 default:
                     break;
