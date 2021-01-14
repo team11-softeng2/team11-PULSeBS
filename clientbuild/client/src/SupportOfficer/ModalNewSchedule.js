@@ -180,19 +180,10 @@ class ModalNewSchedule extends React.Component {
   }
 
   handleSubmit = () => {
-    //console.log(this.props.currentSchedule)
-    //console.log(this.state)
-    //console.log(this.props.clickedLecture)
-
     var i;
     var newSchedule = [];
     for(i = 0; i < this.props.currentSchedule.length; i++){
-      console.log("*******Analizzo ID: " + this.props.currentSchedule[i].id.toString());
-      console.log("*******Confronto ID: " + this.props.clickedLecture.id.toString());
       if(this.props.currentSchedule[i].id.toString() === this.props.clickedLecture.id.toString()){ //this is the lecture i need to modify
-
-        console.log("--------Start:");
-        console.log(this.props.currentSchedule[i].start);
         this.props.currentSchedule[i].start.setHours(Math.floor(this.state.beginTime/3600), this.getMinutes(this.state.beginTime));
         this.props.currentSchedule[i].end.setHours(Math.floor(this.state.endTime/3600), this.getMinutes(this.state.endTime));
 
@@ -209,7 +200,6 @@ class ModalNewSchedule extends React.Component {
 
         newSchedule.splice(0, 0, newLectureObj);
         this.modifyLectureOnServer(newLectureObj);
-        //console.log(this.props.currentSchedule[i])
       }
       else{
         newSchedule.splice(0, 0, this.props.currentSchedule[i]);
