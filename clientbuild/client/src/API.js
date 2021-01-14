@@ -713,8 +713,8 @@ async function getGeneralSchedule(idCourse) {
     }
 }
 
-async function updateSchedule(lectureObj) {
-    const url = "http://localhost/server/updateSchedule"
+async function updateSchedule(lectureObj, idLesson) {
+    const url = "http://localhost/server/updateSchedule/" + idLesson;
 
     var bodyToSend = JSON.stringify(lectureObj);
     const response = await fetch(url, {
