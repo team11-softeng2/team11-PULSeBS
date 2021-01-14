@@ -10,6 +10,7 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
+API.getAllCourses = jest.fn(() => Promise.resolve(["test"]));
 test('renders CourseUpdateSchedulePage page', () => {
     let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
     /*
@@ -24,17 +25,6 @@ test('renders CourseUpdateSchedulePage page', () => {
     const instance = component.instance();
     expect(instance.state.idCourse).toBe("XY1211");
   });
-
-test("onClickNewLecture", async () => {
-    let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
-    const component = shallow(<CourseUpdateSchedulePage 
-        match={matchMock}
-        />);
-    const instance = component.instance();
-    instance.onClickNewLecture();
-    expect(instance.state.clickedLectureData).toStrictEqual({});
-    expect(instance.state.showNewScheduleModal).toBe(true);
-});
 
 test("handleEventClick", async () => {
     let matchMock = {"path":"/support-officer/updateSchedule/:idCourse","url":"/support-officer/updateSchedule/XY1211","isExact":true,"params":{"idCourse":"XY1211"}};
