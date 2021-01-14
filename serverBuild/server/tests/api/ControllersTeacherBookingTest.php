@@ -297,7 +297,7 @@ class ControllersTeacherBookingTest extends TestCase
         $this->db = new SQLite3("./tests/dbTeachers.db");
 
         $body = '{"idLesson":"0", "idClassroom":"99", "dow":"4", "beginTime":"08:30", "endTime":"20:30"}';
-        $response = $this->client->request('POST', 'server/updateSchedule', [
+        $response = $this->client->request('POST', 'server/updateSchedule/0', [
             'body' => $body,
             'headers' => ['Content-Type' => 'application/json'],
         ]);
@@ -313,7 +313,7 @@ class ControllersTeacherBookingTest extends TestCase
         $this->db = new SQLite3("./tests/dbTeachers.db");
 
         $body = '{"idLesson":"889", "idClassroom":"3", "dow":"1", "beginTime":"10:30", "endTime":"12:00"}';
-        $response = $this->client->request('POST', 'server/updateSchedule', [
+        $response = $this->client->request('POST', 'server/updateSchedule/889', [
             'body' => $body,
             'headers' => ['Content-Type' => 'application/json'],
         ]);
