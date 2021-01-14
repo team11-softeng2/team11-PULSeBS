@@ -41,7 +41,7 @@ Each endpoint is preceded by /server/src/api/
   - Params: studentId
   - Response: List of lectures of the student that have the classroom full
 
-- PUT `/updateSchedule`
+- POST `/updateSchedule`
 
   - Body: { "idLesson", "idClassroom", "dow", "beginTime", "endTime" }
   - Response: returns the number of lessons' schedules modified

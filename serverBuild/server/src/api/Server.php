@@ -53,10 +53,10 @@ if (isset($_GET['url'])) {
             if ($_SERVER['REQUEST_METHOD'] != "OPTIONS") {
                 $value = "updateSchedule";
                 $id = $number;
-                $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value, $id);
+                $controller = new Server\api\ControllersTeacherBooking($_SERVER['REQUEST_METHOD'], $dbConn, $value);
                 echo $controller->processRequest();
                 $gatewayNotification = new Server\api\GatewaysNotification($dbConn);
-                $gatewayNotification->sendEmail('updateSchedule', $number);
+                $gatewayNotification->sendEmail('lectureScheduleChange', $id);
             }
             break;
         case "bookedStudentsForLecture/$number":
