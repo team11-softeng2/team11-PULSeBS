@@ -72,6 +72,24 @@ class ControllersStudentBookingTest extends TestCase
         $this->assertGreaterThanOrEqual($exResult, $result);
         $this->deleteRow($result);
     }
+
+    public function testInsertNewBookingInvalidEndpoint()
+    {
+        $this->db = new SQLite3("./tests/dbEmail.db");
+        $this->controller = new Server\api\ControllersStudentBooking("POST", $this->db, "wrongEndPoint");
+        $bookForTest = new class
+
+        {
+            public $idUser = 1;
+            public $idLesson = 6;
+            public $date = "2020-11-20 14:00:00";
+
+        };
+        $result = $this->controller->insertBooking($bookForTest);
+        $exResult = json_encode(0);
+        $this->assertGreaterThanOrEqual($exResult, $result);
+        $this->deleteRow($result);
+    }
 //-------------------------------------------------------------------------------------------------------------------------------------------
 
 //test UpdateBooking-------------------------------------------------------------------------------------------------------------------------

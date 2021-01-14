@@ -10,6 +10,7 @@ class ControllersTeacherBookingTest extends TestCase
     protected function setUp(): void
     {
         $this->db = new SQLite3("./tests/dbForTesting2.db");
+        $this->client = new GuzzleHttp\Client(['base_uri' => 'http://localhost']);
     }
 //test FindBookedStudentsForLecture----------------------------------------------------------------------------------------------------------
     public function testfindBookedStudentsForLectureFound()
@@ -208,6 +209,125 @@ class ControllersTeacherBookingTest extends TestCase
         $this->restoreModificationUpdateToOnlineByYear();
     }
 
+    //test changeToPresenceByYear--------------------------------------------------------------------------------------
+
+    public function testchangeToPresenceByYearFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 1;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToPresenceByYear", $this->id);
+        $result = $this->controller->changeToPresenceLectureByYear($this->id);
+        $this->assertTrue((json_decode($result, true) == null) ? false : true);
+        $this->restoreModificationUpdateToOnlineByYear();
+    }
+
+    public function testchangeToPresenceByYearNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 10;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToPresenceByYear", $this->id);
+        $this->assertEquals(0, $this->controller->changeToPresenceLectureByYear($this->id));
+        $this->restoreModificationUpdateToOnlineByYear();
+    }
+
+    public function testProcessRequestchangeToPresenceByYearFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 1;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToPresenceByYear", $this->id);
+        $output = $this->controller->processRequest();
+        $this->assertNotEquals(0, $output);
+        $this->assertFalse(empty($output));
+        $this->restoreModificationUpdateToOnlineByYear();
+    }
+
+    public function testProcessRequestchangeToPresenceByYearNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 10;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "changeToPresenceByYear", $this->id);
+        $this->assertEquals(0, $this->controller->processRequest());
+        $this->restoreModificationUpdateToOnlineByYear();
+    }
+
+    //test recordStudentPresence--------------------------------------------------------------------------------------
+
+    public function testrecordStudentPresenceFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 2;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "recordStudentPresence", $this->id);
+        $result = $this->controller->recordStudentPresence($this->id);
+        $this->assertTrue((json_decode($result, true) == null) ? false : true);
+        $this->restoreModificationRecordStudentPresence();
+    }
+
+    public function testrecordStudentPresenceNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 1;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "recordStudentPresence", $this->id);
+        $this->assertEquals(0, $this->controller->recordStudentPresence($this->id));
+        $this->restoreModificationRecordStudentPresence();
+    }
+
+    public function testProcessRequestrecordStudentPresenceFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 2;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "recordStudentPresence", $this->id);
+        $output = $this->controller->processRequest();
+        $this->assertNotEquals(0, $output);
+        $this->assertFalse(empty($output));
+        $this->restoreModificationRecordStudentPresence();
+    }
+
+    public function testProcessRequestrecordStudentPresenceNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+        $this->id = 1;
+        $this->controller = new Server\api\ControllersTeacherBooking("PUT", $this->db, "recordStudentPresence", $this->id);
+        $this->assertEquals(0, $this->controller->processRequest());
+        $this->restoreModificationRecordStudentPresence();
+    }
+    //---------------------------------------------------------------------------------------------------------
+    //TEST updateSchedule
+    public function testupdateScheduleNotFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+
+        $body = '{"idLesson":"0", "idClassroom":"99", "dow":"4", "beginTime":"08:30", "endTime":"20:30"}';
+        $response = $this->client->request('POST', 'server/updateSchedule', [
+            'body' => $body,
+            'headers' => ['Content-Type' => 'application/json'],
+        ]);
+        $this->assertEquals(200, $response->getStatusCode());
+        $contentType = $response->getHeaders()["Content-Type"][0];
+        $this->assertEquals("application/json", $contentType);
+        $this->assertEquals("0", json_decode($response->getBody()));
+        $this->client = null;
+    }
+
+    public function testupdateScheduleFound()
+    {
+        $this->db = new SQLite3("./tests/dbTeachers.db");
+
+        $body = '{"idLesson":"889", "idClassroom":"3", "dow":"1", "beginTime":"10:30", "endTime":"12:00"}';
+        $response = $this->client->request('POST', 'server/updateSchedule', [
+            'body' => $body,
+            'headers' => ['Content-Type' => 'application/json'],
+        ]);
+        $this->controller = new Server\api\ControllersTeacherBooking("POST", $this->db, "updateSchedule");
+        $this->assertEquals(13, $this->controller->updateSchedule(json_decode($body)));
+    }
+
+    public function testupdateScheduleWrongEndpoint()
+    {
+        $this->controller = new Server\api\ControllersTeacherBooking("POST", $this->db, "aggiornaOrari");
+        $result = $this->controller->processRequest();
+        $this->assertIsString($result);
+        $this->assertEquals("Invalid endpoint.", $result);
+    }
     //---------------------------------------------------------------------------------------------------------
 
     public function testUseWrongMethod()
@@ -270,6 +390,12 @@ class ControllersTeacherBookingTest extends TestCase
     protected function restoreModificationUpdateToOnlineByYear()
     {
         $sqlUpdateLessonTable = "update lessons set inPresence=1";
+        $this->db->exec($sqlUpdateLessonTable);
+    }
+
+    protected function restoreModificationRecordStudentPresence()
+    {
+        $sqlUpdateLessonTable = "UPDATE booking SET present=0";
         $this->db->exec($sqlUpdateLessonTable);
     }
     //---------------------------------------------------------------------------------------------------------
