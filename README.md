@@ -3,16 +3,22 @@
 
 # Run the App
 
+<b><a href='https://www.docker.com/products/docker-desktop'>Docker</a></b> must be installed and running; ports 80 and 3000 must be available on the hosting machine.
+
+<p>Download the latest project repo from the <a href="http://www.pulsebs.it">website</a> or <a href="https://github.com/team11-softeng2/team11-PULSeBS">GitHub</a>.
+
+<p>All the following commands are assumed to be run from within the root directory of the downloaded project.</p>
+
+### On Windows, macOS and Linux
+
 ```bash
-./start.sh
+docker-compose up
 ```
 
-<b><a href='https://www.docker.com/products/docker-desktop'>Docker</a></b> must be running, and ports 80 and 3000 available, on the hosting machine.
-
-# Execute Tests
+### Alternative on macOS and Linux
 
 ```bash
-./tests.sh
+chmod 777 start.sh && ./start.sh
 ```
 
 # Other Commands
@@ -20,10 +26,10 @@
 ## Docker
 
 ```bash
-cd / && docker-compose up
+docker-compose up
 ```
 
-OR
+<p>or, build and run one image at a time:</p>
 
 ```bash
 #build and run the server image
@@ -121,6 +127,14 @@ First, navigate to serverBuild/server and define an alias:
 
 ```bash
 cd serverBuild/server/ && alias testphp=./vendor/bin/phpunit
+```
+
+### run all (or some) tests
+
+inside the project root folder, run:
+
+```bash
+./tests.sh
 ```
 
 ### report coverage server
