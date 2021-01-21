@@ -21,6 +21,34 @@ docker-compose up
 chmod 777 start.sh && ./start.sh
 ```
 
+### Releases
+
+Our team delivered <b><a href='https://hub.docker.com/r/roccopetruzzi/pulsebs'>4 releases on Docker Hub</a></b>. Each release is composed of three images. The namining is as follows:
+
+Demo on 19-11-2020 (<b>No Release Required</b>), composed of:
+
+- release1.0_client
+- release1.0_server
+- release1.0_mailer
+
+Demo on 03-12-2020 (<b>Release 1</b>), composed of:
+
+- release1.1_client
+- release1.1_server
+- release1.0_mailer
+
+Demo on 17-12-2020 (<b>No Release Required</b>), composed of:
+
+- release2.0_client
+- release2.0_server
+- release1.0_mailer
+
+Demo on 14-01-2021 (<b>Release 2</b>), composed of:
+
+- release2.1_client
+- release2.1_server
+- release1.0_mailer
+
 # Other Commands
 
 ## Docker
